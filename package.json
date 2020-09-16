@@ -1,0 +1,20 @@
+{
+  "name": "zen-articles",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/kawamataryo/zen-articles.git"
+  },
+  "keywords": [],
+  "author": "Ryo Kawamata <ba068082@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kawamataryo/zen-articles/issues"
+  },
+  "homepage": "https://github.com/kawamataryo/zen-articles#readme"
+}
