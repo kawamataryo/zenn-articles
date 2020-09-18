@@ -29,7 +29,7 @@ QRコードからLINEアプリを開いて行う視聴者参加型のクイズ�
 
 :::message
 @spring_rainingさんが事前に募集した質問を@kazu_ponさんに質問していくインタビュー形式のコンテンツでした。どの質問も気になっていたものだったので、回答を聞けて良かったです。
-特にマイグレーションで使えるツールのvue-codemodは初耳だったので、今後調べてみようと思っています。
+特にマイグレーションで使えるツールのvue-codemodは初耳だったので、調べてみようと思っています。
 :::
 
 （以下内容メモ）
@@ -109,7 +109,7 @@ esllint-plugin-vue@next, vue-codemodはかなり使えそうですね。eslint-p
 
 :::message
 Vue Router Nextの変更は全く追ってなかったので勉強になりました。
-特にuseRouteでのsetup関数内でのroute情報の取得と、Router view route propでのモーダル表示状態をヒストリーに残せる機能が良いですね。
+特にuseRouteでのsetup関数内でのroute情報の取得と、Router view route propでのモーダル表示状態をヒストリーに残せる機能が良いですね。他にも便利な機能がたくさんありそうなので、RFCを読んでみようと思いました。
 :::
 
 # Vue3直前Q&A「kazuponさんに聞くVue3」後編
