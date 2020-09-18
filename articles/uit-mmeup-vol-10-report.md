@@ -133,4 +133,4 @@ Vue3をすぐ使うかどうかのアンケートから、IE11への対応アン
 
 Vue3リリースされました〜!!まさかのOne PIece!!
 
-@[tweet](https://publish.twitter.com/?url=https://twitter.com/vuejs/status/1306992969728380930)
+@[tweet](https://twitter.com/vuejs/status/1306992969728380930)
