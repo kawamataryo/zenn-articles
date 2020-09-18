@@ -46,7 +46,7 @@ QRコードからLINEアプリを開いて行う視聴者参加型のクイズ�
 ### 2. Composition APIにおけるVuexとの親和性は？
 - Composition APIとVuexは使える
 - Vuex4ではVue3のAPIとの互換性を持つ。Composition APIと一緒に使える
-- Vuex5のロードマップもすでに出ている。今はデザインレベルの話まで。実装はこれから。hikakingさんがやっている
+- Vuex5のロードマップもすでに出ている。今はデザインレベルの話まで。実装はこれから。
 
 ### 3. もしVue3を新規プロジェクトで始めるとしたらVuexを導入すべきかどうか？
 - 小さい規模で使う場合は、オーバーヘッドになるので使うべきかというと難しい。Composition APIの方が良い場合もある
@@ -128,3 +128,9 @@ Vue3をすぐ使うかどうかのアンケートから、IE11への対応アン
 以上、「UIT meetup vol.10 Vue 三昧」参加レポートでした。
 いやー面白かったです。運営の皆様ありがとうございました。
 今夜[VueJSGlobal](https://vuejs.amsterdam/)にて（おそらく）Vue3が発表されるので、そちらも必見です。
+
+** 2020/09/19 6:04追記**
+
+Vue3リリースされました〜!!まさかのOne PIece!!
+
+@[tweet](https://publish.twitter.com/?url=https://twitter.com/vuejs/status/1306992969728380930)
