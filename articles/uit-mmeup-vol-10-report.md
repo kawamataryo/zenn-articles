@@ -6,7 +6,7 @@ topics: ["vue", "勉強会", "JavaScript", "TypeScript"]
 published: true
 ---
 
-本日開催された「UIT meetup vol.10 Vue三昧」の参加レポートです。
+2020/09/18 19:00より開催された「UIT meetup vol.10 Vue三昧」の参加レポートです。
 
 @[youtube](EjFKRr2ArFQ)
 
