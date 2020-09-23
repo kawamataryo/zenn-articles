@@ -79,10 +79,9 @@ QRコードからLINEアプリを開いて行う視聴者参加型のクイズ�
 # （がんばらない）Vue3移行
 
 
-![](https://storage.googleapis.com/zenn-user-upload/g76kcais0l5p486wu03xe691oxdu)
+@[speakerdeck](12627c91cc184177bd25dcce406832f6)
 
 **📷 動画開始位置:** https://youtu.be/EjFKRr2ArFQ?t=3621
-**📁 資料:** -（見つけたら追加します）
 **👨‍💻 発表者:** [@nhayashida](https://twitter.com/nhayashida)
 **📝 内容メモ:**
 - LINE LIVEではVue3を利用中
@@ -97,10 +96,9 @@ esllint-plugin-vue@next, vue-codemodはかなり使えそうですね。eslint-p
 
 # Vue Router Next ~ 意外と語られないVue3時代のルーティング ~
 
-![](https://storage.googleapis.com/zenn-user-upload/6fy8l618jqhqg5kd0gul8f17dpwn)
+@[speakerdeck](066b1c4e1c1b40ae96ca9e48e2deec29)
 
 **📷 動画開始位置:** https://youtu.be/EjFKRr2ArFQ?t=4540
-**📁 資料:** -（見つけたら追加します）
 **👨‍💻 発表者:** [@NozomuIkuta](https://twitter.com/NozomuIkuta)
 **📝 内容メモ:**
 - Vue Routerは実は大型アップデート。魅力的なアップデートである
