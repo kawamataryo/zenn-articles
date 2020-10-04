@@ -210,7 +210,7 @@ const BlogIndex:React.FC<PageProps<GatsbyTypes.BlogIndexQuery>> = ({ data, locat
 
 # 4. gatsby-Node.jsのTypeScript化
 
-`gatsby-node.js`でも TypeScrip で書けるようにしていきます。ここでは[ts-node][https://github.com/TypeStrong/ts-node]を追加ます。
+`gatsby-node.js`でも TypeScrip で書けるようにしていきます。ここでは[ts-node](https://github.com/TypeStrong/ts-node)を追加ます。
 
 ここの書き方は[@Takepepe](https://twitter.com/takepepe?lang=en)さんの以下の記事を参考にさせていただきました。良記事ありがとうございます🙏
 [Gatsby.js を完全TypeScript化する - Qiita](https://qiita.com/Takepepe/items/144209f860fbe4d5e9bb)
