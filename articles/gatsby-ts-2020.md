@@ -248,7 +248,7 @@ exports.createSchemaCustomization = createSchemaCustomization
 
 
 そして、今まで`gatsby-node.js`に記述していた内容を`src/gatsby-node/index.ts`に移動して、型を設定します。
-基本的に note の API は`GatsbyNode`から型を取得できます。
+基本的に node の API は`GatsbyNode`から型を取得できます。
 
 :::message
 本当は、`allMarkdownRemark`のクエリ部分の方も`gatsby-plugin-typegen`で生成したかったのですが、上手く認識してくれませでした。やり方わかる方いたら教えてください🙏
