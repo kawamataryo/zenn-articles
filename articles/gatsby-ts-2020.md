@@ -15,6 +15,12 @@ published: true
 
 https://github.com/kawamataryo/gatsby-typescript-sample
 
+この記事は以下のバージョン時点の情報です。
+
+* `Gatsby.js`: 2.24.66
+* `gatsby-plugin-typegen`: 2.2.1
+
+
 # 0. プロジェクトの作成
 
 gatsby コマンドを使うめに`gatsby-cli`の追加。
