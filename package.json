@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "new": "zenn new:article",
-    "preview": "zenn preview"
+    "dev": "zenn preview"
   },
   "repository": {
     "type": "git",
