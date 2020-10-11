@@ -5,6 +5,7 @@ type: "idea" # tech: 技術記事 / idea: アイデア
 topics: ["勉強会", "Elm"]
 published: true
 ---
+![](https://storage.googleapis.com/zenn-user-upload/twm5lhsi13coxroe90o35m0mabh7)
 
 昨日、[@ababupdownba](https://Twitter.com/ababupdownba)さんが主宰している Elm 初心者向けの勉強会（[知識0から始めるElm入門ハンズオン](https://elm-jp.connpass.com/event/188305/) )に参加したので、勉強会の振り返りも兼ねて書いてみました。
 
