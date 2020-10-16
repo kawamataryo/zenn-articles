@@ -10,13 +10,12 @@ published: false
 
 GitHub で職務経歴書を継続的に改善していく環境を作りました。リポジトリはこちらです。
 
-https://github.com/kawamataryo/resume
 
-[![github](https://storage.googleapis.com/zenn-user-upload/ovueoxpfgudxmg43vyjn27bd1fxn)](https://github.com/kawamataryo/resume)
+[![kawamataryo/resume](https://storage.googleapis.com/zenn-user-upload/nls7t6xr9rrw8sj7rfmsemnr4y0a =450x)](https://github.com/kawamataryo/resume)
 
 # なぜ職務経歴書を？
 
-今の職場は好きで転職の予定はないのですが、最近「安定しているときこそ職務経歴書をまとめておくべき。**本当に職務経歴書が必要なときはメンタルが消耗していて書く余裕はない**」という話を聞き、それは確かにと思ったからです。どうせ書くなら何か面白いことをしたいと思い GitHub に公開 & CI 環境の構築をしてみました。
+今の職場は好きで転職の予定はないのですが、最近「安定しているときこそ職務経歴書をまとめておくべき。**本当に職務経歴書が必要なときはメンタルが消耗していて書く余裕はない**」という話を知り合いから聞き、それは確かにと思ったからです。どうせ書くなら何か面白いことをしたいと思い GitHub に公開 & CI 環境の構築をしてみました。
 
 # 機能紹介
 
@@ -34,7 +33,7 @@ GitHub ページのデザイン は`docs/_config.yml`で設定しています。
 ## 💅 textlint での文章校正
 
 職務経歴書で`javascript`や、`JAVA`とか書かれていたら「大丈夫か。.?」と思いますよね。
-大事な書類の typo を防ぐために、[textlint](https://github.com/textlint/textlint) による文書校正を行っています。husky による pre-commit フックでの実行 & GitHub Actions 実行を整備しています。
+大事な書類の typo を防ぐために、[textlint](https://github.com/textlint/textlint) による文書校正を行っています。[husky](https://github.com/typicode/husky) による pre-commit フックでの実行 & GitHub Actions での push 時の実行環境も整備しています。
 
 自動修正にも対応しているので Warning や Error が出た場合は以下を実行してみてください。
 
@@ -46,7 +45,7 @@ $ yarn lint --fix
 
 ## 📝 md-to-pdf での PDF 生成
 
-Web で職務経歴書をみてもらえればそれで簡潔なんですが、企業側としてはデータ or 紙で欲しいという場合もあると思います。
+Web で職務経歴書をみてもらえればそれで完結なんですが、企業側としてはデータ or 紙で欲しいという場合もあると思います。
 その対応のために [md-to-pdf](https://github.com/simonhaenisch/md-to-pdf#readme) での Markdown から PDF への変換も可能です。
 
 ```bash
