@@ -113,3 +113,4 @@ GitHub template の詳細はこちらの記事に以前書きました。
 - [職務経歴書をGitHubで管理しよう - Qiita](https://qiita.com/okohs/items/abcad0b4aefa585bc50b)
 - [エンジニアが読みたくなる職務経歴書 - dwango on GitHub](https://dwango.github.io/articles/engineers-resume/)
 - [mikeda/resume: 職務経歴書](https://github.com/mikeda/resume)
+- [kgsi/curriculum-vitae: kgsiの職務経歴書](https://github.com/kgsi/curriculum-vitae)
