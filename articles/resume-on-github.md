@@ -6,12 +6,12 @@ topics: ["GitHub", "職務経歴書", "転職", "キャリア"]
 published: false
 ---
 
-# 何を作った
+# 何を作った？
 
 GitHub で職務経歴書を継続的に改善していく環境を作りました。リポジトリはこちらです。
 
+https://github.com/kawamataryo/resume
 
-[![kawamataryo/resume](https://storage.googleapis.com/zenn-user-upload/nls7t6xr9rrw8sj7rfmsemnr4y0a =450x)](https://github.com/kawamataryo/resume)
 
 # なぜ職務経歴書を？
 
@@ -88,17 +88,25 @@ https://github.com/kawamataryo/resume/issues/3
 
 # おまけ
 
-ここまで紹介した機能をすぐに使える GitHub テンプレートを公開しています！
+ここまで紹介した機能をすぐに自分のリポジトリで展開できる GitHub template を公開しています！
 もし良かったら使ってみてください！（ついでにスターももらえると泣いて喜びます）
+
+https://github.com/kawamataryo/resume-template
+
+`Use this template` ボタンをクリックすると、自分の新しいリポジトリとして作成できます。
+GitHub template の詳細はこちらの記事に以前書きました。
+
+[GitHubのTemplate Repository機能のすゝめ - Qiita](https://qiita.com/ryo2132/items/08f0561804c798012146)
 
 # 終わりに
 
-以上、「GitHub の機能をフルに使って職務経歴書の継続的インテグレーションを実現する」
-今回 GitHub アクションを初めて自分で書いたのですが、本当に便利ですね。この機能を使って職務経歴書をアップデートしていきたいです。
+以上、「GitHub の機能をフルに使って職務経歴書の継続的インテグレーションを実現する」でした。
+この環境を使って職務経歴書を継続的にアップデートしていきたいです。
 （ちなみに環境を作るのが面白すぎて肝心の職務履歴書の進捗はダメです。.😇）
 
 あと是非エンジニア採用の方に聞いてみたいのですが、こういう職務経歴書の形式はアリでしょうか？　もしお考え等あればコメント頂けると嬉しいです！
 何か意見もらえれば「職経歴書を GitHub 公開しての振り返り」的な記事でも書いてまとめようかなと思っています。
+
 
 # 参考
 
