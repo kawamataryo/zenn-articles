@@ -15,7 +15,7 @@ https://github.com/kawamataryo/resume
 
 # なぜ職務経歴書を？
 
-今の職場は好きで転職の予定はないのですが、最近「安定しているときこそ職務経歴書をまとめておくべき。**本当に職務経歴書が必要なときはメンタルが消耗していて書く余裕はない**」という話を知り合いから聞き、それは確かにと思ったからです。どうせ書くなら何か面白いことをしたいと思い GitHub に公開 & CI 環境の構築をしてみました。
+今の職場は好きで転職の予定はないのですが、「安定しているときこそ職務経歴書をまとめておくべき。**本当に職務経歴書が必要なときはメンタルが消耗していて書く余裕はない**」という話を最近知り合いから聞き、それは確かにと思ったからです。どうせ書くなら何か面白いことをしたいと思い GitHub に公開 & CI 環境の構築をしてみました。
 
 # 機能紹介
 
@@ -23,8 +23,8 @@ https://github.com/kawamataryo/resume
 
 https://kawamataryo.github.io/resume/
 
-ただの GitHub のファイルビューでも良いのですが、より Web に最適化してみやすいほうがよいですよね。
-GitHub の無料ホスティグ GitHub Pages を使って Web ページとして公開が可能です。
+ただの GitHub のファイルビューでも良いのですが、より Web に最適化して見やすいほうがよいですよね。
+GitHub の無料ホスティグ GitHub Pages を使って Web ページとして公開しています。
 
 GitHub ページのデザイン は`docs/_config.yml`で設定しています。今は theme の設定だけですが、より細かい調整が可能です。
 
@@ -52,19 +52,19 @@ Web で職務経歴書をみてもらえればそれで完結なんですが、�
 $ yarn build:pdf
 ```
 
-md-to-pdf は内部で Puppeteer を使用しているので、PDF のデザインは、CSS で細かい調整が可能です（例： ゴシック体から明朝体への変換など）。
+md-to-pdf は内部で Puppeteer を使用しています。PDF のデザインは、CSS で細かい調整が可能です（例： ゴシック体から明朝体への変換など）。
 `pdf-configs/style.css`、`pdf-configs/config.js`を編集してください。
 
 実際に出力される PDF はこのようなものです。
 結構綺麗に出力されているのではないでしょうか。
 
-https://github.com/kawamataryo/resume/releases/download/v0.1.4/resume.pdf
+https://github.com/kawamataryo/resume/releases/download/v0.1.6/resume.pdf
 
 ![pdf demo](https://storage.googleapis.com/zenn-user-upload/91bnxughl3crx11s0is0bqleev85)
 
 ## 🛠GitHub Actions でのリリースビルド
 
-GitHub ビルドインの CI 機能 GitHub Actions を使って、Release の自動作成と PDF の自動ビルド・登録を行っています。
+GitHub 付属の CI 機能 GitHub Actions を使って、Release の自動作成と PDF の自動ビルドを行っています。
 tag 付きで push したときに Workflow が流れて以下のように Release の作成、自動ビルドされた PDF ファイルの assets への登録されます。
 
 PDF を共有するときはこちらの画面を説明すれば良いのでとても手軽なのではと思っています。
@@ -89,7 +89,7 @@ https://github.com/kawamataryo/resume/issues/3
 # おまけ
 
 ここまで紹介した機能をすぐに自分のリポジトリで展開できる GitHub template を公開しています！
-もし良かったら使ってみてください！（ついでにスターももらえると泣いて喜びます）
+もし職務経歴書の GitHub 公開に興味があれば使ってみてください！（ついでにスターももらえると泣いて喜びます）
 
 https://github.com/kawamataryo/resume-template
 
@@ -104,8 +104,7 @@ GitHub template の詳細はこちらの記事に以前書きました。
 この環境を使って職務経歴書を継続的にアップデートしていきたいです。
 （ちなみに環境を作るのが面白すぎて肝心の職務履歴書の進捗はダメです。.😇）
 
-あと是非エンジニア採用の方に聞いてみたいのですが、こういう職務経歴書の形式はアリでしょうか？　もしお考え等あればコメント頂けると嬉しいです！
-何か意見もらえれば「職経歴書を GitHub 公開しての振り返り」的な記事でも書いてまとめようかなと思っています。
+職務経歴書の内容についての PR もお待ちしてます！!
 
 
 # 参考
