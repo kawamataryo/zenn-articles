@@ -1,6 +1,6 @@
 ---
 title: "GitHubの機能をフルに使って職務経歴書の継続的インテグレーションを実現する"
-emoji: "📃"
+emoji: "📄"
 type: "idea" # tech: 技術記事 / idea: アイデア
 topics: ["GitHub", "職務経歴書", "転職", "キャリア"]
 published: false
@@ -15,18 +15,18 @@ https://github.com/kawamataryo/resume
 
 # なぜ職務経歴書を？
 
-今の職場は好きで転職の予定はないのですが、「安定しているときこそ職務経歴書をまとめておくべき。**本当に職務経歴書が必要なときはメンタルが消耗していて書く余裕はない**」という話を最近知り合いから聞き、それは確かにと思ったからです。どうせ書くなら何か面白いことをしたいと思い GitHub に公開 & CI 環境の構築をしてみました。
+今の職場が好きで転職の予定はないのですが、「安定しているときこそ職務経歴書をまとめておくべき。**本当に職務経歴書が必要なときはメンタルが消耗していて書く余裕はない**」という話を最近、知り合いから聞き、それは確かにと思ったからです。どうせ書くなら何か面白いことをしたいと思い、 GitHub に公開 & CI 環境の構築をしてみました。
 
 # 機能紹介
 
 ## 📱GitHub Pages で Web ページとしての公開
 
-https://kawamataryo.github.io/resume/
-
 ただの GitHub のファイルビューでも良いのですが、より Web に最適化して見やすいほうがよいですよね。
 GitHub の無料ホスティグ GitHub Pages を使って Web ページとして公開しています。
 
 GitHub ページのデザイン は`docs/_config.yml`で設定しています。今は theme の設定だけですが、より細かい調整が可能です。
+
+https://kawamataryo.github.io/resume/
 
 [![GitHub Pages](https://storage.googleapis.com/zenn-user-upload/0sarbt933462xyrt0h6iokjk0ecd)](https://kawamataryo.github.io/resume/)
 
@@ -74,6 +74,9 @@ https://github.com/kawamataryo/resume/releases
 
 [![リリースビルド](https://storage.googleapis.com/zenn-user-upload/soleu14nmiawocs6hzphpd5o28h6)](https://github.com/kawamataryo/resume/releases)
 
+更新リマインダー部分の GitHub Actions の定義はこちらです。
+
+
 
 ## 📅 GitHub Actions での更新リマインダー
 
@@ -88,8 +91,7 @@ https://github.com/kawamataryo/resume/issues/3
 
 # おまけ
 
-ここまで紹介した機能をすぐに自分のリポジトリで展開できる GitHub template を公開しています！
-もし職務経歴書の GitHub 公開に興味があれば使ってみてください！（ついでにスターももらえると泣いて喜びます）
+ここまで紹介した機能をすぐに自分用に展開できる GitHub template も公開しています！ もし職務経歴書の GitHub 公開に興味があれば使ってみてください！
 
 https://github.com/kawamataryo/resume-template
 
@@ -100,11 +102,10 @@ GitHub template の詳細はこちらの記事に以前書きました。
 
 # 終わりに
 
-以上、「GitHub の機能をフルに使って職務経歴書の継続的インテグレーションを実現する」でした。
-この環境を使って職務経歴書を継続的にアップデートしていきたいです。
-（ちなみに環境を作るのが面白すぎて肝心の職務履歴書の進捗はダメです。.😇）
+以上、「GitHub の機能をフルに使って職務経歴書の継続的インテグレーションを実現する」でした。この環境を使って職務経歴書を継続的にアップデートしていきたいです。
+（ちなみに CI 環境を作るのが面白すぎて肝心の職務履歴書の進捗はダメです。.😇）
 
-職務経歴書の内容についての PR もお待ちしてます！!
+職務経歴書の内容についての PR もお待ちしてます！　!
 
 
 # 参考
