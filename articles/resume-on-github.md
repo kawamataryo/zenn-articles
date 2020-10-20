@@ -33,7 +33,7 @@ https://kawamataryo.github.io/resume/
 
 ## ✨ textlint での文章校正
 
-職務経歴書で`javascript`や、`JAVA`とか書かれていたら「大丈夫か。.?」と思いますよね。
+職務経歴書で`javascript`や、`JAVA`とか書かれていたら「大丈夫か..?」と思いますよね。
 大事な書類の typo を防ぐために、[textlint](https://github.com/textlint/textlint) による文書校正を行っています。[husky](https://github.com/typicode/husky) による pre-commit フックでの実行 & GitHub Actions での push 時の実行環境も整備しています。
 
 自動修正にも対応しているので Warning や Error が出た場合は以下を実行してみてください。
