@@ -1,9 +1,9 @@
 ---
 title: "GitHub SocialifyでOGP画像を生成してSNS映えするOSSに"
-emoji: "📸"
+emoji: "📷"
 type: "idea" # tech: 技術記事 / idea: アイデア
 topics: ["Twitter", "GitHub"]
-published: false
+published: true
 ---
 
 GitHub の OGP 画像を生成してくれる [GitHub Socialify](https://socialify.git.ci/) が凄く良かったので紹介です。
@@ -16,7 +16,6 @@ OGP 画像を設定しないと、リポジトリ作者のプロフィール画�
 （大胸筋しか目立ちません）
 
 @[tweet](https://twitter.com/KawamataRyo/status/1317790025967235072)
-
 
 これが OGP 画像を設定したリポジトリのツイートだと。。
 
