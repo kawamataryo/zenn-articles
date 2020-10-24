@@ -1,5 +1,5 @@
 ---
-title: "GitHub SocialifyでSNS映えするOSSに!"
+title: "GitHub SocialifyでOGP画像を生成してSNS映えするOSSに"
 emoji: "📸"
 type: "idea" # tech: 技術記事 / idea: アイデア
 topics: ["Twitter", "GitHub"]
@@ -24,7 +24,7 @@ OGP 画像を設定しないと、リポジトリ作者のプロフィール画�
 
 素敵😆!!
 でも、いい感じの OGP 画像を作るのは、サイズ調整やら何やらなかなか大変ですよね。。
-そんな手間を解消して、サクッと良い感じの OGP を生成してくれるサービスを見つけたので紹介します。
+そんな手間を解消して、サクッと良い感じの OGP を生成してくれるサービスがあります。
 
 # GitHub Socialifyでの画像生成
 
@@ -48,8 +48,8 @@ https://socialify.git.ci/
 
 # 終わりに
 
-簡単ですが、「GitHub Socialify で SNS 映えする OSS に！」でした。
-とても簡単に OGP 画像を生成できて便利ですね。OGP 画像があるだけで、なんか良い OSS ぽいと思ってもらえるかも。
+簡単ですが、「GitHub Socialify で OGP 画像を生成して SNS 映えする OSS に」でした。
+とても簡単に OGP 画像を生成できて便利ですね。まだ自分の OSS に OGP を設定していないほうは是非設定してみてください。OGP 画像があるだけで、なんか良い OSS ぽいと思ってもらえるかもです。
 
 Socialify は Product Hunt にも出しているようなので感謝を込めて UPVOTED しました！
 
