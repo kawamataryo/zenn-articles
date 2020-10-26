@@ -2,20 +2,20 @@
 title: "Raspberry Piでfishシェルを設定する方法"
 emoji: "🐠"
 type: "tech"
-topics: ["RaspberryPi", "fish", "shell"]
+topics: ["電子工作", "RaspberryPi", "fish", "shell"]
 published: false
 ---
 
 ラズパイで fish シェルを設定する方法を備忘録としてまとめます。
 
-# fishシェルとは？
+# fish とは？
 
 https://fishshell.com/
 
 強力な入力補完、親切なシンタックスハイライトを持つユーザーフレンドリーなシェルです。
 自分は zsh よりも、fish 派です。
 
-# fishシェルのインストール
+# fish のインストール
 
 まず、自分の Raspbian のバージョンを確認します。
 
@@ -31,9 +31,6 @@ $ lsb_release -a
 これはバージョン 10 ですね。
 
 次に以下コマンドで fish をインストールします。
-
-このコマンドは以下サイトの通りです。
-https://software.opensuse.org/download.html?project=shells%3Afish%3Arelease%3A3&package=fish
 
 ```bash
 # aptの利用可能パッケージにfishを追加
@@ -63,7 +60,7 @@ $ fish
 やったぜ！　Hello 🐟!
 
 
-# fishシェルをデフォルトのシェルに設定
+# fish をデフォルトのシェルに設定
 
 標準で起動するシェルを`bash`から`fish`に変更します。
 起動シェルの変更は`chsh`コマンドで行います。
@@ -97,7 +94,7 @@ $ chsh
 # 終わりに
 
 以上「Raspberry Pi で fish シェルを設定する方法」でした。
-fish 追加したり、vim 追加したり足回りを固めてばかりで一向に電子工作が進みませんw
+fish 追加したり vim 追加したり、足回りを固めてばかりで一向に電子工作が進みません w
 
 # 参考
 
