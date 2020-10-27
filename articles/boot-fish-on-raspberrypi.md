@@ -91,6 +91,28 @@ $ chsh
 パスワードを入力するとログインシェルの設定を聞かれるのでここで、先ほど確認した`/usr/bin/fish`を設定します。
 その後、ssh を一度ログアウトして、再度ログインすると fish シェルが起動するはずです。
 
+# （おまけ）fisherの追加 & fzfの設定
+
+fish 使うなら是非設定しておきたい fzf（CLI でインクリメンタルに曖昧検索ができる最高便利なツール）についてもおまけでまとめます。
+
+
+```bash
+# fzfのインストール
+sudo apt-get install fzf
+
+# fishのパッケージマネージャーのfisherの追加
+$ curl https://git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish
+
+# fishのfzfプラグインの追加
+$ fisher add jethrokuan/fzf 
+```
+
+これで`ctrl + c`でコマンド履歴の曖昧検索、`ctrl + o`でファイルの曖昧検索ができるようになります！便利！
+
+他のコマンドはこちらを参照してください
+
+https://github.com/jethrokuan/fzf
+
 # 終わりに
 
 以上「Raspberry Pi で fish シェルを設定する方法」でした。
