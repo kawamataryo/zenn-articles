@@ -3,10 +3,10 @@ title: "Raspberry Piでfishシェルを設定する方法"
 emoji: "🐠"
 type: "tech"
 topics: ["電子工作", "RaspberryPi", "fish", "shell"]
-published: false
+published: true
 ---
 
-ラズパイで fish シェルを設定する方法を備忘録としてまとめます。
+Raspberry Pi で fish シェルを設定する方法を備忘録としてまとめます。
 
 # fish とは？
 
@@ -57,7 +57,7 @@ $ sudo apt install fish
 $ fish
 ```
 
-やったぜ！　Hello 🐟!
+やったぜ！　Hello 🐠!
 
 
 # fish をデフォルトのシェルに設定
