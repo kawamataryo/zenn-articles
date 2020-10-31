@@ -3,7 +3,7 @@ title: "Raspberry Piへの公開鍵認証でのSSH接続 & VSCode Remote Develop
 emoji: "🍓"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["RaspberryPi", "linux", "ssh"]
-published: false
+published: true
 ---
 
 Raspberry Pi に SSH（公開鍵認証）で接続するまで & VSCode の Remote Development の設定を備忘録としてまとめます。
@@ -17,7 +17,7 @@ Raspberry Pi に SSH（公開鍵認証）で接続するまで & VSCode の Remo
 
 # キーファイルの作成
 
-まずキーファイルを置くディレクトリを作ります（.ssh 直下に秘密鍵を置いておいても良いのですが、整理しておいたほうが後々楽なので）
+まずローカルでキーファイルを置くディレクトリを作ります（.ssh 直下に秘密鍵を置いておいても良いのですが、整理しておいたほうが後々楽なので）
 
 ```bash
 mkdir ~/.ssh/raspberrypi
@@ -45,22 +45,14 @@ Enter file in which to save the key (/Users/kawamataryou/.ssh/id_rsa):
 Enter passphrase (empty for no passphrase):
 ```
 
-これ`.ssh/raspberrypi`配下に秘密鍵の`id_rsa`と、公開鍵の`id_rsa.pub`が作成されます。
-
-次にパーミッションの設定をします。
-
-```bash
-$ chmod 600 ~/.ssh/raspberrypi/id_rsa
-```
-
-
-最後に、今作成した公開鍵を Raspberry Pi に送ります。
+これで`.ssh/raspberrypi`配下に秘密鍵の`id_rsa`と、公開鍵の`id_rsa.pub`が作成されます。
+そして今作成したキーペアの内、公開鍵の`id_rsa.pub`を Raspberry Pi に送ります。
 
 ```bash
 $ scp ~/.ssh/raspberrypi/id_rsa.pub pi@raspberrypi:~
 ```
 
-パスワードを聞かれるので、`raspberry`（初期設定から変えていない場合）を入力してください。
+パスワードを聞かれるので Raspberry Pi で初回ログインした際に設定したパスワードを入力してください。
 
 # Raspberry Pi側のsshの設定
 ssh（Password 認証）で Raspberry Pi に接続します。
