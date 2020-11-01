@@ -1,5 +1,5 @@
 ---
-title: "Mitt + VueでEvent駆動のFlashメッセージのコンポーネントを作る"
+title: "Mitt + VueでEvent駆動のFlashメッセージコンポーネントを作る"
 emoji: "🥊"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["Vue", "TypeScript", "JavaScript", "Mitt"]
@@ -122,10 +122,15 @@ setup() {
 ## 下からポップアップするアニメーション
 
 下からポップアップするアニメーションは、Vueのtransitionを利用して実装しています。
+
+![](https://storage.googleapis.com/zenn-user-upload/lfjij3xdlh1876ijw1sje2q62xdp)
+
 transitionは`v-if`, `v-show`などの表示を制御するコンポーネントを、`<transition>`で囲むことで、表示非表示の実行時に任意のclassを付与できる機能です。
 今回は以下のように、`popup`というnameをもつtransitionでFlashメッセージを囲み、cssでpopupのスタイルを実装してます。
 
-```vue:FlashMessage.vue
+初めてまともにtransitionを使ったのですが、割と気持ちいアニメーションが出来た気がします。
+
+```markup:FlashMessage.vue
 <template>
   <transition name="popup">
     <div
@@ -144,15 +149,7 @@ transitionは`v-if`, `v-show`などの表示を制御するコンポーネント
 </script>
 
 <style scoped>
-._flash-message {
-  position: fixed;
-  bottom: 30px;
-  width: 400px;
-  margin: auto;
-  left: 0;
-  right: 0;
-  transition: all 0.4s;
-}
+// ...
 
 .popup-leave-active {
   bottom: 30px;
