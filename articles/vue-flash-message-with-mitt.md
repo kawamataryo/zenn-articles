@@ -11,6 +11,8 @@ Flash メッセージのコンポーネントを作る機会があったので�
 # 作ったもの（sample）
 Mitt と Vue を使って、以下 CodeSandbox のように Flash メッセージ を表示するコンポーネントを作成しました。
 
+https://codesandbox.io/s/flash-message-sample-on-vue-with-mitt-n4cwq?from-embed
+
 @[codesandbox](https://codesandbox.io/embed/sandbox-flash-message-with-mitt-n4cwq?fontsize=14&hidenavigation=1&theme=dark)
 
 この Flash メッセージ は以下の特徴を持ちます。
