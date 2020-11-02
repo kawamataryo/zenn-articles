@@ -3,7 +3,7 @@ title: "Mitt + Vue3でEvent駆動のFlashメッセージコンポーネントを
 emoji: "🥊"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["Vue", "TypeScript", "JavaScript", "Mitt"]
-published: false
+published: true
 ---
 
 Mitt + Vue で Flash メッセージのコンポーネントを作る機会があったので備忘録としてまとめます。
