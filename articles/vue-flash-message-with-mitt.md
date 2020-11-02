@@ -8,7 +8,7 @@ published: true
 
 Mitt + Vue で Flash メッセージのコンポーネントを作る機会があったので備忘録としてまとめます。
 
-# 作ったもの（sample）
+# 作ったもの
 Mitt と Vue を使って、以下 CodeSandbox のようなコンポーネントを作成しました。
 
 https://codesandbox.io/s/flash-message-sample-on-vue-with-mitt-n4cwq?from-embed
