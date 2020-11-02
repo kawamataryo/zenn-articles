@@ -1,5 +1,5 @@
 ---
-title: "Mitt + VueでEvent駆動のFlashメッセージコンポーネントを作る"
+title: "Mitt + Vue3でEvent駆動のFlashメッセージコンポーネントを作る"
 emoji: "🥊"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["Vue", "TypeScript", "JavaScript", "Mitt"]
