@@ -34,6 +34,7 @@ Flash メッセージのコンポーネントは、コンポーネントの親�
 :::message
 実はこの Event 駆動な実装は Vue2 系までは Mitt を使わずとも、Vue の EventBus で実装出来ました。
 しかし、EventBus は Vue3 で廃止されています。Vue の公式ドキュメントでも EventBus の代わりに[Mitt](https://github.com/developit/mitt)や[tiny-emitter](https://github.com/scottcorgan/tiny-emitter)の利用が推奨されています。
+https://v3.vuejs.org/guide/migration/events-api.html#overview
 :::
 
 Sample アプリのコンポーネントの概要は以下の通りです。
