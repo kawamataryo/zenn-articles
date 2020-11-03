@@ -13,7 +13,7 @@ Raspberry Pi に SSH（公開鍵認証）で接続するまで & VSCode の Remo
 公開鍵認証とは、パスワードの代わりに 公開鍵と秘密鍵のペアを用いる認証方法です。
 詳細は以下記事をご覧ください。
 
-[SSHの公開鍵認証における良くある誤解の話 - Qiita](https://qiita.com/angel_p_57/items/2e3f3f8661de32a0d432)
+[SSHの公開鍵認証における良くある誤解の話 - Qiita](https://qiita.com/angel_p_ls57/items/2e3f3f8661de32a0d432)
 
 # キーファイルの作成
 
