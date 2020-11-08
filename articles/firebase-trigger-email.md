@@ -66,9 +66,9 @@ Firebase で新規プロジェクトを作成して左下の Extensions を開�
 
 ここで指定した先が実際のメール送信を行います。ここには SendGrid や Mailgun などのメールサービスが使えます。今回は SendGrid を使います。
 
-SendGridのSMTP URIは `Email API > Integration Guide > SMTP Relay` からAPIキーを作成することで取得出来ます。
+SendGrid の SMTP URI は `Email API > Integration Guide > SMTP Relay` から API キーを作成することで取得出来ます。
 
-以下画面の各値を組み合わせた値がSMTP URIとなります。
+以下画面の各値を組み合わせた値が SMTP URI となります。
 
 ```
 // smtps://[user]:[password]@[server]
@@ -94,7 +94,7 @@ https://sendgrid.kke.co.jp/blog/?p=636
 問い合わせフォーム部分の実装はこちらです。
 送信後の通知部分の実装があるので、少し長いです。
 
-```html
+```vue
 <template>
   <div class="form-wrapper box has-text-left">
     <div class="field">
@@ -222,7 +222,11 @@ export default defineComponent({
 ```
 
 大事なところは以下送信ボタン押下での処理です。
-Firestore の contact_form コレクションに入力データを保存しています。
+問い合わせ内容を保存する Firestore の contact_form コレクションに入力データを保存しています。
+
+:::message
+ここで直接 Firebase Trigger Email と連携するコレクションにデータを入れてメール送信をキックしても良いのですが、今回は Thanks メールと問い合わせ内容メールの両方を送るため別にコレクションを持っています。
+:::
 
 ```ts
 const onSubmit = async () => {
