@@ -1,5 +1,5 @@
 ---
-title: "Firebase Trigger Email + SendGrid + Vueでお問い合わせフォームを作る"
+title: "Firebase Trigger Emailを使ってお問い合わせフォームを作る"
 emoji: "📮"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["firebase", "vue", "typescript"]
@@ -27,6 +27,7 @@ published: false
   - SendGrid
 
 構成はこんな感じになっています。
+
 1. Vue で作ったお問い合わせフォームからお問い合わせ
 2. Firestore にデータを保存
 3. 保存をフックに Cloud Functions が起動、Firebase Extensions と連携している FireStore の Collection にデータを保存
@@ -36,8 +37,8 @@ published: false
 
 # Firebase Trigger Emailとは？
 
-最初に簡単に今回の主役である Firebase Trigger Email について説明します。
-Firebase Trigger Email は Firebase Extensions の1つで、Firebase 経由のメール送信を簡単に実装できるようにするものです。
+最初に簡単に今回の主役である Firebase Trigger Email について。
+Firebase Trigger Email は Firebase Extensions の 1 つで、Firebase 経由のメール送信を簡単に実装できるようにするものです。
 後から説明しますが、ダッシュボードで項目を入力して、数回ボタンを押すだけで Cloud Functions が自動的に作られます。
 
 動作の流れは下記のようなイメージです。
@@ -50,23 +51,36 @@ Firebase Trigger Email は Firebase Extensions の1つで、Firebase 経由の�
 
 # Firebase Trigger Emailの設定
 
-最初にFirebase Project と Trigger Email の設定を行います。
-Firebase で新規プロジェクトを作成して左下のExtensionsを開きます。
+最初に Firebase Project と Trigger Email の設定を行います。
+Firebase で新規プロジェクトを作成して左下の Extensions を開きます。
 
-するとExtensionsの一覧が出るので、Trigger Emailのインストールボタンを押しましょう。
+すると Extensions の一覧が出るので、Trigger Email のインストールボタンを押しましょう。
 
 ![](https://storage.googleapis.com/zenn-user-upload/4ng4yva3bopk7k32x9khofr1mglm)
 
 すると、構成内容の入力フォームが表示されるので適宜入力します。
-ここで大切なのは、SMTP Connection URIです。
-
-ここで指定した先が実際のメール送信を行います。ここにはSendGridやMailgunなどのメールサービスが使えます。
-今回はSendGridを使います。
 
 ![](https://storage.googleapis.com/zenn-user-upload/rhd3kkz8sz64iuj624u7o53accs2)
 
+重要なのは、SMTP Connection URI です。
+
+ここで指定した先が実際のメール送信を行います。ここには SendGrid や Mailgun などのメールサービスが使えます。今回は SendGrid を使います。
+
+SendGridのSMTP URIは `Email API > Integration Guide > SMTP Relay` からAPIキーを作成することで取得出来ます。
+
+以下画面の各値を組み合わせた値がSMTP URIとなります。
+
+```
+// smtps://[user]:[password]@[server]
+smtps://apikey:hogehoge@smtp.sendgrid.net
+```
+
+![](https://storage.googleapis.com/zenn-user-upload/o4463xeis302mbu2dyjuh62vnjh1)
+
+
+
 :::message
-SMTPの詳細についてはこちらのSendGridの記事が分かりやすいです。
+SMTP の詳細についてはこちらの SendGrid の記事が分かりやすいです。
 https://sendgrid.kke.co.jp/blog/?p=636
 :::
 
@@ -208,7 +222,7 @@ export default defineComponent({
 ```
 
 大事なところは以下送信ボタン押下での処理です。
-Firestoreのcontact_formコレクションに入力データを保存しています。
+Firestore の contact_form コレクションに入力データを保存しています。
 
 ```ts
 const onSubmit = async () => {
