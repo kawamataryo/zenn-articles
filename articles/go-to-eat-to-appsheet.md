@@ -47,7 +47,7 @@ AppSheet で作ってみたものはこちらです。
 
 ![](https://storage.googleapis.com/zenn-user-upload/tjenk9aopenhb6t7pb5epph2rdfv)
 
-スマホに対応し、店舗名や要素での検索や Google Maps からの現在地周辺での店舗検索も出来て必要十分です。
+スマホに対応し、店舗名や要素での検索や Maps からの現在地周辺での店舗検索も出来て必要十分です。
 
 この作り方を次項から解説していきます。
 
