@@ -1,6 +1,6 @@
 ---
 title: "茨城県のGo To Eat サイトが使いづらかったので、Playwright + AppSheetで自分用に作り直した話"
-emoji: "🍽"
+emoji: "🦞"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["playwright", "スクレイピング", "AppSheet", "typescript", "NoCode"]
 published: false
@@ -207,10 +207,9 @@ Playwright の options で headless を false にしているので、こんな�
 
 ## 2. AppSheetでのアプリ作成
 
+店舗データが出来上がったので、これを AppSheet でアプリ化していきます。
 
 ## 2-1. Google スプレッドシートの作成
-
-店舗データが出来上がったので、これを AppSheet でアプリ化していきます。
 
 まず、CSV を Google スプレッドシートで import します。
 
