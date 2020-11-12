@@ -18,7 +18,9 @@ https://www.gotoeat-ibaraki.com/
 ![](https://storage.googleapis.com/zenn-user-upload/3zvhcn2e2ziaqzlsxahw5fuvoauy)
 
 
-が…店舗一覧ページに遷移するといきなり古き良き業務システムのような感じになります😇
+が…
+
+店舗一覧ページに遷移するといきなり古き良き業務システムのような感じになります😇
 
 ![](https://storage.googleapis.com/zenn-user-upload/p1z4pveq4znagc1c86jzepmfcwqz)
 
