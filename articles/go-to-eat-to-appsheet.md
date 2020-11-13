@@ -3,7 +3,7 @@ title: "茨城県のGo To Eat サイトが使いづらかったので、Playwrig
 emoji: "🦞"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["playwright", "スクレイピング", "AppSheet", "typescript", "NoCode"]
-published: false
+published: true
 ---
 
 Go To Eat とてもお得な施策で良いのですが、どのお店が使えるんだろう？　ってなりますよね。そんな時に見るのはキャンペーンサイトだと思うのですが、茨城県の Go To Eat キャンペーンサイトが使いづらかったので、Playwright + AppSheet で自分用にアプリを作ってみた話です。
