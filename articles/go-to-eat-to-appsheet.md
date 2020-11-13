@@ -6,7 +6,7 @@ topics: ["playwright", "スクレイピング", "AppSheet", "typescript", "NoCod
 published: true
 ---
 
-Go To Eat とてもお得な施策で良いのですが「どのお店が使えるんだろう？」ってなりますよね。そんな時に見る茨城県の Go To Eat キャンペーンサイトが思いの外使いづらかったので、Playwright + AppSheet で自分用アプリを作ってみた話です。
+Go To Eat とてもお得な施策で良いのですが「どのお店が使えるんだろう？」ってなりますよね。そんな時に見る県の Go To Eat キャンペーンサイトが、思いのほか使いづらかったので、Playwright + AppSheet で自分用アプリを作ってみた話です。
 
 # なぜ作った？
 
