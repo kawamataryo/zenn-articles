@@ -1,17 +1,18 @@
 ---
-title: "県のGo To Eat キャンペーンサイトが使いづらかったので、Playwright + AppSheetで自分用に作り直した話"
+title: "茨城県のGo To Eat サイトが使いづらかったので、Playwright + AppSheetで自分用アプリを作ってみた話"
 emoji: "🦞"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["playwright", "スクレイピング", "AppSheet", "typescript", "NoCode"]
 published: false
 ---
 
-茨城県の Go To Eat キャンペーンサイトが使いづらかったので、AppSheet で自分用にアプリを作ってみた話です。
+Go To Eat とてもお得な施策で良いのですが、どのお店が使えるんだろう？　ってなりますよね。そんな時に見るのはキャンペーンサイトだと思うのですが、茨城県の Go To Eat キャンペーンサイトが使いづらかったので、Playwright + AppSheet で自分用にアプリを作ってみた話です。
 
 # なぜ作った？
 
+
 茨城県の Go To Eat キャンペーンサイトはこちらです。
-トップページはまぁ良い感じです。
+トップページは良い感じです。
 
 https://www.gotoeat-ibaraki.com/
 
@@ -45,7 +46,7 @@ Glide については以前こちらの記事でまとめています。
 
 AppSheet で作ってみたものがこちらです。
 
-![](https://storage.googleapis.com/zenn-user-upload/tjenk9aopenhb6t7pb5epph2rdfv)
+![](https://storage.googleapis.com/zenn-user-upload/22d8qznkt9vayx9a60ekytvrt1fl)
 
 スマホに対応し、店舗名や要素での検索や Maps からの現在地周辺での店舗検索も出来るので、自分用には必要十分です。
 
@@ -53,8 +54,6 @@ AppSheet で作ってみたものがこちらです。
 
 :::message
 スクレピングでデータを取得する場合は、利用規約に注意してください。
-以下サイトにまとまっています。
-https://qiita.com/nezuq/items/9e297d0e3468c24e8afa
 今回のアプリは一般公開せずあくまで個人利用のみで使います。
 :::
 
@@ -205,6 +204,9 @@ Playwright の options で headless を false にしているので、こんな�
 完了すると`goto-eat.csv`が出来上がります。
 （260 ページあるのでかなり時間かかります）
 
+![](https://storage.googleapis.com/zenn-user-upload/vxo84j46ctjssemim7v6n29kxd3s)
+
+
 ## 2. AppSheetでのアプリ作成
 
 店舗データが出来上がったので、これを AppSheet でアプリ化していきます。
@@ -245,7 +247,7 @@ https://www.appsheet.com/
 
 あとは、ちょいちょい項目名とかを直してデプロイすれば完了です。
 
-![](https://storage.googleapis.com/zenn-user-upload/tjenk9aopenhb6t7pb5epph2rdfv)
+![](https://storage.googleapis.com/zenn-user-upload/22d8qznkt9vayx9a60ekytvrt1fl)
 
 AppSheet のデプロイについてはこちらを参考にさせていただきました。
 
@@ -256,6 +258,7 @@ https://tonari-it.com/appsheet-free-deploy/
 以上「茨城県の Go To Eat サイトが見づらかったので、Playwright + AppSheet で自分用に作り直した話」でした。
 
 Playwright も AppSheet 初めて使ったのですが、どちらも使いやすいですね。
-今回みたいな限定した用途でアプリを作るには便利そうです。
 
-三密防ぎながらこのアプリを使って Go To Eat していきたいです。
+かかった時間は AppSheet のキャッチアップ含めて 3 時間くらいでした。今回みたいな限定した用途でアプリを作るには便利そうです。
+
+三密気をつけながらこのアプリを使って Go To Eat していきたいです。
