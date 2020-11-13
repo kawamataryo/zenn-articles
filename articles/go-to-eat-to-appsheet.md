@@ -22,6 +22,7 @@ https://www.gotoeat-ibaraki.com/
 が…
 
 店舗一覧ページに遷移するといきなり古き良き業務システムのような感じになります😇
+（もうちょっと頑張ってくれ..）
 
 ![](https://storage.googleapis.com/zenn-user-upload/p1z4pveq4znagc1c86jzepmfcwqz)
 
@@ -71,7 +72,7 @@ Node.js のスクレイピングといえば[Puppeteer](https://github.com/puppe
 
 https://github.com/microsoft/playwright
 
-## 1-1. 環境構築
+### 1-1. 環境構築
 
 まず、任意のディレクトリでプロジェクトを作成します。
 
@@ -81,8 +82,7 @@ $ yarn init -y
 
 そして依存モジュールを追加します。
 
-[json2csv](https://github.com/zemirco/json2csv) はオブジェクトの CSV にパースで使用します。
-
+[json2csv](https://github.com/zemirco/json2csv) はオブジェクトの CSV へのパースで使用します。
 [ts-node](https://github.com/TypeStrong/ts-node)は Node.js での TypeScript の実行環境です。TypeScript を明示的なコンパイル不要で実行できます。
 
 ```bash
@@ -99,14 +99,14 @@ ts-node の実行スクリプトを`package.json`に追加します。
 
 これで環境構築は完了です。
 
-## 1-2. スクレイピング
+### 1-2. スクレイピング
 
 `index.ts`を追加して以下のコードを記載します。
 
 コードはスクレイピングの関係上ちょっと分かりにくいのですが、以下のような動きをします。
 
 1. GoTo Eat 茨城の店舗一覧ページを開く
-2. 店舗明細行ごとに店舗詳細ページに遷移 & 情報を取得
+2. 店舗明細行ごとに店舗詳細ページに移動 & 情報を取得
 3. 全ページ終わったら結果を CSV 形式にパース
 4. ファイル書き込み
 
@@ -211,7 +211,7 @@ Playwright の options で headless を false にしているので、こんな�
 
 店舗データが出来上がったので、これを AppSheet でアプリ化していきます。
 
-## 2-1. Google スプレッドシートの作成
+### 2-1. Google スプレッドシートの作成
 
 まず、CSV を Google スプレッドシートで import します。
 
@@ -221,7 +221,7 @@ https://www.google.com/intl/ja_jp/sheets/about/
 
 ![](https://storage.googleapis.com/zenn-user-upload/jwy2jszxhnbpsy6nv8uq0kp88rh6)
 
-## 2-2. AppSheetでのインポート
+### 2-2. AppSheetでのインポート
 
 [AppSheet](https://www.appsheet.com/) にアクセスします。
 
