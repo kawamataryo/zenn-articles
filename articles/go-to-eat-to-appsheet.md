@@ -1,5 +1,5 @@
 ---
-title: "茨城県のGo To Eat サイトが使いづらかったので、Playwright + AppSheetで自分用アプリを作ってみた話"
+title: "県のGo To Eat サイトが使いづらかったので、Playwright + AppSheetで自分用アプリを作った話"
 emoji: "🦞"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["playwright", "スクレイピング", "AppSheet", "typescript", "NoCode"]
