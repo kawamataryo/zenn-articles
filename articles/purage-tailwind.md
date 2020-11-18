@@ -145,7 +145,9 @@ purge オプションに動的にクラスの付け替えを行っているス�
 
 `index.js`があるとしてそのファイルパスを`tailwind.config.js`の`purge`の配列に追加すればとクラス検索の対象になり、`text-blue-500`は Purge 対象から外れ、ビルド生成物にもクラスが残ります。
 
-```js:index.js // text-blue-500はpurgeされない const text_blue_500 = 'text-blue-500'
+```js:index.js
+// text-blue-500はpurgeされない
+const text_blue_500 = 'text-blue-500'
 document.querySelector('#sample').classList.add(text_blue_500)
 ```
 
