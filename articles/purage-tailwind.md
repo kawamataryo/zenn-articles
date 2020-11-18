@@ -1,15 +1,17 @@
 ---
-title: "Tailwind CSSのPurgeでビルドサイズを圧縮する"
-emoji: "🎐"
+title: "Tailwind CSS の Purge でビルドサイズを縮小する"
+emoji: "🍏"
 type: "tech" # tech: 技術記事 / idea: アイデア
-topics: ["Tailwind, "css", "PostCSS"]
-published: false
+topics: ["Tailwind", "css", "PostCSS"]
+published: true
 ---
 
-Tailwind CSS の Purge を試してみたメモです。
+Tailwind CSS の Purge でビルドサイズの縮小を試してみたメモです。
 
-# 環境構築
+# テスト環境の構築
 最初に Tailwind CSS の環境を構築します。
+
+まず npm プロジェクトを作成して、Tailwind CSS を依存に追加します。
 
 ```bash
 $ yarn init -y
@@ -18,7 +20,7 @@ $ yarn add tailwindcss
 
 次に `tailwind.config.js` を作成します。
 
-```
+```bash
 $ npx tailwindcss init
 ```
 
@@ -36,9 +38,9 @@ module.exports = {
 }
 ```
 
-次に以下内容で`src`配下に`style.css`を追加します。
+次に、以下内容で`src`配下に`style.css`を追加します。
 
-```
+```css:src/style.css
 @tailwind base;
 
 @tailwind components;
@@ -72,7 +74,6 @@ module.exports = {
 ├── index.html
 ├── tailwind.config.js
 └── yarn.lock
-
 ```
 
 これで準備は完了です。
@@ -82,7 +83,7 @@ module.exports = {
 
 最初に Purge しない場合を試してみます。
 
-前項で準備した環境そのままでビルドを実行します。
+前項で、準備した環境そのままでビルドを実行します。
 
 ```bash
  $ NODE_ENV=production npx tailwindcss build src/style.css -o dist/style.css
@@ -120,7 +121,7 @@ purge オプションの配列には`src/**/*.js`, `src/**/*.vue`などのよう
 
 これで再度ビルドを実行します。
 
-```
+```bash
  NODE_ENV=production npx tailwindcss build src/style.css -o dist/style.css
 
 ✅ Finished in 1.33 s
@@ -138,13 +139,16 @@ purge オプションの配列には`src/**/*.js`, `src/**/*.vue`などのよう
 purge オプションにクラスを動的につけているスクリプトファイルを指定すれば、基本的にそこで参照しているクラスは Purge の対象からは外れ、ビルドの生成物にクラスが残ります。
 これは JSX でも、Vue でも同じです。
 
-以下`index.js`があるとしてそのファイルパスを`tailwind.config.js`の`purge`の配列に追加すればとクラス検索の対象になり、`text-blue-500`は Purge 対象から外れ、ビルド生成物にもクラスが残ります。
+例えば以下のような場合はです。
+
+`index.js`があるとしてそのファイルパスを`tailwind.config.js`の`purge`の配列に追加すればとクラス検索の対象になり、`text-blue-500`は Purge 対象から外れ、ビルド生成物にもクラスが残ります。
 
 ```js:index.js // text-blue-500はpurgeされない const text_blue_500 = 'text-blue-500'
 document.querySelector('#sample').classList.add(text_blue_500)
 ```
 
-ただし、**動的にクラス名の文字列を組み立てる場合**は注意が必要です。
+ただし、**動的にクラス名の文字列を組み立てる場合は注意が必要**です。
+
 以下のようにカラーレベルを動的に組み立て指定をしている場合は、`color-green-500`は Purge されてしまいます。
 
 ```js:index.js
@@ -159,9 +163,9 @@ document.querySelector('#sample').classList.add(`text-green-${color_level}`)
 /[^<>"'`\s]*[^<>"'`\s:]/g
 ```
 
-スクリプトでクラスを動的に組み立てている処理がある場合は注意してください。
+スクリプトでクラス名の文字列を動的に組み立てている処理がある場合は注意してください。
 
-なお、どうしても動的にクラス文字列を生成したい場合は、生成するクラス名を PurgeCSS の`whitelist`オプションを指定して Purge 対象から除外することも可能です。
+なお、どうしても動的にクラス名の文字列を生成したい場合は、生成するクラス名を PurgeCSS の`whitelist`オプションを指定して Purge 対象から除外することで対応が可能です。
 
 ```js:tailwind.config.js
 module.exports = {
@@ -183,7 +187,9 @@ module.exports = {
 # 終わりに
 
 以上、「Tailwind CSS の Purge でビルドサイズを圧縮する」でした。
-これを調べる前は「どれだけ巨大な CSS を読み込む必要があるんだ…？」と思ってたのですが、簡単な指定をするだけで Purge CSS を使って良い感じファイル容量の削減を行ってくれるので、良いですね。
+これを調べる前は「ユーティリティクラスとかどれだけ巨大な CSS を読み込む必要があるんだ…？」と思ってたのですが、簡単な指定をするだけで Purge CSS を使って良い感じビルドサイズの制御を行ってくれるので、良いですね。
+
+Purge CSS 自体は別で Tailwind CSS 関係ないので、他プロダクトでも積極的に利用していきたいと思いました。
 
 # 参考
 
