@@ -6,7 +6,9 @@ topics: ["Tailwind", "css", "PostCSS"]
 published: true
 ---
 
-Tailwind CSS の Purge でビルドサイズの縮小を試してみたメモです。
+Tailwind CSS はユーティリティファーストでとても使いやすいのですが、無数のクラスが提供されているので、そのままだとビルドサイズがとても巨大ですよね。
+
+それを解消するために、 Tailwind CSS に標準で搭載されている Purge オプションを使ってビルドサイズの縮小を試してみました。
 
 # テスト環境の構築
 最初に Tailwind CSS の環境を構築します。
