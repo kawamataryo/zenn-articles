@@ -2,7 +2,7 @@
 title: "XcodeでもVimキーバインドを使いたい! XVim2のススメ"
 emoji: "✌"
 type: "tech" # tech: 技術記事 / idea: アイデア
-topics: ["vim", "Xcode", "ios"]
+topics: ["vim", "Xcode", "ios", "Swift"]
 published: false
 ---
 
