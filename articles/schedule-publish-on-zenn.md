@@ -33,9 +33,32 @@ jobs:
   merge_schedule:
     runs-on: ubuntu-latest
     steps:
-      - uses: gr2m/merge-schedule-action@v1.x
+      - uses: gr2m/merge-schedule-action@v1.2.4
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-これでpushします。
+これで変更を commit して push します。
+
+# プルリクエストの作成
+
+あとは、master(main)ブランチで投稿したい記事を作成して、`published: false`の状態でcommit & push。
+
+次に公開用ブランチを切ります。
+
+```bash
+$ git branch -b publish
+```
+
+そして公開したい記事を`published: true`に変更してCommitします。
+
+```
+$ git add hogehoge.md
+$ git commit -m "hogehogeを公開"
+```
+
+このリポジトリをリモートにpushします。
+
+```
+$ git push --set-upstream origin publish
+```
