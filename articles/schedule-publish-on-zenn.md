@@ -16,10 +16,10 @@ Zenn の記事管理リポジトリに移動して GitHub Workflow のディレ�
 $ mkdir -p .github/workflows
 ```
 
-次に workflows に以下`schedule-publish.yml`を作成します。
+次に workflows に以下`merge-schedule.yml`を作成します。
 
 ```yml
-name: Schedule Publish
+name: Merge Schedule
 on:
   pull_request:
     types:
@@ -27,7 +27,7 @@ on:
       - edited
       - synchronize
   schedule:
-    - cron: */15 * * * *
+    - cron: 0 * * * *
 
 jobs:
   merge_schedule:
