@@ -3,7 +3,7 @@ title: "XcodeでもVimキーバインドを使いたい! XVim2のススメ"
 emoji: "✌"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["vim", "Xcode", "ios"]
-published: false
+published: true
 ---
 
 最近 Swift UI を初めているのですが、どうしても普段のエディタ（IntelliJ, VSCode）が vim キーバインドなので捗らず悩んでいたところ、XVim2 という Xcode で vim キーバインドを設定できるプラグインを見つけました。
