@@ -27,7 +27,7 @@ on:
       - edited
       - synchronize
   schedule:
-    - cron: */15 * * * *
+    - cron: 0/15 * * * *
 
 jobs:
   merge_schedule:
@@ -42,7 +42,7 @@ jobs:
 
 # プルリクエストの作成
 
-あとは、master(main)ブランチで投稿したい記事を作成して、`published: false`の状態でcommit & push。
+あとは、master(main)ブランチで投稿したい記事を作成して、`published: false`の状態で commit & push。
 
 次に公開用ブランチを切ります。
 
@@ -50,15 +50,30 @@ jobs:
 $ git branch -b publish
 ```
 
-そして公開したい記事を`published: true`に変更してCommitします。
+そして公開したい記事を`published: true`に変更して Commit します。
 
 ```
 $ git add hogehoge.md
 $ git commit -m "hogehogeを公開"
 ```
 
-このリポジトリをリモートにpushします。
+このリポジトリをリモートに push します。
 
 ```
 $ git push --set-upstream origin publish
 ```
+
+あとはプラウザで PullRequest を作成します。
+
+この時に Descriptions に以下のように ISO 形式で日付を入力してください。
+
+```
+/schedule 2020-11-21T20:30
+```
+
+![](https://storage.googleapis.com/zenn-user-upload/qwvmpbrsrejub1lt7c6ywcwdt9fy)
+
+これで作成すれば OK です。
+Pull Request の差分は公開状態の変更のみです。
+
+![](https://storage.googleapis.com/zenn-user-upload/b27isirptg0tu73z4ua81e3ppeiz)
