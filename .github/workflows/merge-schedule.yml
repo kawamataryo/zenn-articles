@@ -6,13 +6,13 @@ on:
       - edited
       - synchronize
     schedule:
-      - cron: 0 * * * *
+      - cron: '0/5 * * * *'
 
 jobs:
   merge_schedule:
     runs-on: ubuntu-latest
     steps:
-      - uses: kawamataryo/merge-schedule-action@1.2.5
+      - uses: kawamataryo/merge-schedule-action@1.2.7
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TIME_ZONE: 'Asia/Tokyo'
