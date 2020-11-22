@@ -6,13 +6,13 @@ on:
       - edited
       - synchronize
   schedule:
-    - cron: 0 * * * *
+    - cron: 0/5 * * * *
 
 jobs:
   merge_schedule:
     runs-on: ubuntu-latest
     steps:
-      - uses: gr2m/merge-schedule-action@v1.x
+      - uses: kawamataryo/merge-schedule-action@feat-change-time-zone
         with:
           time_zone: 'Asia/Tokyo'
         env:
