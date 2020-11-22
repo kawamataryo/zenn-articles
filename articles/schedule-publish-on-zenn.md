@@ -46,6 +46,8 @@ on:
       - opened
       - edited
       - synchronize
+    schedule:
+      - cron: 0 * * * *
 
 jobs:
   merge_schedule:
