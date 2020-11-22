@@ -75,8 +75,13 @@ $ git commmit -m "feat: introduce-xvim2"
 $ git push --set-upstream origin introduce-xvim2
 ```
 
-この時にプルリクエスト Descriptions の最下部に以下のように ISO 形式で日付を入力してください。
-これが公開日時の指定になります。
+この時に Descriptions に以下のようにISO 形式で**UTC 協定世界時**で投稿したい日付を入力してください。これがマージ実行日時となります。
+
+:::message alert
+最初、UTC 標準日時で設定するというのに気づかず、「全然マージされん🤔」と悩みました。
+必ず UTC 標準日時に直して（-9 時間）設定してください。
+:::
+
 
 ```
 /schedule 2020-11-21T20:30
