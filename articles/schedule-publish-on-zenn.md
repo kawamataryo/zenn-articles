@@ -6,22 +6,21 @@ topics: ["GitHub", "GitHubAction", "zenn", "ci"]
 published: false
 ---
 
-Zenn の予約投稿が出来ると便利だなーと思って調べてたら GitHub Actions を使って実現できたので紹介します。
+「Zenn で記事の予約投稿が出来ると便利だなー」と思って調べてたら GitHub Actions を使って実現できたので紹介します。
 
 # 仕組み
 
-予約投稿の仕組みは新規投稿記事の プルリクエスト の日時指定のマージです。
-日時指定のマージの実現のために`Merge Schedule`という GitHub Action を利用します。
+予約投稿の仕組みは記事追加のプルリクエストの日時指定のマージです。
+その実現のために`Merge Schedule`という GitHub Action を利用します。
 
 https://github.com/marketplace/actions/merge-schedule
 
 動きとしては以下の通りです。
 
-1. brunch でを切り、公開したい記事を作成し コミット & プッシュ
-2. プルリクエスト を作成
-3. プルリクエスト をフックに GitHub Actions 起動して Schedule Merge を登録
-4. 日時指定でプルリクエストがマージされて master が更新
-5. 記事が公開
+1. ブランチを切り、公開したい記事を執筆。プルリクエストを作成
+2. プルリクエストをフックに GitHub Actions が起動。Schedule Merge を登録
+3. 日時指定でプルリクエストがマージされて master が更新
+4. Zenn で記事が公開
 
 ![](https://storage.googleapis.com/zenn-user-upload/8uuxlktwapge6mnn28cvzyu95rec)
 
@@ -76,8 +75,13 @@ $ git commmit -m "feat: introduce-xvim2"
 $ git push --set-upstream origin introduce-xvim2
 ```
 
-この時にプルリクエスト Descriptions の最下部に以下のように ISO 形式で日付を入力してください。
-これが公開日時の指定になります。
+この時に Descriptions に以下のようにISO 形式で**UTC 協定世界時**で投稿したい日付を入力してください。これがマージ実行日時となります。
+
+:::message alert
+最初、UTC 標準日時で設定するというのに気づかず、「全然マージされん🤔」と悩みました。
+必ず UTC 標準日時に直して（-9 時間）設定してください。
+:::
+
 
 ```
 /schedule 2020-11-21T20:30
