@@ -116,7 +116,7 @@ https://github.com/gr2m/merge-schedule-action/blob/master/lib/handle_schedule.js
   // ...
 ```
 
-どうやら、CI 実行時点で、scheduleDate がすぎているものを抽出してマージ実行対象とするようです。
+どうやら、CI 実行時点で、scheduleDate が経過しているものを抽出してマージ実行対象とするようです。
 
 なので、もし分単位の公開指定をしたい場合は、GitHub Actions の cron の指定を変える必要があります。
 サンプルの例だと`cron: 0 * * * *`で、1 時間に 1 回しか実行されません。
