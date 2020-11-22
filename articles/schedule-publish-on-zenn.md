@@ -1,5 +1,5 @@
 ---
-title: "GitHub ActionでZennの予約投稿を実現する"
+title: "GitHub ActionでZennの記事予約投稿を実現する"
 emoji: "📆"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["GitHub", "GitHubAction", "zenn", "ci"]
@@ -8,7 +8,28 @@ published: false
 
 Zenn の予約投稿が出来ると便利だなーと思って調べてたら GitHub Actions を使って実現できたので紹介します。
 
-# リポジトリにMerge Schedule の追加
+# 仕組み
+
+予約投稿の仕組みは新規投稿記事の プルリクエスト の日時指定のマージです。
+日時指定のマージの実現のために`Merge Schedule`という GitHub Action を利用します。
+
+https://github.com/marketplace/actions/merge-schedule
+
+動きとしては以下の通りです。
+
+1. brunch でを切り、公開したい記事を作成し コミット & プッシュ
+2. プルリクエスト を作成
+3. プルリクエスト をフックに GitHub Actions 起動して Schedule Merge を登録
+4. 日時指定でプルリクエストがマージされて master が更新
+5. 記事が公開
+
+![](https://storage.googleapis.com/zenn-user-upload/8uuxlktwapge6mnn28cvzyu95rec)
+
+
+# 詳細
+
+## GitHub Actionsの登録
+
 
 Zenn の記事管理リポジトリに移動して GitHub Workflow のディレクトリを作ります。
 
@@ -26,8 +47,6 @@ on:
       - opened
       - edited
       - synchronize
-  schedule:
-    - cron: 0/15 * * * *
 
 jobs:
   merge_schedule:
@@ -38,42 +57,49 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-これで変更を commit して push します。
+そして変更をコミット & プッシュします。
+これでスケジュール投稿の準備が整いました。
 
-# プルリクエストの作成
+## プルリクエストの作成
 
-あとは、master(main)ブランチで投稿したい記事を作成して、`published: false`の状態で commit & push。
-
-次に公開用ブランチを切ります。
+あとはローカルで master からプルリクエスト作成用のブランチを切ります。
 
 ```bash
-$ git branch -b publish
+$ git checkout -b introduce-xvim2
 ```
-
-そして公開したい記事を`published: true`に変更して Commit します。
-
-```
-$ git add hogehoge.md
-$ git commit -m "hogehogeを公開"
-```
-
-このリポジトリをリモートに push します。
+このブランチ上で記事を作成します。
+作成が完了したらコミットしてプルリクエストを作成します。
 
 ```
-$ git push --set-upstream origin publish
+$ git add introduce-xvim2.md
+$ git commmit -m "feat: introduce-xvim2"
+$ git push --set-upstream origin introduce-xvim2
 ```
 
-あとはプラウザで PullRequest を作成します。
-
-この時に Descriptions に以下のように ISO 形式で日付を入力してください。
+この時にプルリクエスト Descriptions の最下部に以下のように ISO 形式で日付を入力してください。
+これが公開日時の指定になります。
 
 ```
 /schedule 2020-11-21T20:30
 ```
 
-![](https://storage.googleapis.com/zenn-user-upload/qwvmpbrsrejub1lt7c6ywcwdt9fy)
+この状態でプルリクエストをオープンし、起動されている GitHub Actions をみてみます。
 
-これで作成すれば OK です。
-Pull Request の差分は公開状態の変更のみです。
+![](https://storage.googleapis.com/zenn-user-upload/sn2p1i10c090ykys61xe1me7band)
 
-![](https://storage.googleapis.com/zenn-user-upload/b27isirptg0tu73z4ua81e3ppeiz)
+詳細をみると先ほど指定した公開日時でスケジュールされているのがわかります。
+
+![](https://storage.googleapis.com/zenn-user-upload/phk5d1q2y6lvi43bpiki6yjjoukx)
+
+あとは、その指定時間がくるとプルリクエストがマージされ記事が投稿されます。
+
+:::message
+Merge Schedule の CI が投稿完了まで終わらないので、GitHub Actions の無料枠を余裕で超えてしまう？　と思ったのですが、それは大丈夫でした。GitHub Actions の時間計測のものとは別枠で動いているようです。
+:::
+
+# おわりに
+
+以上「GitHub Action で Zenn の予約投稿を実現する」でした。
+こういう応用が効くのも Zenn の良さですね。
+
+自分のライフサイクル的に朝記事を書きあげることが多いので、予約投稿はとても欲しかった機能でした。今後もこの機能を使って色々記事を書いていきたいです。
