@@ -13,5 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: kawamataryo/merge-schedule-action@feat-change-time-zone
+        with:
+          time_zone: 'Asia/Tokyo'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
