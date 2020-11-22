@@ -5,14 +5,13 @@ on:
       - opened
       - edited
       - synchronize
-    schedule:
-      - cron: '0/5 * * * *'
+  schedule:
+    - cron: 0 * * * *
 
 jobs:
   merge_schedule:
     runs-on: ubuntu-latest
     steps:
-      - uses: kawamataryo/merge-schedule-action@master
+      - uses: gr2m/merge-schedule-action@v1.x
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TIME_ZONE: 'Asia/Tokyo'
