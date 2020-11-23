@@ -54,6 +54,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: gr2m/merge-schedule-action@v1.2.4
+        with:
+          time_zone: "Asia/Tokyo"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
@@ -77,10 +79,10 @@ $ git commmit -m "feat: introduce-xvim2"
 $ git push --set-upstream origin introduce-xvim2
 ```
 
-この時に Descriptions に以下のように ISO 形式で**UTC 協定世界時**で投稿したい日付を入力してください。これがマージ実行日時となります。
+この時に Descriptions に以下のように ISO 形式で投稿したい日付を入力してください。これがマージ実行日時となります。
 
 :::message alert
-最初、UTC 標準日時で設定するというのに気づかず、「全然マージされん🤔」と悩みました。
+、UTC 標準日時で設定するというのに気づかず、「全然マージされん🤔」と悩みました。
 必ず UTC 標準日時に直して（-9 時間）設定してください。
 :::
 

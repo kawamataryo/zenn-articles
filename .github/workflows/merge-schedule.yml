@@ -14,6 +14,6 @@ jobs:
     steps:
       - uses: gr2m/merge-schedule-action@mv1
         with:
-          time_zone: 'Asia/Tokyo'
+          time_zone: "Asia/Tokyo"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
