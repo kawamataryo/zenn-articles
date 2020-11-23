@@ -1,8 +1,8 @@
 ---
-title: "Swift UIで初めてのApple Watch アプリを作る"
+title: "Swift UIで作るApple Watch タイマーアプリ"
 emoji: "✌"
 type: "tech" # tech: 技術記事 / idea: アイデア
-topics: ["vim", "Xcode", "ios"]
+topics: ["Swift", "SwiftUI", "watchOS", "AppleWatch"]
 published: false
 ---
 
