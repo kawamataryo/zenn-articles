@@ -39,21 +39,21 @@ $ mkdir -p .github/workflows
 次に workflows に以下`schedule-publish.yml`を作成します。
 
 ```yml
-name: Schedule Publish
+name: Merge Schedule
 on:
   pull_request:
     types:
       - opened
       - edited
       - synchronize
-    schedule:
-      - cron: 0 * * * *
+  schedule:
+    - cron: 0 * * * *
 
 jobs:
   merge_schedule:
     runs-on: ubuntu-latest
     steps:
-      - uses: gr2m/merge-schedule-action@v1.*
+      - uses: gr2m/merge-schedule-action@1ef6893192811edbec08113370a9d973922e84c7
         with:
           time_zone: "Asia/Tokyo"
         env:
@@ -62,6 +62,10 @@ jobs:
 
 そして変更をコミット & プッシュします。
 これでスケジュール投稿の準備が整いました。
+
+:::message
+`gr2m/merge-schedule-actio`の指定をコミットにしています。このコミットは私が作成した Time Zone 対応の PR がマージされたときのコミットです。2020/11/23 時点で、このコミットが最新のリリースに取り込まれていないのでこのような指定としています。
+:::
 
 ## プルリクエストの作成
 
@@ -81,15 +85,16 @@ $ git push --set-upstream origin introduce-xvim2
 
 そして、プルリクエスト 作成の際の Descriptions に以下のように ISO 形式で投稿したい日付を入力してください。これがマージ実行日時となります。
 
-:::message
-当初、merge-schedule は、UTC 標準日時で設定されるというものでした。
-それぞれの time zone で設定できると便利かなと思い プルリクエスト を作ったら無事マージしてもらえて、今は、`with`で time zone を設定すれば、それぞれの time zone で実行できます💪
-https://github.com/gr2m/merge-schedule-action/pull/29
-:::
-
 ```
 /schedule 2020-11-21T20:00
 ```
+
+:::message
+当初、merge-schedule は、Descriptions に設定した日時の UTC 標準日時で実行されるというものでした。
+それぞれの Time Zone で設定できると便利かなと思い プルリクエスト を作ったら無事マージしてもらえて、今は、`with`で Time Zone の指定ができます💪
+https://github.com/gr2m/merge-schedule-action/pull/29
+:::
+
 
 この状態でプルリクエストをオープンし、起動されている GitHub Actions をみてみます。
 
@@ -100,18 +105,18 @@ https://github.com/gr2m/merge-schedule-action/pull/29
 ![](https://storage.googleapis.com/zenn-user-upload/phk5d1q2y6lvi43bpiki6yjjoukx)
 
 あとは、その指定時間がくるとプルリクエストがマージされ記事が投稿されます。
-便利!
+便利！
 
 :::message
-Merge Schedule の CI が投稿完了まで終わらないので、GitHub Actions の無料枠を余裕で超えてしまう？　と思ったのですが、それは大丈夫でした。GitHub Actions の時間計測のものとは別枠で動いているようです。
+Merge Schedule の CI が投稿完了まで終わらないので、GitHub Actions の無料枠を余裕で超えてしまう？　と思ったのですが、それは大丈夫でした。GitHub Actions の時間計測のものとは別枠のようです。
 :::
 
 ## その他注意
-[merge-schedule](https://github.com/marketplace/actions/merge-schedule)の GitHub Actions がどのように動いているのかを確認したら、以下のようなコードになっていました。
+[merge-schedule](https://github.com/marketplace/actions/merge-schedule)の GitHub Actions がどのように動いているのかを確認したら、以下のようになっていました。
 
 https://github.com/gr2m/merge-schedule-action/blob/master/lib/handle_schedule.js
 
-注目するのは処理で、
+注目するのは以下処理で、
 
 ```js
   // ...
@@ -121,7 +126,7 @@ https://github.com/gr2m/merge-schedule-action/blob/master/lib/handle_schedule.js
   // ...
 ```
 
-どうやら、cronでのActions 実行時点で、scheduleDate を経過しているプルリクエストを抽出してマージ実行対象とするようです。
+どうやら、cron での Actions 実行時点で、scheduleDate を経過しているプルリクエストを抽出してマージ実行対象とするようです。
 
 なので、もし分単位の公開指定をしたい場合は、GitHub Actions の cron の指定を変える必要があります。
 サンプルの例だと`cron: 0 * * * *`で、1 時間に 1 回しか実行されません。
@@ -137,4 +142,4 @@ https://github.com/gr2m/merge-schedule-action/blob/master/lib/handle_schedule.js
 以上「GitHub Action で Zenn の予約投稿を実現する」でした。
 こういう応用が効くのも Zenn の良さですね。
 
-自分のライフサイクル的に朝記事を書きあげることが多いので、予約投稿はとても欲しかった機能でした。今後もこの機能を使って色々記事を書いていきたいです。
+自分のライフサイクル的に朝記事を書きあげることが多いので、予約投稿はとても欲しかった機能でした。来月からスタートするアドベントカレンダーでも使えると思うので是非！
