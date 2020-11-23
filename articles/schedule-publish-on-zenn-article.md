@@ -104,10 +104,6 @@ $ git push --set-upstream origin introduce-xvim2
 
 ![](https://storage.googleapis.com/zenn-user-upload/sqhgn9jmh600y1wcyks7rk30ft10)
 
-:::message
-Merge Schedule の CI が投稿完了まで終わらないので「GitHub Actions の無料枠を余裕で超えてしまう？」と思ったのですが、それは大丈夫でした。GitHub Actions の時間計測のものとは別枠のようです。
-:::
-
 # 注意点
 
 [merge-schedule](https://github.com/marketplace/actions/merge-schedule) の GitHub Actions がどのように動いているのかを確認したら、以下のようになっていました。
@@ -117,13 +113,12 @@ Merge Schedule の CI が投稿完了まで終わらないので「GitHub Action
 注目するのは以下処理です。
 
 ```js
-// ...
 const duePullRequests = pullRequests.filter(
-  (pullRequest) => new Date(pullRequest.scheduledDate) < new Date()
+  (pullRequest) => new Date(pullRequest.scheduledDate) < localeDate()
 );
 ```
 
-どうやら、cron での GitHub Actions 実行時点で、scheduleDate を経過しているプルリクエストを抽出してマージ実行対象とするようです。
+どうやら、cron での GitHub Actions 実行時点で、description 記載の実行日時を経過しているプルリクエストを抽出してマージ実行対象とするようです。
 
 なので、**厳密に Descriptions に記載した日時にマージされるのではなく、cron での CI 実行時間により左右**されます。
 
