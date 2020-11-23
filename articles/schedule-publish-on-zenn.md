@@ -10,15 +10,15 @@ published: false
 
 # 仕組み
 
-予約投稿の仕組みは記事追加のプルリクエストの日時指定のマージです。
+予約投稿の仕組みは記事追加の**プルリクエストの日時指定のマージ**です。
 その実現のために`Merge Schedule`という GitHub Action を利用します。
 
 https://github.com/marketplace/actions/merge-schedule
 
 動きとしては以下の通りです。
 
-1. ブランチを切り、公開したい記事を執筆。プルリクエストを作成
-2. プルリクエストをフックに GitHub Actions が起動。Schedule Merge を登録
+1. ブランチを切り、公開したい記事を追加。プルリクエストを作成
+2. GitHub Actions が起動し、Merge Schedule が登録
 3. 日時指定でプルリクエストがマージされて master が更新
 4. Zenn で記事が公開
 
@@ -79,14 +79,13 @@ $ git commmit -m "feat: introduce-xvim2"
 $ git push --set-upstream origin introduce-xvim2
 ```
 
-この時に Descriptions に以下のように ISO 形式で投稿したい日付を入力してください。これがマージ実行日時となります。
+そして、プルリクエスト 作成の際の Descriptions に以下のように ISO 形式で投稿したい日付を入力してください。これがマージ実行日時となります。
 
 :::message
 当初、merge-schedule は、UTC 標準日時で設定されるというものでした。
-それぞれの time zone で設定できると便利かなと思い、PR を作ったら無事マージしてもらえました。今は、`with`で time zone を設定すれば、それぞれの time zone で実行できます。
+それぞれの time zone で設定できると便利かなと思い プルリクエスト を作ったら無事マージしてもらえて、今は、`with`で time zone を設定すれば、それぞれの time zone で実行できます💪
 https://github.com/gr2m/merge-schedule-action/pull/29
 :::
-
 
 ```
 /schedule 2020-11-21T20:00
@@ -101,15 +100,18 @@ https://github.com/gr2m/merge-schedule-action/pull/29
 ![](https://storage.googleapis.com/zenn-user-upload/phk5d1q2y6lvi43bpiki6yjjoukx)
 
 あとは、その指定時間がくるとプルリクエストがマージされ記事が投稿されます。
+便利!
 
 :::message
 Merge Schedule の CI が投稿完了まで終わらないので、GitHub Actions の無料枠を余裕で超えてしまう？　と思ったのですが、それは大丈夫でした。GitHub Actions の時間計測のものとは別枠で動いているようです。
 :::
 
 ## その他注意
-[merge-schedule](https://github.com/marketplace/actions/merge-schedule)の GitHub Actions がどのように動いているのか確認したら、以下のようなコードになっていました。
+[merge-schedule](https://github.com/marketplace/actions/merge-schedule)の GitHub Actions がどのように動いているのかを確認したら、以下のようなコードになっていました。
 
 https://github.com/gr2m/merge-schedule-action/blob/master/lib/handle_schedule.js
+
+注目するのは処理で、
 
 ```js
   // ...
@@ -119,7 +121,7 @@ https://github.com/gr2m/merge-schedule-action/blob/master/lib/handle_schedule.js
   // ...
 ```
 
-どうやら、CI 実行時点で、scheduleDate がすぎているものを抽出してマージ実行対象とするようです。
+どうやら、cronでのActions 実行時点で、scheduleDate を経過しているプルリクエストを抽出してマージ実行対象とするようです。
 
 なので、もし分単位の公開指定をしたい場合は、GitHub Actions の cron の指定を変える必要があります。
 サンプルの例だと`cron: 0 * * * *`で、1 時間に 1 回しか実行されません。
@@ -127,7 +129,7 @@ https://github.com/gr2m/merge-schedule-action/blob/master/lib/handle_schedule.js
 
 もし、ぴったり 45 分に実行して欲しい場合は cron の指定を`45 * * * *`とするか、`0/15 * * * *`, `* * * * *`実行などに変更する必要があります。
 
-ただ、このようにするとその分 GitHub Actions が実行されるので、 予約投稿日時によっては GitHub Actions の実行時間の無料枠を超過する可能性があることに注意してください。
+ただ、このようにするとその分 GitHub Actions が実行されるので、 予約投稿日時によっては **GitHub Actions の実行時間の無料枠を超過する可能性がある** ことに注意してください。
 
 
 # おわりに
