@@ -53,7 +53,7 @@ jobs:
   merge_schedule:
     runs-on: ubuntu-latest
     steps:
-      - uses: gr2m/merge-schedule-action@v1.2.4
+      - uses: gr2m/merge-schedule-action@v1.*
         with:
           time_zone: "Asia/Tokyo"
         env:
@@ -81,9 +81,10 @@ $ git push --set-upstream origin introduce-xvim2
 
 この時に Descriptions に以下のように ISO 形式で投稿したい日付を入力してください。これがマージ実行日時となります。
 
-:::message alert
-、UTC 標準日時で設定するというのに気づかず、「全然マージされん🤔」と悩みました。
-必ず UTC 標準日時に直して（-9 時間）設定してください。
+:::message
+当初、merge-schedule は、UTC 標準日時で設定されるというものでした。
+それぞれの time zone で設定できると便利かなと思い、PR を作ったら無事マージしてもらえました。今は、`with`で time zone を設定すれば、それぞれの time zone で実行できます。
+https://github.com/gr2m/merge-schedule-action/pull/29
 :::
 
 
