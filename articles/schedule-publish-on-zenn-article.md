@@ -63,7 +63,7 @@ jobs:
 
 :::message
 上記コードでは`gr2m/merge-schedule-actio`のバージョンをコミット指定にしています。このコミットは私が `gr2m/merge-schedule-actio` に送った Time Zone 対応の PR がマージされたときのコミットです。2020/11/23 時点で、このコミットが最新のリリースに取り込まれていないので、このような指定としています。
-（この変更がないと UTC 標準時での時刻指定が必要になります）。
+（この変更がないと UTC 標準時での時刻指定が必要になります）
 https://github.com/gr2m/merge-schedule-action/pull/29
 :::
 
