@@ -89,6 +89,7 @@ $ git push --set-upstream origin introduce-xvim2
 ```
 /schedule 2020-11-21T20:00
 ```
+![](https://storage.googleapis.com/zenn-user-upload/vlkeslydv0dlcw10ejsg3ebj1t9n)
 
 この状態でプルリクエストをオープンし、起動されている GitHub Actions をみてみます。
 
