@@ -91,7 +91,7 @@ $ git push --set-upstream origin introduce-xvim2
 ```
 ![](https://storage.googleapis.com/zenn-user-upload/vlkeslydv0dlcw10ejsg3ebj1t9n)
 
-この状態でプルリクエストをオープンし、起動されている GitHub Actions をみてみます。
+この状態でプルリクエストをオープンし、起動されている GitHub Actions をみてみます。ワークフローが起動していますね。
 
 ![](https://storage.googleapis.com/zenn-user-upload/sn2p1i10c090ykys61xe1me7band)
 
