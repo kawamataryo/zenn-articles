@@ -105,7 +105,7 @@ $ git push --set-upstream origin introduce-xvim2
 Merge Schedule の CI が投稿完了まで終わらないので「GitHub Actions の無料枠を余裕で超えてしまう？」と思ったのですが、それは大丈夫でした。GitHub Actions の時間計測のものとは別枠のようです。
 :::
 
-## その他注意
+# 注意点
 
 [merge-schedule](https://github.com/marketplace/actions/merge-schedule) の GitHub Actions がどのように動いているのかを確認したら、以下のようになっていました。
 
