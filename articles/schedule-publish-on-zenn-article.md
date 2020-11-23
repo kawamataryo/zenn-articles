@@ -110,7 +110,7 @@ Merge Schedule の CI が投稿完了まで終わらないので「GitHub Action
 
 [merge-schedule](https://github.com/marketplace/actions/merge-schedule) の GitHub Actions がどのように動いているのかを確認したら、以下のようになっていました。
 
-https://github.com/gr2m/merge-schedule-action/blob/master/lib/handle_schedule.js
+[https://github.com/gr2m/merge-schedule-action/blob/master/lib/handle_schedule.js](https://github.com/gr2m/merge-schedule-action/blob/master/lib/handle_schedule.js)
 
 注目するのは以下処理です。
 
