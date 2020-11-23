@@ -9,18 +9,20 @@ published: false
 せっかく Apple Watch を持っているので何かアプリを作りたいと思い、Swift UI を勉強中です。
 最初に修作として作ったタイマーアプリの作り方をまとめます。
 
-本業は Web フロントエンドなので、Swift 自体が初めてです。間違い等あれば、気軽にコメントいただけると嬉しいです🙏
+※ 本業は Web フロントエンドなので、Swift 自体が初めてです。間違い等あれば、気軽にコメントいただけると嬉しいです🙏
 
 # 作るもの
 
 簡単なタイマーアプリを作ります。
 ピッカーで秒数を選んで`GO`を押すと、タイマーが起動して、設定された秒数が経過すると、通知音とともにタイマーが終了します。
 
+![](https://storage.googleapis.com/zenn-user-upload/a7e94acmr5dezah6fy4oyf3ql7zf)
+
 
 # 1. Xcode プロジェクトのスタート
 
 Xcode を開き `Create a new Xcode project` で新しいプロジェクトを作成します。
-最初の画面で何を作るのか選択できるので、Watch App を選択して Next を押します。 
+最初の画面で何を作るのか選択できるので、Watch App を選択して Next を押します。
 ![](https://storage.googleapis.com/zenn-user-upload/gdcekhgj81z337f83pddzfbe0gxj)
 
 適当に Product Name などを埋めていきます。
@@ -41,12 +43,12 @@ Xcode を開き `Create a new Xcode project` で新しいプロジェクトを�
 
 ```swift
 struct ContentView: View {
-    @State var timerVal = 1
+    @State var timeVal = 1
 
     var body: some View {
         VStack {
-            Text("Timer \(timerVal) seconds").font(.body)
-            Picker(selection: $timerVal, label: Text("")) {
+            Text("Timer \(self.timeVal) seconds").font(.body)
+            Picker(selection: self.$timeVal, label: Text("")) {
                     Text("1").tag(1).font(.title2)
                     Text("5").tag(5).font(.title2)
                     Text("10").tag(10).font(.title2)
@@ -79,7 +81,7 @@ Swift UI では、Vue や React のように宣言的 UI でアプリの画面�
 以下コードの場合は、Text というコンポーネントの Struct を`()`内のテキストで初期化し、`.font`でフォントサイズを設定している感じです。
 
 ```swift
-Text("Timer \(timerVal) seconds").font(.body)
+Text("Timer \(timeVal) seconds").font(.body)
 ```
 
 # 3. Timer画面への移動
@@ -90,10 +92,10 @@ Text("Timer \(timerVal) seconds").font(.body)
 ```swift
 struct TimerView: View {
     @Binding var timerScreenShow:Bool
-    @State var timerVal:Int
+    @State var timeVal:Int
 
     var body: some View {
-        Text("\(timerVal)")
+        Text("\(self.timeVal)")
     }
 }
 ```
@@ -103,13 +105,13 @@ struct TimerView: View {
 
 ```swift
 struct ContentView: View {
-    @State var timerVal = 1
+    @State var timeVal = 1
     @State var timerScreenShow:Bool = false
 
     var body: some View {
         VStack {
-            Text("Timer \(timerVal) seconds").font(.body)
-            Picker(selection: $timerVal, label: Text("")) {
+            Text("Timer \(self.timeVal) seconds").font(.body)
+            Picker(selection: self.$timeVal, label: Text("")) {
                     Text("1").tag(1).font(.title2)
                     Text("5").tag(5).font(.title2)
                     Text("10").tag(10).font(.title2)
@@ -117,8 +119,8 @@ struct ContentView: View {
                     Text("60").tag(60).font(.title2)
                 }
             NavigationLink(
-                destination: TimerView(timerScreenShow: $timerScreenShow, timerVal: timerVal),
-                isActive: $timerScreenShow,
+                destination: TimerView(timerScreenShow: self.$timerScreenShow, timeVal: self.timeVal),
+                isActive: self.$timerScreenShow,
                 label: {
                     Text("Start")
                 })
@@ -130,7 +132,7 @@ struct ContentView: View {
 ポイントは、`Button`を`NavigationLink`に変更して、TimerView への遷移を実行している点です。
 また、そのために`@State`として、`timerScreenShow`を宣言しています。
 
-`timerScreenShow`と、`timerVal`は`NavigationLink`にて、`TimerView`を初期化する際に、引数として渡しています。
+`timerScreenShow`と、`timeVal`は`NavigationLink`にて、`TimerView`を初期化する際に、引数として渡しています。
 
 この状態でプレビューを起動すると以下のような画面になります。
 ちゃんと`TimerView`に遷移していますね。
@@ -146,16 +148,16 @@ struct ContentView: View {
 ```swift
 struct TimerView: View {
     @Binding var timerScreenShow:Bool
-    @State var timerVal:Int
+    @State var timeVal:Int
 
     var body: some View {
-        if timerVal > -1 {
+        if timeVal > -1 {
         VStack {
-            Text("\(timerVal)").font(.system(size: 40))
+            Text("\(self.timeVal)").font(.system(size: 40))
                 .onAppear() {
                     Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
-                        if self.timerVal > -1 {
-                            self.timerVal -= 1
+                        if self.timeVal > -1 {
+                            self.timeVal -= 1
                         }
                     }
                 }
@@ -182,13 +184,13 @@ struct TimerView: View {
 }
 ```
 
-いきなりコードが増えたのですが、一つづつ説明します。
+いきなりコードが増えたのですが、1つづつ説明します。
 
-最初のif文の分岐では`ContentView`から受け取った`timerVal`の値によってViewを切り分けています。
+最初の if 文の分岐では`ContentView`から受け取った`timeVal`の値によって View を切り分けています。
 これは、タイマー終了時の画面を表示するためです。
 
 ```swift
-if timerVal > -1 {
+if timeVal > -1 {
   // ...
 } else {
   //...
@@ -196,17 +198,17 @@ if timerVal > -1 {
 ```
 
 次にタイマー部分のコードです。
-タイマー部分では、`timerVal`の値を表示しながら、`onApper()`で、表示時に`Timer.scheduledTimer`を実行して、1秒ごとに`timerVal`の値をディクリメントしていきます。
+タイマー部分では、`timeVal`の値を表示しながら、`onApper()`で、表示時に`Timer.scheduledTimer`を実行して、1 秒ごとに`timeVal`の値をディクリメントしていきます。
 
-Swift UIでは、`@State` や `@Binding` で宣言した変数が変化すると、Viewが再描画されるのでこれだけで、タイマーが実装できます。
+Swift UI では、`@State` や `@Binding` で宣言した変数が変化すると、View が再描画されるのでこれだけで、タイマーが実装できます。
 
 
 ```swift
-Text("\(timerVal)").font(.system(size: 40))
+Text("\(self.timeVal)").font(.system(size: 40))
     .onAppear() {
         Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
-            if self.timerVal > -1 {
-                self.timerVal -= 1
+            if self.timeVal > -1 {
+                self.timeVal -= 1
             }
         }
     }
@@ -216,7 +218,7 @@ Text("\(timerVal)").font(.system(size: 40))
 `Button`コンポーネントに`onAppear()`で、`WKInterfaceDevice.current().play(.notification)`を実行しています。これは完了を音で知らせるための通知音です。
 
 また、`action`として`self.timerScreenShow`に`false`を代入しています。
-これでDone!のボタンを押すと最初の画面に遷移する動きが実現できています。
+これで Done!のボタンを押すと最初の画面に遷移する動きが実現できています。
 
 ```swift
 Button(action: {
@@ -234,20 +236,23 @@ Button(action: {
 
 ![](https://storage.googleapis.com/zenn-user-upload/dq723lu2h7bwek3ruykvyph47zjd)
 
-タイマー機能の完成です🎉
+タイマー機能が完成ですね。
 
 
 # UIの改善
 
-今のままでも、タイマーとして機能するのですが、もうちょっと見栄えをよくしたいですよね。
-プラスアルファとして、Apple Watchでよくみる進捗バーを追加してみます。
+今のままでも、タイマーとして機能するのですが、ちょっとまだ画面がシンプルすぎますよね。
+プラスアルファとして、Apple Watch でよくみる進捗バーを追加してみます。
 
-最初にバー部分を別Viewで実装します。
+最初にバー部分を別 View で実装します。
+
+要素を重なりで配置する`ZStack`で、円を作る`Circle`を 2 つ重ねて実装しています。
+引数として受け取るのは、初期値である`initial`と、進捗である`progress`です。
 
 ```swift
 struct ProgressBar: View {
-    var progress: Int
-    var initialTime: Int
+    let progress: Int
+    let initial: Int
 
     var body: some View {
         ZStack {
@@ -256,7 +261,7 @@ struct ProgressBar: View {
                 .opacity(0.3)
                 .foregroundColor(Color.red)
             Circle()
-                .trim(from: 0.0, to: CGFloat(min(Float(self.progress) / Float(self.initialTime), 1.0)))
+                .trim(from: 0.0, to: CGFloat(min(Float(self.progress) / Float(self.initial), 1.0)))
                 .stroke(style: StrokeStyle(lineWidth: 15.0, lineCap: .round, lineJoin: .round))
                 .foregroundColor(Color.red)
                 .rotationEffect(Angle(degrees: 270.0))
@@ -266,6 +271,64 @@ struct ProgressBar: View {
 }
 ```
 
-# 分からないところ
-- View のストラクトの中にローカルのオブジェクトを作る
-- Timer アプリの
+これを`TimerView`に組み込みます。
+Timer の値を`Text`で表示している部分を`ZStack`で囲み、先ほどの ProgressBar を表示しています。
+また、初期値設定用の`initialTime`というプロパティを新たに追加しています。
+
+```swift
+struct TimerView: View {
+    @Binding var timerScreenShow:Bool
+    @State var timeVal:Int
+    let initialTime:Int
+
+    var body: some View {
+        if timeVal > -1 {
+            VStack {
+                ZStack {
+                    Text("\(self.timeVal)").font(.system(size: 40))
+                        .onAppear() {
+                            Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
+                                if self.timeVal > -1 {
+                                    self.timeVal -= 1
+                                }
+                            }
+                        }
+                    ProgressBar(progress: self.timeVal, initial: self.initialTime).frame(width: 90.0, height: 90.0)
+                }
+                Button(action: {
+                    self.timerScreenShow = false
+                }, label: {
+                    Text("Cancel")
+                        .foregroundColor(Color.red)
+                })
+                .padding(.top)
+            }
+        } else {
+            Button(action: {
+                self.timerScreenShow = false
+            }, label: {
+                Text("Done!")
+                    .font(.title)
+                    .foregroundColor(Color.green)
+            }).onAppear() {
+                WKInterfaceDevice.current().play(.notification)
+            }
+        }
+    }
+}
+```
+
+`initialTime`は、`ContentView`で`TimerView`を描画するときに渡します。
+
+```swift
+destination: TimerView(timerScreenShow: self.$timerScreenShow, timeVal: self.timeVal, initialTime: self.timeVal),
+```
+
+
+この状態でプレビューをみると、タイマーの数値に合わせて良い感じにバーの状態も変わるはずです。
+
+![](https://storage.googleapis.com/zenn-user-upload/vxe63y5c3tomq20x6ow416mmjphc)
+
+これでタイマーアプリの完成です 🎉
+
+# おわりに
