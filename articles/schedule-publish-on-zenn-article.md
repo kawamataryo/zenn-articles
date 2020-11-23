@@ -2,7 +2,7 @@
 title: "GitHub ActionsでZenn記事の予約投稿を実現する"
 emoji: "📆"
 type: "tech" # tech: 技術記事 / idea: アイデア
-topics: ["GitHub", "GitHubAction", "zenn", "ci"]
+topics: ["GitHub", "GitHubActions", "zenn", "ci"]
 published: true
 ---
 
