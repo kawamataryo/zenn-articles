@@ -6,7 +6,7 @@ topics: ["Swift", "SwiftUI", "watchOS", "AppleWatch"]
 published: true
 ---
 
-せっかく Apple Watch を持っているので何かアプリを作りたいと思い、Swift UI を勉強中です。 Swift UI の入門として作ったタイマーアプリについてチュートリアル形式でまとめます。
+せっかく Apple Watch を持っているので何かアプリを作りたいと思い Swift UI を勉強中です。 Swift UI の入門として作ったタイマーアプリについてチュートリアル形式でまとめます。
 
 ※ 本業は Web フロントエンドなので、Swift 自体が初めてです。間違い等あれば、気軽にコメントいただけると嬉しいです🙏
 
