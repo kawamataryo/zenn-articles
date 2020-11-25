@@ -343,8 +343,7 @@ destination: TimerView(timerScreenShow: self.$timerScreenShow, timeVal: self.tim
 # おわりに
 以上「はじめての Swift UI × watchOS 〜タイマーアプリを作る〜」でした。
 
-View の構築については、Vue, React で慣れ親しんだ宣言的 UI なので あまり抵抗なく実装出来そうです。
-ただ、他のビルドやメモリ処理、データの永続化、ネイティブ API の使い方はまだ何もわかりません😅
+View の構築については、Vue, React で慣れ親しんだ宣言的 UI なので あまり抵抗なく実装出来そうです。ただ、他のビルドやメモリ処理、データの永続化、ネイティブ API の使い方はまだ何もわかりません😅
 
 これから他のアプリを作っていく段階で色々勉強していきたいです。
 
