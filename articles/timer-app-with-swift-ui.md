@@ -1,14 +1,14 @@
 ---
-title: "Swift UI で作る watchOS App. タイマーアプリ Tutorial"
+title: "はじめての Swift UI × watchOS App 〜タイマーアプリを作る〜"
 emoji: "⏰"
 type: "tech"
 topics: ["Swift", "SwiftUI", "watchOS", "AppleWatch"]
 published: true
 ---
 
-せっかく Apple Watch を持っているので何かアプリを作りたいと思い、Swift UI を勉強中です。 最初に Swift UI の入門として作ったアプリについてチュートリアル形式でまとめます。
+せっかく Apple Watch を持っているので何かアプリを作りたいと思い、Swift UI を勉強中です。 Swift UI の入門として作ったタイマーアプリについてチュートリアル形式でまとめます。
 
-※ 私の本業は Web フロントエンドなので、Swift 自体が初めてです。間違い等あれば、気軽にコメントいただけると嬉しいです🙏
+※ 本業は Web フロントエンドなので、Swift 自体が初めてです。間違い等あれば、気軽にコメントいただけると嬉しいです🙏
 
 # 作るもの
 
@@ -219,6 +219,11 @@ Text("\(self.timeVal)").font(.system(size: 40))
     }
 ```
 
+:::message
+ここの実装は若干難があり、このままだとキャンセル時などにでも、タイマーがバックグラウンドで動いたままになってしまいます。
+たぶん`Timer.scheduledTimer`の戻り値を変数で保持して、画面遷移維持に`invalidate()`でタイマーの破棄を行う必要がありそうです。
+:::
+
 最後に、完了部分のコードです。
 `Button`コンポーネントに`onAppear()`で、`WKInterfaceDevice.current().play(.notification)`を実行しています。これは完了を音で知らせるための通知音の起動です。
 
@@ -336,12 +341,12 @@ destination: TimerView(timerScreenShow: self.$timerScreenShow, timeVal: self.tim
 これでタイマーアプリの完成です 🎉
 
 # おわりに
-以上「Swift UI で作る watchOS　App. タイマーアプリ Tutorial」でした。
+以上「はじめての Swift UI × watchOS App 〜タイマーアプリを作る〜」でした。
 
 Swift UI というか Swift、Xcode 自体初めてなので、色々新鮮でした。
 ただ View の構築については、Vue, React で慣れ親しんだ宣言的 UI なので あまり抵抗なく実装出来そうです。
 
-これからステップアップして色々ネイティブの機能を使ったアプリを作っていきたいと思います！
+これからステップアップして色々ネイティブの機能を使ったアプリを作っていきたいです。
 
 
 # 参考
