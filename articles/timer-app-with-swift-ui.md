@@ -1,6 +1,6 @@
 ---
 title: "はじめての Swift UI × watchOS 〜タイマーアプリを作る〜"
-emoji: "⏰"
+emoji: "⌚"
 type: "tech"
 topics: ["Swift", "SwiftUI", "watchOS", "AppleWatch"]
 published: true
