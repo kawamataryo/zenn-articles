@@ -1,5 +1,5 @@
 ---
-title: "はじめての Swift UI × watchOS App 〜タイマーアプリを作る〜"
+title: "はじめての Swift UI × watchOS 〜タイマーアプリを作る〜"
 emoji: "⏰"
 type: "tech"
 topics: ["Swift", "SwiftUI", "watchOS", "AppleWatch"]
@@ -341,12 +341,12 @@ destination: TimerView(timerScreenShow: self.$timerScreenShow, timeVal: self.tim
 これでタイマーアプリの完成です 🎉
 
 # おわりに
-以上「はじめての Swift UI × watchOS App 〜タイマーアプリを作る〜」でした。
+以上「はじめての Swift UI × watchOS 〜タイマーアプリを作る〜」でした。
 
-Swift UI というか Swift、Xcode 自体初めてなので、色々新鮮でした。
-ただ View の構築については、Vue, React で慣れ親しんだ宣言的 UI なので あまり抵抗なく実装出来そうです。
+View の構築については、Vue, React で慣れ親しんだ宣言的 UI なので あまり抵抗なく実装出来そうです。
+ただ、他のビルドやメモリ処理、データの永続化、ネイティブ API の使い方はまだ何もわかりません😅
 
-これからステップアップして色々ネイティブの機能を使ったアプリを作っていきたいです。
+これから他のアプリを作っていく段階で色々勉強していきたいです。
 
 
 # 参考
