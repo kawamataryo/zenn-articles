@@ -6,18 +6,19 @@ topics: ["Gatsby.js", "JavaScript", "React"]
 published: false
 ---
 
-最近は Next.js が凄い勢いで進化していますが、Gatsby.js も負けず劣らず新しい機能や API が公開されています。
+最近は [Next.js](https://nextjs.org/) が凄い勢いで進化していますが、[Gatsby.js](https://www.gatsbyjs.com/) も負けず劣らず新しい機能や API が公開されています。
 
-今回は先月公開された新しい File System Route API について紹介します。
+今回は先月公開された新しい [File System Route API](https://www.gatsbyjs.com/docs/file-system-route-api/) について紹介します。
 
 # File System Route APIとは？
 
-File System Route API は、ブログの個別ページなど同レイアウトだけどデータが異なるページを作る際に、ファイルの名前に特定の表記をつけることで動的にページを生成する API です。
-今までは `gatsby-node.js` の `createPages` で行ってたことを代替するものですね。
+File System Route API は、ブログの個別ページなど同レイアウトだけどデータが異なるページを作る際に、ファイルの名前に特定の表記をつけることで動的にページを生成する API です。今までは `gatsby-node.js` で `createPages` で行ってたことを代替できます。
 
-次項で旧来の API と比較をしながら解説していきます。
+https://www.gatsbyjs.com/docs/file-system-route-api/
+
 
 # 旧来の方式とFile System Route APIの比較
+旧来の API と比較をしながら File System Route API の機能を解説していきます。
 
 ## 旧来の方式（createPages）の場合
 最初に旧来の方式で、ブログ詳細ページを作る方法を確認します。
@@ -60,7 +61,7 @@ exports.createPages = async ({ graphql, actions }) => {
 };
 ```
 
-そして、`createPage`でデータを挿入する templatePage では以下のように、`createPage`時に渡す`context`から ID を受け取り、描画に必要なデータを取得して表示する必要があります。
+そして、`createPage`でデータを挿入するテンプレートページでは以下のように、`createPage`時に渡す`context`から ID を受け取り、描画に必要なデータを取得して表示します。
 
 ```jsx:templates/post.jsx
 import React from "react";
@@ -83,19 +84,22 @@ export const query = graphql`
 export default BlogSinglePage;
 ```
 
-ただ動的なページを作りたいだけに、`gatsby-node.js`、テンプレートのページ両方を書く必要があるのが地味に複雑で面倒ですよね。
+以上が旧来の動的なページ生成方法です。
+
+ただ動的にページを作りたいだけなのに`gatsby-node.js`に処理を書く必要があるのが地味に面倒ですよね。
 
 # File System Route APIの場合
 
-次はFile System Route APIの場合です。
-File System Route API では `{ }`でファイル名を囲み、ファイル名として取得したいリソースを書くことで、今まで`gatsby-node.js`で行ってきたページの生成処理を自動的に行うことができます。
+次は File System Route API の場合です。
 
-例えば、先ほどと同様Wordpressの投稿データからページを作る場合は
+File System Route API では `{ }`でファイル名を囲み、ファイル名に取得したいリソースを書くことで、今まで`gatsby-node.js`で行ってきた動的なページの生成処理を行うことができます。
+
+例えば、先ほどと同様 Wordpress の投稿データからページを作る場合は
 
 `{WpPost.id}.jsx`
 
 というファイル名で`pages`ディレクトリにファイルを配置します。
-こうすることで内部的には旧来の`createPages`で読んでいたクエリと同様の以下クエリが発行されます。
+こうすることで Gatsby.js のビルド時に内部的には旧来の`createPages`で読んでいたクエリと同様の以下クエリが発行されます。
 
 ```graphql
 allWpPost {
@@ -105,7 +109,7 @@ allWpPost {
 }
 ```
 
-そしてその戻り値を今まで `createPage` の `context` で渡していた値と同様に、詳細ページのテンプレート（`{WpPost.id}.jsx`）で使うことができます。
+そしてその結果で動的にページを生成し、GraphQL クエリの戻り値を今まで `createPage` の `context` で渡していた値と同様に、詳細ページのテンプレート（`{WpPost.id}.jsx`）で使うことができます。
 
 今回の例だと`{WpPost.id}.jsx`は以下のようなコードとなります。
 ファイルの配置場所が、`templates`から`pages`に移動しただけでファイルの内容は変わりませんね。
@@ -141,6 +145,7 @@ export default BlogSinglePage;
 - リソース名は lowercase または uppercase とする
 - `.`でつないで取得したいフィールド名を記載する
 - 第一階層以降のフィールドを指定したい場合は、`__`でフィール名を繋ぐ
+- [GraphQLのユニオンタイプ](https://graphql.org/learn/schema/#union-types)を使いたい場合は`()`ユニオンタイプ名を囲む
 
 例えば、投稿の `author` の `id` を基準としてページを生成したい場合は、以下のようなファイル名とします。
 
@@ -161,9 +166,22 @@ allWpPost {
 
 さらに深い階層にあるフィールドでも`__`で繋いでいくことで取得できます。
 
+
+# 諸注意
+
+File System Route API では、取得したリソースの分だけページを生成してしまいます。
+例えば、「特定の ID のページだけ作りたい」「published が false のページは作りたくない」などのように生成するページをフィルタリングすることはできません。
+
+その場合は、まだ `gatsby-node.js` で `createPages` を使ってページを生成する必要があります。
+
 # 終わりに
-以上、「Gatsby.jsの新しいFile System Route APIを試してみた」でした。
-Nuxt.jsや、Next.jsと同じようにファイル名を変えることで動的なページの生成が出来るのは便利ですね。
+
+以上、「Gatsby.js の新しい File System Route API を試してみた」でした。
+Nuxt.js や、Next.js と同じようにファイル名を変えることで動的なページの生成が出来るのは便利ですね。
+
+今回紹介できなかったのですが、Gatsby.js を SPA 的に使う Client-only-route のページ生成にも`File System Route API`は対応しています。
+
+https://www.gatsbyjs.com/docs/file-system-route-api/#creating-client-only-routes
 
 今後もより進化していくのに期待です。
 
