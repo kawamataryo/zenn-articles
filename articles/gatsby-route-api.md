@@ -1,14 +1,14 @@
 ---
-title: "Gatsby.jsの新しいFile System Route APIを試してみた"
+title: "Gatsby.jsの新機能 File System Route API を試してみた"
 emoji: "👾"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["Gatsby.js", "JavaScript", "React"]
 published: false
 ---
 
-最近は [Next.js](https://nextjs.org/) が凄い勢いで進化していますが、[Gatsby.js](https://www.gatsbyjs.com/) も負けず劣らず新しい機能や API が公開されています。
+最近 [Next.js](https://nextjs.org/) が凄い勢いで進化していますが、同じ React エコシステムの[Gatsby.js](https://www.gatsbyjs.com/) も負けず劣らず新しい機能や API が公開されています。
 
-今回は先月公開された新しい [File System Route API](https://www.gatsbyjs.com/docs/file-system-route-api/) について紹介します。
+今回は先月公開された Gatsby.js の新しい API、 [File System Route API](https://www.gatsbyjs.com/docs/file-system-route-api/) について紹介します。
 
 # File System Route APIとは？
 
@@ -21,10 +21,10 @@ https://www.gatsbyjs.com/docs/file-system-route-api/
 旧来の API と比較をしながら File System Route API の機能を解説していきます。
 
 ## 旧来の方式（createPages）の場合
-最初に旧来の方式で、ブログ詳細ページを作る方法を確認します。
+最初に旧来の方式で、動的にページを生成する方法を確認します。
 
 以下 Wordpress を HeadlessCMS として使う場合のコード例なのですが、
-`gatsby-node.js`の`createPages`のフックで全ての詳細ページを取得する GraphQL クエリを発行して、ページデータを取得、foreach でページデータの個数だけ、 `createPage` を実行するという流れになっています。
+`gatsby-node.js`の`createPages`のフックにて、全ての詳細ページを取得する GraphQL クエリを発行してページデータを取得、foreach でページデータの個数だけ、 `createPage` を実行するという処理が必要です。
 
 ```js:gatsby-node.js
 const path = require("path");
@@ -61,7 +61,7 @@ exports.createPages = async ({ graphql, actions }) => {
 };
 ```
 
-そして、`createPage`でデータを挿入するテンプレートページでは以下のように、`createPage`時に渡す`context`から ID を受け取り、描画に必要なデータを取得して表示します。
+そして、`createPage`でデータを挿入するテンプレートページでは、以下のように`createPage`時に渡す`context`から ID を受け取り、描画に必要なデータを取得して表示します。
 
 ```jsx:templates/post.jsx
 import React from "react";
@@ -84,17 +84,17 @@ export const query = graphql`
 export default BlogSinglePage;
 ```
 
-以上が旧来の動的なページ生成方法です。
+以上が旧来の動的なページの生成方法です。
 
-ただ動的にページを作りたいだけなのに`gatsby-node.js`に処理を書く必要があるのが地味に面倒ですよね。
+ただ動的にページを作りたいだけなのに`gatsby-node.js`に生成処理を書く必要があることのは地味に面倒ですよね。
 
 # File System Route APIの場合
 
 次は File System Route API の場合です。
 
-File System Route API では `{ }`でファイル名を囲み、ファイル名に取得したいリソースを書くことで、今まで`gatsby-node.js`で行ってきた動的なページの生成処理を行うことができます。
+File System Route API では `{ }`でファイル名を囲み、ファイル名に取得したいリソースを書くことで、今まで`gatsby-node.js`で行ってきた動的なページの生成処理を自動で行うことができます。
 
-例えば、先ほどと同様 Wordpress の投稿データからページを作る場合は
+例えば、先程と同様 Wordpress の投稿データからページを作る場合は
 
 `{WpPost.id}.jsx`
 
@@ -135,16 +135,16 @@ export const query = graphql`
 export default BlogSinglePage;
 ```
 
-ファイル名でリソースを指定するだけで、`gatsby-node.js`の処理を丸ごと書かなくてよくなるため、動的にページを生成する手間がだいぶ減ると思います。
+ファイル名でリソースを指定するだけで、`gatsby-node.js`の処理が丸ごと不要になるため、動的にページを生成する手間がだいぶ省けますね。
 
-# Syntax
+# ファイル名のSyntax
 
-先ほど説明した File System Route API でリソース取得に使うファイル名のシンタックスのメモです。
+File System Route API でリソース取得に使うファイル名のシンタックスのメモです。
 
 - ファイル名の全体を`{}`で囲む
 - リソース名は lowercase または uppercase とする
 - `.`でつないで取得したいフィールド名を記載する
-- 第一階層以降のフィールドを指定したい場合は、`__`でフィール名を繋ぐ
+- 第一階層以外のフィールドを指定したい場合は、`__`でフィール名を繋ぐ
 - [GraphQLのユニオンタイプ](https://graphql.org/learn/schema/#union-types)を使いたい場合は`()`ユニオンタイプ名を囲む
 
 例えば、投稿の `author` の `id` を基準としてページを生成したい場合は、以下のようなファイル名とします。
@@ -176,14 +176,14 @@ File System Route API では、取得したリソースの分だけページを�
 
 # 終わりに
 
-以上、「Gatsby.js の新しい File System Route API を試してみた」でした。
+以上、簡単ですが「Gatsby.js の新しい File System Route API を試してみた」でした。
 Nuxt.js や、Next.js と同じようにファイル名を変えることで動的なページの生成が出来るのは便利ですね。
 
 今回紹介できなかったのですが、Gatsby.js を SPA 的に使う Client-only-route のページ生成にも`File System Route API`は対応しています。
 
 https://www.gatsbyjs.com/docs/file-system-route-api/#creating-client-only-routes
 
-今後もより進化していくのに期待です。
+Gatsby.js が今後もより進化していくのに期待です。
 
 # 参考
 - [File System Route API | Gatsby](https://www.gatsbyjs.com/docs/file-system-route-api/)
