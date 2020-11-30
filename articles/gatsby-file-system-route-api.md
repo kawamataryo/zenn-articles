@@ -1,7 +1,7 @@
 ---
 title: "Gatsby.jsの新機能「File System Route API」を試してみる"
 emoji: "🗃"
-type: "tech" # tech: 技術記事 / idea: アイデア
+type: "tech"
 topics: ["Gatsby", "JavaScript", "React"]
 published: true
 ---
@@ -12,6 +12,10 @@ published: true
 最近 [Next.js](https://nextjs.org/) が凄い勢いで進化していますが、同じ React フレームワークの [Gatsby.js](https://www.gatsbyjs.com/) も負けず劣らず新しい機能や API が公開されています。
 
 今回は、先月公開された Gatsby.js の新しい API、 [File System Route API](https://www.gatsbyjs.com/docs/file-system-route-api/) について紹介します。
+
+この記事は以下バージョン時点の情報です。
+
+Gatsby.js: `2.25.4`
 
 # File System Route APIとは？
 
