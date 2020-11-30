@@ -15,7 +15,7 @@ published: true
 
 この記事は以下バージョン時点の情報です。
 
-Gatsby.js: `2.25.4`
+- Gatsby.js: `2.25.4`
 
 # File System Route APIとは？
 
