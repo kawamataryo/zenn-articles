@@ -3,7 +3,7 @@ title: "Gatsby.jsの新機能「File System Route API」を試してみる"
 emoji: "🗃"
 type: "tech"
 topics: ["Gatsby", "JavaScript", "React"]
-published: false
+published: true
 ---
 
 [Jamstack Advent Calendar 2020](https://qiita.com/advent-calendar/2020/jamstack) の 1 日目の記事です。
