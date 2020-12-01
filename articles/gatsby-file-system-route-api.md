@@ -151,7 +151,7 @@ export default BlogSinglePage;
 
 # ファイル名のSyntax
 
-File System Route API でリソース取得に使うファイル名のSyntaxのメモです。
+File System Route API でリソース取得に使うファイル名の Syntax のメモです。
 
 - ファイル名の全体を`{}`で囲む
 - リソース名は lowercase または uppercase とする
@@ -227,12 +227,14 @@ export function createPage(
 }
 ```
 
-`createPagesFromCollectionBuilder` は、`create-pages-from-collection-builder.ts`にあり、以下処理を行ってるようです。
+`createPagesFromCollectionBuilder` は、`create-pages-from-collection-builder.ts`にあり、以下処理を行っています。
 
-1. `collectionExtractQueryString`でパスから GraphQL のクエリー文字列を作成
-2. 作成したクエリー文字列から GraphQL リクエストを実行
+1. `collectionExtractQueryString`でパスから GraphQL のクエリー文字列を生成
+2. 生成したクエリー文字列から GraphQL リクエストを実行
 3. レスポンスの node を検証
-4. node からループで `actions.createPage` を実行してページを作成
+4. node のデータを元に `actions.createPage` を実行してページを作成
+
+このファイルが File System Route API の中心のようです。
 
 https://github.com/gatsbyjs/gatsby/pull/25204/files#diff-cfc298fefff4ec4b5edda6360c015d8a74a5113a3c0fabdc2b7a7ce75e76d93bR14-R58
 
@@ -300,6 +302,7 @@ export async function createPagesFromCollectionBuilder(
 ```
 
 実際の GraphQL クエリーの文字列を組み立ては`collectionExtractQueryString`から呼ばれている`generateQueryFromString` で行われます。
+
 `generateQueryFromString`のテストをみることで、どのようなファイル名から、どのようなクエリー文字列が生成されるのか分かりそうです。
 
 [https://github.com/gatsbyjs/gatsby/blob/d305ee57a58c9d8bdf44e2084ea3e972925b9cb5/packages/gatsby-plugin-page-creator/src/__tests__/extract-query.ts](https://github.com/gatsbyjs/gatsby/blob/d305ee57a58c9d8bdf44e2084ea3e972925b9cb5/packages/gatsby-plugin-page-creator/src/__tests__/extract-query.ts)
