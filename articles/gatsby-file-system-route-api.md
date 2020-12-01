@@ -6,7 +6,7 @@ topics: ["Gatsby", "JavaScript", "React"]
 published: true
 ---
 
-[Jamstack Advent Calendar 2020 - Qiita](https://qiita.com/advent-calendar/2020/jamstack) の 1 日目の記事です。
+[Jamstack Advent Calendar 2020](https://qiita.com/advent-calendar/2020/jamstack) の 1 日目の記事です。
 
 
 最近 [Next.js](https://nextjs.org/) が凄い勢いで進化していますが、同じ React フレームワークの [Gatsby.js](https://www.gatsbyjs.com/) も負けず劣らず新しい機能が追加されています。
@@ -18,7 +18,7 @@ published: true
 
 # File System Route APIとは？
 
-File System Route API は、ブログの個別ページなど同レイアウトだけどデータが異なるページを作る際に、ファイルの名前に特定の表記をつけることで動的にページを生成する API です。今までは `gatsby-node.js` で `createPages` で行ってたことを代替できます。
+File System Route API は、ブログの個別ページなど同レイアウトでデータが異なるページを作る際に、ファイル名を特定の表記とすることで動的にページを生成する API です。今までは `gatsby-node.js` で `createPages` で行ってたことを代替できます。
 
 https://www.gatsbyjs.com/docs/file-system-route-api/
 
@@ -29,8 +29,8 @@ https://www.gatsbyjs.com/docs/file-system-route-api/
 ## 旧来の方式（createPages）の場合
 最初に旧来の方式で、動的にページを生成する方法を確認します。
 
-以下 Wordpress を HeadlessCMS として使う場合のコード例なのですが、
-`gatsby-node.js`の`createPages`のフックにて、全ての詳細ページを取得する GraphQL クエリを発行してページデータを取得、foreach でページデータの個数だけ、`actions.createPage` を実行してページを作成するという処理が必要です。
+以下 Wordpress を HeadlessCMS としてリソースを取得する場合のコード例なのですが、
+`gatsby-node.js`の`createPages`のフックにて、全ての詳細ページを取得する GraphQL クエリを発行してページデータを取得、foreach でページデータの個数だけ、`actions.createPage` を実行してページを作成するという処理を行っています。
 
 ```js:gatsby-node.js
 const path = require("path");
@@ -110,7 +110,8 @@ src
    └── {WpPost.slug}.tsx
 ```
 
-こうすることで Gatsby.js のビルド時に内部的には旧来の`createPages`で読んでいたクエリと同様の以下クエリが発行されます。
+こうすることで Gatsby.js のビルド時、内部的には旧来の`createPages`で読んでいたクエリと同様の以下クエリが発行されます。
+そしてその結果でページが生成されます。
 
 ```graphql
 allWpPost {
@@ -120,10 +121,8 @@ allWpPost {
 }
 ```
 
-そしてその結果で動的にページを生成し、GraphQL クエリの戻り値を今まで `actions.createPage` で `context` に渡していた値と同様に、詳細ページのテンプレート（`{WpPost.id}.jsx`）で使うことができます。
-
-今回の例だと`{WpPost.id}.jsx`は以下のようなコードとなります。
-ファイルの配置場所が、`templates`から`pages`に移動しただけでファイルの内容は変わりませんね。
+今まで `actions.createPage` で `context` に渡していた値と同様に、詳細ページのテンプレート（`{WpPost.id}.jsx`）でページ生成時の GraphQL の戻り値を使うことができます。
+今回の例だと`{WpPost.id}.jsx`は以下のようになります。
 
 ```js:{WpPost.id}.jsx
 import React from 'react';
@@ -146,11 +145,13 @@ export const query = graphql`
 export default BlogSinglePage;
 ```
 
+ファイルの配置場所が`templates`から`pages`に移動し、ファイル名が変わっただけでファイルの内容は変わりません。
+
 ファイル名でリソースを指定するだけで、`gatsby-node.js`の処理が丸ごと不要になるため、動的にページを生成する手間がだいぶ省けますね。
 
 # ファイル名のSyntax
 
-File System Route API でリソース取得に使うファイル名のシンタックスのメモです。
+File System Route API でリソース取得に使うファイル名のSyntaxのメモです。
 
 - ファイル名の全体を`{}`で囲む
 - リソース名は lowercase または uppercase とする
@@ -180,18 +181,19 @@ allWpPost {
 
 # File System Route API の内部実装
 
-せっかくなので File System Route API の内部実装をみてみました。
+最後に、 File System Route API の内部実装を読んでみたのでその紹介です。
 File System Route API が導入された PR はこちらです。
 
 https://github.com/gatsbyjs/gatsby/pull/25204
 
 ここからコードを追ってみます。
 
-まず以下コードで、createPages の処理の中に、ファイル名に`{`を含むかの判定処理を追加して、含む場合は File System Route API の処理（`createPagesFromCollectionBuilder`）を実行しているようです。
+最初にみるべきファイルは`packages/gatsby-plugin-page-creator/src/create-page-wrapper.ts`です。
+createPages の処理の中で、ファイル名に`{`を含むかの判定処理を追加して、含む場合は File System Route API の処理（`createPagesFromCollectionBuilder`）を実行しているようです。
 
 https://github.com/gatsbyjs/gatsby/pull/25204/files#diff-b3684b0053156d0efb3de913e8e58a2fd32aa31972d5ecfe8475a0b082d6e250R36-R46
 
-```ts
+```ts:packages/gatsby-plugin-page-creator/src/create-page-wrapper.ts
 // ...
 
 function pathIsClientOnlyRoute(path: string): boolean {
@@ -225,18 +227,16 @@ export function createPage(
 }
 ```
 
-`createPagesFromCollectionBuilder` では、
+`createPagesFromCollectionBuilder` は、`create-pages-from-collection-builder.ts`にあり、以下処理を行ってるようです。
 
 1. `collectionExtractQueryString`でパスから GraphQL のクエリー文字列を作成
 2. 作成したクエリー文字列から GraphQL リクエストを実行
 3. レスポンスの node を検証
 4. node からループで `actions.createPage` を実行してページを作成
 
-という処理を行っているようです。
-
 https://github.com/gatsbyjs/gatsby/pull/25204/files#diff-cfc298fefff4ec4b5edda6360c015d8a74a5113a3c0fabdc2b7a7ce75e76d93bR14-R58
 
-```ts
+```ts:packages/gatsby-plugin-page-creator/src/create-pages-from-collection-builder.ts
 export async function createPagesFromCollectionBuilder(
   filePath: string,
   absolutePath: string,
@@ -299,30 +299,35 @@ export async function createPagesFromCollectionBuilder(
   // ...
 ```
 
-実際の GraphQL クエリーの文字列を組み立ては、`collectionExtractQueryString` から呼ばれている`generateQueryFromString`で行われてるようです。
+実際の GraphQL クエリーの文字列を組み立ては`collectionExtractQueryString`から呼ばれている`generateQueryFromString` で行われます。
+`generateQueryFromString`のテストをみることで、どのようなファイル名から、どのようなクエリー文字列が生成されるのか分かりそうです。
 
-https://github.com/gatsbyjs/gatsby/pull/25204/files#diff-d776ebb1ceace29323d1fc58a23b78951581c92a6b09aff7c15391dd3faaa54dR14-R53
-
-```ts
+```ts:packages/gatsby-plugin-page-creator/src/__tests__/extract-query.ts
 // ...
-export function generateQueryFromString(
-  queryOrModel: string,
-  fileAbsolutePath: string
-): string {
-  const fields = extractUrlParamsForQuery(fileAbsolutePath)
-  if (queryOrModel.includes(`...CollectionPagesQueryFragment`)) {
-    return fragmentInterpolator(queryOrModel, fields)
-  }
+describe(`extract query`, () => {
+  describe(`root query string`, () => {
+    it(`basic example`, () => {
+      expect(
+        generateQueryFromString(
+          `Thing`,
+          compatiblePath(`/foo/bar/{Thing.id}.js`)
+        )
+      ).toBe(`{allThing{nodes{id}}}`)
+    })
 
-  return `{all${queryOrModel}{nodes{${fields}}}}`
-}
+    it(`works with different file extsnions`, () => {
+      expect(
+        generateQueryFromString(
+          `Thing`,
+          compatiblePath(`/foo/bar/{Thing.id}.tsx`)
+        )
+      ).toBe(`{allThing{nodes{id}}}`)
+    })
+  // ...
+  })
+})
 // ...
 ```
-
-`generateQueryFromString` のテストをみることでどのようなファイル名から、どのようなクエリー文字列が生成されるのか分かりそうです。
-
-[https://github.com/gatsbyjs/gatsby/blob/d305ee57a58c9d8bdf44e2084ea3e972925b9cb5/packages/gatsby-plugin-page-creator/src/__tests__/extract-query.ts](https://github.com/gatsbyjs/gatsby/blob/d305ee57a58c9d8bdf44e2084ea3e972925b9cb5/packages/gatsby-plugin-page-creator/src/__tests__/extract-query.ts)
-
 
 # 終わりに
 
