@@ -20,7 +20,7 @@ published: true
 
 File System Route API は、ブログの個別ページなど同レイアウトでデータが異なるページを作る際に、ファイル名を特定の表記とすることで動的にページを生成する API です。今までは `gatsby-node.js` で `createPages` で行ってたことを代替できます。
 
-https://www.gatsbyjs.com/docs/file-system-route-api/
+https://www.gatsbyjs.com/blog/fs-route-api/
 
 
 # 旧来の方式とFile System Route APIの比較
