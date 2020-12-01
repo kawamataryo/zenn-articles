@@ -67,7 +67,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
 そして、`actions.createPage`でデータを挿入するテンプレートページでは、以下のように`createPage`時に渡す`context`から ID を受け取り、描画に必要なデータを取得して表示します。
 
-```jsx:templates/post.jsx
+```jsx:src/templates/post.jsx
 import React from "react";
 import {graphql} from "gatsby";
 
@@ -124,7 +124,7 @@ allWpPost {
 今まで `actions.createPage` で `context` に渡していた値と同様に、詳細ページのテンプレート（`{WpPost.id}.jsx`）でページ生成時の GraphQL の戻り値を使うことができます。
 今回の例だと`{WpPost.id}.jsx`は以下のようになります。
 
-```js:{WpPost.id}.jsx
+```js:src/pages/{WpPost.id}.jsx
 import React from 'react';
 import {graphql, PageProps} from 'gatsby';
 
