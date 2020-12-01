@@ -9,7 +9,7 @@ published: true
 [Jamstack Advent Calendar 2020 - Qiita](https://qiita.com/advent-calendar/2020/jamstack) の 1 日目の記事です。
 
 
-最近 [Next.js](https://nextjs.org/) が凄い勢いで進化していますが、同じ React フレームワークの [Gatsby.js](https://www.gatsbyjs.com/) も負けず劣らず新しい機能や API が公開されています。
+最近 [Next.js](https://nextjs.org/) が凄い勢いで進化していますが、同じ React フレームワークの [Gatsby.js](https://www.gatsbyjs.com/) も負けず劣らず新しい機能が追加されています。
 
 今回は、先月公開された Gatsby.js の新しい API、 [File System Route API](https://www.gatsbyjs.com/docs/file-system-route-api/) について紹介します。
 
@@ -226,7 +226,7 @@ export function createPage(
 }
 ```
 
-`createPagesFromCollectionBuilder` では、以下コードの通り、
+`createPagesFromCollectionBuilder` では、
 
 1. `collectionExtractQueryString`でパスから GraphQL のクエリー文字列を作成
 2. 作成したクエリー文字列から GraphQL リクエストを実行
@@ -300,11 +300,12 @@ export async function createPagesFromCollectionBuilder(
   // ...
 ```
 
-あと実際の GraphQL クエリーの文字列を組み立てて部分として、`collectionExtractQueryString` から呼ばれている`generateQueryFromString`があります。
+実際の GraphQL クエリーの文字列を組み立ては、`collectionExtractQueryString` から呼ばれている`generateQueryFromString`で行われてるようです。
 
 https://github.com/gatsbyjs/gatsby/pull/25204/files#diff-d776ebb1ceace29323d1fc58a23b78951581c92a6b09aff7c15391dd3faaa54dR14-R53
 
 ```ts
+// ...
 export function generateQueryFromString(
   queryOrModel: string,
   fileAbsolutePath: string
@@ -316,35 +317,7 @@ export function generateQueryFromString(
 
   return `{all${queryOrModel}{nodes{${fields}}}}`
 }
-
-// Takes a query result of something like `{ fields: { value: 'foo' }}` with a filepath of `/fields__value` and
-// translates the object into `{ fields__value: 'foo' }`. This is necassary to pass the value
-// into a query function for each individual page.
-export function reverseLookupParams(
-  queryResults: Record<string, object | string>,
-  absolutePath: string
-): Record<string, string> {
-  const reversedParams = {
-    // We always include id
-    id: (queryResults.nodes ? queryResults.nodes[0] : queryResults).id,
-  }
-
-  absolutePath.split(path.sep).forEach(part => {
-    const extracted = compose(
-      removeFileExtension,
-      extractFieldWithoutUnion
-    )(part)
-
-    const results = _.get(
-      queryResults.nodes ? queryResults.nodes[0] : queryResults,
-      // replace __ with accessors '.'
-      switchToPeriodDelimiters(extracted)
-    )
-    reversedParams[extracted] = results
-  })
-
-  return reversedParams
-}
+// ...
 ```
 
 `generateQueryFromString` のテストをみることでどのようなファイル名から、どのようなクエリー文字列が生成されるのか分かりそうです。
@@ -354,14 +327,14 @@ export function reverseLookupParams(
 
 # 終わりに
 
-以上、簡単ですが「Gatsby.js の新機能 File System Route API を試してみた」でした。
+以上、「Gatsby.js の新機能 File System Route API を試してみた」でした。
 Nuxt.js や、Next.js と同じようにファイル名を変えることで動的なページの生成が出来るのは便利ですね。
 
 今回紹介できなかったのですが、Gatsby.js を クライアント再度でページを組み立てる Client-only-route のページ生成にも`File System Route API`は対応しています。
 
 https://www.gatsbyjs.com/docs/file-system-route-api/#creating-client-only-routes
 
-Gatsby.js が今後もより進化していくのに期待です。
+Gatsby.js の今後の進化に期待です。
 
 # 参考
 - [File System Route API | Gatsby](https://www.gatsbyjs.com/docs/file-system-route-api/)
