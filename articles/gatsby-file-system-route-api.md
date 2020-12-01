@@ -302,6 +302,8 @@ export async function createPagesFromCollectionBuilder(
 実際の GraphQL クエリーの文字列を組み立ては`collectionExtractQueryString`から呼ばれている`generateQueryFromString` で行われます。
 `generateQueryFromString`のテストをみることで、どのようなファイル名から、どのようなクエリー文字列が生成されるのか分かりそうです。
 
+https://github.com/gatsbyjs/gatsby/blob/d305ee57a58c9d8bdf44e2084ea3e972925b9cb5/packages/gatsby-plugin-page-creator/src/__tests__/extract-query.ts
+
 ```ts:packages/gatsby-plugin-page-creator/src/__tests__/extract-query.ts
 // ...
 describe(`extract query`, () => {
