@@ -64,7 +64,7 @@ Cloud Storage のライフサイクルフックで削除を実行するのがオ
 ![](https://storage.googleapis.com/zenn-user-upload/hbz90zsl09xpstkcylfbs3aq94bn)
 
 これでバケットに追加されてから 24 時間経過後に自動的に削除されます。
-解決！　!
+解決！
 
 ※ バケットを削除しても Cloud Functions for Firebase の実行自体は問題なく動作します（起動用の実態は Container Registry にあるので）。
 
