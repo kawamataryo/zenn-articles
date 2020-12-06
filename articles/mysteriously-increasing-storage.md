@@ -21,7 +21,7 @@ Firebase でアプリを作っていたら、なぜか Storage のリソース�
 
 ![](https://storage.googleapis.com/zenn-user-upload/cm10fr7pw6wdzuphs03y2thb579s)
 
-なぜ。..🤔
+なぜ...🤔
 
 # 原因
 
@@ -37,7 +37,7 @@ Cloud Functions for Firebase のデプロイは以下手順で行われるよう
 なので、ローカルから `firebase deploy --only functions` をするたびに Cloud Storage にバケットが作成されていたのですね。
 
 
-※ 上記内容は所属しているコミュニティ（[エンジニアと人生](https://community.camp-fire.jp/projects/view/280040)）の Slack で教えてもらったことです。疑問を分報に書いたら即 [@moga](https://twitter.com/_mogaming) 氏 からコメントもらえました。本当に感謝！
+※ 上記内容は所属しているコミュニティ（[エンジニアと人生](https://community.camp-fire.jp/projects/view/280040)）の Slack で教えてもらったことです。疑問を分報に書いたら即 [@moga](https://twitter.com/_mogaming) 氏 からコメントもらえました。本当に感謝🙏
 
 # 対処
 
