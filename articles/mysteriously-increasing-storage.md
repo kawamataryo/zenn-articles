@@ -1,5 +1,5 @@
 ---
-title: "Cloud Functions for Firebaseの利用で異様にGCPのStorageが消費されると思ったら..."
+title: "Cloud Functions for Firebaseの利用で、異様にGCPのStorageが消費されると思ったら.."
 emoji: "📛"
 type: "tech"
 topics: ["firebase", "gcp", "cloudFunctions", "CloudStorage"]
@@ -29,7 +29,7 @@ Firebase でアプリを作っていたら、なぜか Storage のリソース�
 
 Cloud Functions for Firebase のデプロイは以下手順で行われるようです。
 
-1. 関数のソースコードを含むアーカイブが Cloud Storage のバケットにアップロード
+1. 関数のソースコードを含むアーカイブを Cloud Storage のバケットにアップロード
 2. アップロードされた ソースコードを使って Cloud Build でコンテナイメージを構築
 3. 構築されたイメージを Container Registry にプッシュ
 4. Functions のコール時に Container Registry からコンテナを作成して実行
