@@ -42,7 +42,7 @@ Cloud Functions for Firebase のデプロイは以下手順で行われるよう
 # 対処
 
 このままだと Storage のリソースが消費され、無駄な費用がかかることもあるので適宜削除しましょう。
-Cloud Storage のライフサイクルフックで削除を実行するのがオススメです。
+Cloud Storage のライフサイクルで削除を実行するのがオススメです。
 
 以下手順で設定を行いました。
 
@@ -50,7 +50,7 @@ Cloud Storage のライフサイクルフックで削除を実行するのがオ
 
 ![](https://storage.googleapis.com/zenn-user-upload/mzrg1prfy9dipshf9u2iym2x9qb9)
 
-（2）対象のバケットを選択しライフサイクルフックのタブを開く
+（2）対象のバケットを選択しライフサイクルのタブを開く
 
 ![](https://storage.googleapis.com/zenn-user-upload/ymk2vb7hjh3tflx0tm1g38c62mca)
 
