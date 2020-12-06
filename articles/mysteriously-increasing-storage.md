@@ -25,7 +25,7 @@ Firebase でアプリを作っていたら、なぜか Storage のリソース�
 
 # 原因
 
-原因は Cloud Functions for Firebase のデプロイ時に自動生成されるソースコードでした。
+原因は Cloud Functions for Firebase のデプロイ時に自動保存されるソースコードでした。
 
 Cloud Functions for Firebase のデプロイは以下手順で行われるようです。
 
