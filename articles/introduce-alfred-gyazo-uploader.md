@@ -1,12 +1,12 @@
 ---
 title: "Zenn-CLIでの記事作成を効率化! Gyazoの画像を最短で記事に挿入するAlfred Workflowを作ってみた"
-emoji: "🌅"
+emoji: "🎑"
 type: "tech"
 topics: ["zenn", "alfred", "効率化"]
-published: false
+published: true
 ---
 
-先日、 Zenn 記事には Gyazo の画像リンクを挿入できると知りました。
+先日、 Zenn の記事には Gyazo の画像リンクを挿入できると知りました。
 
 https://twitter.com/KawamataRyo/status/1335502198088683521
 
@@ -83,8 +83,7 @@ https://qiita.com/ryo2132/items/358ce9d4baa8a8a27092
 Zenn-CLI を使うと記事執筆環境を自分で最適化できるので良いですね。
 今後も alfred-gyazo-uploader を使って記事をたくさん書いていきたです。
 
-また、もしこのアプリを使ってみて良かったら[GitHubのスター](https://github.com/kawamataryo/alfred-gyazo-uploader)をもらえると嬉しいです! 泣いて喜びます。
-その他不具合があれば、気軽にこの記事のコメントや[Twitterのメンション](https://twitter.com/KawamataRyo)でお知らせください。
+また使用中に不具合などあれば、気軽にこの記事のコメントや[Twitterのメンション](https://twitter.com/KawamataRyo)にてお知らせください。
 
 # 参考
 
