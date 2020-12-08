@@ -2,7 +2,7 @@
 title: "最短で画像をGyazoにアップロードし記事に挿入するAlfred Workflowを作ってみた"
 emoji: "🎑"
 type: "tech"
-topics: ["zenn", "alfred", "効率化"]
+topics: ["alfred", "gyazo", "zenn"]
 published: true
 ---
 
