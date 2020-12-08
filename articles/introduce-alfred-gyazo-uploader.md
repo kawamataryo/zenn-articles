@@ -8,7 +8,7 @@ published: true
 
 先日、 Zenn の記事には Gyazo の画像リンクを挿入できると知りました。
 
-https://twitter.com/KawamataRyo/status/1335502198088683521
+@[tweet](https://twitter.com/KawamataRyo/status/1335502198088683521)
 
 そこで「これは Zenn-CLI で記事を書く際に少し不便だった画像アップロードのプロセスを改善できるのでは？」と思い立ち、 Alfred Workflow を作ってみたので紹介です。
 
