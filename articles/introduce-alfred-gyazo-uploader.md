@@ -1,5 +1,5 @@
 ---
-title: "Zenn-CLIでの記事作成を効率化! Gyazoの画像を最短で記事に挿入するAlfred Workflowを作ってみた"
+title: "最短で画像をGyazoにアップロードし記事に挿入するAlfred Workflowを作ってみた"
 emoji: "🎑"
 type: "tech"
 topics: ["zenn", "alfred", "効率化"]
@@ -79,7 +79,7 @@ https://qiita.com/ryo2132/items/358ce9d4baa8a8a27092
 
 # おわりに
 
-以上「Zenn-CLI での記事作成を効率化！　Gyazo の画像を最短で記事に挿入する Alfred Workflow を作ってみた」でした。
+以上「最短で画像を Gyazo にアップロードし記事に挿入する Alfred Workflow を作ってみた」でした。
 Zenn-CLI を使うと記事執筆環境を自分で最適化できるので良いですね。
 今後も alfred-gyazo-uploader を使って記事をたくさん書いていきたです。
 
