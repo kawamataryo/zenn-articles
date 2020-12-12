@@ -84,9 +84,6 @@ SMTP の詳細についてはこちらの SendGrid の記事が分かりやす�
 https://sendgrid.kke.co.jp/blog/?p=636
 :::
 
-
-# SendGridからSMTP URIの取得
-
 # Firebase Cloud Functionsの作成
 
 # vue
