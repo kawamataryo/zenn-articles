@@ -2,9 +2,11 @@
 title: "Bolt.js⚡ + Firebase🔥で技術記事の指標を良い感じに集計してくれるSlack Botを作った"
 emoji: "🤖"
 type: "tech"
-topics: ["Firebase", "Bolt", "slack", "Firestore", "gcp"]
+topics: ["Firebase", "Bolt.js", "slack", "Firestore", "gcp"]
 published: false
 ---
+
+この記事は [Slack Advent Calendar 2020](https://qiita.com/advent-calendar/2020/slack) 16 日目の記事です。
 
 Slack アプリのフレームワークである Bolt.js と Firebase を使って、自分のアウトプットの指標を良い感じに集計して、良い感じにフォーマットして出力してくれる Bot を作ってみたので紹介です。
 
@@ -129,7 +131,7 @@ https://qiita.com/seratch/items/6d142a9128c6831a6718
 
 # 終わりに
 以上「Bolt.js⚡ + Firebase🔥で技術記事の指標を良い感じに集計してくれる Slack Bot を作る」でした。
-参加しているコミュニティ（[エンジニアと人生](https://community.camp-fire.jp/projects/view/280040)）の Slack でも良い感じに皆に使ってもらっているので嬉しいです。
+参加しているコミュニティ（[エンジニアと人生](https://community.camp-fire.jp/projects/view/280040)）の Slack でも皆に使ってもらっているので嬉しいです。
 
 もし、需要あれば公開アプリとしてみようかなとも思っています。反応もらえると嬉しいです。
 
