@@ -130,7 +130,7 @@ Bolt.js の Python 版である[bolt-python](https://github.com/SlackAPI/bolt-py
 :::
 
 # 終わりに
-以上「Bolt.js⚡ + Firebase🔥で技術記事の指標を良い感じに集計してくれる Slack Bot を作る」でした。
+以上「Bolt.js⚡ + Firebase🔥で技術投稿の指標を良い感じに集計してくれる Slack Bot を作る」でした。
 参加しているコミュニティ（[エンジニアと人生](https://community.camp-fire.jp/projects/view/280040)）の Slack でも皆に使ってもらっているので嬉しいです。
 
 もし、需要あれば公開アプリとしてみようかなとも思っています。反応もらえると嬉しいです。
