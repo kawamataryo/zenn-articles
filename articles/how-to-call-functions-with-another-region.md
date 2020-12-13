@@ -1,5 +1,5 @@
 ---
-title: "[firebase] us-central1以外にデプロイしたhttpsCallable関数を呼び出す際には.."
+title: "[Firebase] us-central1以外にデプロイしたhttpsCallable関数を呼び出す際には.."
 emoji: "🤙"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["firebase", "gcp"]
