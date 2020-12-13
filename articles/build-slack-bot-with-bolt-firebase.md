@@ -1,5 +1,5 @@
 ---
-title: "Bolt.js⚡ + Firebase🔥で技術記事の指標を良い感じに集計してくれるSlack Botを作った"
+title: "Bolt.js⚡ + Firebase🔥で技術投稿の指標を良い感じに集計してくれるSlack Botを作った"
 emoji: "🤖"
 type: "tech"
 topics: ["Firebase", "Bolt.js", "slack", "Firestore", "gcp"]
