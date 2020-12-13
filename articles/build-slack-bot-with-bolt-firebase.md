@@ -127,7 +127,6 @@ app.action('approve_button', async ({ ack, say }) => {
 Bolt.js の Python 版である[bolt-python](https://github.com/SlackAPI/bolt-python)ではこの問題は別の方法で解決できるようです。
 詳細は、以下をご覧ください。
 [Bolt for Python が FaaS での実行のために解決した課題 - Qiita](https://qiita.com/seratch/items/6d142a9128c6831a6718)
-
 :::
 
 # 終わりに
