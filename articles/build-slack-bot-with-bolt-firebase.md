@@ -92,6 +92,12 @@ app.action('approve_button', async ({ ack, say }) => {
 
 同期的に処理を行ってしまうとタイムアウトエラー、でも Functions の関数内で非同期に実行すると FaaS の設計上、実行が確約されない・・さてどうするか🤔
 
+:::message
+Bolt.js の Python 版である[bolt-python](https://github.com/SlackAPI/bolt-python)ではこの問題を解決できるようです。
+詳細は、以下をご覧ください。
+[Bolt for Python が FaaS での実行のために解決した課題 - Qiita](https://qiita.com/seratch/items/6d142a9128c6831a6718)
+:::
+
 ## 解決策
 
 今回は Firestore を Queue 的に使い、モーダルのレスポンスと集計処理の実行を関数単位でを分離することで前述の問題を回避しました。
@@ -122,12 +128,6 @@ app.action('approve_button', async ({ ack, say }) => {
 特に重要なのは、モーダルでの送信からの処理で、ここで Firestore のデータ保存 -> onCreate で別関数起動という方法をとることで非同期に処理を実行しています。
 
 これなら、指標集計にどれほど時間がかかっても、タイムアウトで落ちることはありません。
-
-:::message
-Bolt.js の Python 版である[bolt-python](https://github.com/SlackAPI/bolt-python)ではこの問題は別の方法で解決できるようです。
-詳細は、以下をご覧ください。
-[Bolt for Python が FaaS での実行のために解決した課題 - Qiita](https://qiita.com/seratch/items/6d142a9128c6831a6718)
-:::
 
 # 終わりに
 以上「Bolt.js⚡ + Firebase🔥で技術投稿の指標を良い感じに集計してくれる Slack Bot を作る」でした。
