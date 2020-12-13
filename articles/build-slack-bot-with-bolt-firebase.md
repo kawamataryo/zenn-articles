@@ -60,9 +60,9 @@ https://github.com/kawamataryo/blog-index
 
 
 
-# ハマりポイント
+# 実装で詰まったところ
 
-今回の Slack Bot 作成においてかなりハマりポイントがあったので紹介します。
+今回の Slack Bot 作成においてハマりポイントがあったので紹介します。
 
 ## Faas で Bolt.js を使う際の問題
 
