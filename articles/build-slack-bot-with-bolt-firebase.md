@@ -99,15 +99,16 @@ app.action('approve_button', async ({ ack, say }) => {
 処理の実行手順は以下のようになります。
 
 **スラッシュコマンド実行時からモーダルの表示まで**
+![](https://i.gyazo.com/7877d7be4a5e201459565ecdaba48d7c.png)
 
 1. スラッシュコマンドの実行
 2. 実行ユーザーの過去投稿をデータを Firestore から取得
 3. 過去投稿があればフォームの初期値として設定
 4. モーダルを表示
 
-![](https://i.gyazo.com/7877d7be4a5e201459565ecdaba48d7c.png)
 
 **モーダルでの送信から指標の集計、チャネルへの投稿まで**
+![](https://i.gyazo.com/e5cc7714869af3c9ee02452df58d3ddf.png)
 
 1. モーダルで内容入力・送信
 2. Firestore にデータを保存
@@ -117,7 +118,6 @@ app.action('approve_button', async ({ ack, say }) => {
 6. 結果を送信
 
 
-![](https://i.gyazo.com/e5cc7714869af3c9ee02452df58d3ddf.png)
 
 特に重要なのは、モーダルでの送信からの処理で、ここで Firestore のデータ保存 -> onCreate で別関数起動という方法をとることで非同期に処理を実行しています。
 
