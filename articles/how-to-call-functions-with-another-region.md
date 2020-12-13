@@ -41,7 +41,7 @@ Access to fetch at 'https://us-central1-trigger-email-sample.cloudfunctions.net/
 一見 CORS っぽいエラーなのですが、よく見ると関数の実行先が`https://us-central1-xxx`となっています。
 これでは region が違うので関数が見つかりません。
 
-ドキュメントにも以下の記載がありました。どうやら`us-central1`以外にデプロイしている場合は設定がアプリ側で region の設定が必要なようです。
+ドキュメントにも以下の記載がありました。どうやら`us-central1`以外にデプロイしている場合はアプリ側で region の設定が必要なようです。
 
 > Note: To call a function running in any location other than the default us-central1, you must set the appropriate value at initialization. For example, on Android you would initialize with getInstance(FirebaseApp app, String region).
 
