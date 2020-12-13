@@ -1,5 +1,5 @@
 ---
-title: "[firebase] us-central1以外にデプロイしたhttpsCallable関数を呼び出す方法"
+title: "[firebase] us-central1以外にデプロイしたhttpsCallable関数を呼び出す際には.."
 emoji: "🤙"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["firebase", "cloudFunctions"]
@@ -50,7 +50,7 @@ https://firebase.google.com/docs/functions/callable
 
 # 解決策
 
-以下のように初期化時に region をつけることで解決しました。
+以下のように firebase 初期化時に region をつけることで解決しました。
 通常のように`firebase.functions()`ではなく`firebase.app().functions()`とする必要があるので注意です。
 
 ```js
