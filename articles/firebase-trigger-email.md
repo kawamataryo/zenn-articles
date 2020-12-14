@@ -6,7 +6,9 @@ topics: ["firebase", "vue", "typescript"]
 published: false
 ---
 
-以前書いた[Cloud Functions for Firebase で問い合わせフォームを作った記事](https://qiita.com/ryo2132/items/7cdd6c86dd418095f74a)がいまだに反応があるので、より使いやすい Firebase Trigger Email 版で書き直して見ました。
+この記事は[Firebas Advent Calendar 2020](https://qiita.com/advent-calendar/2020/firebase) 18 日目の記事です。
+
+SSG や SPA サイトを構築する際に地味に迷うお問い合わせフォームの実装について、 Firebase Trigger Email を使う方法を解説します。
 
 
 # 何を作る？
@@ -14,8 +16,9 @@ published: false
 こんな感じの問い合わせフォームを作ります。
 
 @[codesandbox](https://codesandbox.io/embed/cotactform-sample-rdqs3?fontsize=14&hidenavigation=1&theme=dark)
+※ こちらの例は、Firebase の env の設定をしていないため、送信ボタンを押しても失敗します。
 
-お問い合わせを実行すると、管理者のメールアドレスに問い合わせ内容と、フォーム記載のメールアドレスに thanks メールが送られます。
+お問い合わせを実行すると、管理者のメールアドレス宛に問い合わせ内容と、フォーム記載のメールアドレス宛に thanks メールが送られます。
 
 技術スタックは以下の通りです。
 
@@ -24,16 +27,16 @@ published: false
   - Vue.js
 - バックエンド
   - Firebase Trigger Email
-  - Firestore
   - Cloud Functions for Firebase
+  - Firestore
   - SendGrid
 
 構成はこんな感じになっています。
 
 1. Vue で作ったお問い合わせフォームからお問い合わせ
-2. Firestore にデータを保存
-3. 保存をフックに Cloud Functions が起動、Firebase Extensions と連携している FireStore の Collection にデータを保存
-4. 保存をフックに SendGrid 経由で管理者と、ユーザーにメールを送信
+2. Cloud Functions for FirebaseのhttpsCallable関数を実行
+3. httpsCallable関数Firebase Extensions と連携している FireStore の Collection にデータを保存
+3. 保存をフックに SendGrid 経由で管理者と、ユーザーにメールを送信
 
 ![](https://storage.googleapis.com/zenn-user-upload/e5azosigewp3hkqhb5ox8ijiodri)
 
@@ -94,5 +97,5 @@ https://sendgrid.kke.co.jp/blog/?p=636
 smtps://apikey:[Password]@smtp.sendgrid.net
 
 # 参考
-- https://sendgrid.kke.co.jp/blog/?p=636
-- https://medium.com/firebase-tips-tricks/how-to-send-e-mails-using-firebase-extensions-a10d7cd685c2
+- [SMTPリレーサービス【入門】 | SendGridブログ](https://sendgrid.kke.co.jp/blog/?p=636)
+- [How to send E-mails using Firebase Extensions | by Gastón Saillén | Firebase Tips & Tricks | Medium](https://medium.com/firebase-tips-tricks/how-to-send-e-mails-using-firebase-extensions-a10d7cd685c2)
