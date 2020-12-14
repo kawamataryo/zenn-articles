@@ -2,7 +2,7 @@
 title: "Bolt.js⚡ + Firebase🔥で技術投稿の指標を良い感じに集計してくれるSlack Botを作った"
 emoji: "🤖"
 type: "tech"
-topics: ["Firebase", "Bolt.js", "slack", "Firestore", "gcp"]
+topics: ["Firebase", "Bolt", "slack", "Firestore", "TypeScript"]
 published: false
 ---
 
@@ -16,7 +16,6 @@ Slack アプリのフレームワークである Bolt.js と Firebase を使っ�
 ![](https://i.gyazo.com/9d69d32a88460af4d59859cf77855fbe.png)
 
 詳細な機能は以下の通りです。
-
 
 1.  `/report` コマンドを打つと起動して入力モーダルをひらく
 2. モーダルで Twitter, Qiita, Zenn, note のアカウント名 + コメントの入力が出来る
@@ -44,21 +43,261 @@ Slack アプリのフレームワークである Bolt.js と Firebase を使っ�
 
 Bolt.js を Cloud Functions for Firebase で動かして Slack とのやりとりをしています。
 そして、フォームの入力内容・指標データを Firestore に保存しています。
-指標集計部分は自分で書いた各サービスの API クライントを使っています。
-
-:::message
-Zenn、note は API が公開されてないのでネットワーク情報からパス、レスポンスをみて構築しています。
-:::
 
 ![](https://i.gyazo.com/67a4d02c9df3e48926edbc2a08719b3e.png)
 
+指標集計部分は自分で各サービスの API クライントを書いて使っています。
+
+:::details Zenn の API クライアント
+```ts
+import {
+  ZennArticle,
+  Follower,
+  ZennMyArticlesResponse,
+  ZennMyFollowersResponse,
+} from "../types/zennTypes";
+import axios from "axios";
+import { ApiClient, ZennIndex } from "../types/types";
+
+export class ZennClient implements ApiClient {
+  private readonly BASE_API_URL = "https://api.zenn.dev";
+
+  constructor(private userName: string) {
+    axios.defaults.baseURL = this.BASE_API_URL;
+  }
+
+  async fetchIndex(): Promise<ZennIndex> {
+    const articles = await this.fetchMyAllArticles();
+    const followers = await this.fetchMyFollowers();
+
+    return {
+      postCount: articles.length,
+      likeCount: this.tallyUpLikeCount(articles),
+      followerCount: followers.length,
+    };
+  }
+
+  private async fetchMyAllArticles(): Promise<ZennArticle[]> {
+    const response = await axios.get<ZennMyArticlesResponse>(
+      `/users/${this.userName}/articles`
+    );
+    return response.data.articles ?? [];
+  }
+
+  private async fetchMyFollowers(): Promise<Follower[]> {
+    let followers = [] as Follower[];
+    let hasNextPage = true;
+
+    try {
+      for (let page = 1; hasNextPage; page++) {
+        const response = await axios.get<ZennMyFollowersResponse>(
+          `/users/${this.userName}/followers?page=${page}`
+        );
+        hasNextPage = !!response.data.next_page;
+        followers = [...followers, ...response.data.users];
+      }
+    } catch (e) {
+      console.error(e);
+    }
+
+    return followers;
+  }
+
+  private tallyUpLikeCount(articles: ZennArticle[]): number {
+    return articles.reduce<number>((count, article) => {
+      return count + article.liked_count;
+    }, 0);
+  }
+}
+```　
+:::
+
+:::details Qiita の API クライアント
+```ts
+import * as functions from "firebase-functions";
+import axios from "axios";
+import { QiitaItem, QiitaUser } from "../types/qiitaTypes";
+import { ApiClient, QiitaIndex } from "../types/types";
+
+export class QiitaClient implements ApiClient {
+  private readonly BASE_URL = "https://qiita.com/api/v2";
+  private readonly PER_PAGE = 100;
+
+  constructor(private userName: string) {
+    axios.defaults.baseURL = this.BASE_URL;
+    axios.defaults.headers["Authorization"] = `Bearer ${
+      functions.config().token.qiita
+    }`;
+  }
+
+  async fetchIndex(): Promise<QiitaIndex> {
+    const user = await this.fetchUser();
+    const items = await this.fetchAllItems(user);
+    const lgtmCount = this.tallyUpLgtmCount(items);
+
+    return {
+      postCount: user.items_count ?? 0,
+      lgtmCount: lgtmCount,
+      followerCount: user.followers_count ?? 0,
+    };
+  }
+
+  private async fetchUser() {
+    const response = await axios.get<QiitaUser>(`/users/${this.userName}`);
+    return response.data;
+  }
+
+  private async fetchAllItems(user: QiitaUser | null) {
+    if (!user) {
+      return [];
+    }
+    // 最大ページ数
+    const maxPage = Math.ceil(user.items_count / this.PER_PAGE);
+    // 投稿一覧の取得
+    let allItems = [] as QiitaItem[];
+    await Promise.all(
+      [...Array(maxPage).keys()].map(async (i) => {
+        const items = await this.fetchItems(i + 1, this.PER_PAGE);
+        allItems = [...allItems, ...items];
+      })
+    );
+    return allItems;
+  }
+
+  private async fetchItems(page: number, perPage: number) {
+    const response = await axios.get<QiitaItem[]>(
+      `/items?page=${page}&per_page=${perPage}&query=user:${this.userName}`
+    );
+    return response.data;
+  }
+
+  private tallyUpLgtmCount(items: QiitaItem[]) {
+    const lgtmCount = items.reduce(
+      (result, item) => result + item.likes_count,
+      0
+    );
+    return lgtmCount;
+  }
+}
+```
+:::
+
+:::details note の API クライアント
+```ts
+import axios from "axios";
+import {
+  NoteContent,
+  NoteContentsResponse,
+  NoteUserResponse,
+} from "../types/noteTypes";
+import { ApiClient, NoteIndex } from "../types/types";
+
+export class NoteClient implements ApiClient {
+  private readonly BASE_URL = "https://note.com/api/v2";
+
+  constructor(private userName: string) {
+    axios.defaults.baseURL = this.BASE_URL;
+  }
+
+  async fetchIndex(): Promise<NoteIndex> {
+    const user = await this.fetchUser();
+    const contents = await this.fetchAllContent();
+
+    return {
+      postCount: user.noteCount ?? 0,
+      likeCount: this.tallyUpLikeCount(contents),
+      followerCount: user.followerCount ?? 0,
+    };
+  }
+
+  private async fetchUser() {
+    const response = await axios.get<NoteUserResponse>(
+      `/creators/${this.userName}`
+    );
+    return response.data.data;
+  }
+
+  private async fetchAllContent() {
+    let contents = [] as NoteContent[];
+    let isLastPage = false;
+
+    try {
+      for (let page = 1; !isLastPage; page++) {
+        const responseData = await this.fetchContents(page);
+        isLastPage = responseData.isLastPage;
+        contents = [...contents, ...responseData.contents];
+      }
+    } catch (e) {
+      console.log(e);
+    }
+
+    return contents;
+  }
+
+  private async fetchContents(page: number) {
+    const response = await axios.get<NoteContentsResponse>(
+      `/creators/${this.userName}/contents?kind=note&page=${page}`
+    );
+    return response.data.data;
+  }
+
+  private tallyUpLikeCount(contents: NoteContent[]) {
+    const likeCount = contents.reduce(
+      (result, content) => result + content.likeCount,
+      0
+    );
+    return likeCount;
+  }
+}
+```
+:::
+
+:::details Twitter の API クライアント
+```ts
+import axios from "axios";
+import { PublicMetrics, UsersResponse } from "../types/twitterTypes";
+import * as functions from "firebase-functions";
+import { ApiClient, TwitterIndex } from "../types/types";
+
+export class TwitterClient implements ApiClient {
+  private readonly BASE_URL = "https://api.twitter.com/2";
+
+  constructor(private userName: string) {
+    axios.defaults.baseURL = this.BASE_URL;
+    axios.defaults.headers["Authorization"] = `Bearer ${
+      functions.config().token.twitter
+    }`;
+  }
+
+  async fetchIndex(): Promise<TwitterIndex> {
+    const metrics = await this.fetchUserMetrics();
+
+    return {
+      tweetCount: metrics.tweet_count,
+      followersCount: metrics.followers_count,
+      followingCount: metrics.following_count,
+    };
+  }
+
+  private async fetchUserMetrics(): Promise<PublicMetrics> {
+    const response = await axios.get<UsersResponse>(
+      `/users/by/username/${this.userName}?user.fields=public_metrics`
+    );
+    return response.data.data.public_metrics;
+  }
+}
+```
+:::
+
+:::message alert
+Zenn、note は 公式な API が公開されてないので、ネットワーク情報からパス、レスポンスをみて構築しています。各サービスの今後の改修で使えなくなる可能性はあります。
+:::
+
+
 コードについては全てリポジトリで公開しています。
-API クライアントや、Bolt.js での実装など詳細は以下をご覧ください。
+API クライアントの詳細や、Bolt.js での実装など詳細は以下をご覧ください。
 
 https://github.com/kawamataryo/blog-index
-
-
-
 
 # 実装で詰まったところ
 
@@ -93,14 +332,13 @@ app.action('approve_button', async ({ ack, say }) => {
 同期的に処理を行ってしまうとタイムアウトエラー、でも Functions の関数内で非同期に実行すると FaaS の設計上、実行が確約されない・・さてどうするか🤔
 
 :::message
-Bolt.js の Python 版である[bolt-python](https://github.com/SlackAPI/bolt-python)ではこの問題を解決できるようです。
-詳細は、以下をご覧ください。
+Bolt.js の Python 版である[bolt-python](https://github.com/SlackAPI/bolt-python)ではこの問題を解決できるようです。詳細は、以下をご覧ください。
 [Bolt for Python が FaaS での実行のために解決した課題 - Qiita](https://qiita.com/seratch/items/6d142a9128c6831a6718)
 :::
 
 ## 解決策
 
-今回は Firestore を Queue 的に使い、モーダルのレスポンスと集計処理の実行を関数単位でを分離することで前述の問題を回避しました。
+今回は Firestore を Queue 的に使い、モーダルのレスポンスと集計処理の実行を Function 単位でを分離することで前述の問題を回避しました。
 
 処理の実行手順は以下のようになります。
 
@@ -120,14 +358,13 @@ Bolt.js の Python 版である[bolt-python](https://github.com/SlackAPI/bolt-py
 3. 200 レスポンスを返しモーダルを閉じる
 4. onCreate のフックで別関数が起動
 5. 各指標を集計
-6. 結果を送信
+6. 結果を投稿
 
 
 ![](https://i.gyazo.com/e5cc7714869af3c9ee02452df58d3ddf.png)
 
-特に重要なのは、モーダルでの送信からの処理で、ここで Firestore のデータ保存 -> onCreate で別関数起動という方法をとることで非同期に処理を実行しています。
-
-これなら、指標集計にどれほど時間がかかっても、タイムアウトで落ちることはありません。
+特に重要なのはモーダルでの送信からの処理で、ここで Firestore のデータ保存 -> onCreate で別関数起動という方法をとることで Function 単位で処理を分離して、前述の制約を回避しています。
+これなら指標集計にどれほど時間がかかっても、もうモーダルへのレスポンスは完了しているので、タイムアウトで落ちることはありません。
 
 # 終わりに
 以上「Bolt.js⚡ + Firebase🔥で技術投稿の指標を良い感じに集計してくれる Slack Bot を作る」でした。
