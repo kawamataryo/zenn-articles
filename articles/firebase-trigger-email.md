@@ -31,7 +31,9 @@ SSG や SPA サイトを構築する際に地味に迷うお問い合わせフ�
   - Firestore
   - SendGrid
 
-構成はこんな感じになっています。
+![](https://i.gyazo.com/82094b5dd251a0beee46b2e25a019fce.png)
+
+こういう動作をします。
 
 1. Vue で作ったお問い合わせフォームからお問い合わせ
 2. Cloud Functions for Firebase の httpsCallable 関数を実行
@@ -95,9 +97,11 @@ smtps://apikey:hogehoge@smtp.sendgrid.net
 
 
 :::message
-SMTP の詳細についてはこちらの SendGrid の記事が分かりやすいです。
-https://sendgrid.kke.co.jp/blog/?p=636
+`Default FROM address` のアドレスは SengGrid 側で独自ドメインとして登録しないとメールソフトによっては迷惑メールに振り分けれる場合があります。
+その場合の設定はこちらです。
+https://sendgrid.kke.co.jp/docs/Tutorials/D_Improve_Deliverability/using_whitelabel.html
 :::
+
 
 # Firestoreにデータを挿入するFunctionsの作成
 
@@ -238,8 +242,6 @@ const onSubmit = async () => {
 
 以上、「Firebase Trigger Email で SPA サイトのお問い合わせフォームを作る」でした。
 Firebase Trigger Email メール送信部分を抽象化してくれるので とても使い勝手が良いなーと思いました。
-
-参考になれば幸いです！
 
 # 参考
 - [SMTPリレーサービス【入門】 | SendGridブログ](https://sendgrid.kke.co.jp/blog/?p=636)
