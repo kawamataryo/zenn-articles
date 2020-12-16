@@ -295,7 +295,7 @@ Zenn、note は 公式な API が公開されてないので、ネットワー�
 
 
 コードについては全てリポジトリで公開しています。
-API クライアントの詳細や、Bolt.js での実装など詳細は以下をご覧ください。
+API クライアントの詳細や、Bolt.js での実装などは以下をご覧ください。
 
 https://github.com/kawamataryo/blog-index
 
