@@ -1,5 +1,5 @@
 ---
-title: "Firebase Trigger Emailを使ってお問い合わせフォームを作る"
+title: "Firebase Trigger EmailでSPAサイトのお問い合わせフォームを作る"
 emoji: "📮"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["firebase", "vue", "typescript"]
@@ -8,7 +8,7 @@ published: false
 
 この記事は[Firebas Advent Calendar 2020](https://qiita.com/advent-calendar/2020/firebase) 18 日目の記事です。
 
-SSG や SPA サイトを構築する際に地味に迷うお問い合わせフォームの実装について、 Firebase Trigger Email を使う方法を解説します。
+SSG や SPA サイトを構築する際に地味に迷うお問い合わせフォームの実装で、 Firebase Trigger Email を使う方法を解説します。
 
 
 # 何を作る？
@@ -34,11 +34,10 @@ SSG や SPA サイトを構築する際に地味に迷うお問い合わせフ�
 構成はこんな感じになっています。
 
 1. Vue で作ったお問い合わせフォームからお問い合わせ
-2. Cloud Functions for FirebaseのhttpsCallable関数を実行
-3. httpsCallable関数Firebase Extensions と連携している FireStore の Collection にデータを保存
+2. Cloud Functions for Firebase の httpsCallable 関数を実行
+3. Firebase Extensions と連携している FireStore の Collection にデータを保存
 3. 保存をフックに SendGrid 経由で管理者と、ユーザーにメールを送信
 
-![](https://storage.googleapis.com/zenn-user-upload/e5azosigewp3hkqhb5ox8ijiodri)
 
 # Firebase Trigger Emailとは？
 
@@ -46,7 +45,7 @@ SSG や SPA サイトを構築する際に地味に迷うお問い合わせフ�
 Firebase Trigger Email は Firebase Extensions の 1 つで、Firebase 経由のメール送信を簡単に実装できるようにするものです。
 後から説明しますが、ダッシュボードで項目を入力して、数回ボタンを押すだけで Cloud Functions が自動的に作られます。
 
-動作の流れは下記のようなイメージです。
+Firebase Trigger Email の動作の流れはこちらです。
 
 1. Firebase Trigger Email と連携させた Firestore コレクションに特定の構造でデータを追加する
 2. そのデータ追加を検知して Firebase Trigger Email が起動
@@ -67,21 +66,32 @@ Firebase で新規プロジェクトを作成して左下の Extensions を開�
 
 ![](https://storage.googleapis.com/zenn-user-upload/rhd3kkz8sz64iuj624u7o53accs2)
 
-重要なのは、SMTP Connection URI です。
+|項目|内容|
+|---|---|
+|Cloud Functions location|Trigger Email の Cloud Functions を配置する region|
+|SMTP connection URI| 実際にメール送信を担うメールサービスの SMTP URI|
+|Email documents collection| メール送信の対象となるデータを挿入するコレクション（このコレクションへの挿入がキックでメールが送信される|
+|Default FROM address|配信メールに送信者として記載されるメールアドレス（optional）|
+|Default REPLY-TO address|配信メールに返信先として記載されるメールアドレス（optional）|
+|Users collection|email のドキュメントの付加情報として、ユーザ情報を使う場合の Collection（optional)|
+|Templates collection|メールテンプレートを使う場合にそのテンプレートを保存する Collection（optional)|
 
-ここで指定した先が実際のメール送信を行います。ここには SendGrid や Mailgun などのメールサービスが使えます。今回は SendGrid を使います。
+重要なのは、SMTP connection URI です。
 
-SendGrid の SMTP URI は `Email API > Integration Guide > SMTP Relay` から API キーを作成することで取得出来ます。
+ここで指定した先で実際のメール送信が行われます。ここには SendGrid や Mailgun などのメールサービスが使えます。
+
+今回は SendGrid を使います。
+SendGrid の SMTP connection URI は `Email API > Integration Guide > SMTP Relay` から API キーを作成することで取得出来ます。
 
 以下画面の各値を組み合わせた値が SMTP URI となります。
+
+
+![](https://storage.googleapis.com/zenn-user-upload/o4463xeis302mbu2dyjuh62vnjh1)
 
 ```
 // smtps://[user]:[password]@[server]
 smtps://apikey:hogehoge@smtp.sendgrid.net
 ```
-
-![](https://storage.googleapis.com/zenn-user-upload/o4463xeis302mbu2dyjuh62vnjh1)
-
 
 
 :::message
@@ -89,12 +99,147 @@ SMTP の詳細についてはこちらの SendGrid の記事が分かりやす�
 https://sendgrid.kke.co.jp/blog/?p=636
 :::
 
-# Firebase Cloud Functionsの作成
+# Firestoreにデータを挿入するFunctionsの作成
 
-# vue
+次に、先ほど指定した Email documents collection（Firebase Trigger Email の起動へのフックとなる Collection)へのデータ挿入のための Cloud Functions を作成します。
+直接クライアントから Firestore にデータを挿入する形でも良いのですが、今回は Template を一律に管理したい、自動返信メールも送信したいという考えがあるので Cloud Functions で管理し、クライアントからは httpsCallable 関数を呼ぶ形にします。
 
-# smtp uri
-smtps://apikey:[Password]@smtp.sendgrid.net
+Cloud FUnctions のコードは以下の通りです。
+
+```ts:functions/src/index.ts
+import * as functions from "firebase-functions";
+import * as admin from "firebase-admin";
+import { adminMailBody, thanksMailBody } from "./lib/mailBody";
+
+admin.initializeApp();
+const db = admin.firestore();
+
+export const sendMail = functions
+  .region("asia-northeast1")
+  .https.onCall(async (data, context) => {
+    const { name, email, content } = data;
+    if (!email) {
+      throw new functions.https.HttpsError(
+        "invalid-argument",
+        "email is required"
+      );
+    }
+
+    const adminMailData = {
+      to: functions.config().mail.admin_address,
+      message: {
+        subject: "ホームページお問い合わせ",
+        text: adminMailBody({ name, email, content }),
+      },
+    };
+
+    const thanksMailData = {
+      to: email,
+      message: {
+        subject: "お問い合わせありがとうございます",
+        text: thanksMailBody({ name, email, content }),
+      },
+    };
+
+    await db.collection("mail").add(adminMailData);
+    await db.collection("mail").add(thanksMailData);
+  });
+```
+
+メールの本文を作る関数はこちらです。
+
+```ts:functions/src/lib/mailBody.ts
+type FormPayload = {
+  name: string;
+  email: string;
+  content: string;
+};
+
+export const adminMailBody = (params: FormPayload) => {
+  return `
+以下内容で問い合わせフォームよりお問い合わせを受けつけました。
+
+お名前:
+${params.name}
+
+メールアドレス:
+${params.email}
+
+内容:
+${params.content}
+`;
+};
+
+export const thanksMailBody = (params: FormPayload) => {
+  return `
+${params.name} 様
+
+お問い合わせありがとうございます。
+以下内容でお問い合わせを受け付けました。
+
+お名前:
+${params.name}
+
+メールアドレス:
+${params.email}
+
+内容:
+${params.content}
+
+後ほど担当者よりご連絡を差し上げます。
+よろしくお願いいたします。
+`;
+};
+```
+
+これで Firebase 側の準備は完了です。
+
+# お問い合わせフォームとの繋ぎ込み
+
+あとは、お問い合わせフォームの送信ボタン押下で先ほど作った Functions を実行すれば OK です。
+詳細は [CodeSandbox](https://codesandbox.io/embed/cotactform-sample-rdqs3?fontsize=14&hidenavigation=1&theme=dark) をみてもらうとして、該当コードだけ抜粋します。
+
+以下が、送信ボタン押下次の処理です。reactive な値として保持していたフォームの入力値を引数に、httpsCallable 関数を実行しています。
+
+```ts
+const onSubmit = async () => {
+  disabled.value = true;
+  if (!(form.name && form.email && form.content)) {
+    showMessage("danger", "必須内容が入力されていません");
+    disabled.value = false;
+    return;
+  }
+
+  try {
+    const sendMail = functions.httpsCallable("sendMail");
+    await sendMail({
+      name: form.name,
+      email: form.email,
+      content: form.content
+    });
+
+    showMessage("primary", "送信が完了しました");
+    resetForm();
+  } catch (_e) {
+    showMessage(
+      "danger",
+      "送信に失敗しました。時間をおいてもう一度お試しください。"
+    );
+  } finally {
+    disabled.value = false;
+  }
+};
+```
+
+これで Functions により Firebase Trigger Email と連携する Firestore にデータが挿入され、お問い合わせメールが管理者とお問い合わせ実行ユーザーに送信されます。
+便利！
+
+# おわりに
+
+以上、「Firebase Trigger Email で SPA サイトのお問い合わせフォームを作る」でした。
+Firebase Trigger Email メール送信部分を抽象化してくれるので とても使い勝手が良いなーと思いました。
+
+参考になれば幸いです！
 
 # 参考
 - [SMTPリレーサービス【入門】 | SendGridブログ](https://sendgrid.kke.co.jp/blog/?p=636)

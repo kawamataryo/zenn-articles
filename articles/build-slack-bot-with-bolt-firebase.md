@@ -3,12 +3,12 @@ title: "Bolt.js⚡ + Firebase🔥で技術投稿の指標を良い感じに集�
 emoji: "🤖"
 type: "tech"
 topics: ["Firebase", "Bolt", "slack", "Firestore", "TypeScript"]
-published: false
+published: true
 ---
 
 この記事は [Slack Advent Calendar 2020](https://qiita.com/advent-calendar/2020/slack) 16 日目の記事です。
 
-Slack アプリのフレームワークである Bolt.js と Firebase を使って、自分のアウトプットの指標を良い感じに集計して、良い感じにフォーマットして出力してくれる Bot を作ってみたので紹介です。
+Slack アプリのフレームワークである Bolt.js と Firebase を使って、自分のアウトプットの指標を集計し、良い感じにフォーマットして出力してくれる Bot を作ってみたので紹介です。
 
 # 作ったもの
 自分の技術投稿のアカウント名を入力するとこんな感じに指標を集計して返してくれる Slack Bot を作りました。
@@ -17,7 +17,7 @@ Slack アプリのフレームワークである Bolt.js と Firebase を使っ�
 
 詳細な機能は以下の通りです。
 
-1.  `/report` コマンドを打つと起動して入力モーダルをひらく
+1.  `/report` コマンドを打つと入力モーダルが開く
 2. モーダルで Twitter, Qiita, Zenn, note のアカウント名 + コメントの入力が出来る
 3. 投稿ボタンを押すと、入力内容から各指標を集計、結果をチャネルに投稿
 
@@ -31,8 +31,8 @@ Slack アプリのフレームワークである Bolt.js と Firebase を使っ�
 |note|記事数、Like 数、フォロワー数|
 
 いかに楽に入力できるか、いかに楽に自分の進捗を把握できるかに着目して開発しました。
-入力については、Slack アカウトごとに前回入力済みの内容を保存し、初回以降は入力欄の初期値として入るようにしています。
-自分の進捗把握については、初回以降前回の実行時からの差分を表示するようにしています。なので週 1 回とかコマンドを打てば前週との比較が手軽に出来ます。
+入力については、Slack アカウトごとに前回入力済みの内容を Firestore に保存し、初回以降は入力欄の初期値として入るようにしています。
+自分の進捗把握については、初回以降は前回の実行時からの差分を表示するようにしています。なので週 1 回とかコマンドを打てば前週との比較が手軽に出来ます。
 
 ![](https://i.gyazo.com/bdb8e8a5ea3c7146119420b02c01a777.gif)
 
@@ -49,7 +49,7 @@ Bolt.js を Cloud Functions for Firebase で動かして Slack とのやりと�
 指標集計部分は自分で各サービスの API クライントを書いて使っています。
 
 :::details Zenn の API クライアント
-```ts
+```ts:functions/src/lib/zennClient.ts
 import {
   ZennArticle,
   Follower,
@@ -113,7 +113,7 @@ export class ZennClient implements ApiClient {
 :::
 
 :::details Qiita の API クライアント
-```ts
+```ts:functions/src/lib/qiitaClient.ts
 import * as functions from "firebase-functions";
 import axios from "axios";
 import { QiitaItem, QiitaUser } from "../types/qiitaTypes";
@@ -183,7 +183,7 @@ export class QiitaClient implements ApiClient {
 :::
 
 :::details note の API クライアント
-```ts
+```ts:functions/src/lib/noteClient.ts
 import axios from "axios";
 import {
   NoteContent,
@@ -253,7 +253,7 @@ export class NoteClient implements ApiClient {
 :::
 
 :::details Twitter の API クライアント
-```ts
+```ts:functions/src/lib/twitterClient.ts
 import axios from "axios";
 import { PublicMetrics, UsersResponse } from "../types/twitterTypes";
 import * as functions from "firebase-functions";
@@ -290,7 +290,7 @@ export class TwitterClient implements ApiClient {
 :::
 
 :::message alert
-Zenn、note は 公式な API が公開されてないので、ネットワーク情報からパス、レスポンスをみて構築しています。各サービスの今後の改修で使えなくなる可能性はあります。
+Zenn、note は 公式な API が公開されてないので、ネットワーク情報からパス、レスポンスをみて構築しています。各サービスの今後の改修で使えなくなる可能性があります。
 :::
 
 
@@ -303,7 +303,7 @@ https://github.com/kawamataryo/blog-index
 
 今回の Slack Bot 作成においてハマりポイントがあったので紹介します。
 
-## Faas で Bolt.js を使う際の問題
+## FaaS で Bolt.js を使う際の問題
 
 実は Cloud Functions for Firebase や AWS Lambda などの FaaS 上で、Bolt.js による Slack Bot の構築は以下制約があるため少し工夫が必要です。
 
@@ -315,7 +315,7 @@ https://github.com/kawamataryo/blog-index
 
 ```js
 app.action('approve_button', async ({ ack, say }) => {
-  // アクションリクエストの確認。この時点でレスポンスは返される
+  // この時点でレスポンスは返される
   await ack();
   // 以降は非同期で処理される。3秒以内応答の制約はない。
   await superHeavyTask()
@@ -367,7 +367,7 @@ Bolt.js の Python 版である[bolt-python](https://github.com/SlackAPI/bolt-py
 これなら指標集計にどれほど時間がかかっても、もうモーダルへのレスポンスは完了しているので、タイムアウトで落ちることはありません。
 
 # 終わりに
-以上「Bolt.js⚡ + Firebase🔥で技術投稿の指標を良い感じに集計してくれる Slack Bot を作る」でした。
+以上「Bolt.js⚡ + Firebase🔥で技術投稿の指標を良い感じに集計してくれる Slack Bot を作った」でした。
 参加しているコミュニティ（[エンジニアと人生](https://community.camp-fire.jp/projects/view/280040)）の Slack でも皆に使ってもらっているので嬉しいです。
 
 もし、需要あれば公開アプリとしてみようかなとも思っています。反応もらえると嬉しいです。
