@@ -1,5 +1,5 @@
 ---
-title: "Firebase Trigger EmailでSPAのお問い合わせフォームを作る"
+title: "Firebase Trigger Email で SPA サイトのお問い合わせフォームを作る"
 emoji: "📮"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["firebase", "vue", "typescript"]
@@ -8,7 +8,8 @@ published: false
 
 この記事は[Firebas Advent Calendar 2020](https://qiita.com/advent-calendar/2020/firebase) 18 日目の記事です。
 
-SSG や SPA サイトを構築する際に地味に迷うお問い合わせフォームを Firebase Trigger Email を使って実装する方法を解説します。
+SSG や SPA サイトを構築する際に地味に迷うのがお問い合わせフォームの実装です。
+今回は Firebase Trigger Email を使って手軽に実装する方法を解説します。
 
 
 # 何を作る？
@@ -20,7 +21,14 @@ SSG や SPA サイトを構築する際に地味に迷うお問い合わせフ�
 フォームを入力し送信ボタンを押下すると、管理者とフォーム記載のメールアドレス宛にメールが送られます。
 （CodeSandbox はサンプルです。送信ボタンを押してもメールは送信されません）
 
-技術スタックは以下の通りです。
+- 管理者側
+![](https://i.gyazo.com/2b298a112f11b05e5b33574bcaf1ac66.png)
+
+
+- お問い合わせ実行ユーザー側
+![](https://i.gyazo.com/477b55b4610bce467a85446b3370dd0a.png)
+
+技術スタック及び構成は以下の通りです。
 
 ![](https://i.gyazo.com/82094b5dd251a0beee46b2e25a019fce.png)
 
@@ -60,8 +68,8 @@ Extensions の一覧が出るので、Trigger Email のインストールボタ�
 |Email documents collection| メール送信の対象となるデータを挿入するコレクション（このコレクションへの挿入がキックでメールが送信される|
 |Default FROM address|配信メールに送信者として記載されるメールアドレス（optional）|
 |Default REPLY-TO address|配信メールに返信先として記載されるメールアドレス（optional）|
-|Users collection|email のドキュメントの付加情報として、ユーザ情報を使う場合の Collection（optional)|
-|Templates collection|メールテンプレートを使う場合にそのテンプレートを保存する Collection（optional)|
+|Users collection|email のドキュメントの付加情報として、ユーザ情報を使う場合のコレクション（optional)|
+|Templates collection|メールテンプレートを使う場合にそのテンプレートを保存するコレクション（optional)|
 
 重要なのは、`SMTP connection URI` です。
 
@@ -92,10 +100,10 @@ https://sendgrid.kke.co.jp/docs/Tutorials/D_Improve_Deliverability/using_whitela
 
 # Firestoreにデータを挿入するFunctionsの作成
 
-次に、先ほど指定した `Email documents collection`（Firebase Trigger Email の起動へのフックとなる Collection) へのデータ追加のための Functions を作成します。
+次に、先ほど指定した `Email documents collection`（Firebase Trigger Email の起動へのフックとなる コレクション）へのデータ追加のための Functions を作成します。
 直接クライアントから Firestore にデータを挿入する形でも良いのですが、今回は同時に thanks メールも送りたいので、データの追加は Functions で管理しクライアントからは httpsCallable 関数を呼ぶ形にします。
 
-Functions のコードは以下の通りです。
+Functions のコードは以下の通りです（Functions のプロジェクト全体は[こちら](https://github.com/kawamataryo/contact-form-with-firebase-trigger-email/tree/master/functions)）。
 
 ```ts:functions/src/index.ts
 import * as functions from "firebase-functions";
@@ -137,57 +145,38 @@ export const sendMail = functions
   });
 ```
 
-メールの本文を作る関数はこちらです。
+特に重要なのは `mail` コレクションにデータを追加している以下の部分です。
 
-```ts:functions/src/lib/mailBody.ts
-type FormPayload = {
-  name: string;
-  email: string;
-  content: string;
+```ts
+const adminMailData = {
+  to: functions.config().mail.admin_address,
+  message: {
+    subject: "ホームページお問い合わせ",
+    text: adminMailBody({ name, email, content }),
+  },
 };
 
-export const adminMailBody = (params: FormPayload) => {
-  return `
-以下内容で問い合わせフォームよりお問い合わせを受けつけました。
-
-お名前:
-${params.name}
-
-メールアドレス:
-${params.email}
-
-内容:
-${params.content}
-`;
+const thanksMailData = {
+  to: email,
+  message: {
+    subject: "お問い合わせありがとうございます",
+    text: thanksMailBody({ name, email, content }),
+  },
 };
 
-export const thanksMailBody = (params: FormPayload) => {
-  return `
-${params.name} 様
-
-お問い合わせありがとうございます。
-以下内容でお問い合わせを受け付けました。
-
-お名前:
-${params.name}
-
-メールアドレス:
-${params.email}
-
-内容:
-${params.content}
-
-後ほど担当者よりご連絡を差し上げます。
-よろしくお願いいたします。
-`;
-};
+await db.collection("mail").add(adminMailData);
+await db.collection("mail").add(thanksMailData);
 ```
 
-この関数を Functions にデプロイすれば、Firebase 側の準備は完了です。
+`mail`コレクションのドキュメントとして`to`フィールドに送信したいメールアドレス、 `message`のフィールドの内部の Map の`subject`キーに件名、`text`キーにメール本文を設定しています。
+これが Firebase Trigger Email の規約です。
+この構造を持つドキュメントを`mail`コレクションに追加するとメール送信がキックされます。
+
+関数を Functions にデプロイすれば、Firebase 側の準備は完了です。
 
 # お問い合わせフォームとの繋ぎ込み
 
-お問い合わせフォームの送信ボタン押下で、先ほど作った Functions を実行すれば OK です。
+お問い合わせフォームの送信ボタン押下で、先ほど作った Functions を実行させます。
 
 お問い合わせフォームのコード全体は [CodeSandbox](https://codesandbox.io/embed/cotactform-sample-rdqs3?fontsize=14&hidenavigation=1&theme=dark) をみてもらうとして、該当コードだけ抜粋します。
 
