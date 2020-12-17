@@ -104,6 +104,7 @@ https://sendgrid.kke.co.jp/docs/Tutorials/D_Improve_Deliverability/using_whitela
 
 Functions のコードはこちらです（Functions のプロジェクト全体は[こちら](https://github.com/kawamataryo/contact-form-with-firebase-trigger-email/tree/master/functions)）。
 
+:::details index.ts
 ```ts:functions/src/index.ts
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
@@ -143,6 +144,7 @@ export const sendMail = functions
     await db.collection("mail").add(thanksMailData);
   });
 ```
+:::
 
 特に重要なのは `mail` コレクションにデータを追加している以下の部分です。
 
