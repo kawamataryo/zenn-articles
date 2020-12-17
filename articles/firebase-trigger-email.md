@@ -31,21 +31,19 @@ SSG や SPA サイトを構築する際に地味に迷うお問い合わせフ�
   - Firestore
   - SendGrid
 
+
 ![](https://i.gyazo.com/82094b5dd251a0beee46b2e25a019fce.png)
 
-こういう動作をします。
+以下で解説するコードは全て以下リポジトリにあります。
+もしタイポで動かないなどあればこちらをご確認ください。
 
-1. Vue で作ったお問い合わせフォームからお問い合わせ
-2. Cloud Functions for Firebase の httpsCallable 関数を実行
-3. Firebase Extensions と連携している FireStore の Collection にデータを保存
-3. 保存をフックに SendGrid 経由で管理者と、ユーザーにメールを送信
-
+https://github.com/kawamataryo/contact-form-with-firebase-trigger-email
 
 # Firebase Trigger Emailとは？
 
 最初に簡単に今回の主役である Firebase Trigger Email について。
 Firebase Trigger Email は Firebase Extensions の 1 つで、Firebase 経由のメール送信を簡単に実装できるようにするものです。
-後から説明しますが、ダッシュボードで項目を入力して、数回ボタンを押すだけで Cloud Functions が自動的に作られます。
+後から説明しますがコンソールで項目を入力するだけでメール送信の Cloud Functions が自動的に作られます。
 
 Firebase Trigger Email の動作の流れはこちらです。
 
@@ -57,14 +55,13 @@ Firebase Trigger Email の動作の流れはこちらです。
 
 # Firebase Trigger Emailの設定
 
-最初に Firebase Project と Trigger Email の設定を行います。
-Firebase で新規プロジェクトを作成して左下の Extensions を開きます。
+Firebase で新規プロジェクトを作成してメニュー左下の Extensions を開きます。
 
-すると Extensions の一覧が出るので、Trigger Email のインストールボタンを押しましょう。
+Extensions の一覧が出るので、Trigger Email のインストールボタンを押しましょう。
 
 ![](https://storage.googleapis.com/zenn-user-upload/4ng4yva3bopk7k32x9khofr1mglm)
 
-すると、構成内容の入力フォームが表示されるので適宜入力します。
+構成内容の入力フォームが表示されるので適宜入力します。
 
 ![](https://storage.googleapis.com/zenn-user-upload/rhd3kkz8sz64iuj624u7o53accs2)
 
@@ -80,13 +77,12 @@ Firebase で新規プロジェクトを作成して左下の Extensions を開�
 
 重要なのは、SMTP connection URI です。
 
-ここで指定した先で実際のメール送信が行われます。ここには SendGrid や Mailgun などのメールサービスが使えます。
+ここに指定した先で実際のメール送信が行われます。SendGrid や Mailgun などのメールサービスが指定できます。
 
 今回は SendGrid を使います。
 SendGrid の SMTP connection URI は `Email API > Integration Guide > SMTP Relay` から API キーを作成することで取得出来ます。
 
 以下画面の各値を組み合わせた値が SMTP URI となります。
-
 
 ![](https://storage.googleapis.com/zenn-user-upload/o4463xeis302mbu2dyjuh62vnjh1)
 
@@ -97,18 +93,22 @@ smtps://apikey:hogehoge@smtp.sendgrid.net
 
 
 :::message
-`Default FROM address` のアドレスは SengGrid 側で独自ドメインとして登録しないとメールソフトによっては迷惑メールに振り分けれる場合があります。
-その場合の設定はこちらです。
+`Default FROM address` のアドレスは SengGrid 側で独自ドメインとして登録しないとメールソフトによっては迷惑メールに振り分けられる場合があります。
+プロダクトで使うのならば必ず独自ドメインの設定を行いましょう。設定方法は以下リンクで解説されています。
 https://sendgrid.kke.co.jp/docs/Tutorials/D_Improve_Deliverability/using_whitelabel.html
 :::
 
+拡張機能をインストールを押すしてしばらく待つと Functions に新しい関数が追加されます。
+これで Trigger Email の設定は完了です。
+
+![](https://i.gyazo.com/82094b5dd251a0beee46b2e25a019fce.png)
 
 # Firestoreにデータを挿入するFunctionsの作成
 
-次に、先ほど指定した Email documents collection（Firebase Trigger Email の起動へのフックとなる Collection)へのデータ挿入のための Cloud Functions を作成します。
-直接クライアントから Firestore にデータを挿入する形でも良いのですが、今回は Template を一律に管理したい、自動返信メールも送信したいという考えがあるので Cloud Functions で管理し、クライアントからは httpsCallable 関数を呼ぶ形にします。
+次に、先ほど指定した Email documents collection（Firebase Trigger Email の起動へのフックとなる Collection) へのデータ挿入のための Functions を作成します。
+直接クライアントから Firestore にデータを挿入する形でも良いのですが、今回は Template を一律に管理したい、自動返信メールも送信したいという考えがあるので Functions で管理し、クライアントからは httpsCallable 関数を呼ぶ形にします。
 
-Cloud FUnctions のコードは以下の通りです。
+Functions のコードは以下の通りです。
 
 ```ts:functions/src/index.ts
 import * as functions from "firebase-functions";
@@ -196,14 +196,15 @@ ${params.content}
 };
 ```
 
-これで Firebase 側の準備は完了です。
+この関数をデプロイすれば、Firebase 側の準備は完了です。
 
 # お問い合わせフォームとの繋ぎ込み
 
-あとは、お問い合わせフォームの送信ボタン押下で先ほど作った Functions を実行すれば OK です。
+最後に、お問い合わせフォームの送信ボタン押下で先ほど作った Functions を実行すれば OK です。
+
 詳細は [CodeSandbox](https://codesandbox.io/embed/cotactform-sample-rdqs3?fontsize=14&hidenavigation=1&theme=dark) をみてもらうとして、該当コードだけ抜粋します。
 
-以下が、送信ボタン押下次の処理です。reactive な値として保持していたフォームの入力値を引数に、httpsCallable 関数を実行しています。
+送信ボタン押下時の処理です。reactive で保持していたフォームの入力値を引数に、httpsCallable 関数を実行しています。
 
 ```ts
 const onSubmit = async () => {
@@ -235,8 +236,8 @@ const onSubmit = async () => {
 };
 ```
 
-これで Functions により Firebase Trigger Email と連携する Firestore にデータが挿入され、お問い合わせメールが管理者とお問い合わせ実行ユーザーに送信されます。
-便利！
+これで送信ボタンが押されると Functions により Firebase Trigger Email と連携する Firestore にデータが挿入され、管理者とお問い合わせ実行ユーザーにメールが送信されます。
+完成🎉
 
 # おわりに
 
