@@ -178,7 +178,8 @@ await db.collection("mail").add(thanksMailData);
 お問い合わせフォームの送信ボタン押下で、先ほど作った Functions を実行させます。
 お問い合わせフォームのコンポーネントはこちらです。
 
-```vue
+:::details ContactForm.vue
+```vue:ContactForm.vue
 <template>
   <div class="form-wrapper box has-text-left has-background-light">
     <div class="field">
@@ -314,6 +315,7 @@ export default defineComponent({
 }
 </style>
 ```
+:::
 
 重要なのは送信ボタン押下時の処理です。
 reactive で保持していたフォームの入力値を引数に、httpsCallable 関数を実行しています。
