@@ -1,5 +1,5 @@
 ---
-title: "Firebase Trigger Email で SPA サイトのお問い合わせフォームを作る"
+title: "Firebase Trigger Email で作る SPA サイトのお問い合わせフォーム"
 emoji: "📮"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["firebase", "vue", "typescript"]
