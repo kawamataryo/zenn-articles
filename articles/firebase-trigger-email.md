@@ -36,7 +36,7 @@ SSG や SPA サイトを構築する際に迷うのがお問い合わせフォ�
 
 https://github.com/kawamataryo/contact-form-with-firebase-trigger-email
 
-# Firebase Trigger Emailとは？
+# Firebase Trigger Email とは？
 
 Firebase Trigger Email は Firebase Extensions の 1 つで、Firebase でメール送信を簡単に実装できるようにするものです。
 後から説明しますがコンソールで項目を入力するだけでメール送信の Cloud Functions が自動的に作られます。
@@ -49,7 +49,7 @@ Firebase Trigger Email の動作の流れはこちらです。
 4. メールの送信結果で ドキュメント をアップデート（送信履歴の記録）
 
 
-# Firebase Trigger Emailの設定
+# Firebase Trigger Email の設定
 
 Firebase で新規プロジェクトを作成して、メニュー左下の Extensions を開きます。
 Extensions の一覧が出るので、Trigger Email のインストールボタンを押しましょう。
@@ -62,7 +62,7 @@ Extensions の一覧が出るので、Trigger Email のインストールボタ�
 
 |項目|内容|
 |---|---|
-|Cloud Functions location|Trigger Email の Cloud Functions を配置する region|
+|Cloud Functions location|Firebase Trigger Email の Cloud Functions を配置する region|
 |SMTP connection URI| 実際にメール送信を担うメールサービスの SMTP URI|
 |Email documents collection| メール送信の対象となるデータを挿入するコレクション（このコレクションへの挿入がキックでメールが送信される|
 |Default FROM address|配信メールに送信者として記載されるメールアドレス（optional）|
@@ -97,7 +97,7 @@ https://sendgrid.kke.co.jp/docs/Tutorials/D_Improve_Deliverability/using_whitela
 :::
 
 
-# Firestoreにデータを挿入するFunctionsの作成
+# Functions の作成
 
 次に、先ほど指定した `Email documents collection`（Firebase Trigger Email の起動へのフックとなるコレクション）へのドキュメント追加のための Functions を作成します。
 直接クライアントから Firestore にドキュメントを追加する形でも良いのですが、今回は同時に thanks メールも送りたいので、ドキュメント追加は Functions で管理しクライアントからは httpsCallable 関数を呼ぶ形にします。
