@@ -3,7 +3,7 @@ title: "Firebase Trigger Email で作る SPA サイトのお問い合わせフ�
 emoji: "📮"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["firebase", "vue", "typescript"]
-published: false
+published: true
 ---
 
 この記事は [Firebas Advent Calendar 2020](https://qiita.com/advent-calendar/2020/firebase) 18 日目の記事です。
