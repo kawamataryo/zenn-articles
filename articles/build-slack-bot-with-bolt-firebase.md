@@ -3,7 +3,7 @@ title: "Bolt.js⚡ + Firebase🔥で技術投稿の指標を良い感じに集�
 emoji: "🤖"
 type: "tech"
 topics: ["Firebase", "Bolt", "slack", "Firestore", "TypeScript"]
-published: true
+published: false
 ---
 
 この記事は [Slack Advent Calendar 2020](https://qiita.com/advent-calendar/2020/slack) 16 日目の記事です。
