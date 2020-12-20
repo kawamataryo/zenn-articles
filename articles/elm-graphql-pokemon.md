@@ -8,11 +8,11 @@ published: false
 
 この記事は [Elm アドベントカレンダー](https://qiita.com/advent-calendar/2020/elm)22 日目の記事です。
 
-Elm & elm-graphql の入門として [GraphQL Pokemon](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker) のデータをただ描画するだけのアプリを作りました。チュートリアル形式でまとめます。
+Elm & elm-graphql の入門として [GraphQL Pokemon](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker) のデータをただ描画するだけのアプリを作りました。Elm x GraphQL の入門に良いと思うので、チュートリアル形式でまとめます。
 
 # 作るもの
 
-GraphQL Pokemon へクエリを投げて、取得結果をレンダリングする Elm アプリを作ります。
+GraphQL Pokemon へクエリを投げて、レスポンスをレンダリングする Elm アプリを作ります。
 
 ![](https://i.gyazo.com/44df3b3717a80d74e446c6d22eb98fd3.png)
 
@@ -29,6 +29,7 @@ https://github.com/kawamataryo/elm-graphql-pokemon
 # 1. プロジェクトの作成
 
 create-react-app の Elm 版的な [create-elm-app](https://github.com/halfzebra/create-elm-app) でプロジェクトを作成します。
+腫瘍ファイルとビルド環境を一度に作ってくれるので便利です。
 
 ```bash
 $ npx create-elm-app my-app
@@ -63,12 +64,12 @@ npx elm-app start
 ```
 
 しばらく待つと localhost でアプリが起動します。
-elm の環境構築は完了です。
+Elm の環境構築は完了です。
 
 ![](https://i.gyazo.com/31f30556d4e959934f51d60f55491b06.png)
 
 
-あと、CSS を書きたくないので CSS フレームワークの [Bulma](https://bulma.io/) を追加します。Bulma のクラスを Elm 上で type-safe に使える `ahstro/elm-bulma-classes`も合わせて追加します。
+あと、CSS を書きたくないので CSS フレームワークの [Bulma](https://bulma.io/) を追加します。Bulma のクラスを Elm 上で型安全に使える `ahstro/elm-bulma-classes`も合わせて追加します。
 
 https://github.com/ahstro/elm-bulma-classes
 
@@ -84,7 +85,7 @@ import 'bulma/css/bulma.min.css';
 ```
 
 # 2. elm-graphqlの追加 & Code Generate
-elm の GraphQL クライアントは色々あるみたいなのですが、今回は type-safe に GraphQL クエリを書きたいので、GraphQL のスキーマから型や関連関数を自動生成してくれる dillonkearns/elm-graphql を使います。
+Elm の GraphQL クライアントは色々あるみたいなのですが、今回は 型安全 に GraphQL クエリを書きたいので、GraphQL のスキーマから型や関連関数を自動生成してくれる dillonkearns/elm-graphql を使います。
 
 https://github.com/dillonkearns/elm-graphql
 
@@ -98,7 +99,7 @@ $ yarn add -D @dillonkearns/elm-graphql
 ```
 
 続いて elm-graphql の Code Generator を起動するスクリプト package.json に追記します。
-ここで、今回使う[GraphQL Pokemon](https://graphql-pokemon2.vercel.app)の URL を指定します。
+ここで、[GraphQL Pokemon](https://graphql-pokemon2.vercel.app)の URL を指定します。
 
 ```json:package.json
   "scripts": {
@@ -131,7 +132,7 @@ src/Pokemon/
 └── elm-graphql-metadata.json
 ```
 
-これが GraphQL を type-safe に使うための肝となります。
+これが Elm 上で GraphQL を型安全に使うための肝となります。
 
 # 3. 実装
 
@@ -326,8 +327,10 @@ main =
 
 ポイントのみ解説します。
 
-まず必要な type alias 及び Model はこちらです。
-GraphQL リクエストのレスポンスは`krisajenkins/remotedata`の RemoteData を使いハンドリングします。
+### Type alias & Model
+
+type alias 及び Model はこちらです。
+GraphQL リクエストのレスポンスは`krisajenkins/remotedata`の [RemoteData](https://package.elm-lang.org/packages/krisajenkins/remotedata/latest/) を使いハンドリングします。
 あと、init のタイミングでポケモンを取得する GraphQL クエリ実行しています。
 
 ```elm:main.elm
@@ -357,13 +360,14 @@ init =
     )
 ```
 
-GraphQL のクエリ部分はこちらです。
+### GraphQL Query
 
+GraphQL のクエリ部分はこちらです。
 `pokemonsRequiredArguments`で GraphQL クエリ時の引数。`pokemonListSelection`で取得するフィールドを組み立てています。
 どのクエリを呼び出すかどうかは`fetchPokemonsQuery`の`Query.pokemons`で指定します。これは`elm-graphql`で自動的に生成される関数です。
 最後に`fetchPokemons`で、先ほど作った`makeGraphQLQuery` を使った GraphQL リクエストを実行する関数を作っています。
 
-elm-graphql から提供されいている型・関数を使うことで完全に type-safe に GraphQL クエリがかけます。すごい！
+elm-graphql から提供されいている型・関数を使うことで、完全に型で守られた状態で GraphQL クエリがかけます。すごい！
 
 ```elm:Main.elm
 pokemonsRequiredArguments : Int -> PokemonsRequiredArguments
@@ -389,6 +393,7 @@ fetchPokemons num =
     makeGraphQLQuery (fetchPokemonsQuery num) (RemoteData.fromResult >> FetchDataSuccess)
 ```
 
+### Update
 
 Update 部分はこちらです。
 GraphQL クエリの実行後に呼ばれる FetchDataSuccess の Msg でレスポンスから Model の更新を行っています。
@@ -410,13 +415,14 @@ updatePokemonsData data model cmd =
     ( { model | pokemons = data }, cmd )
 ```
 
+### View
+
 最後に View の部分です。
 `renderPokemons`で pokemonData にある RemoteData の値によって処理を変更しています。
 もし、RemoteData が Success の場合は結果の HTML を表示するようになっています。
 
 :::message
-ここの Maybe 型のアンラップをしながら HTML を組んでいく過程が慣れておらず、めちゃ詰まりました。結局こちらの記事を参考に`Maybe.withDefault`と`Maybe.map`を使って書いています。
-https://qiita.com/aimy-07/items/76f85697f5996276f8f4
+ここの Maybe 型のアンラップをしながら HTML を組んでいく過程が慣れておらず、めちゃ詰まりました。結局[こちら](https://qiita.com/aimy-07/items/76f85697f5996276f8f4)の記事を参考に`Maybe.withDefault`と`Maybe.map`を使って書いています。
 もしもっとスマートに Maybe 型を扱える方法があれば知りたいです🙏
 :::
 
@@ -480,8 +486,16 @@ $ npx elm-app start
 
 # おわりに
 以上「はじめての elm-graphql」でした。
+
 [以前 Elm の勉強会に参加](https://zenn.dev/ryo_kawamata/articles/elm-hands-on-report)したものの、結局それから Elm を触る機会を持てず Elm アドベントカレンダー期限の 4 日前まできてしまい急遽作ったのがこちらです😅
 まだまだ Elm に慣れていないので、もしおかしいところあれば気軽にコメント頂けると嬉しいです。
 
 正直最初はどうにもコンパイルエラーが直せず、めちゃくちゃ詰まったのですが、新しい言語を試行錯誤しながら学ぶ過程が面白かったです。
 今回のアプリ作成で、少し Elm と仲良くなれた気がするので、今後は機会見てちょこちょこ書いていきたいと思います。
+
+# 参考
+
+- [[Elm] Maybeを活用する - Qiita](https://qiita.com/aimy-07/items/76f85697f5996276f8f4)
+- [halfzebra/create-elm-app: 🍃 Create Elm apps with zero configuration](https://github.com/halfzebra/create-elm-app)
+- [Client Side Elm Setup | GraphQL Elm Tutorial](https://hasura.io/learn/graphql/elm-graphql/elm-graphql/)
+- [dillonkearns/elm-graphql: Autogenerate type-safe GraphQL queries in Elm.](https://github.com/dillonkearns/elm-graphql)
