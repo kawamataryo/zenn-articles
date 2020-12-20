@@ -1,5 +1,5 @@
 ---
-title: "はじめてのelm-graphql - GraphQL Pokemonを表示する -"
+title: "はじめての elm-graphql 〜 Elm で GraphQL Pokemon のポケモンを描画するまで 〜"
 emoji: "🦋"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["elm", "graphql", "pokemon"]
@@ -8,11 +8,11 @@ published: false
 
 この記事は [Elm アドベントカレンダー](https://qiita.com/advent-calendar/2020/elm)22 日目の記事です。
 
-Elm & elm-graphql の入門として [GraphQL Pokemon](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker) のデータをただ描画するだけのアプリを作りました。Elm x GraphQL の入門に良いと思うので、チュートリアル形式でまとめます。
+elm-graphql のお試しとして [GraphQL Pokemon](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker) のデータをただ描画するだけのアプリを作りました。Elm x GraphQL の入門に良いと思うので、チュートリアル形式でまとめます。
 
 # 作るもの
 
-GraphQL Pokemon へクエリを投げて、レスポンスをレンダリングする Elm アプリを作ります。
+[GraphQL Pokemon](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker) へクエリを投げて、レスポンスをレンダリングする Elm アプリを作ります。
 
 ![](https://i.gyazo.com/44df3b3717a80d74e446c6d22eb98fd3.png)
 
@@ -136,10 +136,13 @@ src/Pokemon/
 
 # 3. 実装
 
-まず GraphQL のリクエストを送るためのクライアントを作ります。
-GraphQL Pokemon には認証が不要なのでとても簡単です。
+続いて本体を実装していきます。
+コードが長いのでポイントのみ抜粋します。
 
-```elm:src/GraphQLClient.elm
+全体のコードは以下をご覧ください。
+
+:::details GraphQLClient.elm
+```elm:GraphqlClient.elm
 module GraphQLClient exposing (makeGraphQLQuery)
 
 import Graphql.Http
@@ -158,8 +161,7 @@ makeGraphQLQuery query decodesTo =
         |> Graphql.Http.queryRequest graphql_url
         |> Graphql.Http.send decodesTo
 ```
-
-あとは、先ほど生成されたコードを使って Main.elm を作っていけば完成です。
+:::
 
 :::details Main.elm
 ```elm:Main.elm
@@ -325,11 +327,28 @@ main =
 ```
 :::
 
-ポイントのみ解説します。
+
+### GraphQL Client
+
+GraphQL のリクエストを送るためのクライアントです。
+GraphQL Pokemon には認証が不要なので、elm-graphql で提供されている関数にエンドポイントの URL を渡すだけで OK です。
+
+```elm:src/GraphQLClient.elm
+graphql_url : String
+graphql_url =
+    "https://graphql-pokemon2.vercel.app/"
+
+
+makeGraphQLQuery : SelectionSet decodesTo RootQuery -> (Result (Graphql.Http.Error decodesTo) decodesTo -> msg) -> Cmd msg
+makeGraphQLQuery query decodesTo =
+    query
+        |> Graphql.Http.queryRequest graphql_url
+        |> Graphql.Http.send decodesTo
+```
 
 ### Type alias & Model
 
-type alias 及び Model はこちらです。
+type alias 及び Model です。
 GraphQL リクエストのレスポンスは`krisajenkins/remotedata`の [RemoteData](https://package.elm-lang.org/packages/krisajenkins/remotedata/latest/) を使いハンドリングします。
 あと、init のタイミングでポケモンを取得する GraphQL クエリ実行しています。
 
@@ -362,7 +381,7 @@ init =
 
 ### GraphQL Query
 
-GraphQL のクエリ部分はこちらです。
+GraphQL のクエリ部分です。
 `pokemonsRequiredArguments`で GraphQL クエリ時の引数。`pokemonListSelection`で取得するフィールドを組み立てています。
 どのクエリを呼び出すかどうかは`fetchPokemonsQuery`の`Query.pokemons`で指定します。これは`elm-graphql`で自動的に生成される関数です。
 最後に`fetchPokemons`で、先ほど作った`makeGraphQLQuery` を使った GraphQL リクエストを実行する関数を作っています。
@@ -395,7 +414,7 @@ fetchPokemons num =
 
 ### Update
 
-Update 部分はこちらです。
+状態変更は Update で行います。
 GraphQL クエリの実行後に呼ばれる FetchDataSuccess の Msg でレスポンスから Model の更新を行っています。
 
 ```elm:Main.elm
@@ -417,9 +436,10 @@ updatePokemonsData data model cmd =
 
 ### View
 
-最後に View の部分です。
+最後に View です。
 `renderPokemons`で pokemonData にある RemoteData の値によって処理を変更しています。
-もし、RemoteData が Success の場合は結果の HTML を表示するようになっています。
+RemoteData が Success の場合のみ結果の HTML を表示するようになっています。
+RemoteData を使うとリクエスト中は、ローディング文字列を出すなども簡単に出来るので良いですね。
 
 :::message
 ここの Maybe 型のアンラップをしながら HTML を組んでいく過程が慣れておらず、めちゃ詰まりました。結局[こちら](https://qiita.com/aimy-07/items/76f85697f5996276f8f4)の記事を参考に`Maybe.withDefault`と`Maybe.map`を使って書いています。
@@ -483,6 +503,7 @@ $ npx elm-app start
 ```
 
 ![](https://i.gyazo.com/08c36cb31a9a9488bb20a053f1bba59b.png)
+※ トップ画像と背景色が違うのは main.css で body 要素の background-color を指定していないからです。
 
 # おわりに
 以上「はじめての elm-graphql」でした。
@@ -491,7 +512,7 @@ $ npx elm-app start
 まだまだ Elm に慣れていないので、もしおかしいところあれば気軽にコメント頂けると嬉しいです。
 
 正直最初はどうにもコンパイルエラーが直せず、めちゃくちゃ詰まったのですが、新しい言語を試行錯誤しながら学ぶ過程が面白かったです。
-今回のアプリ作成で、少し Elm と仲良くなれた気がするので、今後は機会見てちょこちょこ書いていきたいと思います。
+今回のアプリ作成で、少し Elm と仲良くなれた気がするので、機会見てちょこちょこ書いていきたいなと思っています。
 
 # 参考
 
