@@ -1,5 +1,5 @@
 ---
-title: "はじめての elm-graphql 〜 Elm で GraphQL Pokemon のポケモンを描画するまで 〜"
+title: "はじめての elm-graphql 〜 Elm でポケモンを描画するまで 〜"
 emoji: "🦋"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["elm", "graphql", "pokemon"]
@@ -29,7 +29,7 @@ https://github.com/kawamataryo/elm-graphql-pokemon
 # 1. プロジェクトの作成
 
 create-react-app の Elm 版的な [create-elm-app](https://github.com/halfzebra/create-elm-app) でプロジェクトを作成します。
-腫瘍ファイルとビルド環境を一度に作ってくれるので便利です。
+主要ファイルとビルド環境を一度に作ってくれるので便利です。
 
 ```bash
 $ npx create-elm-app my-app
@@ -78,18 +78,19 @@ $ yarn add bulma
 $ elm install ahstro/elm-bulma-classes
 ```
 
-index.js に以下を追記してください。これでビルド時に Bulma の CSS が読み込まれます
+src/index.js に以下を追記してください。これでビルド時に Bulma の CSS が読み込まれます
 
 ```js:index.js
 import 'bulma/css/bulma.min.css';
 ```
 
 # 2. elm-graphqlの追加 & Code Generate
-Elm の GraphQL クライアントは色々あるみたいなのですが、今回は 型安全 に GraphQL クエリを書きたいので、GraphQL のスキーマから型や関連関数を自動生成してくれる dillonkearns/elm-graphql を使います。
+Elm の GraphQL クライアントは色々あるみたいなのですが、今回は 型安全 に GraphQL クエリを書きたいので、GraphQL のスキーマから型や関連関数を自動生成してくれる `dillonkearns/elm-graphql` を使います。
 
 https://github.com/dillonkearns/elm-graphql
 
 まずインストール。
+elm-graphql は elm のパッケージだけでなく、npm パッケージも追加するのがポイントです。
 
 ```
 $ elm install dillonkearns/elm-graphql
@@ -98,7 +99,7 @@ $ elm install krisajenkins/remotedata
 $ yarn add -D @dillonkearns/elm-graphql
 ```
 
-続いて elm-graphql の Code Generator を起動するスクリプト package.json に追記します。
+続いて elm-graphql の Code Generator を起動するスクリプトを package.json に追記します。
 ここで、[GraphQL Pokemon](https://graphql-pokemon2.vercel.app)の URL を指定します。
 
 ```json:package.json
@@ -142,7 +143,7 @@ src/Pokemon/
 全体のコードは以下をご覧ください。
 
 :::details GraphQLClient.elm
-```elm:GraphqlClient.elm
+```elm:src/GraphqlClient.elm
 module GraphQLClient exposing (makeGraphQLQuery)
 
 import Graphql.Http
@@ -164,7 +165,7 @@ makeGraphQLQuery query decodesTo =
 :::
 
 :::details Main.elm
-```elm:Main.elm
+```elm:src/Main.elm
 module Main exposing (..)
 
 import Browser
@@ -348,9 +349,8 @@ makeGraphQLQuery query decodesTo =
 
 ### Type alias & Model
 
-type alias 及び Model です。
-GraphQL リクエストのレスポンスは`krisajenkins/remotedata`の [RemoteData](https://package.elm-lang.org/packages/krisajenkins/remotedata/latest/) を使いハンドリングします。
-あと、init のタイミングでポケモンを取得する GraphQL クエリ実行しています。
+Main.elm の type alias 及び Model です。
+GraphQL リクエストのレスポンスは`krisajenkins/remotedata`の [RemoteData](https://package.elm-lang.org/packages/krisajenkins/remotedata/latest/) を使いハンドリングします。init のタイミングでポケモンを取得する GraphQL クエリ実行しています。
 
 ```elm:main.elm
 type alias Pokemon =
@@ -442,7 +442,7 @@ RemoteData が Success の場合のみ結果の HTML を表示するようにな
 RemoteData を使うとリクエスト中は、ローディング文字列を出すなども簡単に出来るので良いですね。
 
 :::message
-ここの Maybe 型のアンラップをしながら HTML を組んでいく過程が慣れておらず、めちゃ詰まりました。結局[こちら](https://qiita.com/aimy-07/items/76f85697f5996276f8f4)の記事を参考に`Maybe.withDefault`と`Maybe.map`を使って書いています。
+GraphQL Pokemon のレスポンスは階層的な Maybe 型なのですが Maybe 型のアンラップをしながら HTML を組んでいく過程が慣れておらず、とても詰まりました。結局[こちら](https://qiita.com/aimy-07/items/76f85697f5996276f8f4)の記事を参考に`Maybe.withDefault`と`Maybe.map`を使って書いています。
 もしもっとスマートに Maybe 型を扱える方法があれば知りたいです🙏
 :::
 
@@ -495,7 +495,8 @@ renderPokemon maybePokemon =
         ]
 ```
 
-この状態で、以下コマンドを実行すればポケモンが表示されるはずです！
+以上で終わりです。
+以下コマンドを実行すればポケモンが表示されるはずです！
 完成 🎉
 
 ```
