@@ -126,6 +126,9 @@
     "prefer-tari-tari": false,
     "abbr-within-parentheses": true,
     "no-mixed-zenkaku-and-hankaku-alphabet": true,
-    "footnote-order": true
+    "footnote-order": true,
+    "@proofdict/proofdict": {
+      "dictURL": "https://azu.github.io/proof-dictionary/"
+    }
   }
 }
