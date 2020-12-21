@@ -1,5 +1,5 @@
 ---
-title: "はじめての elm-graphql 〜 Elm でポケモンを描画するまで 〜"
+title: "はじめての Elm × GraphQL 〜 Elm でポケモンをレンダリングするまで 〜"
 emoji: "🦋"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["elm", "graphql", "pokemon"]
@@ -8,7 +8,7 @@ published: false
 
 この記事は [Elm アドベントカレンダー](https://qiita.com/advent-calendar/2020/elm)22 日目の記事です。
 
-elm-graphql のお試しとして [GraphQL Pokemon](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker) のデータをただ描画するだけのアプリを作りました。Elm x GraphQL の入門に良いと思うので、チュートリアル形式でまとめます。
+Elm のお試しとして [GraphQL Pokemon](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker) のデータをただ描画するだけのアプリを作りました。Elm × GraphQL の入門に良いと思ったのでチュートリアル形式でまとめます。
 
 # 作るもの
 
@@ -69,7 +69,7 @@ Elm の環境構築は完了です。
 ![](https://i.gyazo.com/31f30556d4e959934f51d60f55491b06.png)
 
 
-あと、CSS を書きたくないので CSS フレームワークの [Bulma](https://bulma.io/) を追加します。Bulma のクラスを Elm 上で型安全に使える `ahstro/elm-bulma-classes`も合わせて追加します。
+画面を作る段階でスタイリングを楽にするため、先に CSS フレームワークの [Bulma](https://bulma.io/) と Bulma のクラスを Elm 上で型安全に使える `ahstro/elm-bulma-classes`を追加します。
 
 https://github.com/ahstro/elm-bulma-classes
 
@@ -108,7 +108,7 @@ $ yarn add -D @dillonkearns/elm-graphql
   }
 ```
 
-この状態で`yarn code:generate`を実行すると以下のように`src/Pokemons`配下にファイルが自動生成されます。
+この状態で`yarn code:generate`を実行すると、以下のように`src/Pokemons`配下にファイルが自動生成されます。
 
 ```
 src/Pokemon/
@@ -504,7 +504,6 @@ $ npx elm-app start
 ```
 
 ![](https://i.gyazo.com/08c36cb31a9a9488bb20a053f1bba59b.png)
-※ トップ画像と背景色が違うのは main.css で body 要素の background-color を指定していないからです。
 
 # おわりに
 以上「はじめての elm-graphql」でした。
