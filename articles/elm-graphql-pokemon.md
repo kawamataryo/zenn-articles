@@ -8,11 +8,11 @@ published: true
 
 この記事は [Elm アドベントカレンダー](https://qiita.com/advent-calendar/2020/elm)22 日目の記事です。
 
-Elm のお試しとして [GraphQL Pokemon](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker) のデータをただ描画するだけのアプリを作りました。Elm × GraphQL の入門に良いと思ったのでチュートリアル形式でまとめます。
+Elm のお試しとして [GraphQL Pokemon](https://wayfair.github.io/dociql/) のデータをただ描画するだけのアプリを作りました。Elm × GraphQL の入門に良いと思ったのでチュートリアル形式でまとめます。
 
 # 作るもの
 
-[GraphQL Pokemon](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker) へクエリを投げて、レスポンスをレンダリングする Elm アプリを作ります。
+[GraphQL Pokemon](https://wayfair.github.io/dociql/) へクエリを投げて、レスポンスをレンダリングする Elm アプリを作ります。
 
 ![](https://i.gyazo.com/44df3b3717a80d74e446c6d22eb98fd3.png)
 
