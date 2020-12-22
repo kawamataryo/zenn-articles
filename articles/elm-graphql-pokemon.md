@@ -2,8 +2,8 @@
 title: "はじめての Elm × GraphQL 〜 Elm でポケモンをレンダリングするまで 〜"
 emoji: "🦋"
 type: "tech" # tech: 技術記事 / idea: アイデア
-topics: ["elm", "graphql", "pokemon"]
-published: false
+topics: ["elm", "graphql"]
+published: true
 ---
 
 この記事は [Elm アドベントカレンダー](https://qiita.com/advent-calendar/2020/elm)22 日目の記事です。
