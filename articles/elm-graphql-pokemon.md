@@ -506,7 +506,7 @@ $ npx elm-app start
 ![](https://i.gyazo.com/08c36cb31a9a9488bb20a053f1bba59b.png)
 
 # おわりに
-以上「はじめての elm-graphql」でした。
+以上「はじめての Elm × GraphQL」でした。
 
 [以前 Elm の勉強会に参加](https://zenn.dev/ryo_kawamata/articles/elm-hands-on-report)したものの、結局それから Elm を触る機会を持てず Elm アドベントカレンダー期限の 4 日前まできてしまい急遽作ったのがこちらです😅
 まだまだ Elm に慣れていないので、もしおかしいところあれば気軽にコメント頂けると嬉しいです。
