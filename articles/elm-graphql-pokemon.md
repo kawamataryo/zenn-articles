@@ -447,7 +447,7 @@ RemoteData を使うとリクエスト中は、ローディング文字列を出
 :::message
 GraphQL Pokemon のレスポンスは階層的な Maybe 型なのですが Maybe 型のアンラップをしながら HTML を組んでいく過程が慣れておらず、とても詰まりました。結局[こちら](https://qiita.com/aimy-07/items/76f85697f5996276f8f4)の記事を参考に`Maybe.withDefault`と`Maybe.map`を使って書いています。
 ~~もしもっとスマートに Maybe 型を扱える方法があれば知りたいです🙏~~
-2020/12/22 20:00 追記
+2020/12/22 20:00 追記 
 Elm の伝道師の[@ababupdownba](https://twitter.com/ababupdownba)さんにアドバイス頂き「let in」を使った書き方にリファクタしました。感謝🙏
 :::
 
