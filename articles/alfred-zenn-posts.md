@@ -2,7 +2,7 @@
 title: "自分のZenn記事をインクリメンタル検索するAlfred Workflowを作った"
 emoji: "🔎"
 type: "tech" # tech: 技術記事 / idea: アイデア
-topics: ["alfred", "zenn", "js"]
+topics: ["alfred", "zenn", "javascript"]
 published: true
 ---
 
