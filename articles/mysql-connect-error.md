@@ -70,7 +70,7 @@ mysql> select user, host from mysql.user;
 :::
 
 # その他
-`docker-compose.yml` または `Dockerfile`にて、`MYSQL_ROO_HOST`の環境変数で root ユーザーの host を指定できるようです。
+`docker-compose.yml` または `Dockerfile`にて、`MYSQL_ROOT_HOST`の環境変数で root ユーザーの host を指定できるようです。
 以下のように設定しておくと初回起動時に host が`%`の root ユーザーが作成されます。
 この状態で root ユーザーにアクセスすれば、前述の対応は不要になります。
 
