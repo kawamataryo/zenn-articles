@@ -71,13 +71,15 @@ mysql> select user, host from mysql.user;
 :::
 
 # その他
-docker-compose.yml または Docker ファイルにて、以下環境変数を設定しておくと初回起動時に host が`%`の root ユーザーが作成されるようです。
+`docker-compose.yml` または `Dockerfile`、`MYSQL_ROO_HOST`の環境変数を設定しておくと初回起動時に host が`%`の root ユーザーが作成されるようです。
 そちらの方法で root ユーザーにアクセスすることで上記の対応は不要になります。
 
 ```yml
 environment:
   MYSQL_ROOT_HOST: '%'
 ```
+
+https://dev.mysql.com/doc/refman/8.0/en/docker-mysql-more-topics.html#docker_var_mysql-root-host
 
 # 参考
 - [mysqlのユーザー権限を管理する - Qiita](https://qiita.com/harada4atsushi/items/a36d26c798967e1f2cd9)
