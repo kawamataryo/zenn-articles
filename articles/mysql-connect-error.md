@@ -16,14 +16,13 @@ Docker で立てた MySQL サーバーの MySQL に、ホスト側で起動し�
 Mysql2::Error: Host '172.22.0.1' is not allowed to connect to this MySQL server
 ```
 
-ポート番号やユーザー名、パスワードに間違いはなく、コンテナに入り MySQL へアクセスすると正常に起動しています。
-なぜ🤔
+ポート番号やユーザー名、パスワードに間違いはなく、コンテナに入り MySQL へアクセスすると正常に起動しています。なぜ🤔
 
 
 # 原因
 
 指定したユーザーに、外部からのアクセス権がなかったのことが原因でした。
-実際にコンテナ上の MySQL にて以下を実行すると指定ユーザー（sample_user）の host が localhost のみになっています。
+実際にコンテナ上の MySQL にて以下を実行すると指定ユーザー（sample_user）の host が `localhost` のみになっています。
 これだと MySQL サーバーのコンテナ内からしかアクセスができません。
 
 ```
