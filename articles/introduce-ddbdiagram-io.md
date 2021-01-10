@@ -6,15 +6,16 @@ topics: ["database", "効率化"]
 published: false
 ---
 
-最近 ER 図を書く機会があって、その時使ってみた [dbdiagram.io](https://dbdiagram.io/home) がとても良いツールだったので紹介します。
+最近 ER 図を書く機会があって、その際に使ってみた [dbdiagram.io](https://dbdiagram.io/home) がとても良いツールだったので紹介します。
 
 # dbdiagram.ioとは？
 
 
 [dbdiagram.io](https://dbdiagram.io) は、ブラウザ上で手軽にデータベースの ER 図を作れるツールです。
-とても直感的で分かりやすい記法のコードで、テーブルの構成やリレーションを定義できます。
+とても直感的で分かりやすい記法で、テーブルの構成やリレーションを定義できます。
 
-作った ER 図は PDF や PNG、MySQL, PostgreSQL など各種形式でエクスポートが可能です。そのほか、MySQL や PostgreSQL、Rails の schema.rb から ER 図を作成する import 機能もあります。
+作った ER 図は PDF や PNG、MySQL, PostgreSQL など各種形式でエクスポートが可能です。
+そのほか、MySQL や PostgreSQL、Rails の schema.rb から ER 図を作成する import 機能もあります。
 
 https://dbdiagram.io
 
@@ -37,7 +38,7 @@ https://dbdiagram.io/pricing
 
 テーブルは`Table`オブジェクトを書くことで定義できます。
 
-以下`id`を主キーとして持ち、`name`, `address`の情報をもつ`users`テーブルの例です。
+以下、`id`を主キーとし`name`, `address`のカラムをもつ`users`テーブルの例です。
 
 ```
 Table users {
@@ -62,7 +63,7 @@ Table テーブル名 {
 
 ## 関連の作成
 
-ER 図で重要な要素の関連の作成は、`ref`属性を付与することで定義できます。
+テーブル同士のリレーションは、カラムに`ref`属性を付与することで定義できます。
 
 以下先ほどの`users`テーブルと多対一の関連を持つ`user_items`テーブルの例です。
 
@@ -75,7 +76,7 @@ Table user_items {
 }
 ```
 
-これで以下のようなエンティティと関連が作られます。
+これで以下のようなリレーションが作られます。
 
 ![](https://i.gyazo.com/abc5385d3ea545d6e064bc481126843b.png)
 
@@ -92,7 +93,7 @@ Table foo {
 }
 ```
 
-この書き方以外にも以下のようにテーブル定義とは別に書く方法もあります。
+上記の書き方以外にも、以下のようにテーブル定義とは別に書く方法もあります。
 
 ```
 ref: user_items.user_id > users.id
@@ -108,11 +109,11 @@ ref: user_items.user_id > users.id
 - 記法が単純明快、直感的で分かりやすい（**一番強み**）
 - エディタ上で補完が聞くので入力しやすい
 - エディタ上のエラーメッセージが分かりやすい
-- 作られたエンティティの配置を自由に変更できる
+- テーブルの配置をドラッグ&ドロップで自由に変更できる
 - 様々な形式で import, export 出来る
 
 **👎欠点**
-- `0対多`か`一対多`かなどの詳細なリレーションが定義できない
+- URL でのシェア機能は有料なので、チームでの共有が少し面倒
 - テーブルが多いと auto-arrange だけでは見辛く、配置を手動で調整する必要がある
 
 # 終わりに
