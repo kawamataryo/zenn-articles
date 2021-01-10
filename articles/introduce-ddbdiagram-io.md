@@ -1,5 +1,5 @@
 ---
-title: "素敵な ER 図作成ツール dbdiagram.io で手軽にER図を書こう"
+title: "dbdiagram.io を使ってコードベースで手軽に ER 図を作成する"
 emoji: "🖍"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["database", "効率化"]
@@ -11,8 +11,8 @@ published: false
 # dbdiagram.ioとは？
 
 
-[dbdiagram.io](https://dbdiagram.io) はブラウザ上で、手軽にデータベースの ER 図を作れるツールです。
-とても分かりやすい独自の記法でテーブルの構成や、リレーションを定義できます。
+[dbdiagram.io](https://dbdiagram.io) は、ブラウザ上で手軽にデータベースの ER 図を作れるツールです。
+とても直感的で分かりやすい記法のコードで、テーブルの構成やリレーションを定義できます。
 
 作った ER 図は PDF や PNG、MySQL, PostgreSQL など各種形式でエクスポートが可能です。そのほか、MySQL や PostgreSQL、Rails の schema.rb から ER 図を作成する import 機能もあります。
 
@@ -102,7 +102,7 @@ ref: user_items.user_id > users.id
 
 # diagram.io の利点・欠点
 
-簡単に利点と欠点をまとめます。
+最後に簡単に diagram.io の利点と欠点をまとめます。
 
 **👍利点**
 - 記法が単純明快、直感的で分かりやすい（**一番強み**）
