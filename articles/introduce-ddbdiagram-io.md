@@ -3,7 +3,7 @@ title: "dbdiagram.io を使ってコードベースで手軽に ER 図を作成�
 emoji: "🖍"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["database", "効率化"]
-published: false
+published: true
 ---
 
 最近 ER 図を書く機会があって、その際に使ってみた [dbdiagram.io](https://dbdiagram.io/home) がとても良いツールだったので紹介します。
