@@ -12,11 +12,10 @@ published: false
 
 https://dbdiagram.io
 
-dbdiagram.io はブラウザ上で、手軽に ER 図を作れるツールです。
+dbdiagram.io はブラウザ上で、手軽にデータベースの ER 図を作れるツールです。
 とても分かりやすい独自の記法でテーブルの構成や、リレーションを定義できます。
 
-作った ER 図は PDF や PNG、MySQL, PostgreSQL など各種形式でエクスポートが可能です。
-そのほか、MySQL や PostgreSQL、Rails の schema.rb から ER 図を作成する import 機能もあります。
+作った ER 図は PDF や PNG、MySQL, PostgreSQL など各種形式でエクスポートが可能です。そのほか、MySQL や PostgreSQL、Rails の schema.rb から ER 図を作成する import 機能もあります。
 
 ![](https://i.gyazo.com/1f0b3be06d36e3ddfcc1d08b50309322.gif)
 
