@@ -1,5 +1,5 @@
 ---
-title: "手軽に使えるER図ツール dbdiagram.io でER図を書こう"
+title: "素敵な ER 図作成ツール dbdiagram.io で手軽にER図を書こう"
 emoji: "🧰"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["alfred", "zenn", "javascript"]
@@ -12,10 +12,10 @@ published: false
 
 https://dbdiagram.io
 
-dbdiagram.io はブラウザ上で、とても手軽に ER 図を書けるツールです。
-とても分かりやすい独自の記法で Table の構成や、リレーションを定義できます。
-作った ER 図は手軽に PDF や PNG、MySQL, PostgreSQL の形式でエクスポートが可能です。
+dbdiagram.io はブラウザ上で、手軽に ER 図を作れるツールです。
+とても分かりやすい独自の記法でテーブルの構成や、リレーションを定義できます。
 
+作った ER 図は PDF や PNG、MySQL, PostgreSQL など各種形式でエクスポートが可能です。
 そのほか、MySQL や PostgreSQL、Rails の schema.rb から ER 図を作成する import 機能もあります。
 
 ![](https://i.gyazo.com/1f0b3be06d36e3ddfcc1d08b50309322.gif)
@@ -23,7 +23,6 @@ dbdiagram.io はブラウザ上で、とても手軽に ER 図を書けるツー
 # 価格
 
 通常利用は無料です。有料にすると様々な拡張機能が使えるようです。
-
 ※ この記事は無料版での利用を前提としています。
 
 https://dbdiagram.io/pricing
@@ -52,7 +51,8 @@ Table users {
 
 ![](https://i.gyazo.com/72efaeebd2945ed67748c8b37833ea9b.png)
 
-見ればわかるようなとても単純な記法ですが、以下のような書き方になります。
+
+記法はこちらです。
 
 ```
 Table テーブル名 {
@@ -95,7 +95,6 @@ Table foo {
 この書き方以外にも以下のようにテーブル定義とは別に書く方法もあります。
 
 ```
-// ref: テーブル名.カラム名 関連の種類（ テーブル名.カラム名
 ref: user_items.user_id > users.id
 ```
 
@@ -105,19 +104,19 @@ ref: user_items.user_id > users.id
 
 簡単に利点と欠点をまとめます。
 
-👍利点
+**👍利点**
 - 記法が単純明快、直感的で分かりやすい（**一番強み**）
 - エディタ上で補完が聞くので入力しやすい
 - エディタ上のエラーメッセージが分かりやすい
 - 作られたエンティティの配置を自由に変更できる
 - 様々な形式で import, export 出来る
 
-👎欠点
-- 0 対多 か　一対多 などの詳細なリレーションが定義できない
-- テーブルが多いと auto-arrange だけでは見辛く配置を手動で調整する必要がある
+**👎欠点**
+- `0対多`か`一対多`かなどの詳細なリレーションが定義できない
+- テーブルが多いと auto-arrange だけでは見辛く、配置を手動で調整する必要がある
 
 # 終わりに
 
 以上簡単ですが、[dbdiagram.io](https://dbdiagram.io/home) の紹介でした。
-UML 記法をどうしても覚えられない自分としては、神ツールだと思っています（もうちょい頑張ろう。.）。
+UML 記法をどうしても覚えられない自分としては、神ツールだと思っています（覚えよう😅）。
 今後もちょこちょこ利用していきたいです。
