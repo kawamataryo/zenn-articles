@@ -2,7 +2,7 @@
 title: "素敵な ER 図作成ツール dbdiagram.io で手軽にER図を書こう"
 emoji: "🖍"
 type: "tech" # tech: 技術記事 / idea: アイデア
-topics: ["ER図", "database", "tool", "効率化"]
+topics: ["ER", "database", "効率化"]
 published: false
 ---
 
