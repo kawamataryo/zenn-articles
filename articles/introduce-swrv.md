@@ -12,3 +12,7 @@ published: false
 # どう使う？
 
 # 何が出来る？
+
+# 参考
+
+- [Data fetching and caching with SWR and Vue.js | Vue Mastery](https://www.vuemastery.com/blog/data-fetching-and-caching-with-swr-and-vuejs/)
