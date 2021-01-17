@@ -3,7 +3,7 @@ title: "Protocol Buffers から TypeScript の型定義を作る"
 emoji: "🥞"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["TypeScript", "grpc", "ProtocolBuffers"]
-published: false
+published: true
 ---
 
 gRPC の Protocol Buffers から TypeScript の型定義を作る方法のメモです。
