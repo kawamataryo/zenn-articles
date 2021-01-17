@@ -150,3 +150,9 @@ $ yarn codegen
 │   └── message.proto
 └── yarn.lock
 ```
+
+# 参考
+
+- [OK Google, Protocol Buffers から生成したコードを使って Node.js で gRPC 通信して | メルカリエンジニアリング](https://engineering.mercari.com/blog/entry/20201216-53796c2494/)
+- [gRPC on Node.js with Buf and TypeScript — Part 1 | by Slavo Vojacek | Medium](https://slavovojacek.medium.com/grpc-on-node-js-with-buf-and-typescript-part-1-5aad61bab03b)
+- [サービス間通信のための新技術「gRPC」入門 | さくらのナレッジ](https://knowledge.sakura.ad.jp/24059/)
