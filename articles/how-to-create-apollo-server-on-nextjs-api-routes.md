@@ -3,7 +3,7 @@ title: "Next.js の API Routes に Apollo Server を立てる"
 emoji: "💠"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["nextjs", "react", "apollo", "graphql"]
-published: true
+published: false
 ---
 
 Next.js に Apollo Server を立てるまでの備忘録です。
