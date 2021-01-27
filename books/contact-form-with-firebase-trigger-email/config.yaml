@@ -1,9 +1,0 @@
-title: "Firebase Trigger Email で作るSPAのお問い合わせフォーム"
-summary: "Firebase Trigger Email + VueでSPAサイトのお問い合わせフォームを作る"
-topics: ['Firebase', 'CloudFunctions', 'Firestore', 'TypeScript', 'Vue']
-published: false
-price: 0 # 有料の場合200〜5000
-# 本に含めるチャプターを順番に並べましょう
-chapters:
-  - example1
-  - example2
