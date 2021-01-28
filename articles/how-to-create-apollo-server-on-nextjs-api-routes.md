@@ -17,7 +17,7 @@ Apollo Server の [micro](https://www.npmjs.com/package/micro)（Vercel が開�
 yarn add apollo-server-micro
 ```
 
-# 型定義の作成
+# スキーマ の作成
 
 Apollo の関連ファイルを置く`apollo`ディレクトリを作成し、`type-defs.ts`を追加します。
 これが、今から作る Apollo Server の GraphQL スキーマの型定義となります。
@@ -27,7 +27,7 @@ mkdir apollo
 touch apollo/type-defs.ts
 ```
 
-Article という記事のオブジェクトと、その Article を単一取得する getArticle というクエリー、複数取得する getArticles というクエリーを定義しています。
+Article という記事の型と、その Article を単一取得する getArticle、複数取得する getArticles というクエリーを定義しています。
 
 ```ts:apollo/type-defs.ts
 import { gql, Config } from "apollo-server-micro";
@@ -48,7 +48,7 @@ export const typeDefs: Config["typeDefs"] = gql`
 
 # リゾルバの作成
 
-`apollo`ディレクトリ内に、`resolvers.ts`を作り、サーバー処理の実態となるリゾルバを実装します。
+`apollo`ディレクトリ内に、`resolvers.ts`を作り、処理の実態となるリゾルバを実装します。
 先程の`typeDefs`で定義した getArticle と getArticles の処理を定義しています。サンプルなので外部 API や DB との接続周りは省略してオンメモリでデータを持つ構造とします。
 
 ```bash
@@ -85,7 +85,7 @@ export const resolvers: Config["resolvers"] = {
 touch pages/api/graphql.ts
 ```
 
-API Routes の [Custom Config](https://nextjs.org/docs/api-routes/api-middlewares#custom-config) で request body の parse を無効にする設定が必要なので注意です。
+API Routes の [Custom Config](https://nextjs.org/docs/api-routes/api-middlewares#custom-config) で request body の parse を無効にする設定が必要なのでそこだけ注意です。
 
 ```ts:graphql.ts
 import { ApolloServer } from "apollo-server-micro";
