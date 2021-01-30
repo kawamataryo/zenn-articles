@@ -1,9 +1,9 @@
 ---
 title: "serverless frameworkで外部モジュールを利用したPythonのlambdaをデプロイする時は.."
-emoji: "🎴"
+emoji: "🚸"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["python", "serverlessframework", "lambda", "aws"]
-published: false
+published: true
 ---
 
 [serverless framework](https://www.serverless.com/)を使って、 Python で書いたスクリプトを AWS Lambda にデプロイしようとした際に詰まったのでメモ。
