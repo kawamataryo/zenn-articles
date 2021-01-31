@@ -6,7 +6,7 @@ topics: ["python", "serverlessframework", "lambda", "aws"]
 published: true
 ---
 
-欲しいディスプレイが品切れだったので「なんとか再入荷時に購入したい!!」と思い立ち、Python の勉強がてら商品ページをスクレイピングして Slack に流すスクリプトを書きました。そして [serverless framework](https://www.serverless.com/) を使って、AWS Lambda の定期実行環境を組んだので、その過程をまとめます。
+欲しいディスプレイが品切れだったので「なんとか再入荷時に購入したい！!」と思い立ち、Python の勉強がてら商品ページをスクレイピングして Slack に流すスクリプトを書きました。そして [serverless framework](https://www.serverless.com/) を使って、AWS Lambda の定期実行環境を組んだので、その過程をまとめます。
 
 # 環境構築
 AWS のコンソールでポチポチしたくないので [serverless framework](https://www.serverless.com/)を使って、Lambda を構築するようにします。
@@ -100,6 +100,12 @@ def _send_slack(target_url):
 ポイントだけ簡単に。
 `現在品切れ中`ボタンの判定は以下コードです。
 BeautifulSoup にて正規表現で対象文字列を検索しています。そして、文字列がない場合のみ Slack 通知のメソッドを実行しています。
+
+:::message
+2021/01/31 20:40 追記
+これは、BeautifulSoup を使わず、request 単体でレスポンスに対して文字列マッチしたほうが低コストだとアドバイス頂きました。
+確かにそうのとおりなので後で書き直します。
+:::
 
 ```python
     search = re.compile('.*現在品切れ中.*')
@@ -249,7 +255,7 @@ AWS にリソースが作成されます。
 
 # 終わりに
 
-これで、いち早くディスプレイをゲットできる（はず...）💪
+これで、いちはやくディスプレイをゲットできる（はず。..）💪
 
 # 参考
 
