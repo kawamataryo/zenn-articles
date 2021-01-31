@@ -1,15 +1,15 @@
 ---
-title: "商品入荷情報を定期的にスクレイピングしてSlack通知する（Python + Lambda + CloudWatch)"
+title: "Lambdaで商品入荷情報を定期的にスクレイピングしてSlackに通知する（serverless framework）"
 emoji: "🛒"
 type: "tech" # tech: 技術記事 / idea: アイデア
-topics: ["python", "serverless"]
-published: false
+topics: ["python", "serverlessframework", "lambda", "aws"]
+published: true
 ---
 
-欲しいディスプレイが品切れだったので「なんとか再入荷時に購入したい・・!!」と思い立ち、Python の勉強がてら商品ページをスクレイピングして Slack に流すスクリプトを書きました。そして serverless framework を使って、AWS Lambda + CloudWatch Events の定期実行環境を組んだので、その過程をまとめます。
+欲しいディスプレイが品切れだったので「なんとか再入荷時に購入したい!!」と思い立ち、Python の勉強がてら商品ページをスクレイピングして Slack に流すスクリプトを書きました。そして [serverless framework](https://www.serverless.com/) を使って、AWS Lambda の定期実行環境を組んだので、その過程をまとめます。
 
 # 環境構築
-AWS のコンソールでポチポチしたくないので [serverless framework](https://www.serverless.com/)を使って、lambda を構築するようにします。
+AWS のコンソールでポチポチしたくないので [serverless framework](https://www.serverless.com/)を使って、Lambda を構築するようにします。
 
 まず serverless framework をインストール。
 
@@ -36,7 +36,7 @@ https://www.serverless.com/framework/docs/providers/aws/guide/credentials/
 
 スクレピングは様々な方法があると思うのですが、今回は該当商品の商品ページに出ている「現在品切れ中」というボタンの有無を確認することで、入荷状況を判断することとします。
 
-![](https://i.gyazo.com/ca93f9ab8efc1b24daacc67ee1786662.png)
+![](https://i.gyazo.com/77d27266845e0d53720e3e4b367ff925.png)
 
 依存モジュールを追加して、handler.py にスクレピングコードと Slack 通知コードを書いていきます。
 
@@ -109,7 +109,6 @@ BeautifulSoup にて正規表現で対象文字列を検索しています。そ
         _send_slack(TARGET_URL)
     else:
         print('まだ品切れ中😭')
-
 ```
 
 Slack 通知部分は以下のコードです。
@@ -146,13 +145,13 @@ serverless framework の設定をして、スクリプトを Lambda にデプロ
 ## 外部モジュールのデプロイ設定
 
 まず、lambda で Python の外部モジュールを使うために serverless framework のプラグイン`serverless-python-requirements`を追加します。
-以下コマンド実行すれば OK です。これだけで、`package.json`の追加と、`serverless.yml`のプラグイン設定の追記が完了します。
+以下コマンド実行すれば OK です。これで`package.json`の追加と、`serverless.yml`のプラグイン設定の追記が完了します。
 
 ```bash
 sls plugin install -n serverless-python-requirements
 ```
 
-その後今の依存モジュールを `requirements.txt` にまとめます。
+その後、依存モジュールの情報を `requirements.txt` にまとめます。
 
 ```bash
 pip freeze > requirements.txt
@@ -166,29 +165,32 @@ https://zenn.dev/ryo_kawamata/articles/python-exclude-package-on-serverless-fram
 続いて Incoming Webhook の URL で参照している環境変数の設定をします。
 Git 管理しない`.env`ファイルで値を保持したいので、`serverless-dotenv-plugin` を使います。
 
-以下コマンドインストールします。
+以下コマンドでインストールします。
 
 ```
 sls plugin install -n serverless-dotenv-plugin
 ```
 
-そして、`.env`ファイルを作成し、Slack の Incoming Webhook URL を設定します。
-URL の取得方法・設定方法はこちらをご確認ください。
-
-https://slack.com/intl/ja-jp/help/articles/115005265063-Slack-%E3%81%A7%E3%81%AE-Incoming-Webhook-%E3%81%AE%E5%88%A9%E7%94%A8
+`.env`ファイルを作成し、Slack の Incoming Webhook URL を設定します。
 
 ```.env
 SLACK_WEBHOOK_URL=xxxxxxxxxxxxxxxxxxxxxxxx
 ```
-## handlerの指定、lambdaの起動eventの設定
+
+URL の取得方法・設定方法はこちらをご確認ください。
+
+https://slack.com/intl/ja-jp/help/articles/115005265063-Slack-%E3%81%A7%E3%81%AE-Incoming-Webhook-%E3%81%AE%E5%88%A9%E7%94%A8
+
+## handlerの指定、Lambdaの起動イベントの設定
 
 商品入荷情報をいちはやく知るためには定期的な実行が必要です。
 今回は CloudWatch Events を使って、Lambda の定期実行を実現します。
 
 serverless framework では events に schedule を指定するだけでその環境が構築されます。
 今回は以下のように指定しました。
-reasion を`ap-northeast-1`にするのも忘れずに。
 
+7 時から 21 時の間、1 時間に 1 回スクリプトが定期実行されます。
+※ reasion を`ap-northeast-1`にするのも忘れずに。
 
 ```yml:serverless.yml
 provider:
@@ -203,8 +205,6 @@ functions:
     events:
       - schedule: cron(0 7-21 * * ? *)
 ```
-
-7 時から 21 時の間、1 時間に 1 回スクリプトが定期実行されます。
 
 ## デプロイ
 
@@ -249,7 +249,7 @@ AWS にリソースが作成されます。
 
 # 終わりに
 
-これで、いちはやくディスプレイをゲットできる（はず）💰
+これで、いち早くディスプレイをゲットできる（はず...）💪
 
 # 参考
 
