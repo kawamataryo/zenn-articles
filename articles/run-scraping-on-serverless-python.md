@@ -6,7 +6,7 @@ topics: ["python", "serverlessframework", "lambda", "aws"]
 published: true
 ---
 
-欲しいディスプレイが品切れだったので「なんとか再入荷時に購入したい！!」と思い立ち、Python の勉強がてら商品ページをスクレイピングして Slack に流すスクリプトを書きました。そして [serverless framework](https://www.serverless.com/) を使って、AWS Lambda の定期実行環境を組んだので、その過程をまとめます。
+欲しいディスプレイが品切れだったので「なんとか再入荷時に購入したい！ !」と思い立ち、Python の勉強がてら商品ページをスクレイピングして Slack に流すスクリプトを書きました。そして [serverless framework](https://www.serverless.com/) を使って、AWS Lambda の定期実行環境を組んだので、その過程をまとめます。
 
 # 環境構築
 AWS のコンソールでポチポチしたくないので [serverless framework](https://www.serverless.com/)を使って、Lambda を構築するようにします。
@@ -102,7 +102,7 @@ BeautifulSoup にて正規表現で対象文字列を検索しています。そ
 
 :::message
 2021/01/31 20:40 追記
-これは、BeautifulSoup を使わず、request 単体でレスポンスに対して文字列マッチしたほうが低コストだとアドバイス頂きました。
+この部分は BeautifulSoup を使わず、request 単体でレスポンスに対して文字列マッチしたほうが低コストだとアドバイス頂きました。
 確かにそうのとおりなので後で書き直します。
 :::
 
