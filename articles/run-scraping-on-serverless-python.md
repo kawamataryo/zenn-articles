@@ -1,5 +1,5 @@
 ---
-title: "商品入荷情報を定期的にスクレイピングしてSlackに通知する（Lambda on serverless framework）"
+title: "商品入荷情報を定期的にスクレイピングしてSlack通知する（Lambda with serverless framework）"
 emoji: "🛒"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["python", "serverlessframework", "lambda", "aws"]
