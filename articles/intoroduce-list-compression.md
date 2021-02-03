@@ -114,15 +114,15 @@ my_list = ["foo", "bar", "baz"]
 my_dict = {}
 for val, index in enumerate(my_list):
     my_dict[val] = index
-# my_dict: {0: 'foo', 1: 'bar', 2: 'baz'}
+# my_dict: {'foo': 0, 'bar': 1, 'baz': 2}
 ```
 
 内包表記を使った例
 
 ```python
 my_list = ["foo", "bar", "baz"]
-my_dict = {index:val for val, index in enumerate(my_list)}
-# my_dict: {0: 'foo', 1: 'bar', 2: 'baz'}
+my_dict = {val:index for val, index in enumerate(my_list)}
+# my_dict: {'foo': 0, 'bar': 1, 'baz': 2}
 ```
 
 ## セットを作る
