@@ -8,9 +8,28 @@ published: false
 
 # Apollo Federationとは？
 
-最近、Netflix の GraphQL アーキテクチャ構成が話題になりました。その構成を裏で支えているのが Apollo Federation です。
+最近、Netflix の GraphQL アーキテクチャ構成が話題になりました。その構成を支えているのが Apollo Federation です。
 
 https://netflixtechblog.com/how-netflix-scales-its-api-with-graphql-federation-part-1-ae3557c187e2
+
+Apollo Federation は、GraphQL の複数のマイクロサービスをゲートウェイでまとめて、クライアントからみるとまるで 1 つの GraphQL サーバーと通信しているかのように通信を処理するアーキテクチャです。
+これだけだとただリクエストとレスポンスの集約のように見えるのですが、それぞれののマイクロサービスで依存する処理も良い感じに統合してくれます。
+
+例えば、投稿情報は Post サービスにあり、その投稿の投稿者であるユーザーの情報は User サービスにあるときに、以下のような宣言で投稿情報と投稿者情報を取得したいとします。
+
+```graphql
+query {
+  posts {
+    id
+    title
+    content
+    user {
+      id
+      name
+    }
+  }
+}
+```
 
 
 
@@ -38,7 +57,7 @@ yarn add ts-node apollo-server @apollo/federation
 ```
 
 ### Usersサーバー
-最初にユーザー情報を管理する Users サーバーの実装はこちらです。
+ユーザー情報を管理する Users サーバーを作ります。
 
 ```
 users
@@ -119,11 +138,6 @@ server.listen({ port: 4002 }).then(({ url }) => {
 :::
 
 Federation のポイントは、type-defs.ts のスキーマ定義にある下記の部分です。
-オブジェクト型のスキーマ定義に`@key`ディレクティブを追加することで、エンティティとして指定できます。
-エンティティはゲートウェイを通して、他の GraphQL サーバーから参照できる型です。
-
-`(fields: "id")`の部分はエンティティの主キーの定義です。ゲートウェイサーバーではこの主キーを使って、識別をします。
-今回は User 型の id フィールドを指定しています。
 
 ```graphql
 type User @key(fields: "id") {
@@ -132,8 +146,14 @@ type User @key(fields: "id") {
 }
 ```
 
+オブジェクト型のスキーマ定義に`@key`ディレクティブを追加することで、エンティティとして指定できます。
+エンティティはゲートウェイを通して、他の GraphQL サーバーから参照できる型です。
+
+`(fields: "id")`の部分はエンティティの主キーの定義です。ゲートウェイサーバーではこの主キーを使って、識別をします。
+今回は User 型の id フィールドを指定しています。
+
+
 resolvers.ts では下記のコードで別 GraphQL サーバーからエンティティである User 型が参照された際の処理を書いています。
-この例では別 GraphQL サーバーから User が参照されたときに、メモリの構造体から対象の User を抽出して返しています。
 
 ```ts
 export const resolvers = {
@@ -147,9 +167,10 @@ export const resolvers = {
 }
 ```
 
+この例では別 GraphQL サーバーから User が参照されたときに、こちらのリゾルバが呼ばれインメモリのオブジェクトから対象の User を探して返しています。
 
 ### Postsサーバー
-続いて投稿情報を管理する Posts サーバーの実装はこちらです。
+投稿情報を管理する Posts サーバーを作ります。
 
 ```
 posts
@@ -240,11 +261,7 @@ server.listen({ port: 4001 }).then(({ url }) => {
 ```
 :::
 
-ポイントは、`type-defs.ts`の GraphQL 定義の以下の部分です。
-Post サーバーにはない User の情報を Post の型定義として使っています。そしてその参照先はに`extend type User`になっています。
-`extends` をつけるとその型は外部の GraphQL サーバーのエンティティに対する参照型となります。
-`@key(fields: "id")`ディレクティブがその型を参照する際の主キーです。そして、id に対して`@external`ディレクティブを付与して、このフィールドが外部の GraphQL サーバーにオリジナルがあることを示しています。
-
+ポイントは、`type-defs.ts`の GraphQL 定義の下記の部分です。
 
 ```graphql
   type Post {
@@ -261,8 +278,11 @@ Post サーバーにはない User の情報を Post の型定義として使っ
   }
 ```
 
-resolvers.ts 以下を定義しています。
-この関数で return するのは User 型を解決するために必要な情報です。`__typename`は User がある GraphQL サーバーの識別子、そして id は参照の主キーです。
+Post サーバーにはない User の情報を Post の型定義として使っています。そしてその参照先はに`extend type User`になっています。
+`extends` をつけるとその型は外部の GraphQL サーバーのエンティティに対する参照型となります。
+`@key(fields: "id")`ディレクティブがその型を参照する際の主キーです。そして、id に対して`@external`ディレクティブを付与して、このフィールドが外部の GraphQL サーバーにオリジナルがあることを示しています。
+
+resolvers.ts 下記を定義しています。
 
 ```ts
 export const resolvers = {
@@ -275,6 +295,8 @@ export const resolvers = {
   },
 }
 ```
+
+この関数で return するのは User 型を解決するために必要な情報です。`__typename`は User がある GraphQL サーバーの識別子、そして id は参照の主キーです。
 
 ### マイクロサービスの起動
 
@@ -295,13 +317,75 @@ Posts サーバーと Users サーバーを起動させるためのスクリプ�
 以上でマイクロサービス側の実装は完了です。
 
 ### ゲートウェイ側の実装（API Routes）
-続いて Next.js に立てる GraphQL サーバー側の実装です。
+続いて Next.js の API Routes に立てる GraphQL サーバー（ゲートウェイ）を作ります。
 
-で動けば完了です。
+まず、Apollo Server の [micro](https://www.npmjs.com/package/micro) インテグレーションである[apollo-server-micro](https://github.com/apollographql/apollo-server/tree/main/packages/apollo-server-micro)と、Apollo Federation のゲートウェイ側ライブラリである[@apollo/gateway](https://www.npmjs.com/package/@apollo/gateway)を依存に追加します。
 
-# 終わりに
+```bash
+yarn add @apollo/gateway apollo-server-micro
+```
 
-現実問題、API Routes に Gateway の Apollo Server を立てるのはパフィーマンス的に
+次に Next.js の pages/api 配下に`graphql.ts`を追加します。
+
+```
+src/pages/api
+└── graphql.ts
+```
+
+```ts:pages/api/graphql.ts
+import { ApolloServer } from 'apollo-server-micro';
+import { ApolloGateway } from '@apollo/gateway';
+
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
+
+const gateway = new ApolloGateway({
+  serviceList: [
+    { name: 'posts', url: 'http://localhost:4001' },
+    { name: 'users', url: 'http://localhost:4002' },
+  ],
+});
+
+export default new ApolloServer({
+  gateway,
+  subscriptions: false,
+}).createHandler({
+  path: '/api/graphql',
+});
+```
+
+`ApolloGateway`の初期化時に、先程作成したモックのモックのマイクロサービスのエンドポイント情報を指定しています。
+そして`ApolloServer`の初期化時に ApolloGateway のインスタンスを渡します。
+また、この時に`subscriptions: false`を設定しています。これは 2021/02/06 現在 Apollo Gateway が GraphQL の Subscription と互換性がないためです（[参考](https://github.com/apollographql/federation/issues/426)）。
+
+この状態で、`yarn dev`で Next.js を起動し、http://localhost:3000/api/graphql にアクセスすれば GraphiQL が起動するはずです。
+
+![](https://i.gyazo.com/a5d50361de6896f0bcc0f15143b00b93.png)
+
+しっかりそれぞれおのマイクロサービス側のクエリとミューテーションがスキーマに存在し、Post の User のように依存するクエリにも対応しています。
+
+```graphql
+query {
+  posts {
+    id
+    title
+    content
+    user {
+      id
+      name
+    }
+  }
+}
+```
+
+これで Apollo Federation の完成です。
+
 
 # 参考
 - [Entities - Apollo Federation - Apollo GraphQL Docs](https://www.apollographql.com/docs/federation/entities/)
+- [Apollo Federationのすゝめ -GraphQLとマイクロサービス- | Web系エンジニアのアウトプット練習場](https://blog.h-sakano.dev/posts/ixgnj6xg8)
+- [GraphQLでマイクロサービスアーキテクチャを構築する際に有効なApollo Federationを採用する際に注意すべきこと | Web系エンジニアのアウトプット練習場](https://blog.h-sakano.dev/posts/ybaupsbu8)
+- [GraphQLとマイクロサービスは相性が良さそうな件 〜Apollo Federationを用いたスキーママージについて〜 | スペースマーケットブログ](https://blog.spacemarket.com/code/graphql-apollo-federation/)
