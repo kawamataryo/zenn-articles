@@ -7,7 +7,7 @@ published: true
 ---
 
 最近調べていた Apollo Federation についてのメモです。
-Apollo Federation の概要と、Next.js の API Routes で Apollo Federation を使う例をまとめます。
+Apollo Federation の概要と、Next.js の API Routes で Apollo Federation を使うサンプルアプリの構築をまとめています。
 
 # Apollo Federationとは？
 
@@ -16,7 +16,7 @@ Apollo Federation の概要と、Next.js の API Routes で Apollo Federation �
 https://netflixtechblog.com/how-netflix-scales-its-api-with-graphql-federation-part-1-ae3557c187e2
 
 Apollo Federation は、複数の GraphQL マイクロサービスをゲートウェイでまとめて、1 つの GraphQL エンドポイントとして提供するものです。
-Apollo Federation を使うことでそれぞれのマイクロサービ間で依存する処理を良い感じに統合してくれます。
+Apollo Federation を使うことでそれぞれのマイクロサービス間で依存する処理を良い感じに統合してくれます。
 
 例えば、投稿情報は Post マイクロサービスにあり、その投稿の投稿者であるユーザーの情報は User マイクロサービスにあるとします。
 その時に以下のようなクエリで投稿情報と、その投稿のユーザー情報をまとめて取得したいユースケースがあったとします。
@@ -298,9 +298,9 @@ server.listen({ port: 4001 }).then(({ url }) => {
   }
 ```
 
-Post サーバーにはない User の情報を Post の型定義として使っています。そしてその参照先はに`extend type User`になっています。
+Post サーバーにはない User の情報を Post の型定義として使っています。そしてその参照先は`extend type User`になっています。
 `extends` をつけるとその型は外部の GraphQL サーバーのエンティティに対する参照型となります。
-`@key(fields: "id")`ディレクティブがその型を参照する際の主キーです。そして、id に対して`@external`ディレクティブを付与して、このフィールドが外部の GraphQL サーバーにオリジナルがあることを示しています。
+`@key(fields: "id")`ディレクティブがその型を参照する際の主キーです。id に対して`@external`ディレクティブを付与して、このフィールドが外部の GraphQL サーバーにオリジナルがあることを示しています。
 
 resolvers.ts 下記を定義しています。
 
@@ -316,7 +316,7 @@ export const resolvers = {
 }
 ```
 
-この関数で return するのは User 型を解決するために必要な情報です。`__typename`は User がある GraphQL サーバーの識別子、そして id は参照の主キーです。
+この関数で return するのは User 型を解決するために必要な情報です。`__typename`は User がある GraphQL サーバーの識別子 で id は参照先エンティティの主キーです。
 
 ### マイクロサービスの起動
 
@@ -337,7 +337,7 @@ Posts サーバーと Users サーバーを起動させるためのスクリプ�
 以上でマイクロサービス側の実装は完了です。
 
 ### ゲートウェイ側の実装（Next.js API Routes）
-続いて Next.js の API Routes に GraphQL サーバー（ゲートウェイ）を立てます。
+Next.js の API Routes に GraphQL サーバー（ゲートウェイ）を立てます。
 
 まず、Apollo Server の [micro](https://www.npmjs.com/package/micro) インテグレーションである[apollo-server-micro](https://github.com/apollographql/apollo-server/tree/main/packages/apollo-server-micro)と、Apollo Federation のゲートウェイ側ライブラリである[@apollo/gateway](https://www.npmjs.com/package/@apollo/gateway)を依存に追加します。
 
@@ -377,11 +377,23 @@ export default new ApolloServer({
 });
 ```
 
-`ApolloGateway`の初期化時に、先程作成したモックのモックのマイクロサービスのエンドポイント情報を指定しています。
-そして`ApolloServer`の初期化時に ApolloGateway のインスタンスを渡します。
+`ApolloGateway`の初期化時に、Apollo Federation で扱う GraphQL マイクロサービスを指定します。この例では先程作成した Users サーバーと Posts サーバーのエンドポイント情報を設定します。
+そして`ApolloServer`の初期化時に `ApolloGateway` のインスタンスを渡します。
 また、この時に`subscriptions: false`を設定しています。これは 2021/02/06 現在 Apollo Gateway が GraphQL の Subscription と互換性がないためです（[参考](https://github.com/apollographql/federation/issues/426)）。
 
-この状態で、`yarn dev`で Next.js を起動し、http://localhost:3000/api/graphql にアクセスすれば GraphiQL が起動するはずです。
+以上でゲートウェイ側の実装は完了です。とてもシンプルですね。
+
+### ゲートウェイの起動
+
+Next.js を起動し、GraphiQL にアクセスしてみましょう。
+
+※ このコマンド前に`yarn dev:server:posts`と`yarn dev:server:users`でモックのマイクロサービスを起動しておいてください。
+
+```bash
+yarn dev
+```
+
+http://localhost:3000/api/graphql にアクセスすれば GraphiQL が起動します。
 GraphQL Docs を見るとそれぞれのマイクロサービス側のクエリとミューテーションがスキーマに存在し、Post にネストされた User のように依存するクエリにも対応しています。
 
 ![](https://i.gyazo.com/c532060caebaa514bb5156ca361542d3.png)
