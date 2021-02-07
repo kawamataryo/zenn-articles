@@ -3,7 +3,7 @@ title: "Apollo Federation で GraphQLマイクロサービスアーキテクチ�
 emoji: "🇫🇲"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["apollo", "graphql", "typescript"]
-published: false
+published: true
 ---
 
 最近調べていた Apollo Federation についてのメモです。
