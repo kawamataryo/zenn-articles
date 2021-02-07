@@ -1,5 +1,5 @@
 ---
-title: "Apollo Federation で GraphQL マイクロサービスアーキテクチャを実現する"
+title: "Apollo Federation で GraphQL マイクロサービスアーキテクチャを構築する"
 emoji: "🇫🇲"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["apollo", "graphql", "typescript"]
@@ -7,7 +7,7 @@ published: true
 ---
 
 最近調べていた Apollo Federation についてのメモです。
-Apollo Federation の概要と、Next.js の API Routes で Apollo Federation を使うサンプルアプリの構築をまとめています。
+Apollo Federation の概要と、Next.js の API Routes で Apollo Federation を使う例をまとめています。
 
 # Apollo Federationとは？
 
