@@ -1,5 +1,5 @@
 ---
-title: "Apollo Federation で GraphQLマイクロサービスアーキテクチャを構築する"
+title: "Apollo Federation で GraphQL マイクロサービスアーキテクチャを実現する"
 emoji: "🇫🇲"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["apollo", "graphql", "typescript"]
@@ -386,14 +386,21 @@ GraphQL Docs を見るとそれぞれのマイクロサービス側のクエリ�
 
 ![](https://i.gyazo.com/c532060caebaa514bb5156ca361542d3.png)
 
-これで Apollo Federation での GraphQL マイクロサービスアーキテクチャの完成です 🌮
+これで Apollo Federation での GraphQL マイクロサービスアーキテクチャの完成です 🎉
 
 フロント側も実装したサンプルアプリが以下リポジトリにあるので参考までに。
 
 https://github.com/kawamataryo/sandbox-for-nextjs-and-apollo-server
 
+# 終わりに
+
+ここまでまとめたサンプルアプリは Apollo Federation の一部の機能しかつかっていません。
+他に色々便利な機能があるので、是非公式ドキュメントを一読ください。
+
+https://www.apollographql.com/docs/federation/
+
 # 参考
-- [Entities - Apollo Federation - Apollo GraphQL Docs](https://www.apollographql.com/docs/federation/entities/)
+- [Introduction to Apollo Federation - Apollo Federation - Apollo GraphQL Docs](https://www.apollographql.com/docs/federation/)
 - [Apollo Federationのすゝめ -GraphQLとマイクロサービス- | Web系エンジニアのアウトプット練習場](https://blog.h-sakano.dev/posts/ixgnj6xg8)
 - [GraphQLでマイクロサービスアーキテクチャを構築する際に有効なApollo Federationを採用する際に注意すべきこと | Web系エンジニアのアウトプット練習場](https://blog.h-sakano.dev/posts/ybaupsbu8)
 - [GraphQLとマイクロサービスは相性が良さそうな件 〜Apollo Federationを用いたスキーママージについて〜 | スペースマーケットブログ](https://blog.spacemarket.com/code/graphql-apollo-federation/)
