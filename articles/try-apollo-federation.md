@@ -16,7 +16,7 @@ Apollo Federation の概要と、Next.js の API Routes で Apollo Federation �
 https://netflixtechblog.com/how-netflix-scales-its-api-with-graphql-federation-part-1-ae3557c187e2
 
 Apollo Federation は、複数の GraphQL マイクロサービスをゲートウェイでまとめて、1 つの GraphQL エンドポイントとして提供するものです。
-Apollo Federation を使うことでそれぞれのマイクロサービス間で依存する処理を良い感じに統合してくれます。
+Apollo Federation を使うことで、それぞれのマイクロサービス間で依存する処理を良い感じに統合してくれます。
 
 例えば、投稿情報は Post マイクロサービスにあり、その投稿の投稿者であるユーザーの情報は User マイクロサービスにあるとします。
 その時に以下のようなクエリで投稿情報と、その投稿のユーザー情報をまとめて取得したいユースケースがあったとします。
@@ -56,8 +56,7 @@ Next.js の環境構築と TypeScript 化が終わっている前提で書きま
 Next.js のプロジェクトルートにマイクロサービス用ディレクトリを作ります。
 
 ```bash
-mkdir -p servers
-mkdir servers/posts # 投稿者情報の処理サーバー
+mkdir -p servers/posts # 投稿者情報の処理サーバー
 mkdir servers/users # ユーザー情報の処理サーバー
 ```
 
@@ -164,10 +163,11 @@ type User @key(fields: "id") {
 
 オブジェクト型のスキーマ定義に`@key`ディレクティブを追加することで、エンティティとして指定できます。エンティティはゲートウェイを通して、他の GraphQL サーバーから参照できる特殊な型です。
 
-`(fields: "id")`の部分はエンティティの主キーの定義です。ゲートウェイサーバーではこの主キーを使って、データを識別をします。今回は User 型の id フィールドを指定しています。
+`(fields: "id")`の部分はエンティティの主キーの定義です。参照先ではこの主キーを使って、データを指定します。今回は User 型の id フィールドを設定しています。
 
 
 resolvers.ts では下記のコードで別 GraphQL サーバーからエンティティである User 型が参照された際の処理を書いています。
+別 GraphQL サーバーから User が参照されたときに、このリゾルバが呼ばれインメモリのオブジェクトから対象の User を探して返しています。
 
 ```ts
 export const resolvers = {
@@ -181,10 +181,8 @@ export const resolvers = {
 }
 ```
 
-この例では別 GraphQL サーバーから User が参照されたときに、こちらのリゾルバが呼ばれインメモリのオブジェクトから対象の User を探して返しています。
-
 ### Postsサーバー
-投稿情報を管理するマイクロサービス Posts サーバーを作ります。
+投稿情報を管理する Posts サーバーを作ります。
 
 ```
 posts
@@ -299,10 +297,10 @@ server.listen({ port: 4001 }).then(({ url }) => {
 ```
 
 Post サーバーにはない User の情報を Post の型定義として使っています。そしてその参照先は`extend type User`になっています。
-`extends` をつけるとその型は外部の GraphQL サーバーのエンティティに対する参照型となります。
+`extends` をつけると、その型は外部の GraphQL サーバーのエンティティに対する参照型となります。
 `@key(fields: "id")`ディレクティブがその型を参照する際の主キーです。id に対して`@external`ディレクティブを付与して、このフィールドが外部の GraphQL サーバーにオリジナルがあることを示しています。
 
-resolvers.ts 下記を定義しています。
+resolvers.ts では下記を定義しています。
 
 ```ts
 export const resolvers = {
@@ -316,7 +314,7 @@ export const resolvers = {
 }
 ```
 
-この関数で return するのは User 型を解決するために必要な情報です。`__typename`は User がある GraphQL サーバーの識別子 で id は参照先エンティティの主キーです。
+この関数で return するのは User 型を解決するために必要な情報です。`__typename` は User がある GraphQL サーバーの識別子 で id は参照先エンティティの主キーです。
 
 ### マイクロサービスの起動
 
@@ -330,7 +328,10 @@ Posts サーバーと Users サーバーを起動させるためのスクリプ�
   },
 ```
 
-これで、`yarn dev:server:posts`, ``yarn dev:server:users`コマンドでマイクロサービスの GraphQL サーバーが起動します。
+これで、`yarn dev:server:posts`, ``yarn dev:server:users`コマンドで各マイクロサービスの GraphQL サーバーが起動します。
+
+posts サーバー: http://localhost:4001
+users サーバー: http://localhost:4002
 
 ![](https://i.gyazo.com/853d69698467c56270f4d318d7aa9db8.png)
 
@@ -377,7 +378,7 @@ export default new ApolloServer({
 });
 ```
 
-`ApolloGateway`の初期化時に、Apollo Federation で扱う GraphQL マイクロサービスを指定します。この例では先程作成した Users サーバーと Posts サーバーのエンドポイント情報を設定します。
+`ApolloGateway`の初期化時に、Apollo Federation で扱う GraphQL マイクロサービスを配列で指定します。この例では先程作成した Users サーバーと Posts サーバーのエンドポイント情報を設定します。
 そして`ApolloServer`の初期化時に `ApolloGateway` のインスタンスを渡します。
 また、この時に`subscriptions: false`を設定しています。これは 2021/02/06 現在 Apollo Gateway が GraphQL の Subscription と互換性がないためです（[参考](https://github.com/apollographql/federation/issues/426)）。
 
@@ -386,8 +387,7 @@ export default new ApolloServer({
 ### ゲートウェイの起動
 
 Next.js を起動し、GraphiQL にアクセスしてみましょう。
-
-※ このコマンド前に`yarn dev:server:posts`と`yarn dev:server:users`でモックのマイクロサービスを起動しておいてください。
+※ このコマンド前に`yarn dev:server:posts`と`yarn dev:server:users`で各マイクロサービスを起動しておいてください。
 
 ```bash
 yarn dev
@@ -406,7 +406,7 @@ https://github.com/kawamataryo/sandbox-for-nextjs-and-apollo-server
 
 # 終わりに
 
-ここまでまとめたサンプルアプリは Apollo Federation の一部の機能しかつかっていません。
+この記事では Apollo Federation の一部の機能しか使っていません。
 他に色々便利な機能があるので、是非公式ドキュメントを一読ください。
 
 https://www.apollographql.com/docs/federation/
