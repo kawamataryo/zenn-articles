@@ -34,9 +34,9 @@ def run_sequential():
     for arg in range(3):
         call_slow_request()
 
-st = time.time()
-run_sequential()
-print(f"time: {time.time() - st}")
+st = time.time() # 実行前の時間を保存
+run_sequential() # 実行
+print(f"time: {time.time() - st}") #実行後の時間と実行前の時間の差を出力
 ```
 
 これを実行すると以下のような出力がでます。
@@ -65,9 +65,9 @@ def run_concurrent():
         futures = [executor.submit(call_slow_request) for _ in range(3)]
         wait(futures)
 
-st = time.time()
-run_concurrent()
-print(f"time: {time.time() - st}")
+st = time.time() # 実行前の時間を保存
+run_concurrent() # 実行
+print(f"time: {time.time() - st}") #実行後の時間と実行前の時間の差を出力
 ```
 
 実行すると逐次処理と比べて大幅に高速化しているのが分かると思います。
