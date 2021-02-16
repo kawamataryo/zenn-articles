@@ -155,7 +155,7 @@ print(return_one.__name__) # return_one
 
 # ライブラリの実装を読んでみる - Django login_required -
 
-最後に、せっかくデコレータの仕組みを学んだの、実コードではどのように利用されているのか Django の`login_required`の実装を読んでみます。
+最後に、せっかくデコレータの仕組みを学んだので実コードではどのように利用されているのか Django の`login_required`の実装を読んでみます。
 
 https://github.com/django/django/blob/5fcfe5361e5b8c9738b1ee4c1e9a6f293a7dda40/django/contrib/auth/decorators.py
 
