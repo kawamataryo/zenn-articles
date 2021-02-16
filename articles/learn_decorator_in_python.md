@@ -9,8 +9,7 @@ published: true
 Python のデコレータの学習メモです。
 
 # デコレータとは？
-デコレータは関数やクラスの前後に特定の処理を追加できる機能です。関数やクラス宣言の前に`@デコレータ名`を記述することで実現できます。
-クラスで静的メソッドを作る際の`@staticmethod`や Django の `@login_required`などで何気なく使っていますね。
+デコレータは関数やクラスの前後に特定の処理を追加できる機能です。関数やクラス宣言の前に`@デコレータ名`を記述することで実現できます。クラスで静的メソッドを作る際の`@staticmethod`や Django の `@login_required`など何気なく使っていますね。
 
 # 作り方
 関数デコレータを例にデコレータの作り方を見ていきます。
@@ -140,7 +139,7 @@ import datetime
 import functools
 
 def my_logger(f):
-    @functools.wraps(f) # 追加
+    @functools.wraps(f)
     def _wrapper(*args, **keywords):
       # ...
     return _wrapper
