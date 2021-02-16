@@ -3,7 +3,7 @@ title: "Pythonのデコレータを理解するまで"
 emoji: "🍰"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["python", "django"]
-published: false
+published: true
 ---
 
 Python のデコレータの学習メモです。
