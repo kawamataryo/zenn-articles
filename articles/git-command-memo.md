@@ -45,4 +45,3 @@ git rebase -i --root
 # 参考
 - [機密データをリポジトリから削除する - GitHub Docs](https://docs.github.com/ja/enterprise-server@2.19/github/authenticating-to-github/removing-sensitive-data-from-a-repository)
 - [Checking out pull requests locally - GitHub Docs](https://docs.github.com/en/free-pro-team@latest/github/collaborating-with-issues-and-pull-requests/checking-out-pull-requests-locally)
-- [How to use Vuex mappers inside Vue Composition API? | by David Meir-Levy | Everything Full Stack | Medium](https://medium.com/everything-full-stack/how-to-use-vuex-mappers-inside-vue-composition-api-dbce8a39c06c)

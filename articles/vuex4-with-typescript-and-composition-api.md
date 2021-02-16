@@ -27,3 +27,5 @@ useXXX を作りたいための Issue
 Vuex で compositionAPI を使うためのライブラリ
 
 - [greenpress/vuex-composition-helpers: A util package to use Vuex with Composition API easily.](https://github.com/greenpress/vuex-composition-helpers#typescript-mappings)
+
+- [How to use Vuex mappers inside Vue Composition API? | by David Meir-Levy | Everything Full Stack | Medium](https://medium.com/everything-full-stack/how-to-use-vuex-mappers-inside-vue-composition-api-dbce8a39c06c)
