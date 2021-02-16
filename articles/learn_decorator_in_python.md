@@ -1,5 +1,5 @@
 ---
-title: "Pythonのデコレータを理解したい"
+title: "Pythonのデコレータを理解するまで"
 emoji: "🍰"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["python", "django"]
@@ -17,7 +17,7 @@ Python のデコレータの学習メモです。
 
 ## デコレータの実態
 
-関数デコレータの実態は何かというと、関数を受け取り関数を返す関数です。
+関数デコレータの実態は**関数を受け取り関数を返す関数**です。
 例えば`@foo`というデコレータを`bar`関数に適応させるには以下のようにします。
 
 ```python
@@ -92,7 +92,7 @@ def tag(tag_name):
 ```
 
 デコレータの引数を受け取る`tag`、デコレートする関数を受け取る`_tag`、前後の処理を実行する`_wrapper`の三層構造になっています。
-実行すると関数の戻り値を、デコレータの引数に渡したタグでラップしてくれます。
+実行すると関数の戻り値を、デコレータの引数に渡したタグ名でラップしてくれます。
 
 ```python
 @tag('h1')
@@ -133,7 +133,7 @@ print(return_one.__name__) # _wrappe
 この状態を解消するのが`@functools.wraps`です。
 `@functools.wraps`を使うと _wrapper のメタ情報へのアクセスで、デコレート対象の関数のメタ情報を返してくれるようになります。
 
-my_loggeer を`@functools.wraps`を使って実装し直すと正しい関数名が取得出来ます。
+my_loggeer を`@functools.wraps`を使って実装し直すと正しい関数名を取得出来ます。
 
 ```python
 import datetime
@@ -219,7 +219,8 @@ def login_required(function=None, redirect_field_name=REDIRECT_FIELD_NAME, login
     return actual_decorator
 ```
 処理の実態は user_passes_test の内部で定義されている`_wrapped_view`関数です。
-この関数の一行目の`if test_func(request.user):`という条件分岐でログイン済みのリクエストかどうかを判定して、処理を分岐させているようです。
+この関数の一行目の`if test_func(request.user)`という条件分岐でログイン済みのリクエストかどうかを判定して、処理を分岐させているようです。
+
 条件を通過する場合は、デコレート対象の view の関数を実効し、通過しない場合はログイン画面へのリダイレクトなどを行っています。
 
 ```python
@@ -237,8 +238,7 @@ def user_passes_test(test_func, login_url=None, redirect_field_name=REDIRECT_FIE
     return decorator
 ```
 
-判定処理`test_func`の実態は、login_required の内部で user_passes_test の第一引数に渡している`lambda u: u.is_authenticated,`というラムダです。
-なので、login_required では、`request.user`に対して、`is_authenticated` 関数を呼び出してログイン判定を行っているということですね。
+判定処理`test_func`の実態は、login_required の内部で user_passes_test の第一引数に渡している`lambda u: u.is_authenticated,`というラムダです。なので、login_required では、`request.user`に対して、`is_authenticated` 関数を呼び出してログイン判定を行っているということですね。
 
 ```python
 def login_required(function=None, redirect_field_name=REDIRECT_FIELD_NAME, login_url=None):
@@ -252,7 +252,7 @@ def login_required(function=None, redirect_field_name=REDIRECT_FIELD_NAME, login
 ```
 
 # 終わりに
-
+以上「Python のデコレータを理解するまで」でした。
 デコレータは利用側から見るとわりとブラックボックスな処理だったので、この機会に勉強できてよかったなと思っています。使いこなしていきたいです。
 
 # 参考
