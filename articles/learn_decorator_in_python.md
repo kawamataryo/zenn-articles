@@ -153,7 +153,7 @@ print(return_one.__name__) # return_one
 
 デコレータを作るときは特別な理由がない限り`functools.wraps`を使ったほうが良さそうです。
 
-# 実例を見てみる - Django login_required -
+# ライブラリの実装を読んでみる - Django login_required -
 
 最後に、せっかくデコレータの仕組みを学んだの、実コードではどのように利用されているのか Django の`login_required`の実装を見てみます。
 
