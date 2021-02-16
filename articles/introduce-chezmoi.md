@@ -7,7 +7,7 @@ published: false
 ---
 
 あまり日本語情報がなかった dotfiles マネージャの chezmoi についてまとめました。
-個人的にかなり便利だと思います！
+個人的にかなり便利だと思ってます！
 
 # chezmoiとは？
 
@@ -16,11 +16,11 @@ chezmoi は、`.vimrc` や、`.zshrc` などの dotfiles の管理を効率的�
 https://github.com/twpayne/chezmoi
 
 1. Symbolic link 不要でコマンド 1 つで環境を再現出来る
-1. template 構文を使い、環境ごとの差分を 1 ファイルで管理できる
+1. template 構文で変数の展開や処理の分岐を書くことで各環境の差分を 1 ファイルで管理できる
 1. 1password などのパスワードマネージャとの併用でセキュアにファイル管理ができる
 
 という特徴があります。
-特に 2 と 3 の通常の Symbolic link での dotfiles 管理だと shell 芸を頑張らないと出来ない部分ですが、chezmoi なら手軽に実現できます。
+特に 2 と 3 は通常の Symbolic link での dotfiles 管理だと shell 芸をかなり頑張らないと出来ない部分ですが、chezmoi なら手軽に実現できます。
 
 
 # 基本操作
@@ -33,9 +33,8 @@ Homebrew でインストール出来ます。
 $ brew install chezmoi
 ```
 ### chezmoiプロジェクトの初期化
-chezmoi で dotfile を管理するために chezmoi のプロジェクトディレクトリを作成します。
-以下コマンドを実効すると`~/.local/share/chezmoi`にディレクトリが作られます。ここが dotfiles の管理元となります。
-自動的に`git init`も行われます。
+chezmoi で dotfile を管理するために chezmoi 用のプロジェクトディレクトリを作成します。
+以下コマンドを実効するとデフォルトで`~/.local/share/chezmoi`にディレクトリが作られます。ここが dotfiles の管理元となります。自動的に`git init`も行われます。
 
 ```bash
 $ chezmoi init
@@ -51,9 +50,8 @@ $ chezmoi add .vimrc
 
 ### dotfilesの編集
 管理対象としたファイルは`edit`コマンドで編集できます。
-edit コマンドを実行すると`~/.local/share/chezmoi`ディレクトリ内のファイルが編集できます。
-この状態では、元ファイル（以下例だと`~/vimrc`）には変更が反映されません。
-変更を反映するには次で説明する`apply`が必要です。
+edit コマンドで管理対象のファイルのパスを指定すると`~/.local/share/chezmoi`ディレクトリ内のファイルが編集できます。
+※ この状態では、元ファイル（以下例だと`~/vimrc`）には変更が反映されません。変更を反映するには次で説明する`apply`が必要です。
 
 ```bash
 $ chezmoi edit .vimrc
@@ -61,12 +59,12 @@ $ chezmoi edit .vimrc
 
 ### dotfiles変更の適応
 dotfiles の変更の適応は、`apply`コマンドで行います。
+`apply`を実効すると`chezmoi edit ~/.vimrc`で加えた変更（`~/.local/share/chezmoi/dot_vimrc`の変更）が`~/.vimrc`に適応されます。
 
 ```bash
 $ chezmoi apply
 ```
 
-これで`chezmoi edit ~/.vimrc`で加えた変更（`~/.local/share/chezmoi/dot_vimrc`の変更）が`~/.vimrc`に適応されます。
 
 ### 別PCへのdotfilesの移行
 別 PC への dotfiles の移行は GitHub 経由で行います
@@ -86,6 +84,8 @@ $ git push
 
 ```bash
 # 別PCでの操作
+$ brew install chezmoi
+
 $ chezmoi init git@github.com:kawamataryo/dotfiles.git
 ```
 
@@ -115,7 +115,7 @@ $ chezmoi chattr +template ~/.zshrc
 
 これで chezmoi のディレクトリ配下に`dot_zshrc.tmpl`という`tmpl`拡張子がついたファイルが作成されます。このファイルは template 構文に対応しているので、任意の条件分岐や変数展開を記述できます。
 
-### PCのhomenameでの出力制御
+### 例）PCのhostnameでの出力制御
 
 例えば会社 PC の場合は、rbenv を利用するけど個人 PC では必要なかったとします。
 その場合は以下のように`.zshrc`ファイル内で PC の hostname を使って分岐できます。
@@ -208,4 +208,5 @@ https://github.com/kawamataryo/dotfiles
 
 
 # 参考
+- [twpayne/chezmoi: Manage your dotfiles across multiple diverse machines, securely.](https://github.com/twpayne/chezmoi)
 - [Managing dotfiles and secret with chezmoi • Brice Dutheil](https://blog.arkey.fr/2020/04/01/manage_dotfiles_with_chezmoi/)
