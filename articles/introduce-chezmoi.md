@@ -172,7 +172,7 @@ $ chezmoi add --template .ssh/id_rsa
 
 ```bash
 # 1password-cliにログイン
-$ eval $(op sign my)
+$ eval $(op my.1password.com メールアドレス)
 
 ### 秘密鍵を1passwordの管理対象に追加
 $ op create document ~/.ssh/id_rsa --tags chezmoi --title .ssh/id_rsa
@@ -192,7 +192,7 @@ $ chezmoi edit .ssh/id_rsa
 
 これで完了です。
 この状態で Git 管理して、新しい PC で`chezmoi update` & `chezmoi apply`すれば 1password からセキュアに対象ファイルを復元できます。
-（その際は新しい PC で`eval $(op sign my)`を行い 1password-cli にログインしておく必要があります）
+※ その際は新しい PC で`eval $(op my.1password.com メールアドレス)`を行い 1password-cli にログインしておく必要があります
 
 # 終わりに
 
