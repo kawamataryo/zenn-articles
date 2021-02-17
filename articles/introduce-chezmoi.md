@@ -3,10 +3,10 @@ title: "chezmoiでdotfilesを手軽に柔軟にセキュアに管理する"
 emoji: "🏠"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["dotfiles", "bash", "fish", "zsh"]
-published: false
+published: true
 ---
 
-あまり日本語情報がなかった dotfiles マネージャの chezmoi についてまとめました。
+dotfiles マネージャの chezmoi についてまとめました。
 個人的にかなり便利だと思ってます！
 
 # chezmoiとは？
@@ -15,12 +15,12 @@ chezmoi は、`.vimrc` や、`.zshrc` などの dotfiles の管理を効率的�
 
 https://github.com/twpayne/chezmoi
 
-1. Symbolic link 不要でコマンド 1 つで環境を再現出来る
+1. シンボリックリンク不要でコマンド 1 つで環境を再現出来る
 1. template 構文で変数の展開や処理の分岐を書くことで各環境の差分を 1 ファイルで管理できる
 1. 1password などのパスワードマネージャとの併用でセキュアにファイル管理ができる
 
 という特徴があります。
-特に 2 と 3 は通常の Symbolic link での dotfiles 管理だと shell 芸をかなり頑張らないと出来ない部分ですが、chezmoi なら手軽に実現できます。
+特に 2 と 3 は通常のシンボリックリンクでの dotfiles 管理だと Shell Scriptをかなり頑張らないと出来ない部分ですが、chezmoi なら手軽に実現できます。
 
 
 # 基本操作
