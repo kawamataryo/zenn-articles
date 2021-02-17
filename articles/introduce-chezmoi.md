@@ -1,5 +1,5 @@
 ---
-title: "chezmoiでdotfilesを手軽に柔軟にセキュアに管理する"
+title: "chezmoi で dotfiles を手軽に柔軟にセキュアに管理する"
 emoji: "🏠"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["dotfiles", "bash", "fish", "zsh"]
