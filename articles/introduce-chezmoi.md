@@ -7,7 +7,7 @@ published: true
 ---
 
 dotfiles マネージャの chezmoi についてまとめました。
-個人的にかなり便利だと思ってます！
+個人的にかなり便利だと思います。
 
 # chezmoiとは？
 
