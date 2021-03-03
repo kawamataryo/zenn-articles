@@ -8,6 +8,8 @@ published: true
 
 Neovim の Terminal モードをちょと便利にする設定をみつけたのでメモ。
 
+![](https://i.gyazo.com/a1f4636120909eb8b313370f18e7ad2d.gif=500x)
+
 # Terminalのインサートモードからの離脱を`esc`キーにマッピング
 
 Terminal のインサートモードを抜けるコマンド（`<C-\><C-n>`）を毎回忘れるので、いつもの`esc`にマッピングする。
@@ -19,7 +21,7 @@ Terminal のインサートモードを抜けるコマンド（`<C-\><C-n>`）�
 # TerminalをVSCodeのように現在のウィンドウの下に開く
 
 普通に`:term`コマンドで Terminal を開くと現在のウィンドウで開かれるが、前の画面に戻る際、 buffer の切り替えが必要なので微妙に不便。
-`:T`コマンドで Terminal を開くと下部別ウィンドウで表示されるようにする。
+`:T`コマンドで Terminal を開くと現在のウィンドウの下部に別ウィンドウで表示されるようにする。
 
 ```vim:config/nvim/init.vim
 command! -nargs=* T split | wincmd j | resize 20 | terminal <args>
