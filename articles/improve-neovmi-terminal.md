@@ -8,7 +8,7 @@ published: true
 
 Neovim の Terminal モードをちょと便利にする設定をみつけたのでメモ。
 
-# Terminalのinsertモードからの離脱を`esc`キーにマッピング
+# Terminalのインサートモードからの離脱を`esc`キーにマッピング
 
 Terminal のインサートモードを抜けるコマンド（`<C-\><C-n>`）を毎回忘れるので、いつもの`esc`にマッピングする。
 
@@ -25,10 +25,10 @@ Terminal のインサートモードを抜けるコマンド（`<C-\><C-n>`）�
 command! -nargs=* T split | wincmd j | resize 20 | terminal <args>
 ```
 
-# Terminalを開いたときにデフォルトでインサートモードになる
+# 常にインサートモードでTerminalを開く
 
 Terminal を開くときは、Terminal を使いたいときなので、いちいちノーマルモードからインサートモードに変更するのが面倒。
-Terminal を開くとデフォルトでインサートモードになるようにする。
+Terminal を開くとデフォルトでインサートモードにする。
 
 ```vim:config/nvim/init.vim
 autocmd TermOpen * startinsert
