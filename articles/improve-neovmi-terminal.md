@@ -8,7 +8,7 @@ published: true
 
 Neovim の Terminal モードをちょと便利にする設定をみつけたのでメモ。
 
-![](https://i.gyazo.com/a1f4636120909eb8b313370f18e7ad2d.gif =400x)
+![](https://i.gyazo.com/a1f4636120909eb8b313370f18e7ad2d.gif =500x)
 
 # Terminalのインサートモードからの離脱を`esc`キーにマッピング
 
