@@ -21,7 +21,7 @@ published: true
 
 # 解決策
 
-答えはやはりドキュメントに（最初から読もう😇）。
+答えはやはりREADMEに（最初から読もう😇）。
 
 https://github.com/TypeStrong/ts-node#help-my-types-are-missing
 
