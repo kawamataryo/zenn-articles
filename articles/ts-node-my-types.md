@@ -1,5 +1,5 @@
 ---
-title: "ts-nodeで独自の型定義ファイルを読み込んでくれない時は.."
+title: "ts-nodeで@typesに配置した独自の型定義ファイルを読み込んでくれない時は.."
 emoji: "🚸"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["typescript", "node"]
