@@ -9,7 +9,7 @@ published: true
 GitHub で職務経歴書を公開 & 継続的に改善していく環境を作ったのでその紹介です。
 リポジトリはこちらです。
 
-https://github.com/kawamataryo/resume
+[kawamataryo/resume](https://github.com/kawamataryo/resume)
 
 [![](https://storage.googleapis.com/zenn-user-upload/xiptxzi39xkarufwodq3r3zp1vv2)](https://github.com/kawamataryo/resume)
 
@@ -27,8 +27,7 @@ GitHub の無料ホスティグ GitHub Pages を使って Web ページとして
 
 GitHub ページのデザイン は`docs/_config.yml`で設定しています。今は theme の設定だけですが、より細かい調整が可能です。
 
-https://kawamataryo.github.io/resume/
-
+[kawamataryo.github.io/resume](https://github.com/kawamataryo/resume)
 [![GitHub Pages](https://storage.googleapis.com/zenn-user-upload/0sarbt933462xyrt0h6iokjk0ecd)](https://kawamataryo.github.io/resume/)
 
 ## ✨ textlint での文章校正
@@ -59,7 +58,7 @@ md-to-pdf は内部で Puppeteer を使用しています。PDF のデザイン�
 実際に出力される PDF はこのようなものです。
 結構綺麗に出力されているのではないでしょうか。
 
-https://github.com/kawamataryo/resume/releases/download/v0.1.6/resume.pdf
+[kawamataryo/resume/releases/download/v0.1.6/resume.pdf](https://github.com/kawamataryo/resume/releases/download/v0.1.6/resume.pdf)
 
 ![pdf demo](https://storage.googleapis.com/zenn-user-upload/91bnxughl3crx11s0is0bqleev85)
 
@@ -71,7 +70,7 @@ tag 付きで push したときに Workflow が流れて以下のように Relea
 PDF を共有するときはこちらの画面を説明すれば良いのでとても手軽なのではと思っています。
 Release 情報で更新日・バージョンも明確です。
 
-https://github.com/kawamataryo/resume/releases
+[kawamataryo/resume/releases](https://github.com/kawamataryo/resume/releases)
 
 [![リリースビルド](https://storage.googleapis.com/zenn-user-upload/ny8mxz7jtkl4wofp7k36euin05ku)](https://github.com/kawamataryo/resume/releases)
 
@@ -83,7 +82,7 @@ https://github.com/kawamataryo/resume/releases
 GitHub Actions のスケジュール実行機能を利用して、3 か月ごとに更新の Issue を自動作成することで職務経歴書の更新を促します。
 **Issue はクローズしたくなるのがエンジニアの性**なので、職務経歴書アップデートへの良い圧力になるのではと期待しています。
 
-https://github.com/kawamataryo/resume/issues/3
+[kawamataryo/resume/issues/3](https://github.com/kawamataryo/resume/issues/3)
 
 [![更新リマインダー](https://storage.googleapis.com/zenn-user-upload/d2rrbsbd17lulicht97e5iwcnfcs)](https://github.com/kawamataryo/resume/issues/3)
 
