@@ -54,7 +54,12 @@ run: apple query
 class ApiClient {
   get(query: string) {
     return new Promise((resolve, _) => setTimeout(
-      () => { console.log(`run: ${query} query`) resolve("ok") } , Math.random() * 1000))
+      () => {
+        console.log(`run: ${query} query`)
+        resolve("ok")
+      }
+      , Math.random() * 1000)
+    )
   }
 }
 
