@@ -1,5 +1,5 @@
 ---
-title: "JavaScriptで配列を元に非同期処理をループで回す際の方法色々"
+title: "JavaScriptで配列を元に非同期処理を実行する際の方法色々"
 emoji: "➰"
 type: "tech"
 topics: ["javascript"]
