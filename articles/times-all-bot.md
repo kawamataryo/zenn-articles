@@ -3,14 +3,14 @@ title: "Slackの分報を社内Twitterに！皆の分報を一つのチャネル
 emoji: "💬"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["slack", "serverlessframework", "lambda", "typescript"]
-published: false
+published: true
 ---
 
-Slack の分報（`times-xxx`チャネル）は、自分の作業ログや思考の整理に使えたり、チームメンバーの状況を知るためにも使えたりとても良いですよね。
+Slack の分報（`times-xxx`チャネル）は、自分の作業ログに使えたり、チームメンバーの状況を知るためにも使えたりとても良いですよね。
 
-ただ、チームメンバーの数だけチャネルが増えるので、人数が増えるとそれぞれの分報チャネルを見てみ回るのが地味に大変です。
+ただ、チームメンバーの数だけチャネルが増えるので、人数が増えるとそれぞれの分報チャネルを見て回るのが地味に大変です。
 
-それを解決するためにそれぞれの**分報チャネルの投稿を全て 1 つのチャネルに共有する Slack アプリ**を作ってみました。このチャネルがあると、そのチャネルを見るだけで 社内 Twitter 的に皆の分報を閲覧することが出来るので便利です。
+それを解決するためにそれぞれの**分報チャネルの投稿を全て 1 つのチャネルに共有する Slack アプリ**を作ってみました。このアプリがあると、その集約チャネル（`times-all`等）を見るだけで 社内 Twitter 的に皆の分報を閲覧することが出来るので便利です。
 この記事ではそのアプリの紹介と設定方法を書きます。
 
 ※ 元ネタは[前職 Misoca](https://www.wantedly.com/stories/s/team_misoca)の`current-all`チャネルです。感謝 🙏
@@ -19,7 +19,7 @@ Slack の分報（`times-xxx`チャネル）は、自分の作業ログや思考
 # 作ったもの
 
 各分報の投稿をひとつのチャネルに集約する Slack Bot です。
-この Bot を各分報チャネルと、分報の集約チャネルに追加すると、各分報の投稿を全て集約チャネルにシェアしてくれます。
+この Bot を分報チャネルと、分報の集約チャネルに追加すると、分報の投稿を全て集約チャネルにシェアしてくれます。
 
 ![](https://i.gyazo.com/a8f99f12f2badbf9e1d334dcba0c3a77.gif)
 
@@ -52,6 +52,7 @@ https://api.slack.com/apps にアクセスし、`Create New App`で新しいア�
 以上でいったん Slack アプリ側の設定は完了です。
 
 ## Lambdaへのデプロイ
+アプリの実態は AWS Lmabda にデプロイする Bolt フレームワークです。
 まず任意のディレクトリにプロジェクトをクローンします。
 
 ```
@@ -60,7 +61,7 @@ $ cd times-all-bot
 $ npm i
 ```
 
-デプロイ時に Slack の情報を参照するために環境変数使っています。プロジェクト直下に以下内容で`.env`を作成してください。`SLACK_SIGNING_SECRET`、`SLACK_BOT_TOKEN`は前述の Slack アプリの作成でメモした`Signing Secret`と`OAuth Token`と値です。`AGGREGATE_CHANNEL_ID`は分報の投稿を集約するチャネル（`times-all`等）の ID です。
+デプロイ時に Slack の情報を参照するために環境変数使っています。プロジェクト直下に以下内容で`.env`を作成してください。`SLACK_SIGNING_SECRET`、`SLACK_BOT_TOKEN`は前述の Slack アプリの作成でメモした`Signing Secret`と`OAuth Token`の値です。`AGGREGATE_CHANNEL_ID`は分報の投稿を集約するチャネル（`times-all`等）の ID です。
 
 ※ チャネル ID の確認方法は[こちら](https://qiita.com/YumaInaura/items/0c4f4adb33eb21032c08)から。
 
@@ -177,7 +178,7 @@ https://github.com/kawamataryo/times-all-bot
 
 # 終わりに
 
-以上「Slack の分報を社内 Twitter に！　皆の分報を 1 つのチャネルに集約する Slack ボットを作ってみた」でした。
+以上「Slack の分報を社内 Twitter に！皆の分報を 1 つのチャネルに集約する Slack ボットを作ってみた」でした。
 現職の Slack にも導入して、幸いにも好評です。この Bot 自体はただ投稿を別のチャネルにシェアするだけなので、分報の集約以外にも色々使い道はあるかなと思います。是非使ってもらえると嬉しいです。
 
 また何か使ってみて不具合があれば気軽にコメントを下さい。
