@@ -88,7 +88,7 @@ $ npm run deploy
 ```bash
 # ...
 endpoints:
-  POST - https://u6d9kerzyb.execute-api.us-east-1.amazonaws.com/dev/slack/events
+  POST - https://u6db.execute-api.us-east-1.amazonaws.com/dev/slack/events
 # ...
 ```
 
