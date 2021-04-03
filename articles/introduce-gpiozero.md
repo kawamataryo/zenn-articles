@@ -10,7 +10,7 @@ published: false
 
 # GPIO Zeroとは？
 
-Raspberry Pi で GPIO（デバイス制御に使う汎用 I/O ポート）を直感的なインタフェースで制御するライブラリです。
+Raspberry Pi の GPIO（デバイス制御に使う汎用 I/O ポート）を直感的なインタフェースで制御するライブラリです。
 
 https://github.com/gpiozero/gpiozero
 
@@ -76,7 +76,7 @@ https://gpiozero.readthedocs.io/en/stable/recipes.html
 
 
 回路図
-![](https://i.gyazo.com/1ec0bc14ce46ecd1e54827975605328c.png =500px)
+![](https://i.gyazo.com/1ec0bc14ce46ecd1e54827975605328c.png =500x)
 
 
 ```py
@@ -122,7 +122,8 @@ for event in controller.read_loop():
 @tweet[https://Twitter.com/KawamataRyo/status/1378226047737454600]
 
 回路図
-![](https://i.gyazo.com/57a9c1a8680956c926492eb84f12d15c.png =500x)
+
+![](https://i.gyazo.com/57a9c1a8680956c926492eb84f12d15c.png)
 
 ```py
 import struct
@@ -135,7 +136,7 @@ class BtnCode:
   UP_OR_DOWN_OFF = [0, 2, 1]
   RIGHT_ON = [32767, 2, 0]
   LEFT_ON = [-32767, 2, 0]
-  RIGHT_OR_LEFT_OFF = [ 0, 2, 0 ]
+  RIGHT_OR_LEFT_OFF = [0, 2, 0]
 
 # 8BitDo path
 device_path = "/dev/input/js0"
