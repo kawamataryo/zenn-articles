@@ -1,22 +1,32 @@
 ---
-title: "Puppeteer + Lighthouse で認証ありWebアプリのフロントエンドパフォーマンスを定期測定する"
+title: "Puppeteer + Lighthouse + CIで認証ありWebアプリのフロントエンドパフォーマンスを定期測定する"
 emoji: "⏱"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["GithubActions", "puppeteer", "lighthouse", "typescript", "datadog"]
 published: false
 ---
 
-Puppeteer + Lighthouse + GitHub Actions を使って認証あり Web アプリのフロントエンドパフォーマンスを定期測定する基盤を作ってみたので紹介します。
+Puppeteer + Lighthouse + CI（GitHub Actions）を使って認証あり Web アプリのフロントエンドパフォーマンスを定期測定する基盤を作ってみたら良い感じだったので紹介です。
 
-# 何を作る
+# 何を作った？
 
-下記の図のように、Puppeteer で headless Chrome を動かしてその上で Lighthouse を実効して Web アプリのフロントエンドパフォーマンスを計測。その処理を GitHub Actions 上で動かして定期実効。さらにデータを Datadog に送り可視化するまでを書きます。
+下記の図のように、Puppeteer で headless Chrome を動かしてその上で Lighthouse を実効して Web アプリのフロントエンドパフォーマンスを計測。さらにデータを Datadog に送り可視化
+その処理を GitHub Actions 上で動かして定期実効。
+![](https://i.gyazo.com/849787f0f1d3f4969bfcd25b64fd2a8f.png)
 
-ここで紹介するコードは全て以下リポジトリに上がっています。
+DataDog にこちらのようなダッシュボードを作り定期計測しています。情報を定期計測しています。
+![](https://i.gyazo.com/849787f0f1d3f4969bfcd25b64fd2a8f.png)
+
+
 
 # パフォーマンスの計測
 
-Lighthouse + puppeteer を使う
+Lighthouse + puppeteer を使って
+
+ポイントは最初に対象のWEBアプリのログイン処理をPuppeteerで行うことです。
+これでブラウザに認証情報を持つクッキーが保存されるので、移行の認証ページのURL直アクセスの際にログインページにリダイレクトされることがなくなります。
+
+あとはsettings.tsで設定しているURLの配列に対して、lighthouseを実行するだけです。
 
 # 計測データの可視化
 
