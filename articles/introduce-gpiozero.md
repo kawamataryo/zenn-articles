@@ -50,7 +50,7 @@ GPIO Zero の場合は、`LED`クラスを使うことで、わずかなコー�
 
 # インストール
 [raspberrypi.org](raspberrypi.org)の通常の Raspberry Pi OS には標準でインストールされています。
-なのでその OS を使っている場合は追加のインストール作業は不要です。
+なのでそちらを使っている場合は追加のインストール作業は不要です。
 
 もし、Raspberry Pi Light やその他の OS を使っている場合は pip でインストールしましょう。
 
@@ -72,7 +72,7 @@ https://gpiozero.readthedocs.io/en/stable/recipes.html
 
 [8BitDo](https://www.8bitdo.com/zero2/) のコントローラーで LED を操作した例です。
 
-@ツイート[https://Twitter.com/KawamataRyo/status/1378168650029441024]
+@[tweet](https://Twitter.com/KawamataRyo/status/1378168650029441024)
 
 
 回路図
@@ -143,7 +143,7 @@ with open(device_path, "rb") as device:
 
 8BitDo のコントローラーで DC モーターを操作した例です。
 
-@tweet[https://Twitter.com/KawamataRyo/status/1378226047737454600]
+@[tweet](https://Twitter.com/KawamataRyo/status/1378226047737454600)
 
 回路図
 
