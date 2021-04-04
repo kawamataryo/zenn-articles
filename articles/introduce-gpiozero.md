@@ -70,8 +70,6 @@ https://gpiozero.readthedocs.io/en/stable/recipes.html
 
 [8BitDo](https://www.8bitdo.com/zero2/) のコントローラーで LED を操作した例です。
 
-https://twitter.com/KawamataRyo/status/1378168650029441024
-
 ![](https://i.gyazo.com/1ec0bc14ce46ecd1e54827975605328c.png =500x)
 
 
@@ -135,11 +133,11 @@ with open(device_path, "rb") as device:
         white.off()
 ```
 
+https://twitter.com/KawamataRyo/status/1378168650029441024
+
 ## モーターの操作
 
 8BitDo のコントローラーで DC モーターを操作した例です。
-
-https://twitter.com/KawamataRyo/status/1378226047737454600
 
 ![](https://i.gyazo.com/57a9c1a8680956c926492eb84f12d15c.png)
 
@@ -199,6 +197,8 @@ with open(device_path, "rb") as device:
       motorA.stop()
       motorB.stop()
 ```
+
+https://twitter.com/KawamataRyo/status/1378226047737454600
 
 # おわりに
 
