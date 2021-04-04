@@ -1,5 +1,5 @@
 ---
-title: "[電子工作] GPIO Zeroで直感的にデバイスを制御する"
+title: "[電子工作] GPIO Zero で GPIO を意識せず直感的にデバイスを制御する"
 emoji: "🛵"
 type: "tech"
 topics: ["raspberrypi", "電子工作", "python"]
@@ -14,7 +14,7 @@ Raspberry Pi の GPIO（デバイス制御に使う汎用 I/O ポート）を直
 
 https://github.com/gpiozero/gpiozero
 
-例えば電子工作の Hello World である「L チカ」を行うコードを、通常の GPIO 制御ライブラリ[RPi.GPIO](https://pypi.org/project/RPi.GPIO/)と比べると以下のような違いがあります。
+例えば電子工作の Hello World 「L チカ」を行うコードを、通常の GPIO 制御ライブラリ[RPi.GPIO](https://pypi.org/project/RPi.GPIO/)と比較してみます。
 
 **RPi.GPIO**
 
@@ -45,7 +45,7 @@ while True:
   led.blink(on_time=1, off_time=1) # 1秒間隔点滅
 ```
 
-GPIO Zero の場合は`LED`モジュールを使うことで、わずかなコードで GPIO を制御していることを感じさせることなく直感的にデバイスを扱うことが出来ています。
+GPIO Zero の場合は、`LED`クラスを使うことで、わずかなコードで GPIO を意識させることなく直感的にデバイスを扱うことが出来ています。
 今回の例では LED ですが、その他のデバイスにももちろん対応しています。
 
 # インストール
@@ -210,4 +210,4 @@ with open(device_path, "rb") as device:
 
 以上「GPIO Zero で直感的にデバイスを制御する」でした。
 GPIO Zero を使ってコードを書くことで、電子工作に対する苦手意識がかなり減った気がします。
-今後も色々電子工作していきたです。
+今後も色々作っていきたいです。
