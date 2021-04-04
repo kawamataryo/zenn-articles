@@ -1,9 +1,9 @@
 ---
-title: "[電子工作] GPIO Zero で GPIO を意識せず直感的にデバイスを制御する"
+title: "[電子工作] GPIO Zero で 直感的にデバイスを制御する"
 emoji: "🛵"
 type: "tech"
 topics: ["raspberrypi", "電子工作", "python"]
-published: false
+published: true
 ---
 
 最近電子工作で使った [GPIO Zero](https://github.com/gpiozero/gpiozero) がとても良かったので紹介です。
@@ -12,9 +12,7 @@ published: false
 
 Raspberry Pi の GPIO（デバイス制御に使う汎用 I/O ポート）を直感的なインタフェースで制御するライブラリです。
 
-https://github.com/gpiozero/gpiozero
-
-例えば電子工作の Hello World 「L チカ」を行うコードを、通常の GPIO 制御ライブラリ[RPi.GPIO](https://pypi.org/project/RPi.GPIO/)と比較してみます。
+https://github.com/gpiozero/gpiozero 例えば電子工作の Hello World 「L チカ」を行うコードを、通常の GPIO 制御ライブラリ[RPi.GPIO](https://pypi.org/project/RPi.GPIO/)と比較してみます。
 
 **RPi.GPIO**
 
