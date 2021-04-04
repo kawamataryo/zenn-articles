@@ -74,7 +74,6 @@ https://gpiozero.readthedocs.io/en/stable/recipes.html
 
 https://Twitter.com/KawamataRyo/status/1378168650029441024
 
-回路図
 ![](https://i.gyazo.com/1ec0bc14ce46ecd1e54827975605328c.png =500x)
 
 
@@ -143,8 +142,6 @@ with open(device_path, "rb") as device:
 8BitDo のコントローラーで DC モーターを操作した例です。
 
 https://Twitter.com/KawamataRyo/status/1378226047737454600
-
-回路図
 
 ![](https://i.gyazo.com/57a9c1a8680956c926492eb84f12d15c.png)
 
