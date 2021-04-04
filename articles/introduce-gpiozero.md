@@ -64,7 +64,7 @@ $ sudo pip install gpiozero
 # サンプル
 
 実際に GPIO Zero を使って動かしてみたコードを紹介します。
-公式のレシピ集にも大量のコードがあるのでそちらもおすすめです。
+公式のレシピ集にも大量のコードと回路図があるのでそちらもおすすめです。
 
 https://gpiozero.readthedocs.io/en/stable/recipes.html
 
