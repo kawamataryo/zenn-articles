@@ -130,12 +130,12 @@ const main = () => {
 
 |metrics|description|
 |---|---|
-|FCP|First Contentful Paint. 何らかのDOMコンテンツがレンダリングされるまでの時間（[詳細](https://web.dev/first-contentful-paint/)）|
-|LCP|Largest Contentful Paint. Web Vitalsの指標のひとつ。 ブラウザの表示範囲内で、最も大きなコンテンツが表示されるまでの時間（[詳細](https://web.dev/largest-contentful-paint/)）|
+|FCP|First Contentful Paint. 何らかの DOM コンテンツがレンダリングされるまでの時間（[詳細](https://web.dev/first-contentful-paint/)）|
+|LCP|Largest Contentful Paint. Web Vitals の指標のひとつ。 ブラウザの表示範囲内で、もっとも大きなコンテンツが表示されるまでの時間（[詳細](https://web.dev/largest-contentful-paint/)）|
 |TTI|Time to Interactive. ページが完全にインタラクティブになるまでの時間（[詳細](https://web.dev/interactive/)） |
 |Speed Index|ページの描画速度を示す指標（[詳細](https://web.dev/speed-index/)）|
-|MPFID|Max Potential First Input Delay. Web Vitalsの指標のひとつ。ユーザーが経験する可能性のある最悪の場合の最初の入力遅延（[詳細](https://web.dev/lighthouse-max-potential-fid/)|
-|TBT|Total Blocking Time. FCPからTTIまでの間のユーザーの入力応答を阻害する時間の合計（[詳細](https://web.dev/lighthouse-total-blocking-time/)）|
+|MPFID|Max Potential First Input Delay. Web Vitals の指標のひとつ。ユーザーが経験する可能性のある最悪の場合の最初の入力遅延（[詳細](https://web.dev/lighthouse-max-potential-fid/)|
+|TBT|Total Blocking Time. FCP から TTI までの間のユーザーの入力応答を阻害する時間の合計（[詳細](https://web.dev/lighthouse-total-blocking-time/)）|
 
 
 Datadog のクライアントはこちらです。メトリクス名と測定値を受け取り、内部で Datadog の REST API で提供されている Submit Metrics の API を叩いています。
@@ -183,7 +183,7 @@ export class DDClient {
 ```
 
 以上で Datadog にメトリクスが送信されるので、後はそのメトリクスを使いダッシュボードを作るだけです。
-以下のダッシュボードでは [timeline ウィジェット](https://docs.datadoghq.com/ja/dashboards/widgets/event_timeline/)を使い時系列データとして可視化しています。
+以下のダッシュボードでは [timeline ウィジェット](https://docs.datadoghq.com/ja/dashboards/widgets/event_timeline/)を使いとき系列データとして可視化しています。
 
 ![](https://i.gyazo.com/849787f0f1d3f4969bfcd25b64fd2a8f.png)
 
