@@ -10,12 +10,12 @@ Puppeteer + Lighthouse + GitHub Actions を使って Web アプリのフロン�
 
 # 何を作った？
 
-このような感じで Puppeteer + GitHub Actions を使って、認証付きの Web アプリに対して Lighthouse を定期実行し、結果を Datadog に送信するプロジェクトを作りました。
+このように GitHub Actions 上で 認証付きの Web アプリに対して Puppeteer 介し Lighthouse を定期実行し、結果を Datadog に送信するプロジェクトを作りました。
 
 ![](https://i.gyazo.com/a2bf47367a9af79a8fec6b06246b1b2a.png)
 
 実際にそのプロジェクトの計測値を使った Datadog のダッシュボードはこちらです。
-Webperf の主要指標をページ別で時系列に表示しています。
+Webperf の主要指標をページ別に時系列で表示しています。
 
 ![](https://i.gyazo.com/849787f0f1d3f4969bfcd25b64fd2a8f.png)
 
@@ -83,7 +83,7 @@ const main = async () => {
 
 ```
 
-Node.js から Chrome を操作する Chrome Launcher で Headless Chrome を開き、それを Puppeteer と接続し、その Chrome を利用して、Lighthouse の実行を行っています。
+Node.js から Chrome を起動する [Chrome Launcher](https://github.com/GoogleChrome/chrome-launcher) で Headless Chrome を開き、それを Puppeteer と接続し、その Chrome を利用して、Lighthouse を実行しています。
 Puppeteer と Lighthouse の連携は以下リポジトリを参考にしました。
 
 https://github.com/addyosmani/puppeteer-webperf
@@ -94,6 +94,10 @@ https://github.com/addyosmani/puppeteer-webperf
 # Datadog へのメトリクス送信
 
 計測値の Datadog への送信は、Datadog の HTTP REST API を使っています。
+
+:::message
+この例では Datadog を使っていますが、送信先は Google スプレッドシートでも、BigQuery でもデータを集積・可視化できるものなら何でも良いと思います。
+:::
 
 こちらのコードが計測値の送信処理です。Lighthouse で計測したデータの中から`TARGET_METRICS`で定義したプロパティを抜き出し、それを後述する Datadog クライアントで送信しています。
 
@@ -187,9 +191,6 @@ export class DDClient {
 
 ![](https://i.gyazo.com/849787f0f1d3f4969bfcd25b64fd2a8f.png)
 
-:::message
-この例では、Datadog を使っていますが、送信先は Google スプレッドシートでも、BigQuery でも何でも良いと思います。
-:::
 
 
 # GitHub Actions での定期実行
@@ -226,7 +227,7 @@ jobs:
           DD_API_KEY: ${{ secrets.DD_API_KEY }}
 ```
 
-:::message
+:::message alert
 **cron で実行する GitHUb Actions のジョブには必ず timeout-minutes を設定してください。**
 GitHub Actions の標準のタイムアウトは 6h です。私はタイムアウトを設定し忘れ、1 日で GitHub Actions の無料枠を葬り去るという偉業を成し遂げました 😇
 
@@ -239,16 +240,17 @@ https://twitter.com/KawamataRyo/status/1373929865460674561
 
 ## ブラウザでの実行より十数秒遅い
 
-最初、なぜかスクリプトで Lighthouse を実行するとブラウザから直接計測した場合よりどのスコアも十数秒遅いという現象に悩まされました。
+最初、なぜかスクリプトで Lighthouse を実行するとブラウザから直接計測した場合より、どのスコアも十数秒遅いという現象に悩まされました。
 Headless Chrome の特有の問題なのかと思ったのですが、結果からいうと Lighthouse のオプションの設定ミスが原因でした。
+
 Node.js の Lighthouse は**デフォルトで低速なネットワーク回線を模したもので計測**を行うようになっていました。
 
 [GoogleChrome/lighthouse/blob/v6.4.1/lighthouse-core/config/constants.js#L20-L29](https://github.com/GoogleChrome/lighthouse/blob/v6.4.1/lighthouse-core/config/constants.js#L20-L29)
 
-そこを通常ブラウザで実行する場合と同様のネットワークを模したものとなるようにオプションを変更したら問題は解消しました。設定値は Lighthouse のコードベースの以下箇所を参考にしています。
+そこを通常ブラウザで実行する場合と同様のネットワークを模したものとなるように変更したら問題は解消しました。設定値は Lighthouse のコードベースの以下箇所を参考にしています。
 [GoogleChrome/lighthouse/blob/v6.4.1/lighthouse-core/config/constants.js#L43-L51](https://github.com/GoogleChrome/lighthouse/blob/v6.4.1/lighthouse-core/config/constants.js#L43-L51)
 
-サンプルプロジェクトの設定例だとこちらの部分です。
+サンプルプロジェクトの設定例だとこちらの `throttling` の部分です。
 
 [webperf-watcher-sample/blob/master/src/constants.ts](https://github.com/kawamataryo/webperf-watcher-sample/blob/master/src/constants.ts#L27-L34)
 
@@ -275,7 +277,7 @@ export const LIGHTHOUSE_OPTIONS = {
 # おわりに
 
 以上簡単ですが、Lighthouse + Puppeteer + GitHub Actions で作るフロントエンドパフォーマンスの測定プロジェクトの紹介でした。
-かなり手軽に低コストで実現できるのでおすすめです。まだまだ計測だけで、実際のパフォーマンス・チューニングには至ってないのですが、今後こちらを使って頑張っていきたいです。
+かなり手軽に実現できるのでおすすめです。まだまだ計測だけで、実際のパフォーマンス・チューニングには至ってないのですが、今後頑張っていきたいです。
 
 # 参考
 
