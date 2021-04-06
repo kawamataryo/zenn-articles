@@ -187,6 +187,10 @@ export class DDClient {
 
 ![](https://i.gyazo.com/849787f0f1d3f4969bfcd25b64fd2a8f.png)
 
+:::message
+この例では、Datadog を使っていますが、送信先は Google スプレッドシートでも、BigQuery でも何でも良いと思います。
+:::
+
 
 # GitHub Actions での定期実行
 
