@@ -3,7 +3,7 @@ title: "Puppeteer +Lighthouse +GitHubActionsで認証付きWebアプリのWebper
 emoji: "🏎"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["GithubActions", "puppeteer", "lighthouse", "typescript", "datadog"]
-published: false
+published: true
 ---
 
 Puppeteer + Lighthouse + GitHub Actions を使って Web アプリのフロントエンドパフォーマンスを定期計測するプロジェクトを作ってみたら良い感じだったので紹介です。
@@ -223,7 +223,7 @@ jobs:
 ```
 
 :::message
-**cron で実行するGitHUb Actionsのジョブには必ず timeout-minutes を設定してください。**
+**cron で実行する GitHUb Actions のジョブには必ず timeout-minutes を設定してください。**
 GitHub Actions の標準のタイムアウトは 6h です。私はタイムアウトを設定し忘れ、1 日で GitHub Actions の無料枠を葬り去るという偉業を成し遂げました 😇
 
 https://twitter.com/KawamataRyo/status/1373929865460674561
