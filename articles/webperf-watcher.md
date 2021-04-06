@@ -10,11 +10,11 @@ Puppeteer + Lighthouse + GitHub Actions を使って Web アプリのフロン�
 
 # 何を作った？
 
-こんな感じで Puppeteer + GitHub Actions を使って、認証付きの Web アプリに対して Lighthouse を定期実行し、結果を Datadog に送信するプロジェクトを作りました。
+このような感じで Puppeteer + GitHub Actions を使って、認証付きの Web アプリに対して Lighthouse を定期実行し、結果を Datadog に送信するプロジェクトを作りました。
 
 ![](https://i.gyazo.com/a2bf47367a9af79a8fec6b06246b1b2a.png)
 
-実際にそのプロジェクトの計測値を可視化した Datadog のダッシュボードはこちらです。
+実際にそのプロジェクトの計測値を使った Datadog のダッシュボードはこちらです。
 Webperf の主要指標をページ別で時系列に表示しています。
 
 ![](https://i.gyazo.com/849787f0f1d3f4969bfcd25b64fd2a8f.png)
@@ -126,6 +126,18 @@ const main = () => {
 // ...
 ```
 
+サンプルプロジェクトのでは以下を送信しています。
+
+|metrics|description|
+|---|---|
+|FCP|First Contentful Paint. 何らかのDOMコンテンツがレンダリングされるまでの時間（[詳細](https://web.dev/first-contentful-paint/)）|
+|LCP|Largest Contentful Paint. Web Vitalsの指標のひとつ。 ブラウザの表示範囲内で、最も大きなコンテンツが表示されるまでの時間（[詳細](https://web.dev/largest-contentful-paint/)）|
+|TTI|Time to Interactive. ページが完全にインタラクティブになるまでの時間（[詳細](https://web.dev/interactive/)） |
+|Speed Index|ページの描画速度を示す指標（[詳細](https://web.dev/speed-index/)）|
+|MPFID|Max Potential First Input Delay. Web Vitalsの指標のひとつ。ユーザーが経験する可能性のある最悪の場合の最初の入力遅延（[詳細](https://web.dev/lighthouse-max-potential-fid/)|
+|TBT|Total Blocking Time. FCPからTTIまでの間のユーザーの入力応答を阻害する時間の合計（[詳細](https://web.dev/lighthouse-total-blocking-time/)）|
+
+
 Datadog のクライアントはこちらです。メトリクス名と測定値を受け取り、内部で Datadog の REST API で提供されている Submit Metrics の API を叩いています。
 
 https://docs.datadoghq.com/api/latest/metrics/#submit-metrics
@@ -170,12 +182,11 @@ export class DDClient {
 }
 ```
 
-これで Datadog にメトリクスが送信されるので、後はそのメトリクスを使いダッシュボードを作るだけです。
-以下のダッシュボードでは timeline ウィジェットを使い時系列データとして可視化しています。
+以上で Datadog にメトリクスが送信されるので、後はそのメトリクスを使いダッシュボードを作るだけです。
+以下のダッシュボードでは [timeline ウィジェット](https://docs.datadoghq.com/ja/dashboards/widgets/event_timeline/)を使い時系列データとして可視化しています。
 
 ![](https://i.gyazo.com/849787f0f1d3f4969bfcd25b64fd2a8f.png)
 
-https://docs.datadoghq.com/ja/dashboards/widgets/event_timeline/
 
 # GitHub Actions での定期実行
 
@@ -212,8 +223,8 @@ jobs:
 ```
 
 :::message
-**cron で実行するジョブには必ず timeout-minutes を設定してください。**
-GitHub Actions の標準のタイムアウトは 6h です。私はそれを設定し忘れ、1 日で GitHub Actions の無料枠を葬り去るという偉業を成し遂げました 😇
+**cron で実行するGitHUb Actionsのジョブには必ず timeout-minutes を設定してください。**
+GitHub Actions の標準のタイムアウトは 6h です。私はタイムアウトを設定し忘れ、1 日で GitHub Actions の無料枠を葬り去るという偉業を成し遂げました 😇
 
 https://twitter.com/KawamataRyo/status/1373929865460674561
 :::
@@ -222,16 +233,16 @@ https://twitter.com/KawamataRyo/status/1373929865460674561
 
 最後に、実装時に詰まったところの共有です。
 
-## ブラウザでの実行より数十秒スコアが悪い
+## ブラウザでの実行より十数秒遅い
 
-最初、なぜかスクリプトで Lighthouse を実行するとブラウザから直接計測した場合よりどのスコアも数十秒悪いという現象に悩まされました。
+最初、なぜかスクリプトで Lighthouse を実行するとブラウザから直接計測した場合よりどのスコアも十数秒遅いという現象に悩まされました。
 Headless Chrome の特有の問題なのかと思ったのですが、結果からいうと Lighthouse のオプションの設定ミスが原因でした。
 Node.js の Lighthouse は**デフォルトで低速なネットワーク回線を模したもので計測**を行うようになっていました。
 
-https://github.com/GoogleChrome/lighthouse/blob/v6.4.1/lighthouse-core/config/constants.js#L20-L29
+[GoogleChrome/lighthouse/blob/v6.4.1/lighthouse-core/config/constants.js#L20-L29](https://github.com/GoogleChrome/lighthouse/blob/v6.4.1/lighthouse-core/config/constants.js#L20-L29)
 
 そこを通常ブラウザで実行する場合と同様のネットワークを模したものとなるようにオプションを変更したら問題は解消しました。設定値は Lighthouse のコードベースの以下箇所を参考にしています。
-https://github.com/GoogleChrome/lighthouse/blob/v6.4.1/lighthouse-core/config/constants.js#L43-L51
+[GoogleChrome/lighthouse/blob/v6.4.1/lighthouse-core/config/constants.js#L43-L51](https://github.com/GoogleChrome/lighthouse/blob/v6.4.1/lighthouse-core/config/constants.js#L43-L51)
 
 サンプルプロジェクトの設定例だとこちらの部分です。
 
