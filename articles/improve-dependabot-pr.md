@@ -2,7 +2,7 @@
 title: "GitHub Actions で Dependabot プルリクエストの滞留を防ぐ仕組みづくり"
 emoji: "🛤"
 type: "tech"
-topics: ["githubactions", "github", "bash"]
+topics: ["githubactions", "github", "dependabot"]
 published: false
 ---
 
