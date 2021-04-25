@@ -6,7 +6,7 @@ topics: ["percy", "cypress", "githubactions"]
 published: true
 ---
 
-ビジュアルリグレッションテストの SaaS である [Percy](https://percy.io/) の紹介です。
+ビジュアルリグレッションテストのプラットフォーム  [Percy](https://percy.io/) を使ってみたらなかか良かったので紹介です。
 
 # Percyとは？
 
