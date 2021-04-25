@@ -6,7 +6,7 @@ topics: ["percy", "cypress", "githubactions"]
 published: true
 ---
 
-ビジュアルリグレッションテストのプラットフォーム  [Percy](https://percy.io/) を使ってみたらなかか良かったので紹介です。
+ビジュアルリグレッションテストのプラットフォーム  [Percy](https://percy.io/) を使ってみたらなかなか良かったので紹介です。
 
 # Percyとは？
 
