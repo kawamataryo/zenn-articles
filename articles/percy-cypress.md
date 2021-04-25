@@ -12,9 +12,9 @@ published: true
 
 https://percy.io/
 
-Percy はビジュアルリグレッションテスト（ページのスクリーンショットの比較をすることで意図せぬ UI の変更を検知するテスト手法）のプラットフォームです。
+Percy はビジュアルリグレッションテスト（ページのスクリーンショットをピクセル単位で比較をすることで意図せぬ UI の変更を検知するテスト手法）のプラットフォームです。
 
-Percy を使うことでビジュアルリグレッションテストに必要な画像の保存や、画像変化を検出するページのレンダリング、変更検知までとても手軽に実現できます。
+Percy を使うことでビジュアルリグレッションテストに必要な画像の保存や、画像変化を検出するページのレンダリング、変更の通知までとても手軽に実現できます。
 
 ## 料金体系
 Percy の料金体型はアップロードするスクリーンショットの枚数によって変わります。
@@ -34,7 +34,7 @@ https://www.browserstack.com/accounts/subscriptions?product=percy&ref=percy
 ![](https://storage.googleapis.com/zenn-user-upload/yxahfq1vvjglfh7o7z5i3neiajs2)
 
 :::message
-正直なところ差分比較画面の細かい使い勝手は、OSS のビジュアルリグレッションツールである REG-SUIT の方が良かったです。
+正直なところ差分比較画面の細かい使い勝手は、OSS のビジュアルリグレッションツールである REG-SUIT の方が良い気がします。
 https://github.com/reg-viz/reg-suit
 :::
 
@@ -57,7 +57,7 @@ https://percy.io/signup
 
 ## サンプルアプリの作成
 
-Vite でサンプルアプリを作成します。
+[Vite](https://github.com/vitejs/vite) でサンプルアプリを作成します。
 
 ```bash
 $ yarn create @vitejs/app percy-demo --template vue
@@ -76,7 +76,7 @@ $ yarn dev
 Percy で差分比較に使うスクリーンショット撮影のために E2E テストフレームワークの[Cypress](https://www.cypress.io/)を導入します。
 
 :::message
-スクリーンショットが取れれば良いので、Capybara や Puppeteer などその他のライブラリでも、もちろん大丈夫です。
+スクリーンショットが取れれば良いので、[Capybara](https://github.com/teamcapybara/capybara) や [Puppeteer](https://github.com/puppeteer/puppeteer) などその他のライブラリでも、もちろん大丈夫です。
 :::
 
 まず Cypress と Percy の依存モジュールをインストールします。
@@ -85,7 +85,7 @@ Percy で差分比較に使うスクリーンショット撮影のために E2E 
 yarn add -D cypress @percy/cli @percy/cypress
 ```
 
-次に Cypress の初期化を行います。
+そして Cypress の初期化を行います。
 
 ```
 yarn run cypress open
@@ -93,7 +93,7 @@ yarn run cypress open
 
 コマンドを実行すると Cypress のブラウザが開き、プロジェクト直下に`cypress`ディレクトリと、`cypress.json`が作成されます。
 
-Percy 専用の拡張コマンドでスクリーンショットを撮影したいので、`cypress/support/index.js`に`@percy/cypress`のインポートを追記します。
+次に Percy 専用の拡張コマンドでスクリーンショットを撮影するため、`cypress/support/index.js`に`@percy/cypress`のインポートを追記します。
 
 ```js:cypress/support/index.js
 // ...
@@ -117,14 +117,14 @@ describe('Index', () => {
 ```
 
 これで準備は完了です。
-あとは、アプリを起動し、先程メモした Percy の API トークンを環境変数に設定したうえで、`percy exec`コマンドで Cypress を実行すればスクリーンショットが Percy のプロジェクトに送られます。
+あとは、アプリを起動し先程メモした Percy の API トークンを環境変数に設定したうえで、`percy exec`コマンドで Cypress を実行すればスクリーンショットが Percy のプロジェクトに送られます。
 
 ```bash
 $ yarn dev
 ```
 
 ```bash
-$ export PERCY_TOKEN=<your token here>
+$ export PERCY_TOKEN=<your token>
 $ yarn run percy exec -- cypress run
 ```
 
@@ -136,7 +136,7 @@ $ yarn run percy exec -- cypress run
 
 ## GitHub Actionsの追加
 
-GitHub Actions を使って CI でビジュアルリグレッションテストを実行できるようにします。
+GitHub Actions を使い CI でビジュアルリグレッションテストを実行できるようにします。
 プロジェクトに`.github/workflows`ディレクトリを作成して、`visual-regression-test.yml`を追加します。
 
 ```
@@ -194,11 +194,11 @@ Detail リンクをクリックすると Percy の差分比較画面に飛びま
 
 ![](https://storage.googleapis.com/zenn-user-upload/c5spa2ee0vnfih95v0q4cx4ndjkr)
 
-差分比較画面で左上の `Approve Build` を押せばば、GitHub 上の CI のチェックもグリーンになります。これを利用して、Percy で確認されるまでマージをブロックするなどの運用も手軽に実現できそうです。
+差分比較画面で左上の `Approve Build` を押せば、GitHub 上の CI のチェックもグリーンになります。これを利用して、Percy で差分が Approve されるまでマージをブロックするなどの運用も手軽に実現できそうです。
 
 ![](https://storage.googleapis.com/zenn-user-upload/yo7fwwpjmyy5zyp5ieny4555roxv)
 
 # 終わりに
 
 以上「Percy + Cypress + GitHub Actions で手軽にビジュアルリグレッションテストを導入する」でした。
-本当に手軽にプロジェクトに組み込めるので良さそうです。まだ使い込んではいないので詳細は分からないですが、実プロジェクトでも機会があれば導入してみたいと思いました。
+チーム機能にも対応しているので本当に手軽にプロジェクトに組み込めそうです。まだそれほど使い込んだわけではないので詳細は分からないですが、実プロジェクトでも機会があれば導入してみたいです。
