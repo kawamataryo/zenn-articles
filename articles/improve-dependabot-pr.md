@@ -1,6 +1,6 @@
 ---
 title: "GitHub Actions で Dependabot のプルリクエストの滞留を防ぐ仕組みづくり"
-emoji: "🛤"
+emoji: "🤖"
 type: "tech"
 topics: ["githubactions", "github", "dependabot"]
 published: true
