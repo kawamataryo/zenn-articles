@@ -22,7 +22,7 @@ published: true
 その差分比較を毎回手動で行うのは面倒なので、GitHub Actions で自動実行できるようにしました。
 
 
-下準備として、任意のパスに静的アセットを出力する比較用のビルドスクリプトが必要です。
+下準備として、任意のパスに静的アセットを出力するスクリプトが必要です。
 [webpack-merge](https://www.npmjs.com/package/webpack-merge) を利用して、Production の webpack config から、output のパス のみ環境変数で指定できるように書き換えた webpack config を作ります。
 
 ※ ビルド環境によって`output`以外にも手を加える必要があります（例： SentryWebpackPlugin, MiniCssExtractPlugin の挙動など）
@@ -69,9 +69,9 @@ jobs:
     steps:
       # 前処理
       - name: Setup Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
-          node-version: '14.x'
+          node-version: '14'
       # プルリクエストのブランチでビルド
       - name: Checkout current branch
         uses: actions/checkout@v2
@@ -115,10 +115,11 @@ jobs:
 
 ちょっと長いのですが、このコードでは以下を行っています。
 
-1. プルリクエストのブランチでビルドを実行。静的アセットを `/tmp/current` に格納
-2. マージ先ブランチでビルドを実行。静的アセットを `/tmp/master` に格納
-3. `git diff` で `/tmp/current`と`/tmp/master`を比較。結果を `/tmp/result.txt` に記録
-4. `/tmp/result.txt` をもとにプルリクエストへコメントを投稿
+1. Dependabot のプルリクエストか、ブランチ名で判別
+2. プルリクエストのブランチでビルドを実行。静的アセットを `/tmp/current` に格納
+3. マージ先ブランチでビルドを実行。静的アセットを `/tmp/master` に格納
+4. `git diff` で `/tmp/current`と`/tmp/master`を比較。結果を `/tmp/result.txt` に記録
+5. `/tmp/result.txt` をもとにプルリクエストへコメントを投稿
 
 こちらが実行結果です。
 
@@ -223,7 +224,7 @@ https://zenn.dev/ryo_kawamata/articles/github-actions-specific-branch
 
 https://github.com/dependabot/dependabot-core/issues/3253
 
-:::message 
+:::message
 こういう面倒な点を考慮すると、Renovate を使ったほうが良いのかもしれないです。
 :::
 
