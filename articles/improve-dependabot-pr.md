@@ -115,11 +115,10 @@ jobs:
 
 ちょっと長いのですが、このコードでは以下を行っています。
 
-1. Dependabot のプルリクエストか、ブランチ名で判別
-2. プルリクエストのブランチでビルドを実行。静的アセットを `/tmp/current` に格納
-3. マージ先ブランチでビルドを実行。静的アセットを `/tmp/master` に格納
-4. `git diff` で `/tmp/current`と`/tmp/master`を比較。結果を `/tmp/result.txt` に記録
-5. `/tmp/result.txt` をもとにプルリクエストへコメントを投稿
+1. プルリクエストのブランチでビルドを実行。静的アセットを `/tmp/current` に格納
+2. マージ先ブランチでビルドを実行。静的アセットを `/tmp/master` に格納
+3. `git diff` で `/tmp/current`と`/tmp/master`を比較。結果を `/tmp/result.txt` に記録
+4. `/tmp/result.txt` をもとにプルリクエストへコメントを投稿
 
 こちらが実行結果です。
 
