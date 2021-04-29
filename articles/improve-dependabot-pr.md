@@ -1,86 +1,22 @@
 ---
-title: "GitHub Actions で Dependabot プルリクエストの滞留を防ぐ仕組みづくり"
+title: "GitHub Actions で Dependabot のプルリクエストの滞留を防ぐ仕組みづくり"
 emoji: "🛤"
 type: "tech"
 topics: ["githubactions", "github", "dependabot"]
-published: false
+published: true
 ---
 
 自動的にライブラリのアップデートのプルリクエストを作ってくれる[Dependabot](https://dependabot.com/)はとても便利です。ただ、何かと通常の開発タスクに追われライブラリアップデートのプルリクエストは滞留しがちです。それを解決するための仕組みはないかなと思い、試行錯誤してみたので書きます。
-
-# Dependabotのプルリクエスト作成時にランダムにレビュアーをアサイン
-
-私のチームのプルリクエスト作成からマージまでの流れは以下です。
-
-1. プルリクエスト作成時に任意のチームメンバーを 1 人選びレビュアーにアサイン
-2. レビュアーがレビュー後マージ
-
-基本的には、レビュアーにアサインされたものをレビューするという運用なので、レビュアーのアサインがない Dependabot のプルリクエストは後回しになりがちです。
-
-それを改善するために、Dependabot のプルリクエストのみ自動的にレビュアーをアサインする仕組みを GitHub Actions を使って作りました。
-以下がコードです。
-
-```yml
-name: Reviewer assign action
-
-on:
-  pull_request_target:
-    types: [opened]
-
-jobs:
-  reviewer-assign:
-    timeout-minutes: 10
-    runs-on: ubuntu-18.04
-    if: contains(github.head_ref, 'dependabot/npm_and_yarn') || contains(github.head_ref, 'dependabot/pip')
-    steps:
-      # ランダムでレビュアーをアサイン
-      - name: Assign reviewer
-        uses: hkusu/review-assign-action@v1.0.0
-        with:
-          reviewers: taro, jiro, masaki, ichiro
-          max-num-of-reviewers: 1
-      # ライブラリアップデートロールをアサイン
-      - if: contains(github.head_ref, 'npm_and_yarn')
-        run: echo ROLL_USER=kawamataryo >> $GITHUB_ENV
-      - if: contains(github.head_ref, 'pip')
-        run: echo ROLL_USER=shiro >> $GITHUB_ENV
-      - name: Assign roll user
-        uses: hkusu/review-assign-action@v1.0.0
-        with:
-          reviewers: ${{ env.ROLL_USER }}
-          assignees: ${{ env.ROLL_USER }}
-```
-
-プルリクエストの自動レビュアーアサインには、[Review Assign Action](https://github.com/hkusu/review-assign-action) を利用しています。
-
-https://github.com/marketplace/actions/review-assign-action
-
-上記のコードだと、最初の `name: Assign reviewer` のステップで `reviewers` に指定されているユーザーから、ランダムに 1 人がレビュアーにアサインされます。
-そして、その後の `name: Assign roll user` の方で、ライブラリの種類（ここでは npm か pip）によって専任の担当者を決めています。これはライブラリアップデートという役割を持つメンバーがチームにいて、その者をランダムなレビュアーとは別に必ずアサインするためです。このように GitHub Actions の `if` 構文を使うことで条件によって動的にアサイン対象を変えることも可能です。
-
-
-また、Dependabot のプルリクエストのみを対象にするために、`jobs.xxx.if`で dependabot の作成ブランチのみ true を返すように指定しています。これで、通常のプルリクエストは対象にならず、Dependabot のプルリクエストのみこの GitHub Actions が実行されます。
-
-
-:::message
-Dependabot の標準の設定でも、レビュアーやアサイナーの設定はできるのですが、複数人の候補からランダムに 1 人を選ぶというのはできないので GitHub Actions で対応しています。
-もし必ず固定メンバーをアサインということなら、[こちら](https://docs.github.com/en/code-security/supply-chain-security/configuration-options-for-dependency-updates#reviewers)で設定可能です。
-:::
-
-:::message
-Dependabot と同様の機能を持つ[Renovate](https://github.com/renovatebot/renovate) の場合は、指定メンバーの中からのランダムアサインも可能なようです。
-:::
-
 # 静的アセットのビルド差分からレビューの必要性を判断
 
-今のチームではバックエンドは Python、フロントエンドが Vue.js という構成なので、Node.js はランタイムで利用せず、あくまで静的アセット（JS, CSS, Image）のビルドのみです。
-そのため、npm モジュールのライブラリアップデートは**プルリクエストブランチでビルドされた静的アセットが、master ブランチでビルドされた静的アセットと差分がなければプロダクトの動きは変わららないはず**です。
-なので、差分をみれば詳細なレビューが必要かどうか判断できます。差分もなく CI も通っていればほぼノールックでマージしてよいはず。
+今のチームのプロダクトでは静的アセット（JS, CSS, Image）のビルドにのみ Node.js を利用しています。
+そのため、npm モジュールのライブラリアップデート時に**プルリクエストのブランチでビルドされた静的アセットが、master ブランチでビルドされた静的アセットと差分がなければプロダクトの動きは変わららないはず**です。
+なので、そのビルド差分の有無をみれば詳細なレビューが必要かどうか判断できます。差分もなく CI も通っていればほぼ動作確認は不要で、Change log の確認だけでマージしてもよいでしょう。
 
-※ 差分が出ない場合の例： Test 系、Lint 系、ビルド系のライブラリ、Tree Shaking で除去される部分のコードの変更
+※ 差分が出ない場合の例： Test 系、Lint 系、ビルド系のライブラリ、Tree Shaking で除去される部分のコードの変更など
 
 :::message
-この考え・仕組みは前職の開発チームで[@mugi_uno](https://twitter.com/mugi_uno)が作ってくれたスクリプトをそのまま参考にしています。ありがとうございます🙏
+この考え・仕組みは前職の開発チームで[@mugi_uno](https://twitter.com/mugi_uno)が作ってくた仕組みを参考にしています。感謝🙏
 :::
 
 その差分比較を毎回手動で行うのは面倒なので、GitHub Actions で自動実行できるようにしました。
@@ -190,15 +126,78 @@ jobs:
 ![](https://storage.googleapis.com/zenn-user-upload/1ft5n4j30866cze0ddak9wo3kxs8)
 
 **差分がある場合**
-![](https://storage.googleapis.com/zenn-user-upload/496c6u9lw58mjgz4drgj7vancfnz)
+![](https://storage.googleapis.com/zenn-user-upload/co3e550t6fzpaym7belne7s3q60r)
 
 差分がないとコメントされた場合は、気軽にマージできます。
 
+# Dependabotのプルリクエスト作成時にランダムにレビュアーをアサイン
+
+私のチームのプルリクエスト作成からマージまでの流れは以下です。
+
+1. プルリクエスト作成時に任意のチームメンバーを 1 人選びレビュアーにアサイン
+2. レビュアーがレビュー後マージ
+
+基本的には、レビュアーにアサインされたものをレビューするという運用なので、レビュアーのアサインがない Dependabot のプルリクエストは後回しになりがちです。
+
+それを改善するために、Dependabot のプルリクエストのみ自動的にレビュアーをアサインする仕組みを GitHub Actions を使って作りました。
+以下がコードです。
+
+```yml
+name: Reviewer assign action
+
+on:
+  pull_request_target:
+    types: [opened]
+
+jobs:
+  reviewer-assign:
+    timeout-minutes: 10
+    runs-on: ubuntu-18.04
+    if: contains(github.head_ref, 'dependabot/npm_and_yarn') || contains(github.head_ref, 'dependabot/pip')
+    steps:
+      # ランダムでレビュアーをアサイン
+      - name: Assign reviewer
+        uses: hkusu/review-assign-action@v1.0.0
+        with:
+          reviewers: taro, jiro, masaki, ichiro
+          max-num-of-reviewers: 1
+      # ライブラリアップデートロールをアサイン
+      - if: contains(github.head_ref, 'npm_and_yarn')
+        run: echo ROLL_USER=kawamataryo >> $GITHUB_ENV
+      - if: contains(github.head_ref, 'pip')
+        run: echo ROLL_USER=shiro >> $GITHUB_ENV
+      - name: Assign roll user
+        uses: hkusu/review-assign-action@v1.0.0
+        with:
+          reviewers: ${{ env.ROLL_USER }}
+          assignees: ${{ env.ROLL_USER }}
+```
+
+プルリクエストの自動レビュアーアサインには、[Review Assign Action](https://github.com/hkusu/review-assign-action) を利用しています。
+
+https://github.com/marketplace/actions/review-assign-action
+
+上記のコードだと、最初の `name: Assign reviewer` のステップで `reviewers` に指定されているユーザーから、ランダムに 1 人がレビュアーにアサインされます。
+そして、その後の `name: Assign roll user` の方で、ライブラリの種類（ここでは npm か pip）によって専任の担当者を決めています。これはライブラリアップデートという役割を持つメンバーがチームにいて、その者をランダムなレビュアーとは別に必ずアサインするためです。このように GitHub Actions の `if` 構文を使うことで条件によって動的にアサイン対象を変えることも可能です。
+
+
+また、Dependabot のプルリクエストのみを対象にするために、`jobs.xxx.if`で dependabot の作成ブランチのみ true を返すように指定しています。これで、通常のプルリクエストは対象にならず、Dependabot のプルリクエストのみこの GitHub Actions が実行されます。
+
+
+:::message
+Dependabot の標準の設定でも、レビュアーやアサイナーの設定はできるのですが、複数人の候補からランダムに 1 人を選ぶというのはできないので GitHub Actions で対応しています。
+もし必ず固定メンバーをアサインということなら、[こちら](https://docs.github.com/en/code-security/supply-chain-security/configuration-options-for-dependency-updates#reviewers)で設定可能です。
+:::
+
+:::message
+Dependabot と同様の機能を持つ[Renovate](https://github.com/renovatebot/renovate) の場合は、指定メンバーの中からのランダムアサインも可能なようです。
+:::
+
 # 詰まったところ
 
-実装上で色々踏み抜いたので書きます。
+実装上で色々詰まった部分があったのでまとめます。
 
-## 対象ブランチで動作しない・・
+### 対象ブランチで動作しない・・
 
 当初対象ブランチの指定方法を間違え、以下のように`pull_request.branches`でブランチ名を指定していました。
 
@@ -216,7 +215,7 @@ on:
 
 https://zenn.dev/ryo_kawamata/articles/github-actions-specific-branch
 
-## Dependabot作成のPRだけ、403でコメント・レビュアーアサインが落ちる・・
+### Dependabot作成のPRだけ、403でコメント・レビュアーアサインが落ちる・・
 
 「もう完璧に動くやろ！」とメインブランチにマージした後に気がついたのですが、Dependabot の作ったプルリクエストの場合のみ、同じ GitHub Actions でも書き込み系の操作で 403 エラーが発生しました。これは、Dependabot のみ`GITHUB_TOKEN`で取れるトークンが読み取り専ようになるため起こるようです。
 
@@ -225,13 +224,13 @@ https://zenn.dev/ryo_kawamata/articles/github-actions-specific-branch
 https://github.com/dependabot/dependabot-core/issues/3253
 
 :::message 
-こういう面倒な点を考慮すると、Renovate を使ったほうが良いのかもしれない・・
+こういう面倒な点を考慮すると、Renovate を使ったほうが良いのかもしれないです。
 :::
 
-## Runの中でエラーでもないのになぜか毎回終了する・・
+### Runの中でエラーでもないのになぜか毎回終了する・・
 
 差分を取るために GitHub Actions の run でコマンドを実行しているのですが、なぜか`git diff`で差分がある場合のみ、コマンドがそこで終了するという現象に悩まされました。
-原因は、`git diff`で差分がある場合、終了コードが`1`になるためでした。GitHub Actions の run は終了コードが`1`となるコマンドが実行されるとそこで処理を停止するようです。
+原因は、Git 管理対象外のファイルに`git diff`を行った際に差分がある場合、終了コードが`1`になるためでした。GitHub Actions の run は終了コードが`1`となるコマンドが実行されるとそこで処理を停止するようです。
 
 今回はコマンドでは、最後に`|| true`をつけることで回避しています。
 
@@ -241,9 +240,22 @@ git diff --compact-summary /tmp/current /tmp/master > $RESULT_FILE || true
 #...
 ```
 
+### プロジェクト内のSubmoduleのcloneに失敗・・
+今回この仕組を導入したプロジェクトが、プライベートリポジトリの Git Submodule を含むプロジェクトだったため `actions/checkout@v2` の通常の submodule の設定だけではうまく行かず詰まりました。結局、以下 Issue を参考に、Personal Access Token を設定することで回避しました。
+
+https://github.com/actions/checkout/issues/287
+
+```yaml
+      - name: Checkout current branch
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          token: ${{ secrets.PAT }}
+          submodules: 'recursive'
+```
 
 # おわりに
-以上、「GitHub Actions で Dependabot のプルリクエスト滞留問題を解決する仕組み作り」でした。まだ、運用を始めたばかりで道半ばというところですが、この仕組を使って良い感じにバージョンアップを進められればと思っています。
+以上、「GitHub Actions で Dependabot のプルリクエスト滞留問題を解決する仕組み作り」でした。まだ、運用を始めたばかりで道半ばというところですが、この仕組を使って良い感じにバージョンアップを進められればなと思っています。
 
 # 参考
 
