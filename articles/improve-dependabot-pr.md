@@ -35,8 +35,8 @@ module.exports = merge(prodConF, {
   output: {
     path: process.env.OUT_DIR,
     filename: 'js/[name].js',
-    sourceMapFilename: 'js/[name].js.map',
-  }
+  },
+  devtool: ''
 })
 ```
 
