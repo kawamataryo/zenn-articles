@@ -5,7 +5,7 @@ type: "tech"
 topics: ['mockserviceworker', "typescript", "mock", "jest"]
 published: false
 ---
-[Mock Service Worker](https://mswjs.io/) を使ってみたらかなり良かったので紹介です。
+[Mock Service Worker](https://mswjs.io/) について色々試したので紹介です。
 
 # Mock Service Worker とは？
 Mock Service Worker（以下 msw）は、ネットワークレベルで API リクエストをインターセプトして mock のデータを返すためのライブラリです。API リクエストを含む処理のテストや、SPA 開発時の mock サーバーとして利用出来ます。
@@ -269,6 +269,18 @@ https://github.com/nock/nock
 
 msw のドキュメントに nock との比較があったので記載します。
 
+|基準|Nock|Mock Service Worker|
+|---|---|---|
+|サポートする API| REST|REST / GraphQL|
+|環境|Node|Node / Browser|
+|実装|http/https/XMLHttpRequest モジュールにモンキーパッチを当てること|http/https/XMLHttpRequest モジュールにモンキーパッチを当てる|
+|インテグレーション|既存のコードに変更を加える必要はない。axios などのリクエスト発行ライブラリに対応したアダプタが必要。|既存のコードに変更を加える必要はない。アダプタも不要。|
+|定義|メソッドチェインによるモックの定義|関数定義によるモックの定義|
+
+Nock と比較すると GraphQL に対応していたり、Browser でも使えたい、アダプタが不要な点が良さそうです。
+他のライブラリとの比較もこちらにあります。
+
+https://mswjs.io/docs/comparison
 
 
 # 終わりに
