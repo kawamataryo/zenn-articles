@@ -1,22 +1,82 @@
 ---
-title: "Mock Service Worker でJest.mockを使わず非同期リクエストのテストを書く"
+title: "Mock Service Worker でjest.mockを使わず非同期リクエストのテストを書く"
 emoji: "🍊"
 type: "tech"
 topics: ['mockserviceworker', "typescript", "mock", "jest"]
 published: false
 ---
+[Mock Service Worker](https://mswjs.io/) を使ってみたらかなり良かったので紹介です。
 
 # Mock Service Worker とは？
-Mock Service Worker は、ネットワークレベルで API リクエストをインターセプトして mock のデータを返すためのライブラリです。API リクエストを含む処理のテストや、SPA 開発時の mock サーバーとして利用出来ます。
+Mock Service Worker（以下 msw）は、ネットワークレベルで API リクエストをインターセプトして mock のデータを返すためのライブラリです。API リクエストを含む処理のテストや、SPA 開発時の mock サーバーとして利用出来ます。
 
 https://mswjs.io/
 
-今回は、テストでの利用に着目してサンプルコードを書きます。
+以下テスト利用の場合のサンプルコードです。
+`setupServer`でインターセプト用のサーバーを定義し、`listen()`でインターセプトをスタート、`close()`でインターセプトをストップします。
 
-# テストでの利用例
-## テスト対象コード
+:::message
+`setupServer`という関数名からは実際にサーバーを立てるように思われるのですが、内部的には Node.js の API リクエスト用のネイティブモジュールである`https`や`XMLHttpRequest`を補強することで動作しているようです。
+https://mswjs.io/docs/api/setup-server#operation
+:::
 
-以下ログインフォームのコードを対象にテストを書いていきます。
+```ts
+import { rest } from "msw"
+import { setupServer } from "msw/node";
+import axios from "axios";
+
+
+// mockサーバー
+const mockServer = setupServer(
+  rest.get('/greeting', (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json('Hello'))
+  })
+)
+
+// テスト対象の関数
+const greeting = async (name: string) => {
+  const word =  await axios.get('/greeting')
+  return `${word.data} ${name}`
+}
+
+describe('greeting', () => {
+  beforeAll(() => {
+    // インターセプトスタート
+    mockServer.listen()
+  })
+  afterAll(() => {
+    // インターセプトストップ
+    mockServer.close()
+  })
+
+  test('挨拶を返す', async () => {
+    const result = await greeting('ryo')
+
+    expect(result).toEqual('Hello ryo') // Green
+  })
+})
+```
+
+## なぜネットワークレベルでのmockが必要なの？
+
+なぜ、`jest.mock`ではなくネットワークレベルのモックが必要かというと、mock のレイヤーが低レイヤーになるほどテストコードがより安全になるからです。次章で詳細な例を書きますが、非同期リクエストを投げるモジュールをモックしてしまうと、そのモジュール自体のバグにはそのテストで担保できなくなってしまいます。
+より安全なテストコードを書くためには、モックをなるべく使わない or モックのレイヤーを下げることが必要です。
+
+※ モックを使うことでテスト実行のパフォーマンスを向上させるというメリットもあるのでそこはトレードオフです。
+
+
+# Vueコンポーネントのテストでの利用例
+
+実際のユースケースでありそうなログイン処理についてのテストコードを書いていきます。
+テストフレームワークは Jest と、Vue Testing Library を使います。
+
+https://github.com/facebook/jest
+
+https://github.com/testing-library/vue-testing-library
+
+## テスト対象のコード
+
+以下ログインフォームのコンポーネントを対象にテストを書いていきます。
 このコンポーネントの機能は以下です。
 
 - ユーザー名とパスワードを入力出来る
@@ -66,7 +126,6 @@ export default defineComponent({
         })
         user.value = response.data
       } catch (e) {
-        console.log('response', e)
         error.value = e.response.data.error
       }
     }
@@ -83,6 +142,9 @@ export default defineComponent({
 
 
 # Jest.mockを使ってaxiosをモックしたコード
+
+まず最初に、よくある Jest.mock を使って axios をモックする例です。
+`jest.mock('axios')`で axios のモジュールをモックして、`mockResolvedValue`、`mockRejectedValue`でモックの戻り値を定義することで正常系と異常系の UI をテストしています。
 
 ```ts:Login.vue.test
 import { render, screen, fireEvent } from '@testing-library/vue'
@@ -125,7 +187,12 @@ describe('Login', () => {
 })
 ```
 
+
+一見問題はないのですが、このテストの場合 axios をそのまま mock しているので axios のモジュール自体にバグが入って機能しなくなった場合や、BREAKING CHANGE で axios の戻り値が変化した場合（例えば`data`でのラップがなくなるなど）でもテストは通貨してしまいます。
 # mswを使ってnetworkレベルでモックしたコード
+
+続いて msw を使った例です。`setupServer`で`/login`への POST リクエストに対してインターセプトの定義を行っています。内部でリクエストの username と password の比較を行い正常系と異常系のレスポンスを分けています。
+テストコードはとてもシンプルです。特に`jest.mock`を使わずユーザー入力と同じようにただフォームに値を入れて送信しているだけです。
 
 ```ts:Login.test.ts
 import { rest } from "msw"
@@ -139,7 +206,7 @@ const VALID_USER = {
   password: 'validPassword'
 }
 
-export const mockServer = setupServer(
+const mockServer = setupServer(
   rest.post<Record<string, any>>('/login', (req, res, ctx) => {
     const { username, password } = req.body
 
@@ -193,6 +260,17 @@ describe('Login', () => {
 })
 ```
 
+これなら、`jest.mock`を使った場合と違って、axios のモジュール自体のバグや、BREAKING CHANGE で戻り値が変わった場合にはテストが失敗するのでテストレベルで動作を担保することが出来ます。
+
 # 他フレームワークとの比較
+msw のようなネットワークレベルでのインターセプトライブラリとしては`nock`も有名です。
+
+https://github.com/nock/nock
+
+msw のドキュメントに nock との比較があったので記載します。
+
+
 
 # 終わりに
+
+以上、「Mock Service Worker で jest.mock を使わず非同期リクエストのテストを書く」でした。`jest.mock`を使う場合と比べ少し記述量は増えますが、よりテストでの安全性を担保できるので良さそうです。また、パスの間違えなどで地味にモックされず困ることもなくなります。業務コードでの導入も検討したいです。

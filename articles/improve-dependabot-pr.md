@@ -16,7 +16,7 @@ published: true
 ※ 差分が出ない場合の例： Test 系、Lint 系、ビルド系のライブラリ、Tree Shaking で除去される部分のコードの変更など
 
 :::message
-この考え・仕組みは前職の開発チームで[@mugi_uno](https://twitter.com/mugi_uno)が作ってくた仕組みを参考にしています。感謝🙏
+この考え・仕組みは前職の開発チームで[@mugi_uno](https://twitter.com/mugi_uno)が作ってくれた仕組みを参考にしています。感謝🙏
 :::
 
 その差分比較を毎回手動で行うのは面倒なので、GitHub Actions で自動実行できるようにしました。
