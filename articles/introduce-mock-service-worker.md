@@ -1,5 +1,5 @@
 ---
-title: "Mock Service Worker でjest.mockを使わず非同期リクエストのテストを書く"
+title: "Mock Service Worker で jest.mock を使わず非同期リクエストのテストを書く"
 emoji: "🍊"
 type: "tech"
 topics: ['mockserviceworker', "typescript", "mock", "jest"]
