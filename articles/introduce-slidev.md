@@ -10,9 +10,9 @@ published: false
 
 # Slidevとは？
 Slidev は[Vue Use](https://github.com/vueuse/vueuse)や[Type Challenges](https://github.com/type-challenges/type-challenges)の作者であり、Vue.js のコアチームメンバーでもある[Anthony Fu](https://github.com/antfu)が開発しているマークダウン形式でのスライド作成ツールです。
-[Vite](https://github.com/vitejs/vite)、[Vue3](https://github.com/vuejs/vue-next)、[WindiCSS](https://github.com/windicss/windicss)用いて開発されています。
+[Vite](https://github.com/vitejs/vite)、[Vue3](https://github.com/vuejs/vue-next)、[WindiCSS](https://github.com/windicss/windicss)を用いて開発されています。
 
-まだ Public Beta ですがすでに完成度がかなり高く、Public Beta のリリースから**わずか数日で 6,000 を超える GitHub スター**を集めています。
+まだ Public Beta ですが既に完成度がかなり高く、Public Beta のリリースから**わずか数日で 7,000 を超える GitHub スター**を集めています。
 
 https://github.com/slidevjs/slidev
 
@@ -43,9 +43,9 @@ Slidev の特徴的な機能を紹介します。
 
 ## 柔軟なマークダウン記法によるスライド作成
 
-[reveal.js](https://revealjs.com/)や[remark](https://github.com/remarkjs/remark)などのマークダウン形式でのスライド作成ツールとほぼ同様の記法で、スライドを作成できます。大抵のツールでは、ある程度決まったレイアウトになるのですが、Slidev の場合は拡張性がかなり高いです。Vue Component や、[WindiCSS](https://github.com/windicss/windicss) でスタイリングすることでページごとに独自のスタイルを当てて自由なレイアウトを構築することも出来きます。
+[reveal.js](https://revealjs.com/)や[remark](https://github.com/remarkjs/remark)などのマークダウン形式でのスライド作成ツールとほぼ同様の記法で、スライドを作成できます。大抵のツールでは、ある程度決まったレイアウトになるのですが、Slidev の場合は拡張性がかなり高いです。Vue Component や、[WindiCSS](https://github.com/windicss/windicss) でスタイリングすることでページごとに独自のスタイルを当てて自由なレイアウトで構築することも出来きます。
 
-- [WindiCSS](https://github.com/windicss/windicss) による自由なスタイリング（もちろん通常の CSS も書けます）
+- [WindiCSS](https://github.com/windicss/windicss) によるスタイリング（もちろん通常の CSS も書けます）
 - Twitter・YouTube の埋込み
 - [vite-plugin-icon](https://github.com/antfu/vite-plugin-icons)、[Icontify](https://github.com/iconify/iconify) によるアイコンサポート
 - LaTeX 記法のサポート
@@ -54,7 +54,7 @@ Slidev の特徴的な機能を紹介します。
 https://sli.dev/guide/syntax.html
 
 
-## 視認性の良いコードスニペット & ライブコーディング
+## 視認性の高いコードスニペット & ライブコーディング
 開発者が PowerPoint や Keynote でスライドを作るときに大抵苦労するのがコードの埋込みです。シンタックスハイライトを効かせることだったり、Font の幅の調整、可視性を上げるためのアニメーションなど地味に苦労します。Slidev はその部分をとても強力にサポートしています。
 いつものマークダウン記法を使えば、**シンタックスハイライトが効くことはもちろん、可視性を上げるために行ごとのハイライトも可能**です。
 
@@ -106,6 +106,6 @@ SPA として GitHub Pages などに公開も出来るので SNS での共有も
 https://sli.dev/guide/exporting.html
 
 # おわりに
-以上、簡単ですが Slidev の紹介でした。
+以上、とても簡単ですが Slidev の紹介でした。
 正直プレゼン資料作成はいつも苦痛なのですが、そんな私でも次のプレゼンが楽しみになるくらいワクワクするプロダクトです。
 しかも、この豊富な機能でまだ Beta 版です。今後の進化も楽しみですね。
