@@ -12,11 +12,11 @@ published: false
 Slidev は[Vue Use](https://github.com/vueuse/vueuse)や[Type Challenges](https://github.com/type-challenges/type-challenges)の作者であり、Vue.js のコアチームメンバーでもある[Anthony Fu](https://github.com/antfu)が開発しているマークダウン形式でのスライド作成ツールです。
 [Vite](https://github.com/vitejs/vite)、[Vue3](https://github.com/vuejs/vue-next)、[WindiCSS](https://github.com/windicss/windicss)を用いて開発されています。
 
-まだ Public Beta ですが既に完成度がかなり高く、Public Beta のリリースから**わずか数日で 7,000 を超える GitHub スター**を集めています。
+まだ Public Beta ですが既に完成度がかなり高く、リリースから**わずか数日で 7,000 を超える GitHub スター**を集めています。
 
 https://github.com/slidevjs/slidev
 
-実際にどのようなプレゼンが可能なのかは、Slidev のデモや、作者の Anthony が実際に Slidev でプレゼンした [VueDay2021](https://2021.vueday.it) の資料が分かりやすいです。
+実際にどのようなプレゼンが可能なのかは、Slidev のデモや、作者の Anthony が Slidev を用いてプレゼンした [VueDay2021](https://2021.vueday.it) の資料が分かりやすいです。
 
 - デモ動画
 
