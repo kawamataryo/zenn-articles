@@ -1,17 +1,18 @@
 ---
-title: "開発者のための拡張性溢れるスライド作成ツール Slidev を使ってみた"
-emoji: "📘"
+title: "開発者のための拡張性溢れるスライド作成ツール Slidev"
+emoji: "👨‍💻"
 type: "tech"
 topics: ['slidev', "typescript", "mock", "jest"]
 published: false
 ---
 
-マークダウン形式のスライド作成ツール Slidev を試したらとても良かったので紹介です。
-
+マークダウン形式のスライド作成ツール Slidev を試したら、とてもとても良かったので紹介です。
 
 # Slidevとは？
 Slidev は[Vue Use](https://github.com/vueuse/vueuse)や[Type Challenges](https://github.com/type-challenges/type-challenges)の作者であり、Vue.js のコアチームメンバーでもある[Anthony Fu](https://github.com/antfu)が開発しているマークダウン形式でのスライド作成ツールです。
-まだ Public Beta ですが、すでに完成度がとても高く、**Public Beta のリリースからわずか 4 日で 2,700 を超える GitHub スター**を集めています。
+[Vite](https://github.com/vitejs/vite)、[Vue3](https://github.com/vuejs/vue-next)、[WindiCSS](https://github.com/windicss/windicss)用いて開発されています。
+
+まだ Public Beta ですがすでに完成度がかなり高く、Public Beta のリリースから**わずか数日で 6,000 を超える GitHub スター**を集めています。
 
 https://github.com/slidevjs/slidev
 
@@ -26,78 +27,6 @@ https://www.youtube.com/watch?v=eW7v-2ZKZOU
 
 https://www.youtube.com/watch?v=IMJjP6edHd0
 
-# どんな機能がある？
-Slidev の特徴的な機能を紹介します。
-
-## マークダウン記法によるスライド作成
-
-[reveal.js](https://revealjs.com/)や[remark](https://github.com/remarkjs/remark)などのマークダウン形式でのスライド作成ツールとほぼ同様の記法で、スライドを作成できます。大抵のツールでは、ある程度決まったレイアウトになるのですが、Slidev の場合は拡張性がかなり高く、ページごとに独自のスタイルを当てて自由なレイアウトを構築することも出来きます。
-
-```md
-# Slidevの紹介
-
-Hello, World!
-
----
-
-# ページ2
-
-コードスニペット
-
-```ts
-console.log('Hello, World!')
-```
-
-
----
-
-# ページ3
-
-ツイート の埋め込み
-
-<div class="p-3">
-  <Tweet :id="20" />
-<div>
-```
-
-## コードスニペットの強力なサポート
-開発者が PowerPoint や Keynote でスライドを作るときに大抵苦労するのがコードの埋込みです。シンタックスハイライトを効かせることだったり、Font の幅の調整、可視性を上げるためのアニメーションなど地味に苦労します。Slidev はその部分をとても強力にサポートしています。
-いつものマークダウン記法を使えば、シンタックスハイライトが効くことはもちろん、可視性を上げるために行ごとのハイライトも可能です。
-
-```md
-
-```ts {all|2-3|5|all}
-function add(
-  a: Ref<number> | number,
-  b: Ref<number> | number
-) {
-  return computed(() => unref(a) + unref(b))
-}
-```
-
-```
-
-ほかにもブラウザベースのコードエディタである[monaco-editor](https://github.com/Microsoft/monaco-editor)をサポートしているため、スライド画面を移しながらライブコーディング的にコードを編集することも可能です。TypeScriptの型補完なども表示されるので、コードの説明がとてもしやすくなりそうです。
-
-```
-```js {monaco}
-const count = ref(1)
-const plusOne = computed(() => count.value + 1)
-
-console.log(plusOne.value) // 2
-
-plusOne.value++ // error
-```
-```
-
-## プレゼンテーションの録画機能
-
-## 豊富な出力形式
-
-
-## 自由な拡張
-
-
 # 使い方
 
 任意のディレクトリで以下コマンドを実行するだけで環境は整います。
@@ -106,9 +35,77 @@ plusOne.value++ // error
 $ npm init slidev
 ```
 
-コマンドを実行するとディレクトリ名の入力や、パッケージマネージャーの選択肢が表示されます。それらを入力し、しばらく待つとブラウザが開き、サンプルのスライドが表示されます。
+コマンドを実行するとディレクトリ名の入力や、パッケージマネージャーの選択肢が表示されます。それらを入力した後しばらく待つとブラウザが開き、サンプルのスライドが表示されます。
 あとは作成されたディレクトリに移動し`slidev.md`を編集すれば OK です。
 
-# 終わりに
-クライアントのノート画面や、
-次回のプレゼン作成では、是非使ってみたいと思いました。
+# どんな機能があるの？
+Slidev の特徴的な機能を紹介します。
+
+## 柔軟なマークダウン記法によるスライド作成
+
+[reveal.js](https://revealjs.com/)や[remark](https://github.com/remarkjs/remark)などのマークダウン形式でのスライド作成ツールとほぼ同様の記法で、スライドを作成できます。大抵のツールでは、ある程度決まったレイアウトになるのですが、Slidev の場合は拡張性がかなり高いです。Vue Component や、[WindiCSS](https://github.com/windicss/windicss) でスタイリングすることでページごとに独自のスタイルを当てて自由なレイアウトを構築することも出来きます。
+
+- [WindiCSS](https://github.com/windicss/windicss) による自由なスタイリング（もちろん通常の CSS も書けます）
+- Twitter・YouTube の埋込み
+- [vite-plugin-icon](https://github.com/antfu/vite-plugin-icons)、[Icontify](https://github.com/iconify/iconify) によるアイコンサポート
+- LaTeX 記法のサポート
+- Vue、CSS トランジションによるアニメーション
+
+https://sli.dev/guide/syntax.html
+
+
+## 視認性の良いコードスニペット & ライブコーディング
+開発者が PowerPoint や Keynote でスライドを作るときに大抵苦労するのがコードの埋込みです。シンタックスハイライトを効かせることだったり、Font の幅の調整、可視性を上げるためのアニメーションなど地味に苦労します。Slidev はその部分をとても強力にサポートしています。
+いつものマークダウン記法を使えば、**シンタックスハイライトが効くことはもちろん、可視性を上げるために行ごとのハイライトも可能**です。
+
+さらにブラウザベースのコードエディタである[monaco-editor](https://github.com/Microsoft/monaco-editor)をサポートしているため、**スライド画面を移しながらライブコーディング的にコードを編集することも可能**です。TypeScript の型補完なども表示されるので、コードの説明がとてもやりやすそうです。
+
+
+![](https://i.gyazo.com/f56ea3abc1402e74806e3480970f5127.gif =650x)
+
+
+https://sli.dev/guide/syntax.html#line-highlighting
+
+## 多彩な表示モード
+ただ画面にスライドを移すだけでなく、Keynote や PowerPoint のようにプレゼンテーションのツールバーに様々な表示モードがあります。
+特に、インカメラの表示はリモート環境での LT を考えるとかなり良いですね。
+
+- ダークモードの切り替え
+- スライド一覧表示
+- プレゼンターモード
+- インカメラの表示
+- メモ機能
+
+![](https://i.gyazo.com/7702cd5573225807ae7250868c879813.gif)
+
+
+https://sli.dev/guide/presenter-mode.html
+
+## テーマ機能のサポート
+
+Slidev ではテーマ機能をサポートしているため、デザインの統一されたスライドを簡単に作成できます。まだテーマの数は少ないですが、ユーザー側での作成も容易にできそうなので今後どんどん増えていきそうですね。
+
+![](https://i.gyazo.com/ef8ea0d97dbdab9155bf75971ae9932e.png)
+
+
+https://sli.dev/themes/gallery.html
+## プレゼンテーションの録画機能
+
+事前録画の発表の際にとても便利だと思うのですが、プレゼンテーションの録画機能も Slidev 自体でサポートしています。
+ただただ凄い。.!
+
+![](https://i.gyazo.com/0e90c81a250bf673973b1c8f6515d827.png)
+
+https://sli.dev/guide/recording.html
+
+## 豊富な出力形式
+
+Slidev は PDF、PNGs、SPA と多数の出力形式を持っています。
+SPA として GitHub Pages などに公開も出来るので SNS での共有もとても楽そうです。
+
+https://sli.dev/guide/exporting.html
+
+# おわりに
+以上、簡単ですが Slidev の紹介でした。
+正直プレゼン資料作成はいつも苦痛なのですが、そんな私でも次のプレゼンが楽しみになるくらいワクワクするプロダクトです。
+しかも、この豊富な機能でまだ Beta 版です。今後の進化も楽しみですね。
