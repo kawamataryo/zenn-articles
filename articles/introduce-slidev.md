@@ -12,7 +12,11 @@ published: true
 Slidev は[Vue Use](https://github.com/vueuse/vueuse)や[Type Challenges](https://github.com/type-challenges/type-challenges)の作者であり、Vue.js のコアチームメンバーでもある[Anthony Fu](https://github.com/antfu)が開発しているマークダウン形式でのスライド作成ツールです。
 [Vite](https://github.com/vitejs/vite)、[Vue3](https://github.com/vuejs/vue-next)、[WindiCSS](https://github.com/windicss/windicss)を用いて開発されています。
 
-まだ Public Beta ですが既に完成度がかなり高く、**リリースからわずか数日で 7,000 を超える GitHub スター**を集めています。
+まだ Public Beta ですが、**リリースからわずか数日で 7,000 を超える GitHub スター**を集めています。
+
+:::message 
+`Slidev is still under heavy development. API and usages are not set in stone yet.`とドキュメントに記載されているとおり API にまだ変更はありそうです。ただ現段階でもとても完成度が高く、常用できるレベルです。
+:::
 
 https://github.com/slidevjs/slidev
 
@@ -45,11 +49,15 @@ Slidev の特徴的な機能を紹介します。
 
 [reveal.js](https://revealjs.com/)や[remark](https://github.com/remarkjs/remark)などのマークダウン形式でのスライド作成ツールとほぼ同様の記法で、スライドを作成できます。大抵のツールでは、ある程度決まったレイアウトになるのですが、Slidev の場合は拡張性がかなり高いです。Vue Component や、[WindiCSS](https://github.com/windicss/windicss) でスタイリングすることでページごとに独自のスタイルを当てて自由なレイアウトで構築することも出来きます。
 
-- [WindiCSS](https://github.com/windicss/windicss) によるスタイリング（もちろん通常の CSS も書けます）
+他にも、
+
 - Twitter・YouTube の埋込み
 - [vite-plugin-icon](https://github.com/antfu/vite-plugin-icons)、[Icontify](https://github.com/iconify/iconify) によるアイコンサポート
-- LaTeX 記法のサポート
+- [KaTeX](https://katex.org/)による LaTeX 記法のサポート
 - Vue、CSS トランジションによるアニメーション
+- [Mermaid](https://mermaid-js.github.io/mermaid) によるダイアグラム
+
+などなどとても柔軟です。
 
 https://sli.dev/guide/syntax.html
 
