@@ -2,7 +2,7 @@
 title: "開発者のための拡張性溢れるスライド作成ツール Slidev"
 emoji: "👨‍💻"
 type: "tech"
-topics: ['slidev', "typescript", "mock", "jest"]
+topics: ['slidev', "vue", "windicss", "プレゼンテーション", "markdown"]
 published: true
 ---
 
