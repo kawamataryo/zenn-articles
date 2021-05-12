@@ -1,12 +1,12 @@
 ---
-title: "開発者のための拡張性溢れるスライド作成ツール Slidev"
+title: "開発者のためのスライド作成ツール Slidev がすごい"
 emoji: "👨‍💻"
 type: "tech"
 topics: ['slidev', "vue", "windicss", "プレゼンテーション", "markdown"]
 published: true
 ---
 
-マークダウン形式のスライド作成ツール Slidev を試したら、とてもとても良かったので紹介です。
+マークダウン形式のスライド作成ツール Slidev を試したら、とても良かったので紹介です。
 
 # Slidevとは？
 Slidev は[Vue Use](https://github.com/vueuse/vueuse)や[Type Challenges](https://github.com/type-challenges/type-challenges)の作者であり、Vue.js のコアチームメンバーでもある[Anthony Fu](https://github.com/antfu)が開発しているマークダウン形式でのスライド作成ツールです。
