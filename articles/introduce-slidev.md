@@ -9,7 +9,7 @@ published: true
 マークダウン形式のスライド作成ツール Slidev を試したら、とても良かったので紹介です。
 
 # Slidevとは？
-Slidev は[Vue Use](https://github.com/vueuse/vueuse)や[Type Challenges](https://github.com/type-challenges/type-challenges)の作者であり、Vue.js のコアチームメンバーでもある[Anthony Fu](https://github.com/antfu)が開発しているマークダウン形式でのスライド作成ツールです。
+Slidev は[Vue Use](https://github.com/vueuse/vueuse)や[Type Challenges](https://github.com/type-challenges/type-challenges)の作者であり、Vue.js のコアチームメンバーでもある[Anthony Fu](https://github.com/antfu)が開発しているマークダウン形式でのプレゼンスライドの作成ツールです。
 [Vite](https://github.com/vitejs/vite)、[Vue3](https://github.com/vuejs/vue-next)、[WindiCSS](https://github.com/windicss/windicss)を用いて開発されています。
 
 まだ Public Beta ですが既に完成度がかなり高く、**リリースからわずか数日で 7,000 を超える GitHub スター**を集めています。
