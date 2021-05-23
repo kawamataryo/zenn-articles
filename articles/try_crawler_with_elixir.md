@@ -6,7 +6,7 @@ topics: ["elixir", "floki", "HTTPoison", "スクレイピング"]
 published: true
 ---
 
-Elixir の勉強のため GitHub Trending の内容をスクレイピングするコードを書いてみたのでまとめます。
+Elixir の勉強のために GitHub Trending の内容をスクレイピングするコードを書いてみたのでまとめます。
 
 # 何を作る？
 
