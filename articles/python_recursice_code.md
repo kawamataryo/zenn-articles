@@ -63,7 +63,7 @@ recursive_upper_case({
 # {'dict': {'str': 'AAA',  'num': 1,  'bool': True,  'dict': {'str': 'AAA', 'num': 1, 'bool': True}}, 'list': ['BBB', {'dict': {'str': 'AAA', 'num': 1, 'bool': True}}]}
 ```
 
-Django などで、parameter のタグの除去などにも便利です。
+ユーザー入力のタグの除去などにも便利です。
 
 ```python
 from django.utils.html import strip_tags
