@@ -11,7 +11,7 @@ published: true
 # コードサンプル
 
 最初に高階関数を作ります。
-値の判定関数とその判定関数が適応した場合に行う関数を受け取り、再帰的に処理を行う関数を作る関数です。
+`create_recursive_action` は値の判定関数とその判定関数が適応した場合に行う関数を受け取り、再帰的に処理を行う関数を作る関数です。
 
 ```python
 def create_recursive_action(is_target: Callable[[any], bool], action: Callable[[any], any]) -> Callable[[Union[dict, list]], Union[dict, list]]:
