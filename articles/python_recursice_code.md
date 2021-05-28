@@ -34,7 +34,8 @@ def create_recursive_action(is_target: Callable[[any], bool], action: Callable[[
 ```
 
 あとは、`lambda` を渡して目的の関数を作ります。
-以下、与えられた辞書を再帰的に走査して、値が文字列の場合は upper()を適用したい場合の例です。
+
+以下は与えられた辞書を再帰的に走査して、値が文字列の場合は upper() を適用する場合の例です。
 
 ```python
 recursive_upper_case = create_recursive_action(lambda obj: isinstance(obj, str), lambda obj: obj.upper())
