@@ -1,9 +1,9 @@
 ---
 title: "Elixir で再帰的にリンクをクロールしページ情報を取得するクローラーを作る"
-emoji: "🎢"
+emoji: "🕸"
 type: "tech" # tech: 技術記事 / idea: アイデア
-topics: ["Elixir", "crawler", "クローラー", "スクレイピング"]
-published: false
+topics: ["Elixir", "crawler", "floki", "スクレイピング"]
+published: true
 ---
 
 Elixir でシンプルなクローラーを作ってみたのでまとめます。
