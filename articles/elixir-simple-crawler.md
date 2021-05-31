@@ -1,12 +1,12 @@
 ---
-title: "Elixir で再帰的にリンクをクロールするシンプルなクローラーを作る"
+title: "Elixir で再帰的にリンクをクロールしページ情報を取得するクローラーを作る"
 emoji: "🎢"
 type: "tech" # tech: 技術記事 / idea: アイデア
-topics: ["Elixir", "crawler", "floki"]
+topics: ["Elixir", "crawler", "クローラー", "スクレイピング"]
 published: false
 ---
 
-Elixir でシンプルなクローラーを作ってみたのでメモ。
+Elixir でシンプルなクローラーを作ってみたのでまとめます。
 
 # 何を作る？
 
@@ -18,20 +18,20 @@ URL を渡すと、そのページに含まれるリンクから自ホストの�
 
 ![](https://i.gyazo.com/9ce2449cdca0ed163ac1abb20f84adea.gif)
 
-以降で説明するコードは全てこのリポジトリにあります。
+※ 以降で説明するコードは全て以下リポジトリにあります。
 
 https://github.com/kawamataryo/elixir-crawler
 
 # 環境構築
 
-まず、 mix で Elixir のプロジェクトを作成します。
+mix で Elixir のプロジェクトを作成します。
 
 ```bash
 $ mix new crawler
 $ cd crawler
 ```
 
-HTTP クライアントの Httpoison、 HTML パーサーの Floki を依存関係に追加します。
+次に HTTP クライアントの [Httpoison](https://github.com/edgurgel/httpoison)、 HTML パーサーの [Floki](https://github.com/philss/floki) を依存関係に追加します。
 
 ```elixir
 defmodule Crawler.MixProject do
@@ -127,11 +127,11 @@ defmodule Crawler do
 end
 ```
 
-`crawl` では渡された URL のページにアクセスして、ページ情報（title, description）を取得するとともに、ページに含まれる全てて a タグを取得し、再帰的に処理を実行しています。
-そのまま全ての a タグのリンクにアクセスすると、リンクの海から返ってこなくなってしまうので、`parse_same_host_links`で同ホストのリンクのみに制限しています。
-また、Agent を使いクロール済みのページ情報（`crawled_result`）を持ち、一度到達したページはスキップすることで無限ループを防いでいます。
+`crawl` 関数では渡された URL のページにアクセスして、ページ情報（title, description）を取得するとともに、ページに含まれる全てて a タグを取得し、再帰的に処理を実行しています。
 
-:::method
+そのまま全ての `a`タグのリンクにアクセスすると、インターネットの海から返ってこなくなってしまうので、`parse_same_host_links`で同ホストのリンクのみに制限しています。また、`Agent` を使いクロール済みのページ情報（`crawled_result`）を状態として持ち、一度到達したページはスキップすることで無限ループを防いでいます。
+
+:::message
 今回はクロール済みのページ情報の状態を持つために、`Agent` を使いましたが、使い方があっているのかあまり自身がありません・・
 もしより良い方法があればコメントで教えてもらえると嬉しいです🙏
 :::
@@ -140,7 +140,7 @@ end
 
 ![](https://i.gyazo.com/211dc0baee4bde7edee0a22cc94972f0.gif)
 
-# CLIの設定
+# 実行ファイルとしてビルド
 コマンドラインで簡単に動かせるように実行ファイルとして書き出してみます。
 
 `lib`配下に`crawler_cli.ex`を追加します。
@@ -183,13 +183,12 @@ end
 $ mix escript.build
 ```
 
-プロジェクト直下に`crawler`という実行ファイルが作成されるので実行してみましょう。
+プロジェクト直下に`crawler`という実行ファイルが作成されます。
+以下でクロール結果が標準出力に表示されます 🎉
 
 ```bash
 $ ./crawler https://makoto-acu.com
 ```
-
-これでクロール結果が標準出力に表示されます 🎉
 
 ![](https://i.gyazo.com/9ce2449cdca0ed163ac1abb20f84adea.gif)
 
@@ -197,8 +196,10 @@ CLI での出力の際に`Enum.filter(&Regex.match?(~r/^(4|5).*/, "#{&1.status_c
 
 # 終わりに
 
-以上、簡単ですがElixirで作るクローラーでした。
-現在、毎週のモブプロ生配信で、Python の Web クローラーをワイワイ作っています。
-もし興味あれば、こちらも見てもらえると嬉しいです！
+以上、簡単ですが Elixir で作るクローラーでした。とても単純な仕組みですが、Elixir とクローラーの勉強になって良かったです。
+
+**📣 宣伝 📣**
+
+`モブプロ生配信「4 時間でフロントエンジニアはクローラー開発者になれるのか？」`と題して、[LAPRAS](https://corp.lapras.com/) の開発チームで Web クローラー開発を YouTube 配信しています。普段のプロダクト開発とほぼ変わらない形でワイワイ開発しているので「モブプロのやり方に興味がある」「クローラーってどうやって作るのだろう？」など思った方はぜひ視聴してもらえると嬉しいです！
 
 https://www.youtube.com/watch?v=CVCpsrl1Z0w&t=0s
