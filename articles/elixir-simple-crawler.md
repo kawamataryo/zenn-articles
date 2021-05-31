@@ -1,5 +1,5 @@
 ---
-title: "Elixir で再帰的にリンクをクロールしページ情報を取得するクローラーを作る"
+title: "Elixir で、再帰的にリンクをクロールしページ情報を取得するクローラーを作る"
 emoji: "🕸"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["Elixir", "crawler", "floki", "スクレイピング"]
