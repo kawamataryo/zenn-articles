@@ -140,7 +140,7 @@ App.vue に`/users`の API を呼び出す処理を追加してみます。
   <h1>Users</h1>
   <ul>
     <li v-for="user in users" :key="user.id">
-      id: {{user.id}}, age: {{user.name}}
+      id: {{user.id}}, name: {{user.name}}
     </li>
   </ul>
 </template>
@@ -184,7 +184,7 @@ export default defineComponent({
 
 ページも問題なく描画されます。
 
-![](https://i.gyazo.com/c6ea45dda911fbe1d88d70ee92fc3433.png)
+![](https://i.gyazo.com/b7158aa2b6c25d9a65deaaaffbf47368.png)
 
 # 参考
 - https://mswjs.io/
