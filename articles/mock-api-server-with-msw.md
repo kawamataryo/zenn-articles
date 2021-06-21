@@ -2,8 +2,8 @@
 title: "Mock Service Worker で開発用のモックAPIを立てる"
 emoji: "🦆"
 type: "tech" # tech: 技術記事 / idea: アイデア
-topics: ["msw", "TypeScript", "Test"]
-published: false
+topics: ["typescript", "mockserviceworker"]
+published: true
 ---
 
 [Mock Service Worker](https://github.com/mswjs/msw) で開発用のモック API を立ててみたのでメモ。
