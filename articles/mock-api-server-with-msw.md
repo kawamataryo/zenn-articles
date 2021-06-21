@@ -105,8 +105,9 @@ https://mswjs.io/docs/api/graphql
 
 ## Service Workerのスタート処理の追加
 
-これまでの作業で準備が出来たので、プロジェクトのエントリーポイントに、Service Worker のスタート処理を追加します。
-以下 Vue の`main.js`に追記する例です。
+これまでの作業で準備が出来たので、プロジェクトのエントリーポイントにService Worker のスタート処理を追加します。
+
+Vue の`main.js`に追記する例です。
 
 ```js:src/main.js
 import { createApp } from 'vue'
@@ -120,7 +121,7 @@ if (process.env.NODE_ENV === 'development') {
 createApp(App).mount('#app')
 ```
 
-開発ビルドの場合のみ、Service Worker を起動しています。
+開発ビルドの場合のみ、Worker を起動しています。
 これでプロジェクトのスタート時にモックが動作するようになります。
 
 :::message
@@ -130,19 +131,56 @@ https://mswjs.io/docs/recipes/deferred-mounting
 
 ## モックの動作確認
 
-以上で準備は出来たので、実際にモックの動作を確認します。
+実際にモックの動作を確認します。
+
+`/users`のAPIを呼び出す処理を追加します。
+
+```vue:components/App.vue
+<template>
+  <h1>Users</h1>
+  <ul>
+    <li v-for="user in users" :key="user.id">
+      id: {{user.id}}, age: {{user.name}}
+    </li>
+  </ul>
+</template>
+
+<script lang="ts">
+import { ref, defineComponent, onMounted } from 'vue'
+
+type User = {
+  name: string;
+  age: number
+}
+
+export default defineComponent({
+  name: 'App',
+  setup() {
+    const users = ref<User[]>([])
+
+    onMounted(async () => {
+      const res = await fetch('/users')
+      users.value = await res.json()
+    })
+
+    return { users }
+  }
+})
+</script>
+```
 
 `yarn dev`で Vue の開発サーバーを起動し、localhost にブラウザでアクセスすると Console に `Mocking enabled` と表示されるはずです。これが Mock Service Worker によるモックが動作していることを示します。
 
-![](https://i.gyazo.com/aee8f0f9d772f6d56a21ca671266eae8.png)
+![](https://i.gyazo.com/d0a592bc9de1f17dcd1584fd82327297.png)
 
-また、API リクエストを行うページを開き、DevTools の Network を確認すると、Service Worker にインターセプトされた XHR リクエストが確認出来るはずです。
+また、DevTools の Network を確認すると、Service Worker にインターセプトされた XHR リクエストが確認出来るはずです。
 
-![](https://i.gyazo.com/80754fce532113c6fef650b156e2bbd6.png)
+![](https://i.gyazo.com/4392bde6be6da2f1bc1f5603a1a33664.png)
 
 レスポンスを見ると `handler.js` で定義した値が返却されています。
+ページも問題なく描画されます。
 
-![](https://i.gyazo.com/b27c86e4daec5205cb3f4ca95e7dfc2d.png)
+![](https://i.gyazo.com/4392bde6be6da2f1bc1f5603a1a33664.png)
 
 # 終わりに
 
