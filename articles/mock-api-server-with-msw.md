@@ -186,6 +186,10 @@ export default defineComponent({
 
 ![](https://i.gyazo.com/c6ea45dda911fbe1d88d70ee92fc3433.png)
 
+# 参考
+- https://mswjs.io/
+- https://www.wakuwakubank.com/posts/765-react-mock-api/
+
 # 終わりに
 
 以上、開発時の API リクエストのモック処理での Mock Service Worker の利用例でした。
