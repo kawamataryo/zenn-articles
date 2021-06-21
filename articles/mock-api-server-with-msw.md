@@ -105,7 +105,7 @@ https://mswjs.io/docs/api/graphql
 
 ## Service Workerのスタート処理の追加
 
-これまでの作業で準備が出来たので、プロジェクトのエントリーポイントにService Worker のスタート処理を追加します。
+これまでの作業で準備が出来たので、プロジェクトのエントリーポイントに Service Worker のスタート処理を追加します。
 
 Vue の`main.js`に追記する例です。
 
@@ -133,7 +133,7 @@ https://mswjs.io/docs/recipes/deferred-mounting
 
 実際にモックの動作を確認します。
 
-`/users`のAPIを呼び出す処理を追加します。
+App.vue に`/users`の API を呼び出す処理を追加してみます。
 
 ```vue:components/App.vue
 <template>
@@ -169,18 +169,22 @@ export default defineComponent({
 </script>
 ```
 
-`yarn dev`で Vue の開発サーバーを起動し、localhost にブラウザでアクセスすると Console に `Mocking enabled` と表示されるはずです。これが Mock Service Worker によるモックが動作していることを示します。
+`yarn dev`で Vue の開発サーバーを起動し、localhost にアクセスし DevTools を開くと Console に `Mocking enabled` と表示されるはずです。これが Mock Service Worker によるモックが動作していることを示します。
 
 ![](https://i.gyazo.com/d0a592bc9de1f17dcd1584fd82327297.png)
 
-また、DevTools の Network を確認すると、Service Worker にインターセプトされた XHR リクエストが確認出来るはずです。
+また、DevTools の Network を確認すると、Service Worker にインターセプトされた`/users`へのリクエストが確認出来るはずです。
 
-![](https://i.gyazo.com/4392bde6be6da2f1bc1f5603a1a33664.png)
+![](https://i.gyazo.com/dad4d8cced1dd9c81621e5bbd8a5f9e6.png)
+
 
 レスポンスを見ると `handler.js` で定義した値が返却されています。
-ページも問題なく描画されます。
 
 ![](https://i.gyazo.com/4392bde6be6da2f1bc1f5603a1a33664.png)
+
+ページも問題なく描画されます。
+
+![](https://i.gyazo.com/c6ea45dda911fbe1d88d70ee92fc3433.png)
 
 # 終わりに
 
