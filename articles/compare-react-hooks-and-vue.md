@@ -1,5 +1,5 @@
 ---
-title: "「Vue.jsのコレはReact Hooksでどう書くの？」をまとめてみた"
+title: "「Vue.jsのコレはReactでどう書くの？」をまとめてみた"
 emoji: "🙋‍♂️"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["react", "vue", "typescript"]
@@ -10,16 +10,16 @@ published: false
 
 この記事は以下バージョン時点の情報です。
 
-- React v17.0.2
-- Vue v3.1.1
+`React v17.0.2`
+`Vue v3.1.1`
 
 # コンポーネントの定義
 
 ### Vue
 
-```vue:Hello.vue
+```vue
 <template>
-  <div>Hello {{name}}</div>
+  <div>Hello</div>
 </template>
 
 <script lang="ts">
@@ -27,29 +27,16 @@ import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'Hello',
-  props: {
-    name: {
-      type: String,
-      required: true
-    }
-  },
-  setup: () => {
-    return {}
-  }
 })
 </script>
 ```
 
 ### React
 
-```tsx:Hello.tsx
+```tsx
 import * as React from 'react';
 
-type HelloProps = {
-  name: string;
-}
-
-const Hello = ({ name }: HelloProps) => <div>Hello {name}</div>
+const Hello = () => <div>Hello</div>
 
 export default Hello
 ```
@@ -58,7 +45,7 @@ export default Hello
 
 ### Vue
 
-```vue:Counter.vue
+```vue
 <template>
     <button @click="countUp">Count is: {{count}}</button>
 </template>
@@ -83,7 +70,7 @@ export default defineComponent({
 
 ### React
 
-```tsx:Counter.tsx
+```tsx
 import * as React from 'react';
 
 const Counter = () => {
@@ -102,7 +89,7 @@ export default Counter
 
 ### vue
 
-```vue:DoubleCounter.vue
+```vue
 <template>
   <button @click="countUp1">Count1 is: {{ count1 }}</button>
   <button @click="countUp2">Count2 is: {{ count2 }}</button>
@@ -128,7 +115,7 @@ export default defineComponent({
       return count2.value * count2.value
     })
 
-    // この書き方だとcountUp1の実行でもめちゃくちゃ重い
+    // この書き方だとcountUp1の実行でもめちゃ重い
     // const doubleCount = () => {
     //   let i = 0
     //   while (i < 2000000000) { i++ }
@@ -149,7 +136,7 @@ export default defineComponent({
 
 ### React
 
-```tsx:DoubleCounter.tsx
+```tsx
 import * as React from 'react';
 
 const DoubleCounter = () => {
@@ -163,7 +150,7 @@ const DoubleCounter = () => {
     return count2 * count2
   }, [count2])
 
-  // この書き方だとcountUp1の実行でもめちゃくちゃ重い
+  // この書き方だとcountUp1の実行でもめちゃ重い
   // const doubleCount = () => {
   //   for (let i = 0; i < 2000000000; i++) {}
   //   return count2 * count2
@@ -180,6 +167,89 @@ const DoubleCounter = () => {
 
 export default DoubleCounter
 ```
+# ライフサイクルフック
+### Vue
+
+```vue
+<template>
+    <button @click="countUp">Count is: {{count}}</button>
+</template>
+
+<script lang="ts">
+import { defineComponent, onMounted, onUnmounted, onUpdated, ref } from 'vue'
+
+export default defineComponent({
+  name: 'Lifecycle',
+  setup: () => {
+    const count = ref(0)
+    const countUp = () => { count.value++ }
+
+    // Mount時に実行
+    onMounted(() => {
+      console.log('Mountされました')
+    })
+
+    // Update時に実行
+    onUpdated(() => {
+      console.log('Updateされました')
+    })
+
+    // Unmount時に実行
+    onUnmounted(() => {
+        console.log('Unmountされました')
+    })
+
+    return {
+      count,
+      countUp
+    }
+  }
+})
+</script>
+```
+
+
+### React
+
+```tsx
+import * as React from 'react';
+import { useEffect, useRef } from "react";
+
+
+const Lifecycle = () => {
+  const [count, setCount] = React.useState(0)
+  const countUp = () => {
+    setCount((prevCount) => prevCount + 1)
+  }
+
+  // Mount時に実行
+  useEffect(() => {
+    console.log('Mountされました')
+  }, [])
+
+  // Update時に実行
+  const isInitialMount = useRef(true);
+
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else {
+      console.log('Updateされました')
+    }
+  });
+
+  // Unmount時に実行
+  useEffect(() => {
+    return () => {
+      console.log('Unmountされました')
+    }
+  }, [])
+
+  return <button onClick={countUp}>Count is: {count}</button>
+}
+
+export default Lifecycle
+```
 
 # Styleの設定
 
@@ -191,9 +261,60 @@ export default DoubleCounter
 
 # 条件付きレンダリング
 
+## Vue
+
+```vue
+<template>
+  <div>
+    <p v-if="toggle">Hello</p>
+    <button @click="toggleIsShow" >toggle</button>
+  </div>
+</template>
+
+<script lang="ts">
+import { defineComponent, ref } from 'vue'
+
+export default defineComponent({
+  name: 'App',
+  setup() {
+    const isShow = ref(true)
+    const toggle = () => {
+      isShow.value = !isShow.value
+    }
+
+    return {
+      isShow,
+      toggle
+    }
+  }
+})
+</script>
+```
+
+## React
+
+```tsx
+import React, { useState } from 'react'
+
+function App() {
+  const [isShow, setIsShow] = useState(true)
+  const toggle = () => {
+    setIsShow((previous) => !previous)
+  }
+
+  return (
+    <div>
+      {isShow && <p>Hello</p>}
+      <button onClick={toggle}>toggle</button>
+    </div>
+  )
+}
+
+export default App
+```
+
 # フォーム入力のバインディング
 
-# ライフサイクルフック
 
 # 深くネストされたコンポーネント間でのデータの受け渡し
 
