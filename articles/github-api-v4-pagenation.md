@@ -23,7 +23,7 @@ endCursor は、nodes 内の最後のノードのカーソルです（`cursor:xx
 nodes を持つクエリには、`after`、`before`、`first`、`last`のページング用の引数があります。
 first、last は必須の引数です。スタート位置からどれくらいの件数を取得するかを指定します。after、before はスタート位置を決めるものです。ここに先程の PageInfo で取得した endCursor、startCursor の値を指定することでページングが実現できます。
 
-https://docs.github.com/ja/graphql/reference/queries
+https://docs.github.com/en/graphql/reference/queries
 
 # 実例
 
