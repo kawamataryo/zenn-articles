@@ -84,17 +84,17 @@ const fetchRepositories = async  (endCursor?: string): Promise<APIResponse> => {
   return await res.json() as APIResponse
 }
 
-export const getAllRepositories = async (Repositories: Repository[], endCursor?: string): Promise<never | Repository[]> => {
+export const getAllRepositories = async (previousValue: Repository[], endCursor?: string): Promise<never | Repository[]> => {
   const res = await fetchRepositories(endCursor)
   const pageInfo = res.data.repositoryOwner.repositories.pageInfo
-  const nodes = res.data.repositoryOwner.repositories.nodes
+  const repositories = [...previousValue, ...res.data.repositoryOwner.repositories.nodes]
 
   // 再帰の終了条件
   if (!pageInfo.hasNextPage) {
-    return  Repositories
+    return  repositories
   }
 
-  return getAllRepositories([...Repositories, ...nodes], pageInfo.endCursor)
+  return getAllRepositories(repositories, pageInfo.endCursor)
 }
 ```
 
