@@ -213,7 +213,7 @@ export const tweetRepository = async (
 データを集めるスクレイピング、集めたデータからのツイートの実行は異なる処理なので、別の Functions で定義したほうがシンプルなのですが、Firebase には Functions の定期実行機能が 1 つのアカウントで 3 つまでという制限があるので、今回は 1 つの関数の中で実行時間を見て処理を間引くという形でそれぞれの実行タイミングを制御しています。
 あまり良いやり方でもないのかもですが、今の所良い感じに機能しています。
 
-[functions/src/lib/core/frontend.ts](https://github.com/kawamataryo/github-trending-bot/blob/main/functions/src/lib/core/frontend.ts)
+[functions/src/lib/core/frontend.ts](https://github.com/kawamataryo/github-trending-bot/blob/main/functions/src/core/frontend.ts)
 
 ```ts:functions/src/lib/core/frontend.ts
 // ...
@@ -230,7 +230,7 @@ export const tweetFrontendTrends = async (): Promise<void> => {
 // ...
 ```
 
-[functions/src/lib/lib/utils.ts](https://github.com/kawamataryo/github-trending-bot/blob/main/functions/src/lib/lib/utils.ts)
+[functions/src/lib/lib/utils.ts](https://github.com/kawamataryo/github-trending-bot/blob/main/functions/src/lib/utils.ts)
 
 ```ts:functions/src/lib/lib/utils.ts
 // ...
@@ -266,7 +266,7 @@ Twitter アカウントの情報はトレンドのスクレイピング時に一
 // ...
 ```
 
-狙いとしては、GitHub Trending に掲載されたことを本人もしらないと思うので知らせて上げたいという気持ち 1 割、そのメンションからこの Twitter アカウントが認知されてリポジトリオーナーのリツイートから海外のユーザーにも広がらないかなという打算的な狙い 9 割はです😅
+狙いとしては、GitHub Trending に掲載されたことを本人もしらないと思うので知らせて上げたいという気持ち 1 割、そのメンションからこの Twitter アカウントが認知されてリポジトリオーナーのリツイートから海外のユーザーにも広がらないかなという打算的な狙い 9 割です😅
 
 実際にやってみるといくつかの投稿はリツイートしてもらえてそこから海外のフォロワーが増えているので一定の効果はありそうです。
 
