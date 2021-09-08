@@ -9,7 +9,7 @@ published: true
 # 📦 作ったもの
 
 [GitHub Trending](https://github.com/trending)に掲載されたリポジトリを定期的につぶやく Twitter Bot を作りました。
-全体のトレンドをつぶやく Bot と、JavaScript・TypeScript のトレンドをつぶやく Bot の 2 種類があります。
+全体のトレンドをつぶやく[@gh_trending_](https://twitter.com/gh_trending_)と、JavaScript・TypeScript のトレンドをつぶやく[@gh_trending_js](https://twitter.com/gh_trending_js)の 2 種類があります。
 
 |[@gh_trending_](https://twitter.com/gh_trending_)|[@gh_trending_js](https://twitter.com/gh_trending_js)|
 |---|---|
