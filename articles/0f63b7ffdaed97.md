@@ -93,7 +93,7 @@ describe("membersPosts", () => {
 }
 ```
 
-そしてこれをテストで読み込まれるように`jest.config.js`で読み込まれるように修正します。
+そしてこれをテストで読み込まれるように`jest.config.js`を修正します。
 
 ```ts:jest.config.js
 /** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
