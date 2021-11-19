@@ -110,7 +110,7 @@ module.exports = {
 
 これでテストでは`tsconfig.test.json`が読み込まれるようになるので、`isolateModules`のエラーは回避できます。
 
-:::messages
+:::message
 配信時にもこれを試していたのですが、`"ts-jest"`と書くところを`tsJest`としてしまい反映されず焦ってました
 :::
 
