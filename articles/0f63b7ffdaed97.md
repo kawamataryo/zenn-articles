@@ -10,7 +10,7 @@ published: true
 
 # 起こったこと
 
-`npx create-next-app --typescript`でNext.jsのプロジェクトを作り、その後 [ts-jest](https://github.com/kulshekhar/ts-jest) の README の通りテストのセットアップを行い、Jest の動作確認のために以下テストを作成しました。
+`npx create-next-app --typescript`で Next.js のプロジェクトを作り、その後 [ts-jest](https://github.com/kulshekhar/ts-jest) の README の通りテストのセットアップを行い、Jest の動作確認のために以下テストを作成しました。
 
 ```ts:sample.spec.ts
 describe("membersPosts", () => {
