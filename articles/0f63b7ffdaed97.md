@@ -136,8 +136,8 @@ __tests__/
 
 https://stackoverflow.com/questions/57860261/isolatedmodules-error-on-jest-test-with-create-react-app-and-typescript
 
-なので実際のプロダクト開発では、Good で上げた方法は対処はする必要がありません。
-Jest のテストを早まってが間違いでした。
+なので実際のプロダクト開発では、Good で上げた方法は対処する必要がありません。
+Jest のテストを早まってしまったのが間違いでした。
 
 
 # おわりに
