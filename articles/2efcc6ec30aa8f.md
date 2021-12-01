@@ -6,10 +6,6 @@ topics: ["geekbot", "lifehack", "日記"]
 published: false
 ---
 
-この記事は LAPRAS アドベントカレンダー1 日目の記事です。
-
-https://qiita.com/advent-calendar/2021/lapras
-
 数ヶ月前から Geekbot を使って、日々の振り返りを始めたら、なかなか良い感じだったのでまとめます。
 
 # Geekbotとは？
