@@ -22,7 +22,7 @@ https://www.youtube.com/watch?v=Oi8MlZeaa4Y
 * クリック・エンターでの対象への移動
 * キーボードショートカットでのスムーズな操作
 
-コードも公開しています。
+技術スタックは`TypeScript`、`Vue.js`、`Windi.css`で、コードも公開しています。
 
 https://github.com/kawamataryo/chikamichi
 
@@ -36,8 +36,7 @@ Chikamichi という名前は[エンジニアと人生](https://community.camp-f
 
 # 使い方
 
-使い方はこちらです。マウスを使わずキーボードだけで操作できます。
-Sidekick のサーチダイアログの不満が `Ctrl+n` や `Ctrl+p` で上下操作できなかったことなので、個人的にそこを解消しただけでも使いやすいなと思ってます。
+マウスを使わずキーボードだけで直感的に操作できます。
 
 | コマンド                       | 動作                                  |
 |-------------------------------|------------------------------------------|
@@ -46,7 +45,7 @@ Sidekick のサーチダイアログの不満が `Ctrl+n` や `Ctrl+p` で上下
 | Enter                         | 対象のサイトを現在のタブで開く（タブの場合はタブへの移動）            |
 | Ctrl + Enter                  | 対象のサイトを新しいタブで開く（タブの場合はタブへの移動） |
 
-:::message alert
+:::message
 chrome の new tab ページでは、Chrome Extension の content_script の読み込みが出来ず、`Alt + k` でも起動しないので注意です。
 対策は検討中です。
 :::
