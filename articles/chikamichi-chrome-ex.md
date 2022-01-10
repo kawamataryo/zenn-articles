@@ -123,7 +123,7 @@ https://github.com/kawamataryo/history-search/blob/72fdf41fe4d45dc0d4626b2792aaf
 })
 ```
 
-コンポーネントでは store から取得したデータをもとにFuse.jsを実行して検索結果を作っています。
+コンポーネントでは store から取得したデータをもとに Fuse.js を実行して検索結果を作っています。
 https://github.com/kawamataryo/history-search/blob/72fdf41fe4d45dc0d4626b2792aafa192c446043/src/contentScripts/views/App.vue#L154-L167
 
 ```ts:contentScripts/views/App.vue
