@@ -1,5 +1,5 @@
 ---
-title: "ブラウザ履歴・ブックマーク・タブを高速にインクリメンタルサーチできるChrome拡張を作ってみた"
+title: "ブラウザ履歴・ブックマーク・タブを高速に検索できるChrome拡張を作ってみた"
 emoji: "🔎"
 type: "tech"
 topics: ["vue","typescript","extension","chrome"]
