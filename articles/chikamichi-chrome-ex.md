@@ -61,6 +61,86 @@ Chrome Extensions の開発は、環境構築が面倒なのですが、今回�
 
 https://github.com/antfu/vitesse-webext
 
+# 仕組み
+Chrome の History API、Bookmark API、Tab API を使いデータを集計。集計結果を content_script.js にて Vue.js で描画して Fuse.js であいまい検索するというシンプルな構造です。
+
+onCommand のリスナーで各種 API を呼び出しています。
+https://github.com/kawamataryo/history-search/blob/72fdf41fe4d45dc0d4626b2792aafa192c446043/src/background/main.ts#L67-L95
+
+```ts:background/main.ts
+// ...
+
+// コマンドでの起動スクリプト
+browser.commands.onCommand.addListener(async() => {
+  const tabs = await browser.tabs.query({})
+  const bookmarks = await browser.bookmarks.getTree()
+  const histories = await browser.history.search({
+    text: '',
+    maxResults: 10000,
+    // Search up to 30 days in advance.
+    startTime: new Date().setDate(new Date().getDate() - 30),
+  })
+  const [tab] = await browser.tabs.query({
+    active: true,
+    currentWindow: true,
+  })
+
+  await sendMessage(
+    'history-search',
+    {
+      result: JSON.stringify(removeDeprecatedItem([
+        ...convertToSearchItemsFromHistories(histories),
+        ...convertToSearchItemsFromBookmarks(bookmarks),
+        ...convertToSearchItemsFromTabs(tabs),
+      ])),
+    },
+    {
+      context: 'content-script',
+      tabId: tab.id!,
+    },
+  )
+})
+// ...
+```
+
+そして、background.js からのメッセージ経由で受け取った値は、簡易的な Store を利用して Vue コンポーネントに渡しています。
+
+https://github.com/kawamataryo/history-search/blob/72fdf41fe4d45dc0d4626b2792aafa192c446043/src/contentScripts/index.ts#L10-L17
+
+```ts:contentScripts/index.ts
+(() => {
+  // initialise store
+  const store = useStore()
+
+  onMessage('history-search', ({ data }) => {
+    store.changeSearchWord('')
+    store.changeHistories(JSON.parse(data.result!))
+
+    store.toggleModal()
+  })
+
+  // ...
+})
+```
+
+コンポーネントでは store から取得したデータをもとにFuse.jsを実行して検索結果を作っています。
+https://github.com/kawamataryo/history-search/blob/72fdf41fe4d45dc0d4626b2792aafa192c446043/src/contentScripts/views/App.vue#L154-L167
+
+```ts:contentScripts/views/App.vue
+// ...
+const searchResult = computed(() => {
+  if (!searchItems.value) return []
+  const fuse = new Fuse(searchItems.value, {
+    keys: [
+      'title',
+      'url',
+    ],
+    threshold: FUSE_THRESHOLD_VALUE,
+  })
+  return fuse.search(searchWord.value, { limit: 10 }).map(result => result.item)
+})
+// ...
+```
 # 終わりに
 
 正月の勢いで実装した割には便利な拡張機能が作れたかなと思っています。
