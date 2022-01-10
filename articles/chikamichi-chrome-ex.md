@@ -1,5 +1,5 @@
 ---
-title: "履歴・ブックマーク・タブを高速に検索・移動できるChrome拡張を作ってみた[Chikamichi（近道）]"
+title: "ブラウザ履歴・ブックマーク・タブを高速に検索できるChrome拡張を作ってみた"
 emoji: "🔎"
 type: "tech"
 topics: ["vue","typescript","extension","chrome"]
@@ -22,7 +22,7 @@ https://www.youtube.com/watch?v=Oi8MlZeaa4Y
 * クリック・エンターでの対象への移動
 * キーボードショートカットでのスムーズな操作
 
-コードはこちらで公開しています。
+コードも公開しています。
 
 https://github.com/kawamataryo/chikamichi
 
