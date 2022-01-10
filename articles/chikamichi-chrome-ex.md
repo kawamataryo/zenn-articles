@@ -22,13 +22,11 @@ https://www.youtube.com/watch?v=Oi8MlZeaa4Y
 * クリック・エンターでの対象への移動
 * キーボードショートカットでのスムーズな操作
 
+デザイン・機能は[Sidekick](https://www.meetsidekick.com/)のサーチダイアログを参考にしています。
+
 技術スタックは`TypeScript`、`Vue.js`、`Windi.css`で、コードも公開しています。
 
 https://github.com/kawamataryo/chikamichi
-
-:::message
-デザイン・機能は[Sidekick](https://www.meetsidekick.com/)のサーチダイアログを参考にしています。
-:::
 
 :::message
 Chikamichi という名前は[エンジニアと人生](https://community.camp-fire.jp/projects/view/280040)というコミュニティで[@にっしー](https://twitter.com/paranishian)さんに案を頂きました。感謝！
