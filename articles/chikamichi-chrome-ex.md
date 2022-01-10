@@ -14,13 +14,14 @@ Chikamichi（近道）という Chrome 拡張機能を作りました。
 
 https://chrome.google.com/webstore/detail/chikamichi/gkhobepjbiepngbeikhbpnfgjcjgmgha?hl=ja&authuser=1
 
-https://www.youtube.com/watch?v=Oi8MlZeaa4Y
 
 特徴はこちらです。
 
 * 履歴・ブックマーク・現在開いているタブを横断的にインクリメンタルサーチ
 * クリック・エンターでの対象への移動
 * キーボードショートカットでのスムーズな操作
+
+https://www.youtube.com/watch?v=Oi8MlZeaa4Y
 
 デザイン・機能は[Sidekick](https://www.meetsidekick.com/)のサーチダイアログを参考にしています。
 
