@@ -1,5 +1,5 @@
 ---
-title: "履歴・ブックマーク・タブを高速にインクリメンタルサーチできるChrome拡張を作ってみた"
+title: "履歴・ブックマーク・タブを高速に検索・移動できるChrome拡張を作ってみた[Chikamichi（近道）]"
 emoji: "🔎"
 type: "tech"
 topics: ["vue","typescript","extension","chrome"]
