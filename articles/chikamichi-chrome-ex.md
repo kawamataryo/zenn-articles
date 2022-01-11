@@ -24,40 +24,49 @@ https://chrome.google.com/webstore/detail/chikamichi/gkhobepjbiepngbeikhbpnfgjcj
 https://www.youtube.com/watch?v=Oi8MlZeaa4Y
 
 
-技術スタックは`TypeScript`、`Vue.js`、`Windi.css`で、コードも GitHub 上に公開しています。
+技術スタックは`TypeScript`、`Vue.js`、`Windi.css`です。コードも GitHub 上に公開しています。
+コントリビューションも大歓迎です。
 
 https://github.com/kawamataryo/chikamichi
 
 :::message
-Chikamichi という名前は[エンジニアと人生](https://community.camp-fire.jp/projects/view/280040)というコミュニティで[@にっしー](https://twitter.com/paranishian)さんに案を頂きました。感謝！
+Chikamichi という名前は[エンジニアと人生](https://community.camp-fire.jp/projects/view/280040)というコミュニティで[@にっしー](https://twitter.com/paranishian)さんに案を頂きました。感謝🙏
 :::
 
 # 使い方
 
-マウスを使わずキーボードだけで直感的に操作できます。
+マウスを使わずキーボードだけで操作できます。
 
 | コマンド                       | 動作                                  |
 |-------------------------------|------------------------------------------|
 | Alt + k                       | サーチダイアログの起動                       |
-| ↓ or ↑ (Ctrl + n or Ctrl + p) | 検索結果の対象の選択                    |
+| ↓ or ↑ (Ctrl + n or Ctrl + p) | 検索結果の選択                    |
 | Enter                         | 対象のサイトを現在のタブで開く（タブの場合はタブへの移動）            |
 | Ctrl + Enter                  | 対象のサイトを新しいタブで開く（タブの場合はタブへの移動） |
 
 :::message
-chrome の new tab ページでは、Chrome Extension の content_script の読み込みが出来ず、`Alt + k` でも起動しないので注意です。
-対策は検討中です。
+chrome の new tab ページでは、Chrome Extension の content_script の読み込みが出来ず、`Alt + k` でも起動しないので注意です。対策は検討中です。
 :::
 
 # 工夫したところ
 
-## Fuese.jsでのあいまい検索
-ただの完全一致や部分一致だと良い検索結果が得られなかったので、Fuse.js というライブラリを利用して、サイトタイトルと URL を対象にあいまい検索を実装しています。そのためわずかな入力でもより良い検索結果が得られます。
+## Fuese.jsでのFuzzy Search
+ただの完全一致や部分一致だと良い検索結果が得られなかったので、Fuse.js というライブラリを利用して、サイトタイトルと URL を対象にFuzzy Searchを実装しています。そのため、わずかな入力でもより良い検索結果が得られます。
 
 https://github.com/krisk/fuse
 
+## Dark modeへの対応
+Windi CSS の Dark mode 機能を使って Dark mode に対応しています。本当は Dark mode の ON・OFF も設定できればよいのですが、現状は OS の設定によって切り替える形としています。
+
+
+https://windicss.org/features/dark-mode.html
+
+|light|dark|
+|---|---|
+|![](https://i.gyazo.com/23d7607222a999effb1ad85b4a4870bb.png)|![](https://i.gyazo.com/82be770e2ce6dfa792c62468e6a5d0d4.png)|
+
 ## キーボードショートカットでの操作
-そもそもこのプラグインのモチベーションはマウスをなるべく使わず、移動したいというものだったので、ほぼ全ての動作をキーボードショートカットで行えるようにしました。
-Vue の key イベントを使って実装しています。
+そもそもこのプラグインのモチベーションはマウスをなるべく使わず、移動したいというものだったので、ほぼ全ての動作をキーボードショートカットで行えるようにしました。Vue の key イベントを使って実装しています。
 
 https://github.com/kawamataryo/history-search/blob/72fdf41fe4d45dc0d4626b2792aafa192c446043/src/contentScripts/views/App.vue#L16-L33
 
@@ -84,21 +93,12 @@ https://github.com/kawamataryo/history-search/blob/72fdf41fe4d45dc0d4626b2792aaf
 <!-- ... -->
 ```
 
-## Dark modeへの対応
-Windi CSS の Dark mode 機能を使って Dark mode に対応しています。本当は Dark mode の ON・OFF も設定できればよいのですが、現状は OS の設定によって切り替える形としています。
-
-
-https://windicss.org/features/dark-mode.html
-
-|light|dark|
-|---|---|
-|![](https://i.gyazo.com/23d7607222a999effb1ad85b4a4870bb.png)|![](https://i.gyazo.com/82be770e2ce6dfa792c62468e6a5d0d4.png)|
 ## viteese-webextでの爆速開発
 Chrome Extensions の開発は、環境構築が面倒なのですが、今回は viteese-webext というボイラープレートを使いました。Vite、TypeScript、WindiCSS などの環境が整えられた状態で開発をスタートできます。そのおかげで、即主要な機能の開発に着手できました。開発効率にかなり影響したと思います。
 
 https://github.com/antfu/vitesse-webext
 # 仕組み
-Chrome の History API、Bookmark API、Tab API を使いデータを集計。集計結果を content_script.js にて読み込み Vue.js で描画。 Fuse.js であいまい検索するというシンプルな構造です。
+Chrome の [History API](https://developer.chrome.com/docs/extensions/reference/history/)、[Bookmark API](https://developer.chrome.com/docs/extensions/reference/bookmarks/)、[Tab API](https://developer.chrome.com/docs/extensions/reference/tabs/) を使いデータを集計。集計結果を content_script.js にて読み込み Vue.js で描画するというシンプルな構造です。
 
 onCommand のリスナーで各種 API を呼び出しています。
 https://github.com/kawamataryo/history-search/blob/72fdf41fe4d45dc0d4626b2792aafa192c446043/src/background/main.ts#L67-L95
