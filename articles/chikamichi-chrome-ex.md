@@ -1,5 +1,5 @@
 ---
-title: "ブラウザ履歴・ブックマーク・タブを高速に検索し移動できるChrome拡張を作ってみた"
+title: "履歴・ブックマーク・タブを高速に検索し移動できるChrome拡張を作ってみた"
 emoji: "🔎"
 type: "tech"
 topics: ["vue","typescript","extension","chrome"]
@@ -59,7 +59,29 @@ https://github.com/krisk/fuse
 そもそもこのプラグインのモチベーションはマウスをなるべく使わず、移動したいというものだったので、ほぼ全ての動作をキーボードショートカットで行えるようにしました。
 Vueのkeyイベントを使って実装しています。
 
-```vs
+https://github.com/kawamataryo/history-search/blob/72fdf41fe4d45dc0d4626b2792aafa192c446043/src/contentScripts/views/App.vue#L16-L33
+
+```html:main.vue
+<!-- ... -->
+  <input
+    id="username"
+    ref="searchInput"
+    v-model="searchWord"
+    class="shadow appearance-none border border-gray-400 rounded-5px w-full py-12px px-12px text-gray-700 leading-tight focus:outline-none focus:shadow-outline box-border bg-white pl-43px text-16px dark:bg-gray-700 dark:text-gray-300 dark:focus:shadow-none dark:border-0"
+    type="search"
+    placeholder="Search for.."
+    @keydown.stop.exact
+    @keypress.stop.exact
+    @keyup.stop.exact
+    @keypress.ctrl.enter.exact.prevent="onEnterWithControl"
+    @keydown.down.prevent="onArrowDown"
+    @keydown.up.prevent="onArrowUp"
+    @keypress.enter.exact.prevent="onEnter"
+    @keydown.ctrl.n.prevent="onArrowDown"
+    @keydown.ctrl.p.prevent="onArrowUp"
+    @keydown.esc.prevent="onCloseModal"
+  >
+<!-- ... -->
 ```
 
 ## Dark modeへの対応
