@@ -10,7 +10,7 @@ published: false
 
 # 作ったもの
 
-Chikamichi（近道）という Chrome 拡張機能です。
+Chikamichi（近道）という履歴・ブックマーク・タブを高速に検索し移動できる Chrome 拡張です。
 
 https://chrome.google.com/webstore/detail/chikamichi/gkhobepjbiepngbeikhbpnfgjcjgmgha?hl=ja&authuser=1
 
@@ -57,7 +57,7 @@ https://github.com/krisk/fuse
 
 ## キーボードショートカットでの操作
 そもそもこのプラグインのモチベーションはマウスをなるべく使わず、移動したいというものだったので、ほぼ全ての動作をキーボードショートカットで行えるようにしました。
-Vueのkeyイベントを使って実装しています。
+Vue の key イベントを使って実装しています。
 
 https://github.com/kawamataryo/history-search/blob/72fdf41fe4d45dc0d4626b2792aafa192c446043/src/contentScripts/views/App.vue#L16-L33
 
@@ -85,7 +85,7 @@ https://github.com/kawamataryo/history-search/blob/72fdf41fe4d45dc0d4626b2792aaf
 ```
 
 ## Dark modeへの対応
-Windi CSSのDark mode機能を使ってDark modeに対応しています。本当はDark modeのON・OFFも設定できればよいのですが、現状はOSの設定によって切り替える形としています。
+Windi CSS の Dark mode 機能を使って Dark mode に対応しています。本当は Dark mode の ON・OFF も設定できればよいのですが、現状は OS の設定によって切り替える形としています。
 
 
 https://windicss.org/features/dark-mode.html
