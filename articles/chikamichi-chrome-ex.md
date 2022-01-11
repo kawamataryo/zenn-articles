@@ -55,11 +55,26 @@ chrome の new tab ページでは、Chrome Extension の content_script の読�
 
 https://github.com/krisk/fuse
 
+## キーボードショートカットでの操作
+そもそもこのプラグインのモチベーションはマウスをなるべく使わず、移動したいというものだったので、ほぼ全ての動作をキーボードショートカットで行えるようにしました。
+Vueのkeyイベントを使って実装しています。
+
+```vs
+```
+
+## Dark modeへの対応
+Windi CSSのDark mode機能を使ってDark modeに対応しています。本当はDark modeのON・OFFも設定できればよいのですが、現状はOSの設定によって切り替える形としています。
+
+
+https://windicss.org/features/dark-mode.html
+
+|light|dark|
+|---|---|
+|![](https://i.gyazo.com/23d7607222a999effb1ad85b4a4870bb.png)|![](https://i.gyazo.com/82be770e2ce6dfa792c62468e6a5d0d4.png)|
 ## viteese-webextでの爆速開発
 Chrome Extensions の開発は、環境構築が面倒なのですが、今回は viteese-webext というボイラープレートを使いました。Vite、TypeScript、WindiCSS などの環境が整えられた状態で開発をスタートできます。そのおかげで、即主要な機能の開発に着手できました。開発効率にかなり影響したと思います。
 
 https://github.com/antfu/vitesse-webext
-
 # 仕組み
 Chrome の History API、Bookmark API、Tab API を使いデータを集計。集計結果を content_script.js にて読み込み Vue.js で描画。 Fuse.js であいまい検索するというシンプルな構造です。
 
