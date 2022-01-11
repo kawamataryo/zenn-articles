@@ -1,31 +1,29 @@
 ---
-title: "ブラウザ履歴・ブックマーク・タブを高速に検索できるChrome拡張を作ってみた"
+title: "ブラウザ履歴・ブックマーク・タブを高速に検索し移動できるChrome拡張を作ってみた"
 emoji: "🔎"
 type: "tech"
 topics: ["vue","typescript","extension","chrome"]
 published: false
 ---
 
-個人的に超便利な Chrome 拡張を作ってみたので紹介です。ぜひお試しください🙏
+個人的に超便利な Chrome 拡張を作ってみたので紹介です。
 
 # 作ったもの
 
-Chikamichi（近道）という Chrome 拡張機能を作りました。
+Chikamichi（近道）という Chrome 拡張機能です。
 
 https://chrome.google.com/webstore/detail/chikamichi/gkhobepjbiepngbeikhbpnfgjcjgmgha?hl=ja&authuser=1
-
-
-特徴はこちらです。
 
 * 履歴・ブックマーク・現在開いているタブを横断的にインクリメンタルサーチ
 * クリック・エンターでの対象への移動
 * キーボードショートカットでのスムーズな操作
 
+という機能を持ちます。デザイン・機能は[Sidekick](https://www.meetsidekick.com/)のサーチダイアログを参考にしました。このデモのように、かなり高速かつ直感的に操作できるので是非お試しください！
+
 https://www.youtube.com/watch?v=Oi8MlZeaa4Y
 
-デザイン・機能は[Sidekick](https://www.meetsidekick.com/)のサーチダイアログを参考にしています。
 
-技術スタックは`TypeScript`、`Vue.js`、`Windi.css`で、コードも公開しています。
+技術スタックは`TypeScript`、`Vue.js`、`Windi.css`で、コードも GitHub 上に公開しています。
 
 https://github.com/kawamataryo/chikamichi
 
@@ -62,7 +60,7 @@ Chrome Extensions の開発は、環境構築が面倒なのですが、今回�
 https://github.com/antfu/vitesse-webext
 
 # 仕組み
-Chrome の History API、Bookmark API、Tab API を使いデータを集計。集計結果を content_script.js にて Vue.js で描画して Fuse.js であいまい検索するというシンプルな構造です。
+Chrome の History API、Bookmark API、Tab API を使いデータを集計。集計結果を content_script.js にて読み込み Vue.js で描画。 Fuse.js であいまい検索するというシンプルな構造です。
 
 onCommand のリスナーで各種 API を呼び出しています。
 https://github.com/kawamataryo/history-search/blob/72fdf41fe4d45dc0d4626b2792aafa192c446043/src/background/main.ts#L67-L95
