@@ -1,5 +1,5 @@
 ---
-title: "閲覧履歴・ブックマーク・タブを高速に検索し移動できるChrome拡張を作ってみた"
+title: "閲覧履歴・ブックマーク・タブを横断的に検索し移動できるChrome拡張を作ってみた"
 emoji: "🔎"
 type: "tech"
 topics: ["vue","typescript","extension","chrome"]
@@ -10,16 +10,14 @@ published: false
 
 # 作ったもの
 
-Chikamichi（近道）という閲覧履歴・ブックマーク・タブを高速に検索し移動できる Chrome 拡張です。
-
-https://chrome.google.com/webstore/detail/chikamichi/gkhobepjbiepngbeikhbpnfgjcjgmgha?hl=ja&authuser=1
+Chikamichi（近道）という閲覧履歴・ブックマーク・タブを横断的に検索し移動できる Chrome 拡張です。
 
 **機能**
 * 履歴・ブックマーク・現在開いているタブを横断的にインクリメンタルサーチ
 * クリック・エンターでの対象への移動
 * キーボードショートカットでのスムーズな操作
 
-デザイン・機能は[Sidekick](https://www.meetsidekick.com/)のサーチダイアログを参考にしました。このデモのように、直感的にサクサク操作できるのでお試しください..!!
+デザイン・機能は[Sidekick](https://www.meetsidekick.com/)のサーチダイアログを参考にしました。このデモのように、直感的にサクサク操作できるのでお試しください。.!!
 
 https://www.youtube.com/watch?v=Oi8MlZeaa4Y
 
@@ -30,10 +28,13 @@ https://www.youtube.com/watch?v=Oi8MlZeaa4Y
 https://github.com/kawamataryo/chikamichi
 
 :::message
-Chikamichi という名前は[エンジニアと人生](https://community.camp-fire.jp/projects/view/280040)というコミュニティで[@にっしー](https://twitter.com/paranishian)さんに案を頂きました。感謝🙏
+`Chikamichi` という名前は[エンジニアと人生](https://community.camp-fire.jp/projects/view/280040)というコミュニティで[@にっしー](https://twitter.com/paranishian)さんに案を頂きました。とても気に入っています。感謝🙏
 :::
 
 # 使い方
+Chrome Web Store からインストールできます。
+
+https://chrome.google.com/webstore/detail/chikamichi/gkhobepjbiepngbeikhbpnfgjcjgmgha?hl=ja&authuser=1
 
 マウスを使わずキーボードだけで操作できます。
 
@@ -45,20 +46,20 @@ Chikamichi という名前は[エンジニアと人生](https://community.camp-f
 | Ctrl + Enter                  | 対象のサイトを新しいタブで開く（タブの場合はタブへの移動） |
 
 :::message alert
-chrome の new tab ページ及びChrome Web Storeでは、Chrome Extension の content_script の読み込みが出来ず、`Alt + k` でも起動しないので注意です。Chromeの仕様のようです。
+chrome の new tab ページ及び Chrome Web Store では、Chrome Extension の content_script の読み込みが出来ず、`Alt + k` でも起動しないので注意です。Chrome の仕様のようです。
+
 https://stackoverflow.com/questions/30474892/chrome-extension-content-script-not-working-on-chrome-webstore-page
 :::
 
 # 工夫したところ
 
 ## Fuese.jsでのFuzzy Search
-ただの完全一致や部分一致だと良い検索結果が得られなかったので、Fuse.js というライブラリを利用して、サイトタイトルと URL を対象にFuzzy Searchを実装しています。そのため、わずかな入力でもより良い検索結果が得られます。
+ただの完全一致や部分一致だと良い検索結果が得られなかったので、Fuse.js というライブラリを利用して、サイトタイトルと URL を対象に Fuzzy Search を実装しています。入力値との一致具合によってソートされるので、わずかな入力でもより良い検索結果が得られます。
 
 https://github.com/krisk/fuse
 
 ## Dark modeへの対応
 Windi CSS の Dark mode 機能を使って Dark mode に対応しています。本当は Dark mode の ON・OFF も設定できればよいのですが、現状は OS の設定によって切り替える形としています。
-
 
 https://windicss.org/features/dark-mode.html
 
@@ -67,7 +68,7 @@ https://windicss.org/features/dark-mode.html
 |![](https://i.gyazo.com/23d7607222a999effb1ad85b4a4870bb.png)|![](https://i.gyazo.com/82be770e2ce6dfa792c62468e6a5d0d4.png)|
 
 ## キーボードショートカットでの操作
-そもそもこのプラグインのモチベーションはマウスをなるべく使わず、移動したいというものだったので、ほぼ全ての動作をキーボードショートカットで行えるようにしました。Vue の key イベントを使って実装しています。
+このプラグインのモチベーションはマウスをなるべく使わず、キーボードだけで移動したいというものだったので、ほぼ全ての動作をキーボードショートカットで行えるようにしました。Vue の key イベントを使って実装しています。
 
 https://github.com/kawamataryo/history-search/blob/72fdf41fe4d45dc0d4626b2792aafa192c446043/src/contentScripts/views/App.vue#L16-L33
 
@@ -95,11 +96,12 @@ https://github.com/kawamataryo/history-search/blob/72fdf41fe4d45dc0d4626b2792aaf
 ```
 
 ## viteese-webextでの爆速開発
-Chrome Extensions の開発は、環境構築が面倒なのですが、今回は viteese-webext というボイラープレートを使いました。Vite、TypeScript、WindiCSS などの環境が整えられた状態で開発をスタートできます。そのおかげで、即主要な機能の開発に着手できました。開発効率にかなり影響したと思います。
+Chrome Extensions の開発は、環境構築が面倒なのですが、今回は viteese-webext というボイラープレートを使いました。Vite、TypeScript、WindiCSS などの環境が整えられた状態で開発をスタートできます。そのおかげで、すぐ主要な機能の開発に着手できました。開発効率にかなり影響したと思います。
 
 https://github.com/antfu/vitesse-webext
+
 # 仕組み
-Chrome の [History API](https://developer.chrome.com/docs/extensions/reference/history/)、[Bookmark API](https://developer.chrome.com/docs/extensions/reference/bookmarks/)、[Tab API](https://developer.chrome.com/docs/extensions/reference/tabs/) を使いデータを集計。集計結果を content_script.js にて読み込み Vue.js で描画するというシンプルな構造です。
+Chrome の [History API](https://developer.chrome.com/docs/extensions/reference/history/)、[Bookmark API](https://developer.chrome.com/docs/extensions/reference/bookmarks/)、[Tab API](https://developer.chrome.com/docs/extensions/reference/tabs/) を使いデータを集計。集計結果を content_script.js にて読み込み Vue.js で描画するというシンプルな構造です。サーバーのやり取りは存在せず、すべてブラウザの JS で完結しているため履歴の漏洩などのリスクはありません。
 
 onCommand のリスナーで各種 API を呼び出しています。
 https://github.com/kawamataryo/history-search/blob/72fdf41fe4d45dc0d4626b2792aafa192c446043/src/background/main.ts#L67-L95
