@@ -44,8 +44,9 @@ Chikamichi という名前は[エンジニアと人生](https://community.camp-f
 | Enter                         | 対象のサイトを現在のタブで開く（タブの場合はタブへの移動）            |
 | Ctrl + Enter                  | 対象のサイトを新しいタブで開く（タブの場合はタブへの移動） |
 
-:::message
-chrome の new tab ページでは、Chrome Extension の content_script の読み込みが出来ず、`Alt + k` でも起動しないので注意です。対策は検討中です。
+:::message alert
+chrome の new tab ページ及びChrome Web Storeでは、Chrome Extension の content_script の読み込みが出来ず、`Alt + k` でも起動しないので注意です。Chromeの仕様のようです。
+https://stackoverflow.com/questions/30474892/chrome-extension-content-script-not-working-on-chrome-webstore-page
 :::
 
 # 工夫したところ
