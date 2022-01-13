@@ -1,9 +1,9 @@
 ---
 title: "閲覧履歴・ブックマーク・タブを横断的に検索し移動できるChrome拡張を作ってみた"
-emoji: "🔎"
+emoji: "🛣"
 type: "tech"
 topics: ["vue","typescript","extension","chrome"]
-published: false
+published: true
 ---
 
 個人的に超便利な Chrome 拡張を作ってみたので紹介です。
