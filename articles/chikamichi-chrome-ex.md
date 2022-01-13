@@ -37,7 +37,7 @@ Chrome Web Store からインストールできます。
 
 https://chrome.google.com/webstore/detail/chikamichi/gkhobepjbiepngbeikhbpnfgjcjgmgha?hl=ja&authuser=1
 
-マウスを使わずキーボードだけで操作できます。
+マウスを使わずキーボードだけで操作可能です。
 
 | コマンド                       | 動作                                  |
 |-------------------------------|------------------------------------------|
