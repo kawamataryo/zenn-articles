@@ -17,7 +17,7 @@ Chikamichi（近道）という閲覧履歴・ブックマーク・タブを横�
 * クリック・エンターでの対象への移動
 * キーボードショートカットでのスムーズな操作
 
-デザイン・機能は[Sidekick](https://www.meetsidekick.com/)のサーチダイアログを参考にしました。このデモのように、直感的にサクサク操作できるのでお試しください。.!!
+デザイン・機能は[Sidekick](https://www.meetsidekick.com/)のサーチダイアログを参考にしました。このデモのように、直感的にサクサク操作できるのでお試しください..!!
 
 https://www.youtube.com/watch?v=Oi8MlZeaa4Y
 
