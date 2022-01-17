@@ -52,6 +52,14 @@ chrome の new tab ページ及び Chrome Web Store では、Chrome Extension �
 https://stackoverflow.com/questions/30474892/chrome-extension-content-script-not-working-on-chrome-webstore-page
 :::
 
+**2022/01/17 追記**
+
+prefixで検索対象を絞り込める機能も追加しました！
+`/b`でブックマークだけの検索、`/t`でタブだけの検索、`/h`で履歴だけの検索となります。
+
+https://twitter.com/KawamataRyo/status/1481784597117472768
+
+
 # 工夫したところ
 
 ## Fuese.jsでのFuzzy Search
