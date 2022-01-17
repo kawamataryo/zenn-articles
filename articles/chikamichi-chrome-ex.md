@@ -33,9 +33,11 @@ https://github.com/kawamataryo/chikamichi
 :::
 
 # 使い方
-Chrome Web Store からインストールできます。
+Chrome Web Store 又は Firefox Add on からインストールできます。
 
 https://chrome.google.com/webstore/detail/chikamichi/gkhobepjbiepngbeikhbpnfgjcjgmgha?hl=ja&authuser=1
+
+https://addons.mozilla.org/en-GB/firefox/addon/chikamichi/
 
 マウスを使わずキーボードだけで操作可能です。
 
