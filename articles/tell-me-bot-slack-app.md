@@ -19,16 +19,17 @@ https://twitter.com/KawamataRyo/status/1480732294134796288
 
 Firebase for Cloud Functions で Slack アプリのフレームワークである [Bolt.js](https://github.com/slackapi/bolt-js) を動かし、Slack の EventAPI や ActionAPI のリクエストに応じて社内用語辞典のスプレッドシートを操作しています。
 また、後述する曖昧検索の実現のために、[Fuse.js](https://github.com/krisk/fuse) を内部的に利用しています。
-スプレッドシートとの通信は Cloud Functions のサービスアカウトを利用して kj[googlea-api-nodejs-client](https://github.com/googleapis/google-api-nodejs-client)を使っています。
+スプレッドシートとの通信は Cloud Functions のサービスアカウトを利用して [googlea-api-nodejs-client](https://github.com/googleapis/google-api-nodejs-client)を使っています。
 
 ![](https://i.gyazo.com/31e3d4b9465986f16a6b74f89dda9f5a.png)
 
-実装も全て GitHub で公開しています（Starを貰えると泣いて喜びます）。
+実装も全て GitHub で公開しています（⭐を貰えると泣いて喜びます）。
 https://github.com/kawamataryo/tell-me-bot
 
 # 機能詳細
+tell-me-botの機能を紹介します。
 ## 用語の表示
-完全一致する用語を tell-me-paccho にメンションした場合は、即結果が表示されます。もし間違っていた場合は、メッセージ記載のスプレッドシートから編集します。
+完全一致する用語を tell-me-paccho にメンションした場合は、即結果が表示されます。もし間違っていた場合は、メッセージ記載のスプレッドシートから編集できます。
 
 ![](https://i.gyazo.com/782e65b1d13566e25238295ddbb1ab5b.gif)
 
