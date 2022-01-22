@@ -8,16 +8,16 @@ published: false
 
 最近作った SlackBot の紹介です。
 # 作ったもの
-tell-me-bot（社内では tell-me-paccho）という社内用語辞典を**いい感じ**に管理してくれる SlackBot です。
+tell-me-bot（社内では tell-me-paccho）という社内用語辞典を**いい感じ**に管理してくれる SlackBot を作りました。
 
-社内ではもともとスプレッドシートで社内用語を管理していたのですが、メンテナンスする人が限られて、あまり積極的に利用されているという状況ではありませんでした。
+社内ではもともとスプレッドシートで社内用語を管理していたのですが、メンテナンスする人が限られて、あまり積極的に利用されていない状況でした。
 
-そんな時に、[@しかじろう](https://twitter.com/shikajiro)さんの[こちらの記事](https://zenn.dev/shikajiro/articles/11b9e188ce6e94)を発見して、これはおもしろいアイデアだと思い、正月に Firebase + Bolt（TypeScript）にてフルスクラッチで作ってみました（元記事は Python）。元記事のアイデアを元にプラスアルファの機能も多く追加しています。
+そんな時に、[@しかじろう](https://twitter.com/shikajiro)さんの[こちらの記事](https://zenn.dev/shikajiro/articles/11b9e188ce6e94)を発見して、これはおもしろいアイデアだと思い、正月に Firebase + Bolt（TypeScript）にてフルスクラッチで作ってみました（しかじろうさんに感謝）。元記事のアイデアを元に+αの機能も多く追加しています。
 
 https://twitter.com/KawamataRyo/status/1480732294134796288
 ## 構成
 
-Firebase Cloud Functions で Slack アプリのフレームワークである [Bolt.js](https://github.com/slackapi/bolt-js) を動かし、Slack の EventAPI や ActionAPI のリクエストに応じて社内用語辞典のスプレッドシートを操作しています。
+Firebase for Cloud Functions で Slack アプリのフレームワークである [Bolt.js](https://github.com/slackapi/bolt-js) を動かし、Slack の EventAPI や ActionAPI のリクエストに応じて社内用語辞典のスプレッドシートを操作しています。
 また、後述する曖昧検索の実現のために、[Fuse.js](https://github.com/krisk/fuse) を内部的に利用しています。
 スプレッドシートとの通信は Cloud Functions のサービスアカウトを利用して kj[googlea-api-nodejs-client](https://github.com/googleapis/google-api-nodejs-client)を使っています。
 
