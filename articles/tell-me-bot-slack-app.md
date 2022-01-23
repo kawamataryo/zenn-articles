@@ -13,7 +13,7 @@ tell-me-bot（社内では tell-me-paccho）という、社内用語辞典を**�
 
 社内ではもともとスプレッドシートで社内用語を管理していたのですが、メンテナンスする人が限られ、あまり積極的には利用されていない状況でした。
 
-そんな時に、[@しかじろう](https://twitter.com/shikajiro)さんの[こちらの記事](https://zenn.dev/shikajiro/articles/11b9e188ce6e94)を発見して、これはおもしろいアイデアだと思い、正月に Firebase + Bolt（TypeScript）にて作ってみました（アイデアをくれた[@しかじろう](https://twitter.com/shikajiro)さんに感謝🙏）。元記事の機能を参考に+αの機能も色々追加しています。
+そんな時に、[@しかじろう](https://twitter.com/shikajiro)さんの[こちらの記事](https://zenn.dev/shikajiro/articles/11b9e188ce6e94)を発見して、これはおもしろいアイデアだと思い、正月に Firebase + Bolt（TypeScript）にて作ってみました（アイデアをくれた[@しかじろう](https://twitter.com/shikajiro)さんに感謝🙏）。元記事の機能を参考に+αの機能も色々実装しています。
 
 https://twitter.com/KawamataRyo/status/1480732294134796288
 ## 構成
