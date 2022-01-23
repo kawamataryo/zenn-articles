@@ -1,33 +1,33 @@
 ---
-title: "Firebase + Spreadsheet で SlackBot を作ったら社内用語辞典の運用が3倍楽しくなった話"
+title: "Firebase + Spreadsheet で Slack Bot を作ったら社内用語辞典の運用が3倍楽しくなった話"
 emoji: "🦄"
 type: "tech"
 topics: ["slack","firebase","boltjs","typeScript","gcp"]
 published: false
 ---
 
-最近作った SlackBot が好評だったので、まとめてみました。
+最近作った Slack Bot が好評だったのでまとめてみました！
 どこの Slack ワークスペースでも導入できるように詳細に設定方法も記載しています。
 # 🛠 作ったもの
 tell-me-bot（社内では tell-me-paccho）という、社内用語辞典を**いい感じ**に管理してくれる SlackBot を作りました。
 
 社内ではもともと Spreadsheet で社内用語を管理していたのですが、メンテナンスする人が限られ、あまり積極的には利用されていない状況でした。
 
-そんな時に、[@しかじろう](https://twitter.com/shikajiro)さんの[こちらの記事](https://zenn.dev/shikajiro/articles/11b9e188ce6e94)を発見して、これはおもしろいアイデアだと思い、正月に Firebase + Bolt（TypeScript）にて作ってみました（アイデアをくれた[@しかじろう](https://twitter.com/shikajiro)さんに感謝🙏）。元記事の機能を参考に+αの機能も色々実装しています。
+そんな時に[@しかじろう](https://twitter.com/shikajiro)さんの[こちらの記事](https://zenn.dev/shikajiro/articles/11b9e188ce6e94)を発見して、これはおもしろいアイデアだと思い、Firebase + Bolt（TypeScript）にて作ってみました（アイデアをくれた[@しかじろう](https://twitter.com/shikajiro)さんに感謝🙏）。元記事の機能を参考に+αの機能も色々実装しています。
 
 https://twitter.com/KawamataRyo/status/1480732294134796288
 ## 構成
 
-Firebase for Cloud Functions で Slack アプリのフレームワークである [Bolt.js](https://github.com/slackapi/bolt-js) を動かし、Slack の EventAPI や ActionAPI のリクエストに応じて社内用語辞典の Spreadsheet を操作しています。
+Firebase for Cloud Functions で Slack アプリのフレームワークである [Bolt.js](https://github.com/slackapi/bolt-js) を動かし、Slack の Event API や Action API のリクエストに応じて社内用語辞典の Spreadsheet を操作しています。
 また、後述する曖昧検索の実現のために、[Fuse.js](https://github.com/krisk/fuse) を内部的に利用しています。
-Spreadsheet との通信は Cloud Functions のサービスアカウトを利用して [googlea-api-nodejs-client](https://github.com/googleapis/google-api-nodejs-client)を使っています。
+Spreadsheet との通信は Cloud Functions のサービスアカウトを利用して [googlea-api-nodejs-client](https://github.com/googleapis/google-api-nodejs-client) を使っています。
 
 ![](https://i.gyazo.com/31e3d4b9465986f16a6b74f89dda9f5a.png)
 
 DB として Firestore ではなく Spreadsheet を使った理由はこちらです。
 
 - もともと社内用語辞典が Spreadsheet で管理されていたのでそれをそのまま使える
-- エンジニア以外でも誰でも手軽に辞書データを直接追加・編集・削除を出来る（一番重要！）
+- エンジニア以外でも誰でも手軽に辞書データを直接追加・編集・削除を出来る（**重要！**）
 - Slack のインタフェースで編集・削除の機能を実装するのが面倒
 
 実装も全て GitHub で公開しています（⭐を貰えると泣いて喜びます）。
@@ -36,7 +36,7 @@ https://github.com/kawamataryo/tell-me-bot
 # 💡 機能詳細
 tell-me-bot の機能を紹介します。
 ## 用語の表示
-完全一致する用語を tell-me-bot にメンションした場合は、即結果が表示されます。もし説明が間違っていた場合は、メッセージ記載の Spreadsheet から編集できます。
+完全一致する用語を tell-me-bot にメンションした場合は、即結果が表示されます。もし説明が間違っていた場合は、メッセージ記載の Spreadsheet のリンクから編集できます。
 
 ![](https://i.gyazo.com/782e65b1d13566e25238295ddbb1ab5b.gif)
 
@@ -44,7 +44,7 @@ tell-me-bot の機能を紹介します。
 もし、完全一致はしないけれども似たような単語がある場合は、候補を表示します。候補のボタンを押すと、その用語の説明を答えてくれます。
 
 内部的には Fuse.js の Fuzzy Search を利用しています。
-これがこのボットの一番の売りの機能です。曖昧な記憶からも正確な情報を取得できます。
+これがこのボットの一番の売りの機能です。曖昧な問いかけからも正確な情報を取得できます。
 
 https://github.com/krisk/fuse
 
