@@ -77,7 +77,7 @@ https://github.com/lapras-inc/tell-me-bot/blob/main/functions/src/v1/bolt/action
 #ask-anything チャネルの元ネタは自分の前職 [Misoca](https://www.misoca.jp/) の#asky-anything チャネルです。
 :::
 
-# 同僚の声
+# 社内の声
 
 LAPRAS 社の Slack でも嬉しい声を頂いたので一部紹介します！
 やはり使って感想をもらえるのは開発者として一番嬉しいですね😆
@@ -258,8 +258,11 @@ Install App から `Install Workspace` を実行してください。
 ## 動作確認
 インストールした Slack Work スペースの任意のチャネルに tell-me-bot を追加してメンションしてみてください。
 
+![](https://i.gyazo.com/8fddd854afdb412c1c6780fdb4bc4b33.png)
+
 bot が答えてくれれば全て完了です。もしエラーが出る場合は Firebase のログを確認してください。
 # おわりに
-個人的にもとても便利で、どの会社にもあって良いなと思うので、使ってもらえると嬉しいです。設定方法に詰まりましたら、TwitterDM か記事コメントいただければ、ベストエフォートでサポートします！　!
+個人的にもとても便利で、どの会社にもあって良いなと思ってます。使ってもらえると嬉しいです！
+設定方法に詰まりましたら、TwitterDM か記事コメントいただければ、ベストエフォートでサポートします！
 
 https://twitter.com/KawamataRyo
