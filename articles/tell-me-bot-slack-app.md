@@ -1,5 +1,5 @@
 ---
-title: "SlackBotを作ったら、\n社内用語辞典の運用が3倍楽しくなった話"
+title: "SlackBotを作ったら社内用語辞典の運用が3倍楽しくなった話"
 emoji: "🦄"
 type: "tech"
 topics: ["slack","firebase","boltjs","typeScript","gcp"]
