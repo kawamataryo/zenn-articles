@@ -1,6 +1,6 @@
 ---
 title: "SlackBotを作ったら、社内用語辞典の運用が3倍楽しくなった話"
-emoji: "💬"
+emoji: "🦄"
 type: "tech"
 topics: ["slack","firebase","boltjs","typeScript","gcp"]
 published: false
