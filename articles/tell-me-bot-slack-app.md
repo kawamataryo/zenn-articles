@@ -1,18 +1,18 @@
 ---
-title: "SlackBotを作ったら社内用語辞典の運用が100倍楽しくなった話"
+title: "SlackBotを作ったら社内用語辞典の運用が3倍楽しくなった話"
 emoji: "💬"
 type: "tech"
-topics: ["slack","firebase","boltjs","typeScript","spreadsheet"]
+topics: ["slack","firebase","boltjs","typeScript","gcp"]
 published: false
 ---
 
-最近作った SlackBot の紹介です。
+最近作った SlackBot が好評だったので、記事にまとめてみました。
 # 作ったもの
-tell-me-bot（社内では tell-me-paccho）という社内用語辞典を**いい感じ**に管理してくれる SlackBot を作りました。
+tell-me-bot（社内では tell-me-paccho）という、社内用語辞典を**いい感じ**に管理してくれる SlackBot を作りました。
 
-社内ではもともとスプレッドシートで社内用語を管理していたのですが、メンテナンスする人が限られて、あまり積極的に利用されていない状況でした。
+社内ではもともとスプレッドシートで社内用語を管理していたのですが、メンテナンスする人が限られて、あまり積極的には利用されていない状況でした。
 
-そんな時に、[@しかじろう](https://twitter.com/shikajiro)さんの[こちらの記事](https://zenn.dev/shikajiro/articles/11b9e188ce6e94)を発見して、これはおもしろいアイデアだと思い、正月に Firebase + Bolt（TypeScript）にてフルスクラッチで作ってみました（しかじろうさんに感謝）。元記事のアイデアを元に+αの機能も多く追加しています。
+そんな時に、[@しかじろう](https://twitter.com/shikajiro)さんの[こちらの記事](https://zenn.dev/shikajiro/articles/11b9e188ce6e94)を発見して、これはおもしろいアイデアだと思い、正月に Firebase + Bolt（TypeScript）にて作ってみました（アイデアをくれた[@しかじろう](https://twitter.com/shikajiro)さんに感謝🙏）。元記事の機能+αの機能も色々追加しています。
 
 https://twitter.com/KawamataRyo/status/1480732294134796288
 ## 構成
@@ -27,7 +27,7 @@ Firebase for Cloud Functions で Slack アプリのフレームワークであ�
 https://github.com/kawamataryo/tell-me-bot
 
 # 機能詳細
-tell-me-botの機能を紹介します。
+tell-me-bot の機能を紹介します。
 ## 用語の表示
 完全一致する用語を tell-me-paccho にメンションした場合は、即結果が表示されます。もし間違っていた場合は、メッセージ記載のスプレッドシートから編集できます。
 
@@ -45,7 +45,7 @@ https://github.com/krisk/fuse
 
 ## 用語の追加
 もし曖昧検索の結果が間違っていたり、検索に該当する用語がない場合は、Slack のモーダルから用語を新規に追加することもできます（スプレッドシートを直接編集することでも可能です）。
-手軽に追加できるので、気づいた時にどんどん用語を増やす事ができます。
+手軽に追加できるので、気づいたときにどんどん用語を増やすことができます。
 
 
 ![](https://i.gyazo.com/9e878a49c8a675bf161761a1949193e5.gif)
@@ -89,39 +89,177 @@ LAPRAS 社の Slack でも嬉しい声を頂いたので一部紹介します！
 
 個人開発のアプリを気軽に紹介できて、ポジティブなフィードバックを貰える社内環境はとても良いなーと思っています。
 # 設定方法
-基本的にコードは全て公開しているので、以下手順でどの Slack にも導入できます。
-# Firebase側の設定
+基本的にコードは全て公開しているので、以下手順でどの Slack にも導入できるはずです。
 
-## Spreadsheet APIの有効化
+## 事前準備
+事前に以下を準備します。
 
-![](https://i.gyazo.com/096d11aec7af2d0da47008649706359e.png)
+- [Firebase CLI](https://firebase.google.com/docs/cli)
+  - 任意のシェルでセットアップしておいてください
+- 空の Firebase プロジェクト
+  - Blaze プラン（従量課金プラン）にプラン変更してください
+- 任意の Spreadsheet
+  - 1 枚目のシートの A1 に用語、B1 に説明というヘッダーを追加しておいてください
+  - Spreadsheet の ID をメモしておいてください（[参考](http://amehal.blogspot.com/2015/10/id.html）)
 
-firebase をデプロイ
+:::message
+Firebase を Blaze プラン（従量課金プラン）としているのは、通常のプランだと Cloud FUnctions for Firebase の公開が制限されるからです。
+:::
 
-デプロイすると作られる
+## Slack APPの作成（1）
+Slack の Your Apps にアクセスして `Create New App` を押します。
 
-deploy する前に環境変数を設定
+https://api.slack.com/apps 
+
+選択後表示されるモーダルで `From app manifest` を選択します。
+
+![](https://i.gyazo.com/e97427889949a1047ee55a8f58d5c2d1.png)
+
+次にアプリを追加する Slack ワークスペースを選択します。
+
+![](https://i.gyazo.com/7c0fcf43a2df60582295a1fafa34b6e2.png)
+
+次に manifest の入力欄表示されるので以下を入力します。
+
+```yaml
+display_information:
+  name: tell-me-bot
+  description: tell-me-bot
+  background_color: "#323336"
+features:
+  bot_user:
+    display_name: tell-me-bot
+    always_online: true
+oauth_config:
+  scopes:
+    bot:
+      - app_mentions:read
+      - chat:write
+      - im:history
+      - im:read
+      - im:write
+      - users:read
+      - channels:read
+settings:
+  event_subscriptions:
+    request_url: https://example.com
+    bot_events:
+      - app_mention
+      - message.im
+  interactivity:
+    is_enabled: true
+    request_url: https://example.com
+  org_deploy_enabled: false
+  socket_mode_enabled: false
+  is_hosted: false
+  token_rotation_enabled: false
+```
+
+![](https://i.gyazo.com/6acf312ed83e83fe45eeb6a09ec420aa.png)
+
+最後に確認が表示されるので、create ボタンを押せばアプリが作成されます。
+
+![](https://i.gyazo.com/f19307f592b2de2e91b295062322384e.png)
+
+アプリが作成されたら以下 2 の値をメモしておきます。
+ - Basic Information > App Credentials の `Signin Secret` 
+ - OAuth & Permission > OAuth Tokens for Your Workspace の `Bot User OAuth Token`
+
+![](https://i.gyazo.com/55a9b4766cb98657ca7c361d17a3c298.png)
+![](https://i.gyazo.com/f58f84335fdf3ba4b42c6c783491b7f4.png)
+
+この値は次の Firebase の設定で使います。
+
+## Firebase プロジェクトのデプロイ
+
+tell-me-bot のリポジトリを任意のディレクトリでクローンします。
+
+```bash
+$ git clone https://github.com/kawamataryo/tell-me-bot
+$ cd tell-me-bot
+```
+
+最初に Firebase CLI でプロジェクトの設定を行います。
+プロジェクトの ID は `firebase projects:list` で確認できます。
 
 ```
+$ firebase use <事前準備で作成したプロジェクトのID>
+```
+
+そして Firebase の環境変数を設定します。
+ここで今まででメモしてきた値を設定します。
+
+```bash
+# Slack APPの作成でメモしたBot User OAuth Tokenの値
 $ firebase functions:config:set slack.bot_token="xxxx"
+
+# Slack APPの作成でメモしたSignin Secretの値
 $ firebase functions:config:set slack.signin_secret="xxxx"
+
+# 質問チャネルがある場合は、質問チャネルのIDを指定。ない場合は空文字を指定。
+$ firebase functions:config:set slack.ask_channel_id=""
+
+# 事前準備で用意したSpreadsheetのID
 $ firebase functions:config:set sheet.id="xxxx"
 ```
 
-deploy
+
+次に functions ディレクトリの依存モジュールを install します。
 
 ```
-$ npm run deploy
+$ npm --prefix ./functions i
 ```
 
-service account をコピー
+最後にデプロイです。
 
-![](https://i.gyazo.com/ec8ce09ed0d8fd19ea1caabdc189bf38.png)
+```
+$ npm --prefix ./functions run deploy
+```
 
-シートの編集者に追加
+完了後のログで functions の URL が確認できるのでメモします。
 
-![](https://i.gyazo.com/d2fd47584db04e46780a39c012c6ea73.png)
+![](https://i.gyazo.com/a4c8183f8cd031a1afc433f6026d5358.png)
+## GCPの設定
 
-manifest の URL を変える
+GCP のダッシュボードにアクセスし、Firebase で作成したプロジェクトを指定してください。
 
-URL を events にするのを忘れずに。
+https://console.cloud.google.com/apis/dashboard?hl=ja
+
+そしてメニューから Google Sheets API を開き有効化します。
+これは tell-me-bot の内部で Spreadsheet の操作に Google Sheet API を利用しているためです。
+
+![](https://i.gyazo.com/096d11aec7af2d0da47008649706359e.png)
+
+次に、メニューからサービスアカウントを開きます。
+2 つのサービスアカウントが作成されていると思うので、`App Engine default service account`の方のメールアドレスをメモします。
+
+最後に、事前準備で作成した Spreadsheet を開き、先程メモしたアカウントに対して編集権限を設定します。
+
+![](https://i.gyazo.com/32a4ca88d9698ad7978a70d5517f9486.png)
+
+これで GCP 側の準備は完了です。
+
+## Slack APPの設定（2）
+Slack APP に戻り、App Manifest を開きます。
+そこで、manifest の設定で以前`example.com`としていた箇所を、先程メモした fucntions の `デプロイURL/events` を記載します。必ず後ろに`/events`をつけてください。
+
+![](https://i.gyazo.com/dbd2256f80fd5cc112e9321fd67ef6e8.png)
+
+そして Save Change を押します。ここで上部に Verify Error と出る場合は functions の環境変数の設定か URL が間違っている可能性があるので確認してください。functions の log を見るとわかりやすいです。
+
+![](https://i.gyazo.com/edfb37ebac7a15c19d293fc9c513e377.png)
+
+最後に Slack APP を指定のワークスペースにインストールします。
+
+Install App から `Install Workspace` を実行してください。
+
+![](https://i.gyazo.com/3f1ad96a6144880d606b5675e827db75.png)
+
+## 動作確認
+インストールした Slack Work スペースの任意のチャネルに tell-me-bot を追加してメンションしてみてください。
+
+bot が答えてくれれば全て完了です。もしエラーが出る場合は Firebase のログを確認してください。
+# おわりに
+個人的にもとても便利で、どの会社にもあって良いなと思うので、使ってもらえると嬉しいです。設定方法に詰まりましたら、TwitterDM か記事コメントいただければ、ベストエフォートでサポートします！　!
+
+https://twitter.com/KawamataRyo
