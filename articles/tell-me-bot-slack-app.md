@@ -72,7 +72,7 @@ https://github.com/krisk/fuse
 
 |質問したチャネル|ask-anythingチャネル|
 |---|---|
-|![](https://i.gyazo.com/5f6a55b4ee64c3cc74817947d028382a.png)|![](https://i.gyazo.com/365d0ed3ff369edd70478cca27176355.png)|
+|![](https://i.gyazo.com/661ce734da824f087f92835ef9438bd2.png)|![](https://i.gyazo.com/0cdfa6a6dc0c1612e7b7d350866b0413.png)|
 
 :::message
 この機能は質問チャネルの存在が前提にあるのでオプショナルです。もし利用したい場合は、後述する Firebase の設定にて環境変数の`slack.ask_channel_id`に質問チャネルのチャネル ID を指定してください。
