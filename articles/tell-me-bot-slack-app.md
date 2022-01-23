@@ -77,10 +77,12 @@ https://github.com/krisk/fuse
 会社の Slack でも嬉しい声を頂いたので一部紹介します！
 やはり使って感想をもらえるのは開発者として一番嬉しいですね😆
 
-![](https://i.gyazo.com/f79a7303c733e8ceb51fde3d2086fe4d.png)
-![](https://i.gyazo.com/44ae53e0e045dc401c763fb3d1d43b99.png)
-![](https://i.gyazo.com/201fdc6e86c4c04785258eb304c85a45.png)
-![](https://i.gyazo.com/f41a1a7e553201bad7ed163500591a84.png)
+|社内の声|
+|---|
+|![](https://i.gyazo.com/f79a7303c733e8ceb51fde3d2086fe4d.png)|
+|![](https://i.gyazo.com/44ae53e0e045dc401c763fb3d1d43b99.png)|
+|![](https://i.gyazo.com/201fdc6e86c4c04785258eb304c85a45.png)|
+|![](https://i.gyazo.com/f41a1a7e553201bad7ed163500591a84.png)|
 
 実際に社内用語辞典は急速に充実していいっています。
 個人開発のアプリを気軽に紹介できて、ポジティブなフィードバックを貰える社内環境はとても良いなーと思っています。
