@@ -35,7 +35,7 @@ https://github.com/kawamataryo/tell-me-bot
 
 # 💡 機能詳細
 tell-me-bot の機能を紹介します。
-## 用語の表示
+## 用語の検索
 完全一致する用語を tell-me-bot にメンションした場合は、即結果が表示されます。もし説明が間違っていた場合は、メッセージ記載の Spreadsheet のリンクから編集できます。
 
 ![](https://i.gyazo.com/782e65b1d13566e25238295ddbb1ab5b.gif)
