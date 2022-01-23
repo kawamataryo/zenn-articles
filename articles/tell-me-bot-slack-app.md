@@ -64,13 +64,9 @@ https://github.com/krisk/fuse
 
 実際に以下のように投げられて、都度専門知識をもつメンバーが用語を登録してくれてとても助かっています。
 
-**質問したチャネル**
-![](https://i.gyazo.com/5f6a55b4ee64c3cc74817947d028382a.png)
-
-**ask-anythingチャネル**
-
-![](https://i.gyazo.com/365d0ed3ff369edd70478cca27176355.png)
-
+|質問したチャネル|ask-anythingチャネル|
+|---|---|
+|![](https://i.gyazo.com/5f6a55b4ee64c3cc74817947d028382a.png)|![](https://i.gyazo.com/365d0ed3ff369edd70478cca27176355.png)|
 
 :::message
 この機能は質問チャネルの存在が前提にあるのでオプショナルです。もし利用したい場合は、後述するFirebaseの設定にて環境変数の`slack.ask_channel_id`に質問チャネルのチャネルIDを指定してください。
