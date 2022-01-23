@@ -7,7 +7,7 @@ published: false
 ---
 
 最近作った SlackBot が好評だったので、まとめてみました。
-どこのSlackワークスペースでも導入できるように詳細に設定方法も記載しています。
+どこの Slack ワークスペースでも導入できるように詳細に設定方法も記載しています。
 # 🛠 作ったもの
 tell-me-bot（社内では tell-me-paccho）という、社内用語辞典を**いい感じ**に管理してくれる SlackBot を作りました。
 
@@ -69,7 +69,7 @@ https://github.com/krisk/fuse
 |![](https://i.gyazo.com/5f6a55b4ee64c3cc74817947d028382a.png)|![](https://i.gyazo.com/365d0ed3ff369edd70478cca27176355.png)|
 
 :::message
-この機能は質問チャネルの存在が前提にあるのでオプショナルです。もし利用したい場合は、後述するFirebaseの設定にて環境変数の`slack.ask_channel_id`に質問チャネルのチャネルIDを指定してください。
+この機能は質問チャネルの存在が前提にあるのでオプショナルです。もし利用したい場合は、後述する Firebase の設定にて環境変数の`slack.ask_channel_id`に質問チャネルのチャネル ID を指定してください。
 :::
 
 # 💬 社内の声
@@ -169,6 +169,10 @@ settings:
 
 この値は次の Firebase の設定で使います。
 
+また、App Home > Show Tabs から Message Tab の設定を ON にして`Allow users to send Slash commands and messages from the messages tab`にチェックしてください。これを設定することで、tell-me-bot との DM でも社内用語辞典の操作が行えるようになります。
+
+![](https://i.gyazo.com/43cb9f802b4ebb06b98b6156892339b0.png)
+
 ## Firebase プロジェクトのデプロイ
 
 tell-me-bot のリポジトリを任意のディレクトリでクローンします。
@@ -253,6 +257,7 @@ Slack APP に戻り、App Manifest を開きます。
 Install App から `Install Workspace` を実行してください。
 
 ![](https://i.gyazo.com/3f1ad96a6144880d606b5675e827db75.png)
+
 
 ## 動作確認
 インストールした Slack Work スペースの任意のチャネルに tell-me-bot を追加してメンションしてみてください。
