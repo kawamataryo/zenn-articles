@@ -3,7 +3,7 @@ title: "Firebase + Spreadsheet で Slack Bot を作ったら社内用語辞典�
 emoji: "🦄"
 type: "tech"
 topics: ["slack","firebase","boltjs","typeScript","gcp"]
-published: false
+published: true
 ---
 
 最近作った Slack Bot が好評だったのでまとめてみました！
