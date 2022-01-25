@@ -18,7 +18,7 @@ tell-me-bot（社内では tell-me-paccho）という、社内用語辞典を**�
 https://twitter.com/KawamataRyo/status/1480732294134796288
 ## 構成
 
-Firebase for Cloud Functions で Slack アプリのフレームワークである [Bolt.js](https://github.com/slackapi/bolt-js) を動かし、Slack の Event API や Action API のリクエストに応じて社内用語辞典の Spreadsheet を操作しています。
+Cloud Functions for Firebase で Slack アプリのフレームワークである [Bolt.js](https://github.com/slackapi/bolt-js) を動かし、Slack の Event API や Action API のリクエストに応じて社内用語辞典の Spreadsheet を操作しています。
 また、後述する曖昧検索の実現のために、[Fuse.js](https://github.com/krisk/fuse) を内部的に利用しています。
 Spreadsheet との通信は Cloud Functions のサービスアカウトを利用して [googlea-api-nodejs-client](https://github.com/googleapis/google-api-nodejs-client) を使っています。
 
