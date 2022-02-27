@@ -22,8 +22,8 @@ https://github.com/kawamataryo/chikamichi
 
 https://chrome.google.com/webstore/detail/chikamichi-quickly-find-a/gkhobepjbiepngbeikhbpnfgjcjgmgha
 
-# サンプルのChrome拡張機能の作成
-Viteese-webextというChrome拡張機能のtemplateリポジトリを使ってサンプルの拡張機能を作成します。
+# テスト対象のChrome拡張機能の作成
+Vitesse-webextというChrome拡張機能のtemplateリポジトリを使ってサンプルの拡張機能を作成します。
 
 https://github.com/antfu/vitesse-webext
 
@@ -43,7 +43,7 @@ $ pnpm dev
 
 ![](https://i.gyazo.com/83d1512b27d61b1a696ffb6a1e404eea.png)
 
-`Viteese WebExt`というサンプルの拡張機能がインストールされるはずです。
+`Vitesse WebExt`というサンプルの拡張機能がインストールされるはずです。
 
 ![](https://i.gyazo.com/16d6ea76c2078060ac7364c9618c9483.png)
 
@@ -104,7 +104,7 @@ module.exports = (on, config) => {
 baseUrlのlocalhost:3000は、次項で追加するserveの起動portの指定です。
 
 # Serveのセットアップ
-Cypressでテストを実行するためには何らかの方法でテスト対象のページをブラウザからアクセスする必要があります。今回はPopupページを対象にテストするので、Popupページをレンダリングします。そのために、静的ファイルを元にコマンド一つで開発サーバーを起動できる[serve](https://github.com/vercel/serve#readme)を利用します。
+Cypressでテストを実行するためには何らかの方法でテスト対象のページをブラウザからアクセスできるようにする必要があります。今回はPopupページを対象にテストするので、Popupページをレンダリングします。そのために、静的ファイルからコマンド一つで開発サーバーを起動できる[serve](https://github.com/vercel/serve#readme)を利用します。
 
 https://github.com/vercel/serve
 
@@ -114,7 +114,7 @@ https://github.com/vercel/serve
 $ pnpm i -D serve
 ```
 
-次に、サーバー起動のスクリプトをpackage.jsonに追記します。
+次に、サーバー起動のスクリプトをpackage.jsonに追記して、起動します。
 
 ```json:package.json
 {
@@ -124,8 +124,6 @@ $ pnpm i -D serve
   },
 }
 ```
-
-そして起動します。
 
 ```
 $ pnpm serve
@@ -146,7 +144,7 @@ $ touch cypress/integration/smaple.spec.js
 
 ここが一番のポイントなのですが、Chrome拡張機能のAPIを利用するためには、**Cypressのテスト実行時にChromeのランタイムをモックする**必要があります。
 
-以下、visitの`onBeforeLoad`のフックで行っている処理が、chormeのランタイムのモックになります。
+以下、`cy.visit`の`onBeforeLoad`のフックで行っている処理が、chormeのランタイムのモックになります。
 
 ```js:cypress/integration/sample.spec.js
 describe('App', () => {
