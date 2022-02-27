@@ -54,13 +54,13 @@ $ pnpm dev
 まずパッケージを追加します。
 
 ```
-pnpm i -D cypress
+$ pnpm i -D cypress
 ```
 
 続いて以下コマンドでCypressが起動するか試します。
 
 ```
-pnpm cypress open
+$ npx cypress open
 ```
 
 CypressのダッシュボードがChromeで起動すればOKです。
@@ -72,6 +72,10 @@ CypressのダッシュボードがChromeで起動すればOKです。
 以下を参考に設定します。
 
 https://docs.cypress.io/guides/component-testing/framework-configuration#Vite-Based-Projects-Vue-React
+
+```
+$ pnpm i -D @cypress/vite-dev-server
+```
 
 ```js:cypress/plugins/index.js
 const path = require('path')
@@ -98,19 +102,80 @@ module.exports = (on, config) => {
 baseUrlのlocalhost:3000は、次項で追加するserveの起動portの指定です。
 
 # Serveのセットアップ
-Cypressでテストを実行するためには何らかの方法でテスト対象のページをブラウザからアクセスする必要があります。今回はPopupページを対象にテストするので、Popupページをレンダリングする必要があります。そのために、静的ファイルを元にコマンド一つで開発サーバーを起動できる[serve](https://github.com/vercel/serve#readme)を利用します。
+Cypressでテストを実行するためには何らかの方法でテスト対象のページをブラウザからアクセスする必要があります。今回はPopupページを対象にテストするので、Popupページをレンダリングします。そのために、静的ファイルを元にコマンド一つで開発サーバーを起動できる[serve](https://github.com/vercel/serve#readme)を利用します。
 
 https://github.com/vercel/serve
 
+まずパッケージを追加します。
 
+```
+$ pnpm i -D serve
+```
 
+次に、サーバー起動のスクリプトをpackage.jsonに追記します。
+
+```json:package.json
+{
+  "scripts": {
+    //...
+    "serve": "serve extension -l 3000"
+  },
+}
+```
+
+そして起動します。
+
+```
+$ pnpm serve
+```
+
+起動後、http://localhost:3000 にアクセスすると以下画面が出るはずです。
+
+![](https://i.gyazo.com/4830b9522054010d0075be21b6a3cc35.png)
 
 # テストケースの作成
 
-**ポイント**
-Chrome拡張機能用のモックの追加
+次に実際にテストケースを書いていきます。
+`cypress/integration` 配下に`sample.ts`を追加します。
 
-# テストケースを書く
+```
+$ touch cypress/integration/smaple.spec.js
+```
+
+ここが一番のポイントなのですが、Chrome拡張機能のAPIを利用するためには、}**Cypressのテスト実行時にChromeのランタイムをモックする**必要があります。
+
+以下、visitの`onBeforeLoad`のフックで行っている処理が、chormeのランタイムのモックになります。
+
+```js:cypress/integration/sample.spec.js
+describe('App', () => {
+  before(() => {
+    // popup.htmlへのパスを指定
+    cy.visit('/dist/popup/index.html', {
+      onBeforeLoad(win) {
+        win.chrome = win.chrome || {}
+        win.chrome.runtime = {
+          id: '12345',
+          // ボタンクリックで実行されるAPIをモック
+          openOptionsPage: cy.stub().as('openOptionsPage'),
+        }
+      },
+    })
+  })
+
+  it('Popupが表示される', () => {
+    cy.get('#app').should('include.text', 'This is the popup page')
+  })
+
+  it('Open Optionsのボタンクリックでchrome runtimeのopenOptionPageが実行される', () => {
+    cy.contains('Open Options').click()
+    cy.window().its('chrome.runtime.openOptionsPage').should('be.called')
+  })
+})
+```
+
+これで`npx cypress open`からsample.spec.tsのテストを実行すると無事Popupの表示の確認と、ボタンクリックの動作の検証が行えるはずです。
+
+![](https://i.gyazo.com/43b11ebef8605722d6b7f5e7ac95794e.png)
 
 # 終わりに
 
