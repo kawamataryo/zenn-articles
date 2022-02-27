@@ -1,20 +1,20 @@
 ---
-title: "Cypress + Serve で Chrome拡張のE2Eテストを実装する"
+title: "Cypress + Serve で Chrome拡張機能のE2Eテストを実装する"
 emoji: "🧪"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["cypress", "test", "serve", "typescript", "chromeExtension"]
 published: false
 ---
 
-Chrome拡張のE2Eテストが書いてみたので手法をまとめます。
+Chrome拡張機能のE2Eテストが書いてみたので手法をまとめます。
 
 # やってみたこと
-[Chikamichi](https://chrome.google.com/webstore/detail/chikamichi-quickly-find-a/gkhobepjbiepngbeikhbpnfgjcjgmgha)という閲覧履歴やタブ、ブックマークを横断検索できるChrome拡張を作っているのですが、その拡張のリファクタリングの前準備として、E2Eテストを実装してみました。
-この拡張はPopupページで動作するので、Popupページを対象にテストしています。
+[Chikamichi](https://chrome.google.com/webstore/detail/chikamichi-quickly-find-a/gkhobepjbiepngbeikhbpnfgjcjgmgha)という閲覧履歴やタブ、ブックマークを横断検索できるChrome拡張機能を作っているのですが、その拡張機能のリファクタリングの前準備として、E2Eテストを実装してみました。
+この拡張機能はPopupページで動作するので、Popupページを対象にテストしています。
 
 https://twitter.com/KawamataRyo/status/1496457270401826819
 
-本記事ではサンプルのChrome拡張のPopupページを対象にCypressのE2Eテストを実装していきます。
+本記事ではサンプルのChrome拡張機能のPopupページを対象にCypressのE2Eテストを実装していきます。
 
 実際のテストコードについては[Chikamichi](https://chrome.google.com/webstore/detail/chikamichi-quickly-find-a/gkhobepjbiepngbeikhbpnfgjcjgmgha)のリポジトリにあるので、そちらを参照してください。
 
@@ -22,8 +22,8 @@ https://github.com/kawamataryo/chikamichi
 
 https://chrome.google.com/webstore/detail/chikamichi-quickly-find-a/gkhobepjbiepngbeikhbpnfgjcjgmgha
 
-# サンプルのChrome拡張の作成
-Viteese-webextというChrome拡張のtemplateリポジトリを使ってサンプルの拡張を作成します。
+# サンプルのChrome拡張機能の作成
+Viteese-webextというChrome拡張機能のtemplateリポジトリを使ってサンプルの拡張機能を作成します。
 
 https://github.com/antfu/vitesse-webext
 
@@ -37,17 +37,17 @@ $ pnpm dev
 ```
 
 これでローカルサーバーが起動します。
-この状態で、[Chromeの拡張の設定](chrome://extensions/)から、`Load unpacked` を選択して、`e2e-sample-webext/extensions`を選択します。
+この状態で、[Chromeの拡張機能の設定](chrome://extensions/)から、`Load unpacked` を選択して、`e2e-sample-webext/extensions`を選択します。
 
 ![](https://i.gyazo.com/170bfc6c5f19aa1a81b48c54165435c7.png)
 
 ![](https://i.gyazo.com/83d1512b27d61b1a696ffb6a1e404eea.png)
 
-`Viteese WebExt`というサンプルの拡張がインストールされるはずです。
+`Viteese WebExt`というサンプルの拡張機能がインストールされるはずです。
 
 ![](https://i.gyazo.com/16d6ea76c2078060ac7364c9618c9483.png)
 
-拡張のアイコンをクリックして、Popupページが表示されれば準備完了です。
+拡張機能のアイコンをクリックして、Popupページが表示されれば準備完了です。
 
 ![](https://i.gyazo.com/f44dbe3a678a016f37a218de653b8a9e.png)
 
@@ -144,7 +144,7 @@ $ pnpm serve
 $ touch cypress/integration/smaple.spec.js
 ```
 
-ここが一番のポイントなのですが、Chrome拡張のAPIを利用するためには、}**Cypressのテスト実行時にChromeのランタイムをモックする**必要があります。
+ここが一番のポイントなのですが、Chrome拡張機能のAPIを利用するためには、}**Cypressのテスト実行時にChromeのランタイムをモックする**必要があります。
 
 以下、visitの`onBeforeLoad`のフックで行っている処理が、chormeのランタイムのモックになります。
 
@@ -240,7 +240,7 @@ jobs:
 
 # 終わりに
 
-以上、CypressとServeを使ったChrome拡張のE2Eテストの実装方法の紹介でした。
+以上、CypressとServeを使ったChrome拡張機能のE2Eテストの実装方法の紹介でした。
 
 実際にこの方法でE2Eテストが書けたおかげで、安心して大規模なリファクタリングが行えました。
 
