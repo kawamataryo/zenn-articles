@@ -1,24 +1,26 @@
 ---
-title: "Cypress + Serve で Chrome拡張機能のE2Eテストを実装する"
+title: "Cypress + Serve で Chrome拡張のE2Eテストを実装する"
 emoji: "🧪"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["cypress", "test", "serve", "typescript", "chromeExtension"]
 published: false
 ---
 
-Chrome拡張機能のE2Eテストが書けたので手法をまとめます。
+Chrome拡張機能のE2Eテストが書いてみたので手法をまとめます。
 
 # やってみたこと
-Chikamichiという閲覧履歴やタブ、ブックマークを横断検索できるChrome拡張機能を作っているのですが、その拡張機能のリファクタリングの前準備として、E2Eテストを実装してみました。
+[Chikamichi](https://chrome.google.com/webstore/detail/chikamichi-quickly-find-a/gkhobepjbiepngbeikhbpnfgjcjgmgha)という閲覧履歴やタブ、ブックマークを横断検索できるChrome拡張機能を作っているのですが、その拡張機能のリファクタリングの前準備として、E2Eテストを実装してみました。
 この拡張機能はPopupページで動作するので、Popupページを対象にテストしています。
 
 https://twitter.com/KawamataRyo/status/1496457270401826819
 
 本記事ではサンプルのChrome拡張のPopupページを対象にCypressのE2Eテストを実装していきます。
 
-実際のテストコードについてはChikamichiのリポジトリにあるので、そちらを参照してください。
+実際のテストコードについては[Chikamichi](https://chrome.google.com/webstore/detail/chikamichi-quickly-find-a/gkhobepjbiepngbeikhbpnfgjcjgmgha)のリポジトリにあるので、そちらを参照してください。
 
 https://github.com/kawamataryo/chikamichi
+
+https://chrome.google.com/webstore/detail/chikamichi-quickly-find-a/gkhobepjbiepngbeikhbpnfgjcjgmgha
 
 # サンプルのChrome拡張機能の作成
 Viteese-webextというChrome拡張のtemplateリポジトリを使ってサンプルの拡張機能を作成します。
@@ -27,7 +29,7 @@ https://github.com/antfu/vitesse-webext
 
 任意のディレクトリで以下コマンドを実行してください。
 
-```
+```bash
 $ npx degit antfu/vitesse-webext e2e-sample-webext
 $ cd e2e-sample-webext
 $ pnpm i
@@ -50,20 +52,20 @@ $ pnpm dev
 ![](https://i.gyazo.com/f44dbe3a678a016f37a218de653b8a9e.png)
 
 # Cypressのセットアップ
-続いてテストで利用するCypressのセットアップを行います。
+続いてE2Eテストフレームワークの[Cypress](https://www.cypress.io/)のセットアップを行います。
 まずパッケージを追加します。
 
-```
+```bash
 $ pnpm i -D cypress
 ```
 
-続いて以下コマンドでCypressが起動するか試します。
+続いて以下コマンドでCypressのダッシュボードを起動します。
 
-```
+```bash
 $ npx cypress open
 ```
 
-CypressのダッシュボードがChromeで起動すればOKです。
+Chromeでダッシュボードが表示されればOKです。
 
 ![](https://i.gyazo.com/2352b9664aa3c19f1ba2c5cf33eb1d74.png)
 
@@ -173,9 +175,68 @@ describe('App', () => {
 })
 ```
 
-これで`npx cypress open`からsample.spec.tsのテストを実行すると無事Popupの表示の確認と、ボタンクリックの動作の検証が行えるはずです。
+これで`pnpm run dev` と `npx cypress open` にて開発サーバーを起動してから `npx cypress open` でsample.spec.tsのテストを実行すると無事Popupの表示の確認と、ボタンクリックの動作の検証が行えるはずです。
 
 ![](https://i.gyazo.com/43b11ebef8605722d6b7f5e7ac95794e.png)
+
+# CIでの実行
+CypressはGitHub Actionsで簡単に実行できます。
+CIでもCypressのテストを実行できるように設定します。
+
+```
+$ mkdir -p .github/workflows
+$ touch .github/workflows/e2e-test.yaml
+```
+
+```yaml:.github/workflows/e2e-test.yaml
+name: Cypress Tests
+
+on:
+  push:
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Cache pnpm modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-
+      - uses: pnpm/action-setup@v2.2.1
+        with:
+          version: 6.30.1
+          run_install: true
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+          cache: "pnpm"
+      - name: Build extension
+        run: pnpm build
+      - name: Cypress run on Chrome
+        uses: cypress-io/github-action@v2
+        with:
+          install: false
+          start: pnpm run serve
+          wait-on: 'http://localhost:3000'
+      - uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+      - uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: cypress-videos
+          path: cypress/videos
+```
+
+これで、pushと同時にCypressのE2Eテストが実行され、CIで動作を担保できます。また、もしテストが失敗した場合は、GitHub ActionsのArtifactに失敗時の実行動画が保存されます。便利！
+
 
 # 終わりに
 
