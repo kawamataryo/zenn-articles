@@ -248,5 +248,3 @@ jobs:
 https://github.com/kawamataryo/chikamichi/commit/f96e02d13da026a977afc84c299d324f4b11e763
 
 このリファクタリングもE2Eテストがない状態だと、着手に躊躇していたと思います。やはり、E2Eテスト大事ですね。
-
-Cypressでとても柔軟にテストケースをかけるということもわかったので今後の業務でも生かしていきたいです。
