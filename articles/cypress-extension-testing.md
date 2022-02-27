@@ -144,7 +144,7 @@ $ pnpm serve
 $ touch cypress/integration/smaple.spec.js
 ```
 
-ここが一番のポイントなのですが、Chrome拡張機能のAPIを利用するためには、}**Cypressのテスト実行時にChromeのランタイムをモックする**必要があります。
+ここが一番のポイントなのですが、Chrome拡張機能のAPIを利用するためには、**Cypressのテスト実行時にChromeのランタイムをモックする**必要があります。
 
 以下、visitの`onBeforeLoad`のフックで行っている処理が、chormeのランタイムのモックになります。
 
