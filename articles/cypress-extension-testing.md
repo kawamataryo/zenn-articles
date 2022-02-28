@@ -2,15 +2,14 @@
 title: "Cypress + Serve で Chrome拡張機能のE2Eテストを実装する"
 emoji: "🧪"
 type: "tech" # tech: 技術記事 / idea: アイデア
-topics: ["cypress", "test", "serve", "typescript", "chromeExtension"]
-published: false
+topics: ["cypress", "serve", "javascript", "chromeExtension"]
+published: true
 ---
 
 Chrome拡張機能のE2Eテストが書いてみたので手法をまとめます。
 
 # やってみたこと
 [Chikamichi](https://chrome.google.com/webstore/detail/chikamichi-quickly-find-a/gkhobepjbiepngbeikhbpnfgjcjgmgha)という閲覧履歴やタブ、ブックマークを横断検索できるChrome拡張機能を作っているのですが、その拡張機能のリファクタリングの前準備として、E2Eテストを実装してみました。
-この拡張機能はPopupページで動作するので、Popupページを対象にテストしています。
 
 https://twitter.com/KawamataRyo/status/1496457270401826819
 
@@ -23,7 +22,7 @@ https://github.com/kawamataryo/chikamichi
 https://chrome.google.com/webstore/detail/chikamichi-quickly-find-a/gkhobepjbiepngbeikhbpnfgjcjgmgha
 
 # テスト対象のChrome拡張機能の作成
-Vitesse-webextというChrome拡張機能のtemplateリポジトリを使ってサンプルの拡張機能を作成します。
+[Vitesse-webext](https://github.com/antfu/vitesse-webext)というChrome拡張機能のtemplateリポジトリを使ってサンプルの拡張機能を作成します。
 
 https://github.com/antfu/vitesse-webext
 
@@ -142,9 +141,9 @@ $ pnpm serve
 $ touch cypress/integration/smaple.spec.js
 ```
 
-ここが一番のポイントなのですが、Chrome拡張機能のAPIを利用するためには、**Cypressのテスト実行時にChromeのランタイムをモックする**必要があります。
+ここが一番のポイントなのですが、Chrome拡張機能を動かすためには、**Cypressのテスト実行時にChromeのランタイムをモックする**必要があります。
 
-以下、`cy.visit`の`onBeforeLoad`のフックで行っている処理が、chormeのランタイムのモックになります。
+以下、`cy.visit`の`onBeforeLoad`のフックで行っている処理が、chormeのランタイムのモックとなります。
 
 ```js:cypress/integration/sample.spec.js
 describe('App', () => {
@@ -155,7 +154,7 @@ describe('App', () => {
         win.chrome = win.chrome || {}
         win.chrome.runtime = {
           id: '12345',
-          // ボタンクリックで実行されるAPIをモック
+          // ボタンクリックで実行されるAPI
           openOptionsPage: cy.stub().as('openOptionsPage'),
         }
       },
