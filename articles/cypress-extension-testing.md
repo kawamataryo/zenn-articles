@@ -138,7 +138,7 @@ $ pnpm serve
 `cypress/integration` 配下に`sample.ts`を追加します。
 
 ```
-$ touch cypress/integration/smaple.spec.js
+$ touch cypress/integration/sample.spec.js
 ```
 
 ここが一番のポイントなのですが、Chrome拡張機能を動かすためには、**Cypressのテスト実行時にChromeのランタイムをモックする**必要があります。
@@ -172,7 +172,7 @@ describe('App', () => {
 })
 ```
 
-これで`pnpm run dev` と `npx cypress open` にて開発サーバーを起動してから `npx cypress open` でsample.spec.tsのテストを実行すると無事Popupの表示の確認と、ボタンクリックの動作の検証が行えるはずです。
+これで`pnpm run dev` にて開発サーバーを起動してから `npx cypress open` でsample.spec.tsのテストを実行すると無事Popupの表示の確認と、ボタンクリックの動作の検証が行えるはずです。
 
 ![](https://i.gyazo.com/43b11ebef8605722d6b7f5e7ac95794e.png)
 
