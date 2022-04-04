@@ -6,14 +6,12 @@ topics: ["vscode", "python", "typescript"]
 published: false
 ---
 
-はじめて VS Code 拡張機能を公開してみたのでまとめました。
-
 # 🔧 作ったもの
 
 [Copy Python Path](https://marketplace.visualstudio.com/items?itemName=kawamataryo.copy-python-dotted-path) という Python の dotted path をコピーする拡張機能を作りました。
 
-業務で使う Django にてメソッド単位で unittest を実行する際に、dotted path を利用するのですが、それを毎回手動で組み立てるのが面倒でした。
-既存でも dotted path をコピーする拡張機能はあるのですが、どれもファイル単位のパスコピーでイマイチかゆいところに手が届かなかったので、作って見ました。
+Django で unittest を実行する際に、dotted path を使うのですが、それを毎回手動で組み立てるのが面倒でした。
+既存でも dotted path をコピーする拡張機能はあるのですが、どれもファイル単位のパスコピーでクラス・メソッド単位のコピーには対応していなかったので作って見ました。
 
 機能はこちらです。
 
