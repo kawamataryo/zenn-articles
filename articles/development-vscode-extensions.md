@@ -8,7 +8,7 @@ published: false
 
 はじめて VS Code 拡張機能を公開してみたのでまとめました。
 
-# 作ったもの
+# 🔧 作ったもの
 
 Copy Python Path というPythonのdotted pathをコピーする拡張機能を作りました。
 
@@ -28,7 +28,7 @@ https://marketplace.visualstudio.com/items?itemName=kawamataryo.copy-python-dott
 またコードもこちらで公開しています。
 https://github.com/kawamataryo/copy-python-path
 
-# 仕組み & 工夫したところ
+# 🦾 仕組み & 工夫したところ
 
 ## JS で Python コードを AST にパースしてメソッド・クラス定義を解析
 ファイルまでの相対パスだけならば VS Code のAPIから取得できるのですが、クラス・メソッドの定義までのパスとなると、VS Code のAPIから取得することはできません。
@@ -115,19 +115,207 @@ dt-parserでクラス名・メソッド名と、その定義位置を取得し�
 
 以下の画像のようにテストを実行すると、VS Code が別プロセスで立ち上がり実際コマンドを実行してくれます。
 
-実は VS Code 拡張機能のテストの方法は、ほぼほぼ情報がなくとても苦労しました。
+![](https://i.gyazo.com/83a568023b703b8d9fbff5e93d5fa5b2.gif)
 
-実際のテスト APIの使い方などは、ほぼほぼ情報がありませんでした。VS Codeのドキュメントにも詳細な記載はなしです。
-Microsoftの出している拡張機能の実際のテストコードをみることが一番良いと思います。
+テストコードはこちらです。
 
-## JS で Python コードを AST にパースしてメソッド・クラス定義を解析
+```ts:src/test/suite/extension.test.ts
+import * as assert from 'assert';
+import * as vscode from 'vscode';
 
-# CI
+const sleep = (ms: number): Promise<void> => {
+	return new Promise((resolve) => {
+		setTimeout(resolve, ms);
+	});
+};
 
-CI 
+const executeCommandWithWait = async (command: string): Promise<any> => {
+	await sleep(500);
+	await vscode.commands.executeCommand(COMMAND_NAME);
+	await sleep(1000);
+};
+
+const COMMAND_NAME = 'copy-python-path.copy-python-path';
+
+const testFileLocation = '/pythonApp/example.py';
+// test file is following code
+/* 
+class ClassA:
+		def class_a_method_a():
+				pass
+		class ClassB:
+			 def class_b_method_a():
+					 pass
+class ClassD:
+		def class_d_method_a():
+			 pass
+*/
+
+suite('Extension Test Suite', () => {
+	vscode.window.showInformationMessage('Start all tests.');
+	let editor: vscode.TextEditor;
+
+	setup(async () => {
+		// open folder
+		const fileUri = vscode.Uri.file(vscode.workspace.workspaceFolders![0].uri.fsPath + testFileLocation);
+		const document = await vscode.workspace.openTextDocument(fileUri);
+		editor = await vscode.window.showTextDocument(document);
+	});
+
+	test('selected class lines', async () => {
+		editor.selection = new vscode.Selection(new vscode.Position(0, 0), new vscode.Position(0, 0));
+
+		await executeCommandWithWait(COMMAND_NAME);
+
+		assert.strictEqual(await vscode.env.clipboard.readText(), 'pythonApp.example.ClassA');
+	});
+
+	test('selected method lines', async () => {
+		editor.selection = new vscode.Selection(new vscode.Position(1, 0), new vscode.Position(1, 0));
+
+		await executeCommandWithWait(COMMAND_NAME);
+
+		assert.strictEqual(await vscode.env.clipboard.readText(), 'pythonApp.example.ClassA.class_a_method_a');
+	});
+
+	test('selected nested class lines', async () => {
+		editor.selection = new vscode.Selection(new vscode.Position(4, 0), new vscode.Position(4, 0));
+
+		await executeCommandWithWait(COMMAND_NAME);
+
+		assert.strictEqual(await vscode.env.clipboard.readText(), 'pythonApp.example.ClassA.ClassB');
+	});
+
+	test('selected nested method lines', async () => {
+		editor.selection = new vscode.Selection(new vscode.Position(5, 0), new vscode.Position(5, 0));
+
+		await executeCommandWithWait(COMMAND_NAME);
+
+		assert.strictEqual(await vscode.env.clipboard.readText(), 'pythonApp.example.ClassA.ClassB.class_b_method_a');
+	});
+
+	test('selected other class lines', async () => {
+		editor.selection = new vscode.Selection(new vscode.Position(9, 0), new vscode.Position(9, 0));
+
+		await executeCommandWithWait(COMMAND_NAME);
+
+		assert.strictEqual(await vscode.env.clipboard.readText(), 'pythonApp.example.ClassD');
+	});
+
+	test('selected lines other than symbol', async () => {
+		editor.selection = new vscode.Selection(new vscode.Position(12, 0), new vscode.Position(12, 0));
+
+		await executeCommandWithWait(COMMAND_NAME);
+
+		assert.strictEqual(await vscode.env.clipboard.readText(), 'pythonApp.example');
+	});
+});
+```
+
+カーソル位置を移動しながら、コマンドを実行し、クリップボードへのコピー結果を検証しています。
+
+実は VS Code 拡張機能のテストの方法は、ほぼほぼ情報がなくとても苦労しました。VS Codeのドキュメントにも Hello World レベルの簡単なテスト記載しかなく、結局、Microsoftの出している拡張機能の実際のテストコードをみながら、ながら、テストを書きました。
+
+## GitHub Actions でのCI環境の整備
+
+VS Code のドキュメントにCIの情報があったので、そちらを参考にE2Eテストと拡張機能のリリースのCIを GitHub Actions で組んでみました。
+
+GitHub Actionsのイメージに必要なパッケージは入っているようで、ほぼ考慮点はなく実行することができました。
+
+以下が E2E テストの GitHub Actions です。
+Mac と Linux（ubuntu）と Windowsのイメージで並列してテストを実しています。
+
+https://github.com/kawamataryo/copy-python-path/blob/main/.github/workflows/e2e-test.yml
+```yml:.github/workflows/e2e-test.yml
+name: E2E
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: '16'
+        cache: 'yarn'
+    - name: Install dependencies
+      run: yarn install
+    # xvfb is required to run vscode on linux
+    - name: Run test on linux
+      run: xvfb-run -a yarn test
+      if: runner.os == 'Linux'
+    - name: Run test on Mac and Windows
+      run: yarn test
+      if: runner.os != 'Linux'
+```
 
 :::message
 実際に自分の作っていた拡張機能をGitHub Actionsで動かした際に、Windowsのビルドだけテストが落ちて、プラットフォーム依存のバグがあることに気付けました。テストはやはり大事。
 :::
 
-# 公開
+リリースはこちらです。
+
+```yml:.github/workflows/release.yml
+name: release
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_type:
+        description: 'select release type'
+        type: choice
+        options:
+         - patch
+         - minor
+         - major
+        required: true
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: '16'
+        cache: 'yarn'
+    - name: Install dependencies
+      run: yarn install
+    # xvfb is required to run vscode on linux
+    - name: Run test on linux
+      run: xvfb-run -a yarn test
+      if: runner.os == 'Linux'
+    - name: Run test on Mac and Windows
+      run: yarn test
+      if: runner.os != 'Linux'
+    - name: Publish
+      if: success() && matrix.os == 'ubuntu-latest'
+      run: |
+        git config --global user.name "${GITHUB_ACTOR}"
+        git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+        yarn run deploy -- ${{ github.event.inputs.release_type }}
+      env:
+        VSCE_PAT: ${{ secrets.VSCE_PAT }}
+```
+
+リリースバージョンを管理するために、リリース種別をオプションで受け取る手動ワークフローとしています。
+E2EテストのCIと同じ処理の実行後、リリースのスクリプトを実行しています。
+リリース自体は[vsce](https://github.com/microsoft/vscode-vsce)を利用しているのですが、その内部でバージョンのコミットが走るので、それ用bに git config も設定しています。
+
+
+# おわりに
+
+開発を思い立って3日程で公開できたので、かなりスピード感をもって開発できてよかったなと思いました。今回で基礎は学べたので、今後も VS Code 拡張開発や既存の拡張へのPRなど積極的に行っていきたいです。
