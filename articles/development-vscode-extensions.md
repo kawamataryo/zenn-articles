@@ -10,32 +10,33 @@ published: false
 
 # 🔧 作ったもの
 
-Copy Python Path というPythonのdotted pathをコピーする拡張機能を作りました。
+[Copy Python Path](https://marketplace.visualstudio.com/items?itemName=kawamataryo.copy-python-dotted-path) というPythonのdotted pathをコピーする拡張機能を作りました。
 
-業務で Django を使っていて、メソッド単位で unittest を実行する際に、dotted path を利用するのですが、それを毎回手動で組み立てるのが面倒でした。既存でもdotted pathをコピーする拡張機能はあるのですが、どれもファイル単位のパスコピーでイマイチかゆいところに手が届かなかったので、作って見ました。
+業務で使う Django にてメソッド単位で unittest を実行する際に、dotted path を利用するのですが、それを毎回手動で組み立てるのが面倒でした。
+既存でもdotted pathをコピーする拡張機能はあるのですが、どれもファイル単位のパスコピーでイマイチかゆいところに手が届かなかったので、作って見ました。
 
 機能はこちらです。
 
-* クラス or メソッドの定義行でコマンドランチャー又はコンテキストメニューからコマンドを実行すると、そのクラス or メソッドまでの dotted path をクリップボードにコピーする
-* クラス or メソッドの定義行以外でコマンドランチャー又はコンテキストメニューからコマンドを実行すると、そのファイルまでの dotted path をクリップボードにコピーする
+* クラス or メソッドの定義行でコマンドを実行すると、そのクラス or メソッドまでの dotted path をクリップボードにコピーする
+* クラス or メソッドの定義行以外でコマンドを実行すると、そのファイルまでの dotted path をクリップボードにコピーする
 
 ![](https://i.gyazo.com/fe88befdaea034eff0adfd4caacd028f.gif)
 
-こちらからインストールできます。レビューを頂けると泣いて喜びます。
+こちらからインストールできます。レビューをもらえると泣いて喜びます。
 
 https://marketplace.visualstudio.com/items?itemName=kawamataryo.copy-python-dotted-path
 
-またコードもこちらで公開しています。
+コードもこちらで公開しています。
 https://github.com/kawamataryo/copy-python-path
 
 # 🦾 仕組み & 工夫したところ
 
-## JS で Python コードを AST にパースしてメソッド・クラス定義を解析
+## JS で Python コードをパースしてメソッド・クラス定義を解析
 ファイルまでの相対パスだけならば VS Code のAPIから取得できるのですが、クラス・メソッドの定義までのパスとなると、VS Code のAPIから取得することはできません。
 
 正確にクラス・メソッド名、定義位置（階層構造）を取得するためには Python コードをパースする必要がありました。
 
-そこで今回は、 [ANTLR4](https://github.com/antlr/antlr4) [dt-python-parser] ベースのパーサージェネレーターであるdt-python-parser を使ってみました。
+そこで今回は、 [ANTLR4](https://github.com/antlr/antlr4) ベースのパーサージェネレーターである [dt-python-parser]() を使ってみました。
 
 https://www.npmjs.com/package/dt-python-parser
 
@@ -121,6 +122,9 @@ dt-parserでクラス名・メソッド名と、その定義位置を取得し�
 
 ```ts:src/test/suite/extension.test.ts
 import * as assert from 'assert';
+
+// You can import and use all API from the 'vscode' module
+// as well as import your extension to test it
 import * as vscode from 'vscode';
 
 const sleep = (ms: number): Promise<void> => {
@@ -138,14 +142,15 @@ const executeCommandWithWait = async (command: string): Promise<any> => {
 const COMMAND_NAME = 'copy-python-path.copy-python-path';
 
 const testFileLocation = '/pythonApp/example.py';
-// test file is following code
-/* 
+/* test file is following code
 class ClassA:
 		def class_a_method_a():
 				pass
+
 		class ClassB:
 			 def class_b_method_a():
 					 pass
+
 class ClassD:
 		def class_d_method_a():
 			 pass
@@ -210,6 +215,7 @@ suite('Extension Test Suite', () => {
 		assert.strictEqual(await vscode.env.clipboard.readText(), 'pythonApp.example');
 	});
 });
+
 ```
 
 カーソル位置を移動しながら、コマンドを実行し、クリップボードへのコピー結果を検証しています。
