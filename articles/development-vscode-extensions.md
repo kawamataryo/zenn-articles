@@ -44,25 +44,7 @@ dt-python-parser を使った copy-python-path の解析部分のコードはこ
 https://github.com/kawamataryo/copy-python-path/blob/main/src/utils/getRelatedDefinedSymbols.ts
 
 ```ts:src/utils/getDefinedParentSymbols.ts
-import { Python3Parser, Python3Listener } from 'dt-python-parser';
-
-const getDefinedParentSymbols = (symbol: DefinedSymbol, symbols: DefinedSymbol[], result: DefinedSymbol[] = []): DefinedSymbol[] => {
-  const parentSymbol = symbols.filter(s => s.column < symbol.column).sort((l, r) => {
-    const lDistance = symbol.line - l.line;
-    const rDistance = symbol.line - r.line;
-    if (lDistance > 0 && lDistance < rDistance) {
-      return -1;
-    } else {
-      return 1;
-    }
-  })[0];
-
-  if (parentSymbol.column === 0) {
-    return [parentSymbol, ...result];
-  }
-
-  return getDefinedParentSymbols(parentSymbol, symbols, [parentSymbol, ...result]);
-};
+// ...
 
 /**
  * Get defined symbols related to the selected rows from a python file. e.g. Class name, function name
@@ -107,12 +89,12 @@ export const getRelatedDefinedSymbols = (text: string, lineNumber: number): stri
 };
 ```
 
-dt-parser でクラス名・メソッド名と、その定義位置を取得し、再帰処理でコードの構造に合わせて並び替えた配列を作っています。
+dt-parser でクラス名・メソッド名と、その定義位置を取得しコードの構造に合わせて並び替えた配列を作っています。
+コード構造に合わせた並び替えは、`getDefinedParentSymbols`内にて再帰処理で行っています。
 
 ## E2E テストで動作を担保
 
 仕組みは簡単な拡張機能ですが、継続してメンテナンスしやすいように E2E テストを追加してみました。
-
 以下の画像のようにテストを実行すると、VS Code が別プロセスで立ち上がり実際コマンドを実行してくれます。
 
 ![](https://i.gyazo.com/83a568023b703b8d9fbff5e93d5fa5b2.gif)
@@ -140,8 +122,8 @@ const executeCommandWithWait = async (command: string): Promise<any> => {
 
 const COMMAND_NAME = 'copy-python-path.copy-python-path';
 
-const testFileLocation = '/pythonApp/example.py';
-/* test file is following code
+// example.py is following code
+/*
 class ClassA:
     def class_a_method_a():
         pass
@@ -154,6 +136,7 @@ class ClassD:
     def class_d_method_a():
        pass
 */
+const testFileLocation = '/pythonApp/example.py';
 
 suite('Extension Test Suite', () => {
   vscode.window.showInformationMessage('Start all tests.');
@@ -190,42 +173,23 @@ suite('Extension Test Suite', () => {
     assert.strictEqual(await vscode.env.clipboard.readText(), 'pythonApp.example.ClassA.ClassB');
   });
 
-  test('selected nested method lines', async () => {
-    editor.selection = new vscode.Selection(new vscode.Position(5, 0), new vscode.Position(5, 0));
-
-    await executeCommandWithWait(COMMAND_NAME);
-
-    assert.strictEqual(await vscode.env.clipboard.readText(), 'pythonApp.example.ClassA.ClassB.class_b_method_a');
-  });
-
-  test('selected other class lines', async () => {
-    editor.selection = new vscode.Selection(new vscode.Position(9, 0), new vscode.Position(9, 0));
-
-    await executeCommandWithWait(COMMAND_NAME);
-
-    assert.strictEqual(await vscode.env.clipboard.readText(), 'pythonApp.example.ClassD');
-  });
-
-  test('selected lines other than symbol', async () => {
-    editor.selection = new vscode.Selection(new vscode.Position(12, 0), new vscode.Position(12, 0));
-
-    await executeCommandWithWait(COMMAND_NAME);
-
-    assert.strictEqual(await vscode.env.clipboard.readText(), 'pythonApp.example');
-  });
+  // ...
 });
 
 ```
 
 カーソル位置を移動しながら、コマンドを実行し、クリップボードへのコピー結果を検証しています。
+適宜、setTimeoutを使い実行感覚を開けている所がポイントです。
 
-実は VS Code 拡張機能のテストの方法は、ほぼほぼ情報がなくとても苦労しました。VS Code のドキュメントにも Hello World レベルの簡単なテスト記載しかなく、結局、Microsoft の出している拡張機能の実際のテストコードをみながら、ながら、テストを書きました。
+実は VS Code 拡張機能のテストの方法は、ほぼほぼ情報がなくとても苦労しました。VS Code のドキュメントにも Hello World レベルの簡単なテスト記載しかなく、結局、Microsoft の出している拡張機能の実際のテストコードをみながらテストを書きました。
+
+※ 参考になったリポジトリ
+https://github.com/microsoft/vscode/tree/main/extensions/typescript-language-features/src/test
 
 ## GitHub Actions での CI 環境の整備
 
 VS Code のドキュメントに CI の情報があったので、そちらを参考に E2E テストと拡張機能のリリースの CI を GitHub Actions で組んでみました。
-
-GitHub Actions のイメージに必要なパッケージは入っているようで、ほぼ考慮点はなく実行することができました。
+GitHub Actions のイメージに VS Code の起動に必要なパッケージは入っているようで、ほぼ考慮点はなく実行することができました。
 
 以下が E2E テストの GitHub Actions です。
 Mac と Linux（ubuntu）と Windows のイメージで並列してテストを実しています。
@@ -319,8 +283,8 @@ jobs:
 
 リリースバージョンを管理するために、リリース種別をオプションで受け取る手動ワークフローとしています。
 E2E テストの CI と同じ処理の実行後、リリースのスクリプトを実行しています。
-リリース自体は[vsce](https://github.com/microsoft/vscode-vsce)を利用しているのですが、その内部でバージョンのコミットが走るので、それ用 b に git config も設定しています。
+リリース自体は[vsce](https://github.com/microsoft/vscode-vsce)を利用しているのですが、その内部でバージョンのコミットが走るので、それ用に git config も設定しています。
 
 # おわりに
 
-開発を思い立って 3 日程で公開できたので、かなりスピード感をもって開発できてよかったなと思いました。今回で VS Code 拡張機能開発の基礎は学べたので、今後も色々便利な拡張機能の開発や既存の拡張機能への PR など積極的に行っていきたいです。
+開発を思い立って数日で公開できたので、かなりスピード感をもって開発できてよかったなと思いました。今回で VS Code 拡張機能開発の基礎は学べたので、今後も色々便利な拡張機能の開発や既存の拡張機能への PR など積極的に行っていきたいです。
