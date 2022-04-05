@@ -10,7 +10,7 @@ published: false
 
 [Copy Python Path](https://marketplace.visualstudio.com/items?itemName=kawamataryo.copy-python-dotted-path) という Python の dotted path （例 `foo.hoge.class`）をコピーする拡張機能を作りました。
 
-Django で unittest を実行する際に、dotted path を使うのですが、それを毎回手動で組み立てるのが面倒でした。また、既存でも dotted path をコピーする拡張機能はあるのですが、どれもファイル単位のパスコピーまでで、クラス・メソッド単位までのコピーには対応していなかったので作って見ました。
+Django で unittest を実行する際に、dotted path を使うのですが、それを毎回手動で組み立てるのが面倒で作りました。
 
 機能はこちらです。
 
@@ -18,6 +18,10 @@ Django で unittest を実行する際に、dotted path を使うのですが、
 - クラス or メソッドの定義行以外でコマンドを実行すると、ルートからそのファイルまでの dotted path をクリップボードにコピーする
 
 ![](https://i.gyazo.com/fe88befdaea034eff0adfd4caacd028f.gif)
+
+:::message
+既存でも dotted path をコピーする拡張機能はあるのですが、どれもファイル単位のパスコピーまでで、クラス・メソッド単位までのコピーには対応していませんでした。
+:::
 
 こちらからインストールできます。レビューをもらえると泣いて喜びます。
 
