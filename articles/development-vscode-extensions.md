@@ -107,17 +107,7 @@ dt-parser でクラス名・メソッド名と、その定義位置を取得し�
 テストコードはこちらです。
 
 ```ts:src/test/suite/extension.test.ts
-import * as assert from 'assert';
-
-// You can import and use all API from the 'vscode' module
-// as well as import your extension to test it
-import * as vscode from 'vscode';
-
-const sleep = (ms: number): Promise<void> => {
-  return new Promise((resolve) => {
-    setTimeout(resolve, ms);
-  });
-};
+// ...
 
 const executeCommandWithWait = async (command: string): Promise<any> => {
   await sleep(500);
