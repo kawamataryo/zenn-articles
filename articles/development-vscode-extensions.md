@@ -8,14 +8,14 @@ published: false
 
 # 🔧 作ったもの
 
-[Copy Python Path](https://marketplace.visualstudio.com/items?itemName=kawamataryo.copy-python-dotted-path) という Python の dotted path （例 foo.hoge.class）をコピーする拡張機能を作りました。
+[Copy Python Path](https://marketplace.visualstudio.com/items?itemName=kawamataryo.copy-python-dotted-path) という Python の dotted path （例 `foo.hoge.class`）をコピーする拡張機能を作りました。
 
-Django で unittest を実行する際に、dotted path を使うのですが、それを毎回手動で組み立てるのが面倒でした。既存でも dotted path をコピーする拡張機能はあるのですが、どれもファイル単位のパスコピーでクラス・メソッド単位のコピーには対応していなかったので作って見ました。
+Django で unittest を実行する際に、dotted path を使うのですが、それを毎回手動で組み立てるのが面倒でした。また、既存でも dotted path をコピーする拡張機能はあるのですが、どれもファイル単位のパスコピーまでで、クラス・メソッド単位までのコピーには対応していなかったので作って見ました。
 
 機能はこちらです。
 
-- クラス or メソッドの定義行でコマンドを実行すると、そのクラス or メソッドまでの dotted path をクリップボードにコピーする
-- クラス or メソッドの定義行以外でコマンドを実行すると、そのファイルまでの dotted path をクリップボードにコピーする
+- クラス or メソッドの定義行でコマンドを実行すると、ルートからそのクラス or メソッドまでの dotted path をクリップボードにコピーする
+- クラス or メソッドの定義行以外でコマンドを実行すると、ルートからそのファイルまでの dotted path をクリップボードにコピーする
 
 ![](https://i.gyazo.com/fe88befdaea034eff0adfd4caacd028f.gif)
 
@@ -31,7 +31,6 @@ https://github.com/kawamataryo/copy-python-path
 ## JS で Python コードをパースしてメソッド・クラス定義を解析
 
 ファイルまでの相対パスだけならば VS Code の API から取得できるのですが、クラス・メソッドの定義までのパスとなると、VS Code の API から取得することはできません。
-
 正確にクラス・メソッド名、定義位置（階層構造）を取得するためには Python コードをパースする必要がありました。
 
 そこで今回は、 [ANTLR4](https://github.com/antlr/antlr4) ベースのパーサージェネレーターである [dt-python-parser]() を使ってみました。
