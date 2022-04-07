@@ -3,7 +3,7 @@ title: "Python の dotted path をコピーする VS Code 拡張機能を作っ�
 emoji: "🫐"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["vscode", "python", "typescript"]
-published: false
+published: true
 ---
 
 # 🔧 作ったもの
