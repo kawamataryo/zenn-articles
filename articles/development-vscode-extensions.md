@@ -8,9 +8,8 @@ published: true
 
 # 🔧 作ったもの
 
-[Copy Python Path](https://marketplace.visualstudio.com/items?itemName=kawamataryo.copy-python-dotted-path) という Python の dotted path （例 `foo.hoge.class`）をコピーする拡張機能を作りました。
-
-Django で unittest を実行する際に、dotted path を使うのですが、それを毎回手動で組み立てるのが面倒で作りました。
+[Copy Python Path](https://marketplace.visualstudio.com/items?itemName=kawamataryo.copy-python-dotted-path) という Python の dotted path （例 `foo.hoge.class`）をコピーする拡張機能を作ってみました。
+開発理由は、Django で unittest を実行する際に、dotted path を使うのですが、それを毎回手動で組み立てるのが面倒だったからです。
 
 機能はこちらです。
 
