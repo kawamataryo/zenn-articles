@@ -1,5 +1,5 @@
 ---
-title: "TypeScriptの型チェックを厳しくしたい全ての人へ〜suppress-ts-errorsの紹介"
+title: "TypeScriptの型チェックを厳格化したい全ての人へ〜suppress-ts-errorsの紹介"
 emoji: "🚨"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["typescript", "compilerApi", "ts-morph", "cli"]
