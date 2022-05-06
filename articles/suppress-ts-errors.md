@@ -117,7 +117,7 @@ Vitest は[Vite](https://ja.vitejs.dev/)以外のプロジェクトでなくて�
 以下実際のテストコードです。Jest 同様 Parameterize なテストも書けるので、効率的にパターンを網羅することができました。
 TypeScript の設定等も不要で即利用できる点、高速に動作する点がとても良かったです。
 
-https://github.com/kawamataryo/suppress-ts-errors/blob/main/src/lib/__tests__/suppressTsErrors.test.ts#L5-L182
+https://github.com/kawamataryo/suppress-ts-errors/blob/main/src/lib/%5F%5Ftests%5F%5F/suppressTsErrors.test.ts#L5-L182
 
 # おわりに
 
