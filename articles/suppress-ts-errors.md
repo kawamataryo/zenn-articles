@@ -100,17 +100,16 @@ TypeScript Compiler API に直接`.vue`ファイルの中身を追加するこ�
 5. コメント挿入したコードで、対象の Vue ファイルの script 部分を書き換え保存
 ```
 
-以下が Vue ファイルの処理部分です。
+Vue ファイルの処理部分はこちらです。
 
 https://github.com/kawamataryo/suppress-ts-errors/blob/main/src/handlers/vueHandler.ts#L9-L69
 
-ポイントは一度すべての`vue`ファイル内部の TypeScript を Compiler API の Project に追加してから、個々のファイルの型チェックを行うことです。
+ポイントは一度すべての`vue`ファイル内部の TypeScript を Compiler API の Project に追加してから、個々のファイルの型チェックを行っている点です。
 そうしなければ、それぞれの`vue`ファイルの import を解決できず不要なエラーが認識されてしまいます。
 
 ## Vitest での Unit Test
 
-TypeScript Compiler API はドキュメントもほぼなく、型定義から API を読み取り開発する必要があったため、効率よくコーディング・動作確認のサイクルを回す必要がありました。
-そのため、まずテストを書きその後実装を書いていくという TDD 風に開発を行ったのですが、その際のテストツールとして、最近話題の[Vitest](https://vitest.dev/)を使ってみました。
+TypeScript Compiler API はドキュメントもほぼなく、型定義から API を読み取り開発する必要があったため、まずテストを書きその後動かしながら実装を確認しつつ書いていくという TDD 風で開発しました。その際のテストツールとして、最近話題の[Vitest](https://vitest.dev/)を使ってみました。
 
 https://vitest.dev/
 
@@ -123,5 +122,4 @@ https://github.com/kawamataryo/suppress-ts-errors/blob/main/src/lib/%5F%5Ftests%
 
 # おわりに
 
-以上、[suppress-ts-errors](https://github.com/kawamataryo/suppress-ts-errors) の紹介でした。TypeScript Compiler API へのチャレンジや、Vitest の導入などもできて作っていてとても楽しいツール開発でした。
-自分と同じように、TypeScript の型チェックの厳格化に悩む人の助けになれば嬉しいです。
+以上、[suppress-ts-errors](https://github.com/kawamataryo/suppress-ts-errors) の紹介でした。個人的に試してみたかった TypeScript Compiler API、Vitest の導入などもできて良かったです。作っていてとても楽しいツール開発でした。自分と同じように、TypeScript の型チェックの厳格化に悩む人の助けになれば嬉しいです。
