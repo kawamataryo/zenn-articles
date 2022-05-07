@@ -34,9 +34,9 @@ https://github.com/kawamataryo/suppress-ts-errors
 :::message
 この CLI ツールを作るにあたっては以下記事から実装のヒントを頂きました。感謝 🙏
 
-https://mizchi.dev/202006232052-rewrite-to-ts-with-expect-error
-https://blog.nnn.dev/entry/2022/03/10/110000
-:::
+- [ts-expect-error を付与しながら .js を .ts に一括で書き換える - mizdev](https://mizchi.dev/202006232052-rewrite-to-ts-with-expect-error)
+- [TypeScript Compiler API を使って ts-expect-error を一括挿入する - ドワンゴ教育サービス開発者ブログ](https://blog.nnn.dev/entry/2022/03/10/110000)
+  :::
 
 # 🚀 使い方
 
