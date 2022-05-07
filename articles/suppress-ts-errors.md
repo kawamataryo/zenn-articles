@@ -6,13 +6,13 @@ topics: ["typescript", "compilerApi", "ts-morph", "cli"]
 published: false
 ---
 
-TypeScript の型チェックを厳格化したいが既存の型エラーが多すぎてやむなく緩い型チェックにしている方へ、改善の助けになりそうなツールを作ったので紹介です。
+TypeScript の型チェックを厳格化したいが既存の型エラーが多すぎて、やむなく緩い型チェックにしている方へ改善の助けになりそうなツールを作ったので紹介です。
 
 # 🔧 作ったもの
 
-[suppress-ts-errors](https://github.com/kawamataryo/suppress-ts-errors)というプロジェクトのコードベースを走査して、型エラーがあるコードすべてに自動的に、`@ts-expect-error`または`@ts-ignore`のコメントを追加する CLI ツールを作りました。
+プロジェクトのコードベースを走査して、型エラーがあるコードすべてに`@ts-expect-error`または`@ts-ignore`のコメントを追加する [suppress-ts-errors](https://github.com/kawamataryo/suppress-ts-errors) という CLI ツールを作りました。
 
-以下の Gif のように npx 経由で簡単に利用できます。
+以下の GIF のように npx 経由で簡単に利用できます。
 
 ![Kapture 2022-05-01 at 15 35 50](https://user-images.githubusercontent.com/11070996/166135217-82e23b1e-7c9f-40c3-88ad-985b021b842a.gif)
 
@@ -24,9 +24,9 @@ https://github.com/kawamataryo/suppress-ts-errors
 
 ## なぜ作った？
 
-現職のプロジェクトにて型チェックを厳格化できていない（`strict: true`にできない）状況を改善したいと思ったからです。
+現職のプロジェクトにて型チェックを厳格化できていない（`strict: true`にできていない）という状況を改善したいと思ったからです。
 
-一般的には「既存の型エラーをすべて直し、その上で型チェックを厳格化する」だと思いますが、現職のプロジェクトはもともと JavaScript で書かれていたものを TypeScript にマイグレーションしたということもあり既存のエラーがあまりにも多く、すべてを解消するには多くの工数が必要で着手に踏み切れない状況でした。
+一般的には「既存の型エラーをすべて直し、その上で型チェックを厳格化する」だと思いますが、現職のプロジェクトはもともと JavaScript で書かれていたものを TypeScript にマイグレーションしたということもあり既存のエラーがあまりにも多く、すべてを一括で解消するには多くの工数が必要で着手に踏み切れない状況でした。
 
 その間にも、新機能はどんどん開発されていき、新たに型エラーを含むコードが生まれやすい状況でした。それを解消するために、まず先に型チェックを厳格化して、新規追加のコードは型に守られた状態とし、その状態で安全に既存コードの改修に取り掛かりたいと考えました。
 そのためには、既存の膨大な型エラーすべてに型エラーを無効化するコメント（`@ts-expect-error`又は`@ts-ignore`）を追加する必要があり、それを自動化するためにこのこの CLI ツールを開発しました。
@@ -121,6 +121,5 @@ https://github.com/kawamataryo/suppress-ts-errors/blob/main/src/lib/%5F%5Ftests%
 
 # おわりに
 
-以上、[suppress-ts-errors](https://github.com/kawamataryo/suppress-ts-errors) の紹介でした。TypeScript Compiler API へのチャレンジや、Vitest の導入などもできて作っていてとても楽しいツール開発でした。業務でも即生かすことができて満足です。
-
-自分と同じように、TypeScript の型厳格化に悩む人の助けになれば嬉しいです。
+以上、[suppress-ts-errors](https://github.com/kawamataryo/suppress-ts-errors) の紹介でした。TypeScript Compiler API へのチャレンジや、Vitest の導入などもできて作っていてとても楽しいツール開発でした。
+自分と同じように、TypeScript の型チェックの厳格化に悩む人の助けになれば嬉しいです。
