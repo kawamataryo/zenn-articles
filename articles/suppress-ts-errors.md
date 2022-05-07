@@ -18,7 +18,7 @@ TypeScript の型チェックを厳格化したいが既存の型エラーが多
 
 さらに、ts、tsx だけでなく**Vue SFC のスクリプト部分へのコメント追加にも対応**しています。
 
-コードもこちらで公開しています。
+コードはこちらです。⭐ を貰えると泣いて喜びます。
 
 https://github.com/kawamataryo/suppress-ts-errors
 
