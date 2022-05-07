@@ -73,7 +73,7 @@ $ npx suppress-ts-errors vue "src/**/*.vue"
 
 ## ts-morph での TypeScript Compiler API の操作
 
-型エラーの判定やコメントの挿入は、TypeScript Compiler API で行っています。そのまま Compiler API を使うでも良かったのですが、のですが、[ts-morph](https://github.com/dsherret/ts-morph) という Compiler API を使いやすくする API を提供しているラッパーライブラリがあったので、そちらを使いました。
+型エラーの判定やコメントの挿入は、TypeScript Compiler API にて行っています。そのまま Compiler API を使うでも良かったのですが、[ts-morph](https://github.com/dsherret/ts-morph) という Compiler API を使いやすくするラッパーライブラリがあったので、そちらを利用しました。
 
 https://github.com/dsherret/ts-morph
 
@@ -85,18 +85,20 @@ https://github.com/kawamataryo/suppress-ts-errors/blob/main/src/lib/suppressTsEr
 
 https://github.com/kawamataryo/suppress-ts-errors/blob/main/src/handlers/tsHandler.ts#L5-L37
 
-ts-morph を使ったおかげで、簡単に見通しよく Compiler API を使うことができたので良かったです。
+ts-morph を使ったおかげで、見通しよく Compiler API を使うことができたので良かったです。
 
 ## Vue の SFC への対応
 
 現職のプロダクトが Vue の SFC を使って書かれており、その SFC 内の Script でも大量の型エラーが発生しているという状況があったので、そちらも改善するためにも Vue に対応する必要がありました。
 TypeScript Compiler API に直接`.vue`ファイルの中身を追加することは出来ないので以下手順で対応しています。
 
+```
 1. 検査対象の Vue ファイル一覧を取得
 2. 個々の Vue ファイルから`<script lang=“ts”>`の script 部分を抽出
 3. script 部分を TypeScript Compiler API の Project にセット
 4. 型チェックを行い、コメント挿入したコードを作る
 5. コメント挿入したコードで、対象の Vue ファイルの script 部分を書き換え保存
+```
 
 以下が Vue ファイルの処理部分です。
 
