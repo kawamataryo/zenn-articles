@@ -123,3 +123,7 @@ https://github.com/kawamataryo/suppress-ts-errors/blob/main/src/lib/%5F%5Ftests%
 # おわりに
 
 以上、[suppress-ts-errors](https://github.com/kawamataryo/suppress-ts-errors) の紹介でした。個人的に試してみたかった TypeScript Compiler API、Vitest の導入などもできて良かったです。作っていてとても楽しいツール開発でした。自分と同じように、TypeScript の型チェックの厳格化に悩む人の助けになれば嬉しいです。
+
+不具合等あれば、気軽に Issue お願いします！
+
+https://github.com/kawamataryo/suppress-ts-errors
