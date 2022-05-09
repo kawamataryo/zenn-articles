@@ -3,7 +3,7 @@ title: 'TypeScriptを"strict: true"で使いたい全ての人へ〜suppress-ts-
 emoji: "💎"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["typescript", "compilerApi", "ts-morph", "cli"]
-published: false
+published: true
 ---
 
 TypeScript の型チェックを厳格化したいが既存の型エラーが多すぎて、やむなく緩い型チェックにしている方へ改善の助けになりそうなツールを作ったので紹介です。
