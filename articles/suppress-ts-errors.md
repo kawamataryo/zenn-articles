@@ -1,6 +1,6 @@
 ---
 title: 'TypeScriptを"strict: true"で使いたい全ての人へ〜suppress-ts-errorsの紹介'
-emoji: "🚨"
+emoji: "💎"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["typescript", "compilerApi", "ts-morph", "cli"]
 published: false
