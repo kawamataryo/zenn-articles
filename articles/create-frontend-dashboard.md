@@ -1,0 +1,257 @@
+---
+title: "zx + Datadog + GitHub Actions でコードベースの健全性を可視化する"
+emoji: "〽️"
+type: "tech"
+topics: ["zx", "datadog", "typescript", "shell"]
+published: false
+---
+
+構成メモ
+* 伝えたいこと
+  * zxでこんなダッシュボードを作れる
+  * 負債を可視化することの
+* 迷い
+  * タイトルで健全性でいいのかな？
+    * 健全性以外の言葉あるのか？
+    * 負債とか
+  * 可視化で良いのか？継続観察とかでも良いのか？
+  * なぜ作ったが難しいな？これが解決する課題ってなんだろう？
+  * 基本構成が伝わりにくいな..
+    * なんでだろう？
+      * 前提としてディレクトリ構成をツリー図で先に共有しておくと良いかも
+
+
+# 作ったもの
+
+zx と Datadog、GitHub Actions を使って以下画像のように、フロントエンドのコードベースの健全性を表す各指標を可視化するダッシュボードを作りました。
+
+![](https://i.gyazo.com/9a6e98c34fe8458c20c832fbea0c88c3.png)
+*値は各指標の値はデモ用に書き換えています*
+
+
+今現在、計測している指標はこちらです。
+
+* Vue SFCファイルにしめるTypeScriptの割合
+* Vue SFCファイルにしめるComposition APIの割合
+* strict: trueにした場合のType Errorの数（tsc & vue-tsc）
+* Jestの各種カバレッジ
+
+数値は毎日9:00に更新されます。
+
+# なぜ作った？
+
+機能追加に比べて、負債解消プロジェクトの成果やコードベースのリファクタリングなど草の根的な活動の成果が、伝わりにくいという問題を解消したいと考えたからです。
+
+# 実装方法
+
+## 基本構成
+
+
+## zxでの各指標の計測
+zxはJSでシェルスクリプトを記述できるツールです。こちらを用いて、各種指標を計測するスクリプトを書いています。
+以下実際のコードです。
+
+１つ目はTypeScript化の指標の集計です。
+
+計測対象のプロジェクトのパスを受け取り、そのパスに対して`tsc`や`vue-tsc`コマンドを実行しています。
+そしてzxで標準出力の値を文字列として受け取り、その結果に対して`match(/error TS/g || []).length`でエラー数を計測し、戻り値としています。
+
+```ts:src/aggregate.ts
+import { $, nothrow, ProcessOutput } from "zx";
+
+// 型エラーの集計
+export const aggregateTypeErrors = async (target: string) => {
+  const result = {
+    tsc_error_count: 0,
+    vue_tsc_error_count: 0,
+  };
+
+  // vue-tscのエラー数
+  const vueTscResult = await nothrow($`yarn vue-tsc --noEmit -p ${target}/tsconfig.json --strict --allowJs`);
+  result.vue_tsc_error_count = (vueTscResult.stdout.match(/error TS/g) || []).length;
+
+  // tscのエラー数
+  const tscResult = await nothrow($`yarn tsc --noEmit --p ${target}/tsconfig.json --strict --allowJs`);
+  result.tsc_error_count = (tscResult.stdout.match(/error TS/g) || []).length;
+
+  // ts-expect-error or ts-ignoreでのコメントアウト数を追加
+  const tsExpectErrorCount = parseInt((await nothrow($`grep -r --include='*.vue' --include='*.ts' -e '@ts-expect-error' -e '@ts-ignore' ${target}/frontend/ | wc -l`)).stdout.trim(), 10);
+  result.tsc_error_count += tsExpectErrorCount;
+  result.vue_tsc_error_count += tsExpectErrorCount;
+
+  return result;
+};
+```
+
+2つ目はVueファイルの集計です。
+こちらでは、`find`と`grep`と`wc`を組み合わせてVueの総数、その内にしめるTypeScript化されたVueファイルの総数、Composition APIが使われているVueファイルの総数を計測しています。
+
+```ts:src/aggregate.ts
+export const aggregateVueFiles = async (target: string) => {
+  const vueFileCount = await $`find ./${target}/frontend -name "*.vue" | wc -l`;
+  const compositionApiFileCount =
+    await nothrow($`grep -r -l --include='*.vue' "defineComponent({" ./${target}/frontend/ | wc -l`);
+  const vueTsFileCount =
+    await nothrow($`grep -r -l --include='*.vue' -E 'script lang=.ts.' ./${target}/frontend/ | wc -l`);
+
+  return {
+    vue_file_count: parseInt(vueFileCount.stdout.trim(), 10),
+    vue_composition_api_file_count: parseInt(
+      compositionApiFileCount.stdout.trim(),
+      10
+    ),
+    vue_ts_file_count: parseInt(vueTsFileCount.stdout.trim(), 10),
+  };
+};
+```
+
+最後はカバレッジの計測です。
+zxでjestのカバレッジをJSONに出力するコマンドを実行し、そのJSONに対して`jq`で各指標を取り出し、戻り値としています。
+
+```ts:aggregate.ts
+export const aggregateCoverages = async (target: string) => {
+  await nothrow($`yarn --cwd ./${target} test:coverage --coverageReporters=json-summary`);
+  const result =
+    await nothrow($`cat ${target}/frontend_coverage/coverage-summary.json | jq -r '.total | keys[] as $k | {("coverage_" + $k):(.[$k].pct)}' | jq -s add`);
+  return JSON.parse(result.stdout);
+};
+```
+
+共通するポイントはzxの `nothorw` を使っているところです。通常の実行だと、exit codeが1以外のシェルスクリプトを実行すると例外が投げられてしまいます。実行するスクリプトによっては、適切に終了していて標準出力から値が取れるものの、exit codeが1以外となる場合があるので（`grep`でマッチしない値がある時など）、意図せぬ例外を防ぐためnothrowでシェルスクリプトのコマンドを囲っています。
+
+## Datadogへメトリクスとして送信
+
+次にDatadogのメトリクスへの送信部分です。
+
+Datadogへのクライアントの実装は以下です。
+単純に受け取った値を元に、node-fetchでDatadogのREST APIを叩いているのみです。
+
+```ts:src/lib/ddClient.ts
+import * as dotenv from "dotenv";
+import fetch from "node-fetch";
+
+dotenv.config();
+const DD_API_KEY = process.env.DD_API_KEY as string;
+export class DDClient {
+  private apiUrl: string;
+
+  constructor() {
+    this.apiUrl = `https://api.datadoghq.com/api/v1/series?api_key=${DD_API_KEY}`;
+  }
+
+  async sendMetrics(metricsName: string, value: number) {
+    const requestBody = JSON.stringify({
+      series: [
+        {
+          metric: metricsName,
+          points: [[Math.floor(Date.now() / 1000), value]],
+          type: "gauge",
+        },
+      ],
+    });
+    return await this.post(requestBody);
+  }
+
+  private async post(requestBody: string) {
+    return await fetch(this.apiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: requestBody,
+    });
+  }
+}
+```
+
+各種指標の集計から、Datadogへの送信までは以下ですね。
+さきほど紹介した、各指標の集計メソッドを実行して、その結果をDatadogに送信しています。
+
+
+```ts:src/index.ts
+import {
+  aggregateTypeErrors,
+  aggregateVueFiles,
+  aggregateCoverages,
+} from "./lib/aggregate";
+import { DDClient } from "./lib/ddClient";
+
+const aggregateMetricsAndSendDataDog = async (client: any, target: string) => {
+  const [typeErrors, vueFiles, coverages] = await Promise.all([
+    aggregateTypeErrors(target),
+    aggregateVueFiles(target),
+    aggregateCoverages(target),
+  ]);
+
+  try {
+    for (const [key, value] of Object.entries<string | number>({
+      ...typeErrors,
+      ...vueFiles,
+      ...coverages,
+    })) {
+      await client.sendMetrics(`application.${target}.frontend.${key}`, value);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+const main = async () => {
+
+  const ddClient = new DDClient();
+  await aggregateMetricsAndSendDataDog(ddClient, "プロジェクトのパス");
+};
+
+main();
+```
+
+Datadogをメトリクスを使う利点は、結果の永続化のために専用のRDBを新たに作る必要がないという点です。
+
+## GitHub Actionsでの定期実行
+
+あとは、上記のスクリプトをGitHub Actionsで定期実行すれば完了です。
+GitHub Actionsのスケジュールトリガーで毎日UTCの1時に実行されるように設定しています。
+スクリプト実行前に、測定対象のリポジトリをpullしているので、実行時点での最新の指標を測定できます。
+
+```yml:github/workflows/metrics.yml
+name: Metrics
+
+on:
+  schedule:
+    - cron:  '0 1 * * *'
+  workflow_dispatch:
+
+jobs:
+  measure-metrics:
+    runs-on: ubuntu-20.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Checkout hoge
+        uses: actions/checkout@v2
+        with:
+          repository: lapras-inc/hoge
+          token: ${{ secrets.GH_PAT }}
+          path: hoge
+          submodules: recursive
+
+
+      - name: Install packages.
+        run: yarn install && yarn --cwd ./hoge
+
+      - name: Measure metrics.
+        run: yarn ts-node src/index.ts
+        env:
+          DD_SITE: https://app.datadoghq.com
+          DD_API_KEY: ${{ secrets.DATADOG_API_KEY }}
+```
+
+# 効果
+zx と Datadog と GitHub Actions を
+
+# おわりに
+シェルコマンドを組み合わせて何かしたい時に、zx は本当に便利ですね。今後もこの指標をもとに、改善活動を頑張っていきたいです。
