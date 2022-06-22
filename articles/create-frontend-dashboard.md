@@ -1,25 +1,10 @@
 ---
 title: "zx + Datadog + GitHub Actions でコードベースの健全性を可視化する"
-emoji: "〽️"
+emoji: "🐚"
 type: "tech"
 topics: ["zx", "datadog", "typescript", "shell"]
 published: false
 ---
-
-構成メモ
-* 伝えたいこと
-  * zxでこんなダッシュボードを作れる
-  * 負債を可視化することの
-* 迷い
-  * タイトルで健全性でいいのかな？
-    * 健全性以外の言葉あるのか？
-    * 負債とか
-  * 可視化で良いのか？継続観察とかでも良いのか？
-  * なぜ作ったが難しいな？これが解決する課題ってなんだろう？
-  * 基本構成が伝わりにくいな..
-    * なんでだろう？
-      * 前提としてディレクトリ構成をツリー図で先に共有しておくと良いかも
-
 
 # 作ったもの
 
@@ -44,12 +29,32 @@ zx と Datadog、GitHub Actions を使って以下画像のように、フロン
 
 # 実装方法
 
-ダッシュボードの実装方法をまとめます。
+計測スクリプトの実装方法をまとめます。
 
 基本的な構成はこちらです。
+
 ![](https://i.gyazo.com/124bacd9974cd1f3f124c501bd77b5a9.png)
 
 zxを使って、node.jsで動く計測スクリプトを作り、それをGitHub Actionsで、計測対象のリポジトリ（毎回GitHub Actions上でPull）に対して実行。その結果をDatadogにメトリクスとして送信しています。
+
+計測スクリプトのフォルダー構成はこちらです。
+`target_project` となっているところは、計測対象のプロジェクトを想定しています。このフォルダーは `.gitignore` に指定して、毎回GitHub Actionsで計測スクリプトを実行する際に、最新コードをpullする想定です。
+
+```
+app/
+├── github/
+│   └── workflows/
+│       └── metrics.yml
+├── src/
+│   ├── index.ts
+│   ├── lib/
+│   │   └── ...
+│   └── ...
+└── target_project/ #毎回GitHub Actions上で最新コードをpullする
+    ├── tsconfig.json
+    └── frontend/
+        └── ...
+```
 
 
 ## zxでの各指標の計測
@@ -220,7 +225,7 @@ Datadogをメトリクスを使う利点は、結果の永続化のために専�
 
 あとは、上記のスクリプトをGitHub Actionsで定期実行すれば完了です。
 GitHub Actionsのスケジュールトリガーで毎日UTCの1時に実行されるように設定しています。
-スクリプト実行前に、測定対象のリポジトリをpullしているので、実行時点での最新の指標を測定できます。
+スクリプト実行前に、計測対象のリポジトリをpullしているので、実行時点での最新の指標を計測できます。
 
 ```yml:github/workflows/metrics.yml
 name: Metrics
