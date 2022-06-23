@@ -1,18 +1,18 @@
 ---
-title: "zx + Datadog + GitHub Actions でフロントエンドコードベースの健全性を可視化する"
+title: "zx + Datadog + GitHub Actions でフロントエンドのコードベースの健全性を可視化する"
 emoji: "📊"
 type: "tech"
 topics: ["zx", "datadog", "typescript", "shell"]
 published: false
 ---
 
-フロントエンドのコードベースの指標を可視化するダッシュボードを作ってみたらいい感じだったので紹介です。
+フロントエンドのダッシュボードを作ってみたらいい感じだったので紹介です。
 
 # 作ったもの
 
 zx と Datadog、GitHub Actions を使って以下画像のように、フロントエンドのコードベースの各指標を可視化するダッシュボードを作りました。
 
-![](https://i.gyazo.com/529544a0248a94d0d71fdce75833f0ee.png)
+![](https://i.gyazo.com/8f1b5b8719ae6f8b5a797c3e73f65fe0.png)
 *値はデモ用に書き換えています*
 
 現在、計測している指標はこちらです。
@@ -21,6 +21,8 @@ zx と Datadog、GitHub Actions を使って以下画像のように、フロン
 * Vue SFCファイルにしめるComposition APIの割合
 * strict: trueにした場合のType Errorの数（tsc & vue-tsc）
 * Jestの各種カバレッジ
+
+各指標は毎朝9時に更新していて、時系列での推移も確認できます。
 
 # なぜ作った？
 
@@ -37,6 +39,7 @@ zx と Datadog、GitHub Actions を使って以下画像のように、フロン
 ![](https://i.gyazo.com/124bacd9974cd1f3f124c501bd77b5a9.png)
 
 zxを使って、node.jsで実行できる計測スクリプトを作り、それをGitHub Actionsで計測対象のリポジトリ（毎回GitHub Actions上でPull）に対して実行。その結果をDatadogにメトリクスとして送信しています。
+Datadogのメトリクスを使う利点は、結果の永続化のために専用のRDBを新たに作る必要がないという点です。
 
 計測スクリプトのフォルダー構成はこちらです。
 `target_project` となっているところは、計測対象のプロジェクトを想定しています。このフォルダーは `.gitignore` に指定して、毎回GitHub Actionsで計測スクリプトを実行する際に、最新コードをpullする想定です。
@@ -219,8 +222,6 @@ const main = async () => {
 
 main();
 ```
-
-Datadogをメトリクスを使う利点は、結果の永続化のために専用のRDBを新たに作る必要がないという点です。
 
 ## GitHub Actionsでの定期実行
 
