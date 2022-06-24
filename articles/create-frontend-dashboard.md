@@ -271,3 +271,9 @@ jobs:
 # おわりに
 シェルコマンドを組み合わせて何かしたい時に、zx は本当に便利ですね。
 今後もこの指標をもとに、地道な改善活動を頑張っていきたいです。
+
+一緒に改善活動を頑張ってくれる仲間も絶賛募集中です！！
+
+https://corp.lapras.com/recruit/
+
+https://speakerdeck.com/lapras/lapras-company-profile
