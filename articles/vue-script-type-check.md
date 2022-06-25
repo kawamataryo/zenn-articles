@@ -1,5 +1,5 @@
 ---
-title: "Vue SFC の script 部分のみを型チェックするCLIツールを作ってみた"
+title: "Vue.js SFC の script 部分のみを型チェックする CLI ツールを作ってみた"
 emoji: "🪴"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["vue", "typescript", "ts-morph", "cli", "yargs"]
@@ -10,8 +10,8 @@ published: false
 
 # 作ったもの
 
-[vue-script-type-check](https://github.com/kawamataryo/vue-script-type-check) という Vue SFC の`<script>` 部分のみを型チェックする CLI ツールを作りました。
-以下 GIF のように、Vue SFC のパスを指定することで、型チェックを実行できます。
+[vue-script-type-check](https://github.com/kawamataryo/vue-script-type-check) という Vue.js SFC の`<script>` 部分のみを型チェックする CLI ツールを作りました。
+以下 GIF のように、SFC ファイルのパスを指定することで、型チェックを実行できます。
 主に、CI での型チェックの際に tsc と併用して利用されることを想定しています。
 
 ![](https://i.gyazo.com/54ca662f85b6909bfd510da200968f53.gif)
@@ -37,11 +37,11 @@ option はこちらです。CI 用の tsconfig.json を指定したい時など�
 
 ## モチベーション
 
-なぜこのようなツールを作ったかというと、Vue SFC 内の TypeScript の型チェックが実施されていないプロジェクトにて、漸進的に型チェックを適応していきたいと考えたからです。
+なぜこのようなツールを作ったかというと、Vue.js SFC 内の TypeScript の型チェックが実施されていないプロジェクトにて、漸進的に型チェックを適応していきたいと考えたからです。
 
 本来であれば文末の類似ツールで紹介している [vue-tsc](https://github.com/johnsoncodehk/volar) を使って型チェックを行えばいいのですが、現状のプロジェクトで`<template>` 部分も含めて型チェクすると、型エラーの数が膨大になりすぎて、対処が現実的ではありませんでした。まず、型改善の効果が出やすく、対処のしやすい`<script>`部分に焦点をあてて、改善していくきたいと思いました。
 
-[こちらの記事](https://zenn.dev/ryo_kawamata/articles/suppress-ts-errors) で紹介した[suppress-ts-errors](https://github.com/kawamataryo/suppress-ts-errors)と組み合わせ、一度既存のすべての型エラーを `@ts-expect-error` で抑制した上で、このツールの型チェックを CI で実行すれば、新しいファイルには型エラーが混入することを防ぐことができます。あとは、既存のファイルにある`@ts-expect-error`を順次潰していけば、漸進的な型チェックの強化が行えます。
+[こちらの記事](https://zenn.dev/ryo_kawamata/articles/suppress-ts-errors) で紹介した[suppress-ts-errors](https://github.com/kawamataryo/suppress-ts-errors)と組み合わせ、一度既存のすべての型エラーを `@ts-expect-error` で抑制した上で、このツールを CI で実行するようにすれば、新規ファイルには型エラーが混入することを防ぐことができます。あとは、既存のファイルにある`@ts-expect-error`を順次潰していけば、漸進的な型チェックの強化が行えます。
 
 https://github.com/kawamataryo/suppress-ts-errors
 
@@ -62,14 +62,14 @@ https://github.com/dsherret/ts-morph
 または、Vue ファイルの処理は以下流れで行っています。
 
 ```
-1. 検査対象の Vue SFC ファイル一覧を取得
-2. 個々の Vue SFC ファイルから`<script lang=“ts”>`の script 部分を抽出
+1. 検査対象の Vue.js SFC ファイル一覧を取得
+2. 個々の Vue.js SFC ファイルから`<script lang=“ts”>`の script 部分を抽出
 3. script 部分を TypeScript Compiler API の Project にセット
-4. 型チェックを行い結果を出力
+4. 型チェックを行い結果の文字列を出力
 ```
 
 スクリプト部分の抽出から型エラーの出力までのコードはこちらです。
-コマンドライン引数で受けった Vue SFC のファイルパスをもとに、ファイルを走査して、`script` の抽出、型エラーのチェックを行っています。
+コマンドライン引数で受けった Vue.js SFC のファイルパスをもとに、ファイルを走査して、`script` の抽出、型エラーのチェックを行っています。
 
 https://github.com/kawamataryo/vue-script-type-check/blob/main/src/handler.ts#L9-L73
 
@@ -105,8 +105,8 @@ https://www.npmjs.com/package/vue-tsc
 
 ## vue-script-tsc
 
-まさに今回の用途と同様に Vue SFC の`<script>`部分のみを型チェックする CLI ツールです。このツールの存在に気づいたのは、vue-script-type-check をほぼほぼ実装したあとでした。。
-ただ、このツール自体に `lang="ts"` と TypeScript の指定がない SFC も型チェックの対象としてしまうバグや、出力が真っ赤で視認性が悪い（ただの言いがかり 😇）というのがあったので、今回自分で作ったツールのほうが使い勝手は良いかなと個人的に思っています。
+まさに今回の用途と同様に Vue.js SFC の`<script>`部分のみを型チェックする CLI ツールです。このツールの存在に気づいたのは、vue-script-type-check をほぼほぼ実装したあとでした。。
+ただ、このツール自体に `lang="ts"` と TypeScript の指定がない SFC も型チェックの対象としてしまう仕様や、出力が真っ赤で視認性が悪い（ただの言いがかり 😇）というのがあったので、今回自分で作ったツールのほうが使い勝手は良いかなと個人的に思っています。
 
 https://github.com/policyfly/vue-script-tsc
 
@@ -115,4 +115,4 @@ https://github.com/policyfly/vue-script-tsc
 以上、[vue-script-type-check](https://github.com/kawamataryo/vue-script-type-check) の紹介でした！
 このツールを使って Vue SFC の型チェックの強化頑張っていくぞ。
 
-※ 大分勢いで作ったので、もしかしたらバグあるかもです。使ってみて変なところがあったら気軽に[Issue](https://github.com/kawamataryo/vue-script-type-check/issues)を挙げてもらえると..🙏
+※ 勢いで作ったので、まだまだバグがあるかもです。使ってみて変なところがあったら気軽に[Issue](https://github.com/kawamataryo/vue-script-type-check/issues)を挙げてもらえると..🙏
