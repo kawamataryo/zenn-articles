@@ -86,6 +86,10 @@ https://github.com/chalk/chalk
 出力するエラーコードの整形はこちらで行っています。
 
 https://github.com/kawamataryo/vue-script-type-check/blob/main/src/lib/collectTsErrors.ts#L13-L30
+:::message
+標準出力の色付けだと、[color.js](https://github.com/Marak/colors.js) が有名ですが、[色々あったので](https://www.itmedia.co.jp/news/articles/2201/11/news160.html) chalkを選びました。
+:::)
+:::
 
 # 類似ツール
 
