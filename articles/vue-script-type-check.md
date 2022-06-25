@@ -10,7 +10,7 @@ published: false
 
 # 作ったもの
 
-[vue-script-type-check](https://github.com/kawamataryo/vue-script-type-check) という Vue SFC の`<script>`部分のみを型チェックする CLI ツールを作りました。
+[vue-script-type-check](https://github.com/kawamataryo/vue-script-type-check) という Vue SFC の`<script>` 部分のみを型チェックする CLI ツールを作りました。
 以下 GIF のように、Vue SFC のパスを指定することで、型チェックを実行できます。
 主に、CI での型チェックの際に tsc と併用して利用されることを想定しています。
 
@@ -110,3 +110,5 @@ https://github.com/policyfly/vue-script-tsc
 
 以上、[vue-script-type-check](https://github.com/kawamataryo/vue-script-type-check) の紹介でした！
 このツールを使ってVue SFC の型チェックの強化頑張っていくぞ。
+
+※ 大分勢いで作ったので、もしかしたらバグあるかもです。使ってみて変なところがあったら[Issue](https://github.com/kawamataryo/vue-script-type-check/issues)を挙げてもらえると助かります🙏
