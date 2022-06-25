@@ -1,6 +1,6 @@
 ---
 title: "Vue SFC の script 部分のみを型チェックするCLIツールを作ってみた"
-emoji: "🥗"
+emoji: "🎾"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["vue", "typescript", "ts-morph", "cli", "yargs"]
 published: false
@@ -16,6 +16,10 @@ published: false
 
 ![](https://i.gyazo.com/54ca662f85b6909bfd510da200968f53.gif)
 
+
+コードはこちらで公開しています。
+
+https://github.com/kawamataryo/vue-script-type-check
 
 ## 使い方
 
@@ -34,17 +38,16 @@ option はこちらです。CI 用の tsconfig.json を指定したい時など�
 
 ## モチベーション
 
-なぜこのようなツールを作ったかというと、Vue SFC 内のTypeScriptの型チェックが実施されていないプロジェクトにて、漸進的に型チェックを強化していきたいと考えたからです。
+なぜこのようなツールを作ったかというと、Vue SFC 内の TypeScript の型チェックが実施されていないプロジェクトにて、漸進的に型チェックを強化していきたいと考えたからです。
 本来であれば文末の類似ツールで紹介している [vue-tsc](https://github.com/johnsoncodehk/volar) を使って型チェックを実施すればいいのですが、現状のプロジェクトで`<template>` 部分も含めて型チェクすると、型エラーの数が膨大になりすぎて、対処が現実的ではありませんでした。まず、型改善の効果が出やすく、対処のしやすい`<script>`部分に焦点をあてて、改善していくためにこちらを作りました。
 
-以前の以下の記事で紹介した[suppress-ts-errors](https://github.com/kawamataryo/suppress-ts-errors)と組み合わせ、一度既存のすべての型エラーを `@ts-expect-error` で抑制した上で、このツールの型チェックをCIで実行すれば、新しいファイルには型エラーが混入することを防ぐことができます。あとは、既存のファイルにある`@ts-expect-error`を順次潰していけば、漸進的に型チェックの強化が行えます。
+以前の以下の記事で紹介した[suppress-ts-errors](https://github.com/kawamataryo/suppress-ts-errors)と組み合わせ、一度既存のすべての型エラーを `@ts-expect-error` で抑制した上で、このツールの型チェックを CI で実行すれば、新しいファイルには型エラーが混入することを防ぐことができます。あとは、既存のファイルにある`@ts-expect-error`を順次潰していけば、漸進的に型チェックの強化が行えます。
 
 https://github.com/kawamataryo/suppress-ts-errors
 
 :::message
-webpackのts-loaderで型チェックすれば良いのでは？という声もあると思うのですが、ビルドツールはあくまでビルドのみのシンプルな責務にとどめたい、ビルド速度の低下を防ぎたいという思いから今回は採用を見送りました。
+webpack の ts-loader で型チェックすれば良いのでは？という声もあると思うのですが、ビルドツールはあくまでビルドのみのシンプルな責務にとどめたい、ビルド速度の低下を防ぎたいという思いから今回は採用を見送りました。
 :::
-
 
 # 実装のポイント
 
@@ -52,7 +55,11 @@ webpackのts-loaderで型チェックすれば良いのでは？という声も�
 
 ## Vue のスクリプト部分のみ型チェック
 
-基本的には[suppress-ts-errorsの記事](https://zenn.dev/ryo_kawamata/articles/suppress-ts-errors)で紹介した実装と同じく以下流れで処理を行っています。
+基本的には[suppress-ts-errors の記事](https://zenn.dev/ryo_kawamata/articles/suppress-ts-errors)で紹介した実装と同じく[ts-morph](https://github.com/dsherret/ts-morph) で TypeScript Compiler API を走査して型エラーを抽出しています。
+
+https://github.com/dsherret/ts-morph
+
+Vue ファイルの処理は以下流れで行っています。
 
 ```
 1. 検査対象の Vue ファイル一覧を取得
@@ -62,15 +69,20 @@ webpackのts-loaderで型チェックすれば良いのでは？という声も�
 ```
 
 スクリプト部分の抽出から型エラーの出力までのコードはこちらです。
-コマンドライン引数で受けったVue SFCのファイルパスをもとに、Vue SFCを走査して、`script` の抽出、型エラーのチェックを行っています。
+コマンドライン引数で受けった Vue SFC のファイルパスをもとに、Vue SFC を走査して、`script` の抽出、型エラーのチェックを行っています。
 
 https://github.com/kawamataryo/vue-script-type-check/blob/main/src/handler.ts#L9-L73
 
-## エラー発生行の表示
-
-小さなこだわりですが、標準出力をカラフルにしたほうが楽しいかなと思い、[chalk]()
-
 ## 視認性を意識したカラフルな出力結果
+
+小さなこだわりですが、標準出力はカラフルなほうが楽しいかなと思い、[chalk](https://github.com/chalk/chalk) を使って色付けしています。
+色付けは簡単で、出力したい文字列を色別のメソッドに渡すだけで OK です。
+
+https://github.com/chalk/chalk
+
+出力するエラーコードの整形はこちらで行っています。
+
+https://github.com/kawamataryo/vue-script-type-check/blob/main/src/lib/collectTsErrors.ts#L13-L30
 
 # 類似ツール
 
@@ -92,4 +104,4 @@ https://github.com/policyfly/vue-script-tsc
 # おわりに
 
 以上、[vue-script-type-check](https://github.com/kawamataryo/vue-script-type-check) の紹介でした！
-このツールを使って徐々により良いプロジェクトを作っていきたいと思います。
+このツールを使って徐々により型チェックを強化していきたいです。
