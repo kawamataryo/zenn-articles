@@ -38,15 +38,15 @@ option はこちらです。CI 用の tsconfig.json を指定したい時など�
 
 ## モチベーション
 
-なぜこのようなツールを作ったかというと、Vue SFC 内の TypeScript の型チェックが実施されていないプロジェクトにて、漸進的に型チェックを強化していきたいと考えたからです。
-本来であれば文末の類似ツールで紹介している [vue-tsc](https://github.com/johnsoncodehk/volar) を使って型チェックを実施すればいいのですが、現状のプロジェクトで`<template>` 部分も含めて型チェクすると、型エラーの数が膨大になりすぎて、対処が現実的ではありませんでした。まず、型改善の効果が出やすく、対処のしやすい`<script>`部分に焦点をあてて、改善していくためにこちらを作りました。
+なぜこのようなツールを作ったかというと、Vue SFC 内の TypeScript の型チェックが実施されていないプロジェクトにて、漸進的に型チェックを適応していきたいと考えたからです。
+本来であれば文末の類似ツールで紹介している [vue-tsc](https://github.com/johnsoncodehk/volar) を使って型チェックを行えばいいのですが、現状のプロジェクトで`<template>` 部分も含めて型チェクすると、型エラーの数が膨大になりすぎて、対処が現実的ではありませんでした。まず、型改善の効果が出やすく、対処のしやすい`<script>`部分に焦点をあてて、改善していくきたいと思いました。
 
 以前の以下の記事で紹介した[suppress-ts-errors](https://github.com/kawamataryo/suppress-ts-errors)と組み合わせ、一度既存のすべての型エラーを `@ts-expect-error` で抑制した上で、このツールの型チェックを CI で実行すれば、新しいファイルには型エラーが混入することを防ぐことができます。あとは、既存のファイルにある`@ts-expect-error`を順次潰していけば、漸進的に型チェックの強化が行えます。
 
 https://github.com/kawamataryo/suppress-ts-errors
 
 :::message
-webpack の ts-loader で型チェックすれば良いのでは？という声もあると思うのですが、ビルドツールはあくまでビルドのみのシンプルな責務にとどめたい、ビルド速度の低下を防ぎたいという思いから今回は採用を見送りました。
+webpack の ts-loader で型チェックすれば良いのでは？という声もあると思うのですが、ビルドツールはあくまでビルドのみのシンプルな責務にとどめたい & ビルド速度の低下を防ぎたいという思いから今回は採用を見送りました。
 :::
 
 # 実装のポイント
@@ -55,11 +55,11 @@ webpack の ts-loader で型チェックすれば良いのでは？という声�
 
 ## Vue のスクリプト部分のみ型チェック
 
-基本的には[suppress-ts-errors の記事](https://zenn.dev/ryo_kawamata/articles/suppress-ts-errors)で紹介した実装と同じく[ts-morph](https://github.com/dsherret/ts-morph) で TypeScript Compiler API を走査して型エラーを抽出しています。
+基本的には[suppress-ts-errors の記事](https://zenn.dev/ryo_kawamata/articles/suppress-ts-errors)で紹介した実装と同じく[ts-morph](https://github.com/dsherret/ts-morph) で TypeScript Compiler API をにて型エラーを抽出しています。
 
 https://github.com/dsherret/ts-morph
 
-Vue ファイルの処理は以下流れで行っています。
+または、Vue ファイルの処理は以下流れで行っています。
 
 ```
 1. 検査対象の Vue ファイル一覧を取得
