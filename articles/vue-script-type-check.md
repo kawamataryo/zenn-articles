@@ -88,7 +88,6 @@ https://github.com/chalk/chalk
 https://github.com/kawamataryo/vue-script-type-check/blob/main/src/lib/collectTsErrors.ts#L13-L30
 :::message
 標準出力の色付けだと、[color.js](https://github.com/Marak/colors.js) が有名ですが、[色々あったので](https://www.itmedia.co.jp/news/articles/2201/11/news160.html) chalk を選びました。
-:::)
 :::
 
 # 類似ツール
@@ -108,7 +107,7 @@ https://www.npmjs.com/package/vue-tsc
 まさに今回の用途と同様に Vue.js SFC の`<script>`部分のみを型チェックする CLI ツールです。このツールの存在に気づいたのは、vue-script-type-check をほぼほぼ実装したあとでした。。
 ただ、このツール自体に `lang="ts"` と TypeScript の指定がない SFC も型チェックの対象としてしまう仕様や、出力が真っ赤で視認性が悪い（ただの言いがかり 😇）というのがあったので、今回自分で作ったツールのほうが使い勝手は良いかなと個人的に思っています。
 
-https://github.com/policyfly/vue-script-tsc
+https://www.npmjs.com/package/vue-script-tsc
 
 # おわりに
 
