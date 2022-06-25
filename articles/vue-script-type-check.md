@@ -87,7 +87,7 @@ https://github.com/chalk/chalk
 
 https://github.com/kawamataryo/vue-script-type-check/blob/main/src/lib/collectTsErrors.ts#L13-L30
 :::message
-標準出力の色付けだと、[color.js](https://github.com/Marak/colors.js) が有名ですが、[色々あったので](https://www.itmedia.co.jp/news/articles/2201/11/news160.html) chalkを選びました。
+標準出力の色付けだと、[color.js](https://github.com/Marak/colors.js) が有名ですが、[色々あったので](https://www.itmedia.co.jp/news/articles/2201/11/news160.html) chalk を選びました。
 :::)
 :::
 
@@ -113,6 +113,6 @@ https://github.com/policyfly/vue-script-tsc
 # おわりに
 
 以上、[vue-script-type-check](https://github.com/kawamataryo/vue-script-type-check) の紹介でした！
-このツールを使ってVue SFC の型チェックの強化頑張っていくぞ。
+このツールを使って Vue SFC の型チェックの強化頑張っていくぞ。
 
-※ 大分勢いで作ったので、もしかしたらバグあるかもです。使ってみて変なところがあったら[Issue](https://github.com/kawamataryo/vue-script-type-check/issues)を挙げてもらえると助かります🙏
+※ 大分勢いで作ったので、もしかしたらバグあるかもです。使ってみて変なところがあったら気軽に[Issue](https://github.com/kawamataryo/vue-script-type-check/issues)を挙げてもらえると..🙏
