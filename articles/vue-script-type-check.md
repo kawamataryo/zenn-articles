@@ -1,6 +1,6 @@
 ---
 title: "Vue.js SFC の script 部分のみを型チェックする CLI ツールを作ってみた"
-emoji: "🥬"
+emoji: "🪴"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["vue", "typescript", "ts-morph", "cli", "yargs"]
 published: false
