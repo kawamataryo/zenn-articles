@@ -59,7 +59,7 @@ webpack の ts-loader で型チェックすれば良いのでは？という意�
 
 https://github.com/dsherret/ts-morph
 
-または、Vue ファイルの処理は以下流れで行っています。
+また、Vue ファイルの処理は以下流れで行っています。
 
 ```
 1. 検査対象の Vue.js SFC ファイル一覧を取得
@@ -75,7 +75,7 @@ https://github.com/kawamataryo/vue-script-type-check/blob/main/src/handler.ts#L9
 
 ## 視認性を意識したカラフルな出力結果
 
-小さいことですが、標準出力はカラフルなほうが楽しいかなと思い、色付けしています。
+標準出力はカラフルなほうが楽しいかなと思い、色付けしています。
 
 ![](https://i.gyazo.com/f8a21faebcb1f48dd060b10d4c90ac6e.png)
 
