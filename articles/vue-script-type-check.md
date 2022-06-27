@@ -39,7 +39,7 @@ option はこちらです。CI 用の tsconfig.json を指定したい時など�
 
 なぜこのようなツールを作ったかというと、Vue.js SFC 内の TypeScript の型チェックが実施されていないプロジェクトにて、漸進的に型チェックを適応していきたいと考えたからです。
 
-本来であれば文末の類似ツールで紹介している [vue-tsc](https://github.com/johnsoncodehk/volar) を使って型チェックを行えばいいのですが、現状のプロジェクトで`<template>` 部分も含めて型チェクすると、型エラーの数が膨大になりすぎて、対処が現実的ではありませんでした。まず、型改善の効果が出やすく、対処のしやすい`<script>`部分に焦点をあてて、改善していくきたいと思いました。
+本来であれば文末の類似ツールで紹介している [vue-tsc](https://github.com/johnsoncodehk/volar) を使って型チェックを行えばいいのですが、現状のプロジェクトで`<template>` 部分も含めて型チェクすると、型エラーの数が膨大になりすぎて、対処が現実的ではありませんでした。まず、型改善の効果が出やすく、対処のしやすい`<script>`部分に焦点をあてて、改善していきたいと思いました。
 
 [こちらの記事](https://zenn.dev/ryo_kawamata/articles/suppress-ts-errors) で紹介した[suppress-ts-errors](https://github.com/kawamataryo/suppress-ts-errors)と組み合わせ、一度既存のすべての型エラーを `@ts-expect-error` で抑制した上で、このツールを CI で実行するようにすれば、新規ファイルには型エラーが混入することを防ぐことができます。あとは、既存のファイルにある`@ts-expect-error`を順次潰していけば、漸進的な型チェックの強化が行えます。
 
