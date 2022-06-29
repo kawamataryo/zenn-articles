@@ -1,12 +1,12 @@
 ---
-title: "はじめてのyargs - Node.jsでコマンドライン引数をパースする -"
+title: "はじめてのyargs - Node.jsでコマンドライン引数をパース"
 emoji: "🏴‍☠️"
 type: "tech"
 topics: ["yargs", "typescript", "cli", "nodejs"]
 published: false
 ---
 
-最近yargsでいくつかCLIツールを作ったので備忘録としてまとめます。
+最近 [yargs](https://github.com/yargs/yargs) を使っていくつかCLIツールを作ってみたので備忘録としてまとめます。
 
 ※ yargs: v17.5.1 時点の情報です。
 
@@ -236,7 +236,7 @@ Error: please specify an even number
 
 http://yargs.js.org/docs/#api-reference-checkfn-globaltrue
 
-## 任意の引数をパースする
+## 任意数の位置引数をパースする
 パスの一覧など、任意の数の位置引数を指定したい場合は、commandの第一引数で`[arg...]`を指定します。
 positionalのオプションで、`array`を指定しておくとTypeScriptの型的にも配列になります。
 どの型の配列になるかは`type`の指定により変わります。今回は`type: "string"`としているので、`args.paths`は文字列の配列として型推論されます。
