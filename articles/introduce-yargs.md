@@ -3,7 +3,7 @@ title: "はじめてのyargs - Node.jsでコマンドライン引数をパース
 emoji: "🏴‍☠️"
 type: "tech"
 topics: ["yargs", "typescript", "cli", "nodejs"]
-published: false
+published: true
 ---
 
 最近 [yargs](https://github.com/yargs/yargs) を使っていくつか CLI ツールを作ってみたので備忘録としてまとめます。
