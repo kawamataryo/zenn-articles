@@ -260,7 +260,10 @@ console.log(args.paths);
 
 yargs がないと Node.js の CLI ツールを作る気がおきないくらい必須のライブラリです。
 ここで紹介した以外にも便利なオプションがさまざまあります。
-
 自作の CLI ツールを作る際には是非利用してみてください。
 
-http://yargs.js.org/docs/
+以下がyargsを使って作ったCLIツールです。実装の参考になれば嬉しいです。
+
+https://www.npmjs.com/package/vue-script-type-check
+
+https://www.npmjs.com/package/suppress-ts-errors
