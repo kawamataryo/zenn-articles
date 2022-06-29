@@ -263,4 +263,4 @@ yargs がないと Node.js の CLI ツールを作る気がおきないくらい
 
 自作の CLI ツールを作る際には是非利用してみてください。
 
-http://yargs.js.org/contributing/
+http://yargs.js.org/docs/
