@@ -10,7 +10,7 @@ published: false
 
 ※ yargs: v17.5.1 時点の情報です。
 
-# yargs とは？
+# 🏴‍☠️ yargs とは？
 
 Node.js にてコマンドライン引数をパースするライブラリです。
 自作の CLI ツールの作成時などに便利です。
@@ -23,7 +23,7 @@ Node.js にてコマンドライン引数をパースするライブラリです
 
 https://github.com/yargs/yargs
 
-## Get started
+# 🚀 Get started
 
 コマンドラインで受け取った引数を出力するだけの簡単な CLI ツールを作ってみます。
 
@@ -102,7 +102,7 @@ $ npx ts-node src/index.ts --version
 
 とても便利ですね。
 
-# 逆引き yargs
+# 📚 逆引き yargs
 
 yargs の使い方を逆引き風に紹介します。
 
