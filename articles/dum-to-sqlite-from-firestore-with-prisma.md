@@ -10,9 +10,10 @@ Firestore のデータを SQLite にダンプしてみたので、そのメモ�
 
 # なぜ Firestore のデータを SQLite に？
 
-個人的に GitHub Trending のリポジトリ情報を流す Twitter Bot を運用しているのですが、その元データ（日々の GitHub Trending のデータ）が Firestore に溜まっていました。
-それを使って何か分析したらおもしろいかなと思ったのですが、Firestore のままデータ分析をするのが少し面倒で、慣れた SQL でデータを扱いと考え SQLite へのデータ移行に行き着きました。
-SQLite を選んだ理由は、特に DB のセットアップが不要で、ファイル単位で管理できるというのが手軽で便利だったからです。
+個人的に GitHub Trending に掲載されたリポジトリ情報を流す Twitter Bot を運用しているのですが、その元データ（日々の GitHub Trending のデータ）が Firestore に溜まっていました。
+そのデータを分析したらおもしろそうと思ったのですが、Firestore の NoSQL のデータのまま分析をするのが少し面倒で、慣れた SQL でデータを扱いと考え SQLite へのデータ移行に行き着きました。
+
+SQLite を選んだ理由は、特に DB のセットアップが不要で、ファイル単位で管理できるというのが手軽で都合良かったからです。
 
 **運用中の TwitterBot**
 
@@ -30,7 +31,7 @@ https://zenn.dev/ryo_kawamata/articles/github-trending-bot
 
 # なぜ Prisma？
 
-データの出力自体は、Firebase の Admin SDK を使ってデータを取得し、SQLite3 など SQLite のクライントを使えば容易に出来ます。ただ、悲しいかな ORM に慣れてしまった身として、コード中に SQL をそのまま書くことに若干抵抗がありました。そこで、以前から試したかった Prisma を使ってみようと思い立ちました。
+データの出力自体は、Firebase の Admin SDK を使ってデータを取得し、[sqLite3](https://www.npmjs.com/package/sqlite3#installing) など SQLite のクライントを使えば容易に出来ます。ただ、悲しいかな ORM に慣れてしまった身として、コード中に SQL をそのまま書くことに若干抵抗がありました。そこで、以前から試したかった Prisma を使ってみようと思い立ちました。
 
 Prisma は型安全にクエリを発行でき、マイグレーションも管理してくれる Node.js 用の ORM です。
 
@@ -61,7 +62,7 @@ type GHTrend = {
 
 ![](https://i.gyazo.com/9cf694eb762d495b783cdacbb09b2c6f.png)
 
-素直に正規化しただけですが、一点特殊なのは言語情報を司る`language`テーブルが、`repository`テーブルではなく、`trend_log`テーブルに紐付いている点です。これは、language の情報があくまで trend に掲載された時点の情報で、その後リファクタリング等により変わる可能性があるからです（実際に複数言語でトレンドに掲載されたリポジトリがありました）。
+素直に正規化しただけですが、一部特殊なのは言語情報を司る`language`テーブルが、`repository`テーブルではなく、`trend_log`テーブルに紐付いている点です。これは、language の情報があくまで trend に掲載された時点の情報で、その後リファクタリング等により変わる可能性があるからです（実際に複数言語でトレンドに掲載されたリポジトリがありました）。
 
 # 実装
 
@@ -136,13 +137,11 @@ https://github.com/kawamataryo/github-trending-bot/blob/main/admin/repositories/
 $ npx ts-node --files admin/dumpData.ts
 ```
 
-![](https://i.gyazo.com/9fc47ea83050629fd31914aa68f8ddec.png)
 
+## データ分析（一部）
 
-## データの分析（一部）
-
-これでSQLiteにデータが入ったので、後はお好きなDBクライントでSQLiteに接続して、データを分析できます。
-データの分析結果については後で別記事にまとめようと思うので本記事では簡単にひとつだけ。
+SQLiteにデータが入ったので、後は好きなDBクライントでSQLiteに接続して、データ分析を行えます。
+データ分析結果については、別記事にまとめようと思うので本記事では簡単にひとつだけ。
 
 以下SQLで2021年11月〜2022年7月8日現在までに全言語のトレンドにおいて、どの言語のリポジトリが多く掲載されたかをみるものです。
 
