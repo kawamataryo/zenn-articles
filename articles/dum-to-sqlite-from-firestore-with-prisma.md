@@ -1,6 +1,6 @@
 ---
 title: "Prismaを使ってFirestoreのデータをSQLiteにダンプする"
-emoji: "🗻"
+emoji: "🏔️"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["prisma", "sqlite", "firestore", "typescript"]
 published: false
