@@ -1,5 +1,5 @@
 ---
-title: "Prismaを使ってFirestoreのデータをSQLiteにダンプする"
+title: "Prisma を使って Firestore のデータを SQLite にダンプする"
 emoji: "🏔️"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["prisma", "sqlite", "firestore", "typescript"]
@@ -126,27 +126,26 @@ Firestore からのダンプは以下コードで行いました。
 
 https://github.com/kawamataryo/github-trending-bot/blob/main/admin/dumpData.ts#L18-L84
 
-Firebase Admin SDK を使って、Firestoreのデータを取得し、PrismaのORMのクエリーセットを使ってDBにデータを挿入しています。
-RDBとする都合上、データの挿入順は重要です。リレーションの末端となるテーブルへのデータ挿入は先に行っています。また、挿入時に重複が生まれないように、trend_log以外のテーブルは、データがある場合はそのレコードを取得し、ない場合は挿入するという処理を行っています。
+Firebase Admin SDK を使って、Firestore のデータを取得し、Prisma の ORM のクエリーセットを使って DB にデータを挿入しています。
+RDB とする都合上、データの挿入順は重要です。リレーションの末端となるテーブルへのデータ挿入は先に行っています。また、挿入時に重複が生まれないように、trend_log 以外のテーブルは、データがある場合はそのレコードを取得し、ない場合は挿入するという処理を行っています。
 
 https://github.com/kawamataryo/github-trending-bot/blob/main/admin/repositories/prisma.ts#L10-L44
 
-あとは、このスクリプトをts-nodeで実行すれば、`prism/github_trending.db` にデータが挿入されます。
+あとは、このスクリプトを ts-node で実行すれば、`prism/github_trending.db` にデータが挿入されます。
 
 ```
 $ npx ts-node --files admin/dumpData.ts
 ```
 
-
 ## データ分析（一部）
 
-SQLiteにデータが入ったので、後は好きなDBクライントでSQLiteに接続して、データ分析を行えます。
+SQLite にデータが入ったので、後は好きな DB クライントで SQLite に接続して、データ分析を行えます。
 データ分析結果については、別記事にまとめようと思うので本記事では簡単にひとつだけ。
 
-以下SQLで2021年11月〜2022年7月8日現在までに全言語のトレンドにおいて、どの言語のリポジトリが多く掲載されたかをみるものです。
+以下 SQL で 2021 年 11 月〜2022 年 7 月 8 日現在までに全言語のトレンドにおいて、どの言語のリポジトリが多く掲載されたかをみるものです。
 
 ```sql
-with all_trend_group_by_repos as 
+with all_trend_group_by_repos as
   (select t.*, ty.name as trend_type, repo.name as repo_name
    from trend_log t
            left outer join trend_type ty on t.trend_type_id = ty.id
@@ -162,13 +161,11 @@ order by repository_count desc
 ```
 
 [Metabse](https://www.metabase.com/) で可視化するとこのような結果となりました
-PythonとGo、JavaScriptがやはり強いようですね。
+Python と Go、JavaScript がやはり強いようですね。
 
 ![](https://i.gyazo.com/e5b72c5131e234c3d188791edff65d44.png)
 
-
-
 # おわりに
 
-Firestoreは最高に便利ですが、やはり慣れたSQLの方がデータ分析はしやすいですね。
-あと、Prismaの開発体験はとても良かったです。今後も色々な機械で使っていこうと思いました。
+Firestore は最高に便利ですが、やはり慣れた SQL の方がデータ分析はしやすいですね。
+あと、Prisma の開発体験はとても良かったです。今後も色々な機械で使っていこうと思いました。
