@@ -18,11 +18,11 @@ SQLiteを選んだ理由は、特にDBのセットアップが不要で、ファ
 
 |[@gh_trending_](https://twitter.com/gh_trending_)(3,724 Follower)|[@gh_trending_js](https://twitter.com/gh_trending_js)(2,860 Follower)|
 |---|---|
-|<a href="https://twitter.com/gh_trending_"><img width="597" alt="github trending" src="https://user-images.githubusercontent.com/11070996/132124873-b698f5ee-5f7f-4d71-93bb-fd52763c7603.png"></a>|<a href="https://twitter.com/gh_trending_js"><img width="600" alt="github trending javascript typescript" src="https://user-images.githubusercontent.com/11070996/132124876-5f8ba485-231c-4008-8fe3-e628e4b547b9.png"></a>|
+|![](https://user-images.githubusercontent.com/11070996/132124873-b698f5ee-5f7f-4d71-93bb-fd52763c7603.png)|![](https://user-images.githubusercontent.com/11070996/132124876-5f8ba485-231c-4008-8fe3-e628e4b547b9.png)|
 
 |[@gh_trending_py](https://twitter.com/gh_trending_py)(1,164 Follower)|[@gh_trending_rs](https://twitter.com/gh_trending_rs)(279 Follower)|
 |---|---|
-|<a href="https://twitter.com/gh_trending_py"><img width="597" alt="github trending python" src="https://i.gyazo.com/4f76a7358a0822d3219a51b8c14962ad.png"></a>|<a href="https://twitter.com/gh_trending_rs"><img width="600" alt="github trending rust" src="https://i.gyazo.com/42b4a9e35cb6f51fdd8c089c44543b96.png"></a>|
+|![](https://i.gyazo.com/4f76a7358a0822d3219a51b8c14962ad.png)|![](https://i.gyazo.com/42b4a9e35cb6f51fdd8c089c44543b96.png)|
 
 **TwitterBotの作成記事**
 
