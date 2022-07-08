@@ -19,11 +19,11 @@ SQLite を選んだ理由は、とくに DB のセットアップが不要で、
 
 | [@gh*trending*](https://twitter.com/gh_trending_)                                                          | [@gh_trending_js](https://twitter.com/gh_trending_js)                                                      |
 | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| ![](https://user-images.githubusercontent.com/11070996/132124873-b698f5ee-5f7f-4d71-93bb-fd52763c7603.png) | ![](https://user-images.githubusercontent.com/11070996/132124876-5f8ba485-231c-4008-8fe3-e628e4b547b9.png) |
+| ![](https://user-images.githubusercontent.com/11070996/132124873-b698f5ee-5f7f-4d71-93bb-fd52763c7603.png =320x) | ![](https://user-images.githubusercontent.com/11070996/132124876-5f8ba485-231c-4008-8fe3-e628e4b547b9.png =320x) |
 
 | [@gh_trending_py](https://twitter.com/gh_trending_py)         | [@gh_trending_rs](https://twitter.com/gh_trending_rs)         |
 | ------------------------------------------------------------- | ------------------------------------------------------------- |
-| ![](https://i.gyazo.com/4f76a7358a0822d3219a51b8c14962ad.png) | ![](https://i.gyazo.com/42b4a9e35cb6f51fdd8c089c44543b96.png) |
+| ![](https://i.gyazo.com/4f76a7358a0822d3219a51b8c14962ad.png =320x) | ![](https://i.gyazo.com/42b4a9e35cb6f51fdd8c089c44543b96.png =320x) |
 
 **TwitterBot の作成記事**
 
