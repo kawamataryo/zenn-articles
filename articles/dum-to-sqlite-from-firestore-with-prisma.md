@@ -3,7 +3,7 @@ title: "Prisma を使って Firestore のデータを SQLite にダンプする"
 emoji: "🏔️"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["prisma", "sqlite", "firestore", "typescript"]
-published: false
+published: true
 ---
 
 Firestore のデータを SQLite にダンプしてみたので、そのメモです。
