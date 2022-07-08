@@ -13,7 +13,7 @@ Firestore のデータを SQLite にダンプしてみたので、そのメモ�
 個人的に GitHub Trending に掲載されたリポジトリ情報を流す Twitter Bot を運用しているのですが、その元データ（日々の GitHub Trending のデータ）が Firestore に溜まっていました。
 そのデータを分析したらおもしろそうと思ったのですが、Firestore の NoSQL のデータのまま分析をするのが少し面倒で、慣れた SQL でデータを扱いと考え SQLite へのデータ移行に行き着きました。
 
-SQLite を選んだ理由は、特に DB のセットアップが不要で、ファイル単位で管理できるというのが手軽で都合良かったからです。
+SQLite を選んだ理由は、とくに DB のセットアップが不要で、ファイル単位で管理できるというのが手軽で都合良かったからです。
 
 **運用中の TwitterBot**
 
@@ -31,7 +31,7 @@ https://zenn.dev/ryo_kawamata/articles/github-trending-bot
 
 # なぜ Prisma？
 
-データの出力自体は、Firebase の Admin SDK を使ってデータを取得し、[sqLite3](https://www.npmjs.com/package/sqlite3#installing) など SQLite のクライントを使えば容易に出来ます。ただ、悲しいかな ORM に慣れてしまった身として、コード中に SQL をそのまま書くことに若干抵抗がありました。そこで、以前から試したかった Prisma を使ってみようと思い立ちました。
+データの出力自体は、Firebase の Admin SDK を使ってデータを取得し、[sqLite3](https://www.npmjs.com/package/sqlite3#installing) など SQLite のクライントを使えば容易にできます。ただ、悲しいかな ORM に慣れてしまった身として、コード中に SQL をそのまま書くことに若干抵抗がありました。そこで、以前から試したかった Prisma を使ってみようと思い立ちました。
 
 Prisma は型安全にクエリを発行でき、マイグレーションも管理してくれる Node.js 用の ORM です。
 
@@ -40,7 +40,7 @@ https://www.prisma.io/
 # RDB の構成
 
 Firestore に保存している GitHub Trending のデータ構造は以下のようなものでした。
-この構造が、全ての言語、JavaScript & TypeScript、Python、Rust のトレンド種別ごとにあります。
+この構造が、すべての言語、JavaScript & TypeScript、Python、Rust のトレンド種別ごとにあります。
 
 ```ts
 type GHTrend = {
@@ -58,7 +58,7 @@ type GHTrend = {
 };
 ```
 
-このデータ構造を正規化し、以下のような DB 構造にすることにしました。
+このデータ構造を正規化し、以下のような DB 構造にしました。
 
 ![](https://i.gyazo.com/9cf694eb762d495b783cdacbb09b2c6f.png)
 
@@ -127,7 +127,7 @@ Firestore からのダンプは以下コードで行いました。
 https://github.com/kawamataryo/github-trending-bot/blob/main/admin/dumpData.ts#L18-L84
 
 Firebase Admin SDK を使って、Firestore のデータを取得し、Prisma の ORM のクエリーセットを使って DB にデータを挿入しています。
-RDB とする都合上、データの挿入順は重要です。リレーションの末端となるテーブルへのデータ挿入は先に行っています。また、挿入時に重複が生まれないように、trend_log 以外のテーブルは、データがある場合はそのレコードを取得し、ない場合は挿入するという処理を行っています。
+RDB とする都合上、データの挿入順は重要です。リレーションの末端となるテーブルへのデータ挿入は先に行っています。また、挿入時に重複が生まれないように、trend_log 以外のテーブルは、データがある場合はそのレコードを取得し存在しない場合は挿入するという処理を行っています。
 
 https://github.com/kawamataryo/github-trending-bot/blob/main/admin/repositories/prisma.ts#L10-L44
 
