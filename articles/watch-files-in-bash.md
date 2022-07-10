@@ -2,11 +2,11 @@
 title: "指定のファイル群の変更を検知して、指定のコマンドを実行する bash スクリプトを書いてみた"
 emoji: "👀"
 type: "tech"
-topics: ["bash"]
+topics: ["bash", "shell", "linux"]
 published: false
 ---
 
-社会人大学院の課題で bash スクリプトを書く機会があり、その時書いたたものがわりと便利だと思ったので公開します。
+社会人大学院の課題で独自の bash スクリプトを提出するものがあり、その時書いたたものがわりと便利だと思ったので公開します。
 
 # どんな bash スクリプト？
 
@@ -21,8 +21,11 @@ $ ./watch-files.sh -c 'echo "update"' -f './src/**/*.py'
 watched ./src/**/*.py ...
 If want to terminate, press to Ctrl-D
 
-update # ./src/**/*.pyの条件に合致するファイルを変更した際
+update # -cで指定した条件に合致するファイルを変更した際に-cで指定したコマンドが実行される
+update # Ctrl-Dで停止するまで、変更ごとに指定のコマンドが再実行される
 ```
+
+標準でwatchオプションの存在しないテストフレームワークや、ビルドツールで利用することを想定しています（Pythonのunittestとか）。
 
 ## 開発のきっかけ
 
@@ -34,6 +37,8 @@ TDD 的な頻繁にテストを書く開発するタイルなのですが、unit
 実装はこちらです。
 
 https://github.com/kawamataryo/watch-files/blob/main/watch-files.sh#L1-L145
+
+MacとLinuxであれば、任意のディレクトリにスクリプトをダウンロードして`chmod +x ./watch-files.sh`で実行権限をつければ実行できます。
 
 # 工夫ポイント
 
