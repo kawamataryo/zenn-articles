@@ -3,7 +3,7 @@ title: "ファイルの変更を検知して特定のコマンドを実行する
 emoji: "👀"
 type: "tech"
 topics: ["bash", "shell", "linux"]
-published: false
+published: true
 ---
 
 社会人大学院の課題で独自の bash スクリプトを提出するものがあり、その時書いたたものがわりと便利そうだったので公開します。
