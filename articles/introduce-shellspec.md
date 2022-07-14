@@ -14,11 +14,12 @@ ShellSpecはシェルスクリプトでBDD（behavior driven development) のユ
 
 https://github.com/shellspec/shellspec
 
-RSpecのように流れるようなテストを記述できます。豊富な[Mather](https://github.com/shellspec/shellspec/blob/master/docs/references.md#matchers) も提供されています。
+RSpecのように、まるで文章のようなテストを記述できます。豊富な[Mather](https://github.com/shellspec/shellspec/blob/master/docs/references.md#matchers) も提供されています。
 
 ```bash
 Describe 'hello.sh'
   Include hello.sh
+
   It 'says hello'
     When call hello ShellSpec
     The output should equal 'Hello ShellSpec!'
@@ -41,7 +42,7 @@ ShellSpecの便利さを知ってもらうため、TDDライクに簡単なシ�
 ## ShellSpecの環境構築
 
 最初にShellSpecの環境構築です。
-shellspecコマンドを使えるように開発環境にShellSpecをインストールします。
+ShellSpecコマンドを使えるように、ShellSpecをグローバルにインストールします。
 
 ```bash
 $ wget -O- https://git.io/shellspec | sh
@@ -53,10 +54,11 @@ $ wget -O- https://git.io/shellspec | sh
 $ mkdir sandbox-shellspec
 ```
 
-ShellSpecの初期化を行います。
+プロジェクトディレクトリでShellSpecの初期化を行います。
 ShellSpecの設定ファイルである`.shellspec`とヘルパー関数の`spec/spec_helper.sh`が作成されます。
 
 ```bash
+$ cd sandbox-shellspec
 $ shellspec --init
 ```
 
@@ -103,7 +105,7 @@ Describe 'sum.sh'
     When call main 1 2
 
     The output ./sum.sh equal 3
-    The status success
+    The status should be success
   End
 End
 ```
@@ -112,6 +114,7 @@ End
 
 ```bash
 $ shellspec
+
 # Running: /bin/sh [bash 3.2.57(1)-release]
 # F
 #
@@ -196,6 +199,7 @@ End
 
 ```bash
 $ shellspec
+
 # Running: /bin/sh [bash 3.2.57(1)-release]
 # .FFFF
 #
@@ -275,6 +279,7 @@ End
 
 ```
 $ shellspec                                                                                                                                                                                         ✘ 101
+
 # Running: /bin/sh [bash 3.2.57(1)-release]
 # .....F
 #
@@ -319,6 +324,7 @@ fi
 これで実行すると、テストがとおります（GREEN🟢）。
 
 ```bash
+
 $ shellspec
 # Running: /bin/sh [bash 3.2.57(1)-release]
 # ......
@@ -332,7 +338,25 @@ $ shellspec
 正常系と同じくパラメーターテストのExampleを使った形に書き直します。
 
 ```bash
+Describe 'sum.sh'
+  # ...
 
+  Describe
+    Parameters
+      1 a
+      b c
+      -1 1
+      1.1 1.5
+      1
+    End
+
+    Example "raise error $1 and $2"
+      When call ./sum.sh "$1" "$2"
+      The error should include "Error:"
+      The status should be failure
+    End
+  End
+End
 ```
 
 テストを実行すると失敗します（RED🔴）。
