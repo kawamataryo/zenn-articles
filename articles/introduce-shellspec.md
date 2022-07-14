@@ -6,7 +6,7 @@ topics: ["shell", "bash", "shellspec", "TDD"]
 published: false
 ---
 
-シェルスクリプトにテストを書くというイメージはなかったのですが、最近使った[ShellSpec](https://github.com/shellspec/shellspec)がとても使いやすく、そのイメージが覆されたので紹介です。
+シェルスクリプトにテストを書くというイメージはなかったのですが、最近使った[ShellSpec](https://github.com/shellspec/shellspec)がとても使いやすくて、シェルスクリプトのテストのイメージが覆されたので紹介です。
 
 # ShellSpecとは？
 
