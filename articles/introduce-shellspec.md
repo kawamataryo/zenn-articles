@@ -1,5 +1,5 @@
 ---
-title: "[ShellSpec] テスト駆動でシェルスクリプトを書いてみる"
+title: "ShellSpec を使って、テスト駆動でシェルスクリプトを書いてみる"
 emoji: "🐌"
 type: "tech"
 topics: ["shell", "bash", "shellspec", "TDD"]
