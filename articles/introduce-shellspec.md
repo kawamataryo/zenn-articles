@@ -3,7 +3,7 @@ title: "ShellSpecを使って、テスト駆動でシェルスクリプトを書
 emoji: "🐌"
 type: "tech"
 topics: ["shell", "bash", "shellspec", "TDD"]
-published: false
+published: true
 ---
 
 シェルスクリプトにテストを書くというイメージはなかったのですが、最近使った[ShellSpec](https://github.com/shellspec/shellspec)がとても使いやすくて、シェルスクリプトのテストのイメージが覆されたので紹介です。
