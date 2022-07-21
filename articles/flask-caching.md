@@ -68,7 +68,6 @@ def heavy_view(name):
 標準でキャッシュのキーはリクエストのパスごとに異なります。
 一度 `/heavy_view/foo` にアクセスしたあと再度`/heavy_view/foo`へアクセスするとキャッシュがヒットしますが、`/heavy_view/bar`にアクセスした場合はキャッシュがヒットせず内部の処理が実行されます。
 
-
 また、`@cache.cached`のデコレータに引数を指定することでキャッシュの制御が行えます。
 
 - `timeout` : キャッシュの保存時間。秒数で指定。config で`CACHE_DEFAULT_TIMEOUT`を指定することで標準の保存時間を指定することが可能。もしどちらも指定がない場合は無期限でキャッシュを返す。
@@ -114,7 +113,7 @@ cache.delete_memoized(heavy_func, 1, 2)
 
 ## 任意の値のキャッシュ
 
-Flask-Caching はデコレータでの利用以外でも、`cache.set`と`cache.get`を使うことでキャシュバックエンドとして指定したミドルウェアへのクライアントとしても使うことができます。
+Flask-Caching はデコレータでの利用以外でも、`cache.set`と`cache.get`を使うことで任意の値をキャッシュできます。
 
 ```python
 # cache_keyというキー名で、'cached value'という文字列を保存
