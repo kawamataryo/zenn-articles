@@ -12,7 +12,7 @@ published: true
 
 [Flask-Caching](https://flask-caching.readthedocs.io/en/latest/) は Flask の View やその他関数にて容易にキャッシュ機能を実装するためのライブラリです。
 
-キャッシュのバックエンドとして、Redis や Memcached、UWSGICache など、さまざまなミドルウェアを指定することが出来、それぞれを統一したインターフェイスとして扱えるという特徴があります。
+キャッシュのバックエンドとして、Redis や Memcached、UWSGICache など、さまざまなミドルウェアを指定することができて、それぞれを統一したインターフェイスとして扱えるという特徴があります。
 
 https://flask-caching.readthedocs.io/en/latest/
 
