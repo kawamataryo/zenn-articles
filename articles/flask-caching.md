@@ -16,7 +16,7 @@ published: true
 
 https://flask-caching.readthedocs.io/en/latest/
 
-[Flask の公式ドキュメントでも紹介](https://flask.palletsprojects.com/en/2.1.x/patterns/caching/?highlight=cache)されているので、Flask でキャッシュを使う際の第 1 選択肢として考えて良いと思います。
+[Flask の公式ドキュメントでも紹介](https://flask.palletsprojects.com/en/2.1.x/patterns/caching/?highlight=cache)されているので、Flask でキャッシュを使う際の第一選択肢として考えて良いと思います。
 
 # セットアップ
 
