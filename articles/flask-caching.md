@@ -3,7 +3,7 @@ title: "Flask-Caching で Flask の View をキャッシュする"
 emoji: "🦩"
 type: "tech"
 topics: ["flask", "flask-caching", "python"]
-published: false
+published: true
 ---
 
 [ISUCON12](https://isucon.net/) に向けて flask のキャッシュについて調べたメモ。
