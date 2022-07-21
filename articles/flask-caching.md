@@ -6,7 +6,7 @@ topics: ["flask", "flask-caching", "python"]
 published: false
 ---
 
-ISUCON12 に向けて flask のキャッシュについて調べたメモ。
+[ISUCON12](https://isucon.net/) に向けて flask のキャッシュについて調べたメモ。
 
 # Flask-Caching とは？
 
