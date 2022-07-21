@@ -76,7 +76,7 @@ def heavy_view(name):
 
 詳細な引数は[API リファレンス](https://flask-caching.readthedocs.io/en/latest/api.html#cache-api)を参照してください。
 
-キャッシュの削除は`cache.clear()`または`cache.delete()`で行えます。
+キャッシュの削除は`cache.clear()`または`cache.delete()`で行います。
 
 ```python
 # 存在するすべてのキャッシュを削除
@@ -102,8 +102,7 @@ def heavy_func(num1, num2):
     return num1 + num2
 ```
 
-`@cache.memoize` でも、`timeout`や`key_prefix`を引数で指定できます。
-詳細な引数は[API リファレンス](https://flask-caching.readthedocs.io/en/latest/api.html#cache-api)を参照してください。
+`@cache.memoize` でも、`timeout`や`key_prefix`を引数で指定できます。詳細な引数は[API リファレンス](https://flask-caching.readthedocs.io/en/latest/api.html#cache-api)を参照してください。
 
 キャッシュの削除は`cache.delete_memoized` で行います。
 `cache.delete_memoized` の第二引数以降に値を指定することで、特定の引数で memoize した関数が呼ばれた場合のキャッシュのみを削除することも可能です。
