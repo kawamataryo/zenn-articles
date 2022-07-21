@@ -55,7 +55,8 @@ Flask-Caching が提供するキャッシュ API をみていきます。
 
 View のキャッシュは`@cache.cached`デコレータで行います。
 以下`/heavy_view`は内部で 10 秒間 sleep する View ですが、初回アクセス以降は Flask-Cache のキャッシュがヒットして、即時にレスポンスを返すことができます。
-また、標準でキャッシュのキーはリクエストのパスごとに異なるので、一度 `/heavy_view/foo` にアクセスしたあと再度`/heavy_view/foo`へアクセスするとキャッシュがヒットしますが、`/heavy_view/bar`にアクセスした場合はキャッシュがヒットせず内部の処理が実行されます。
+
+標準でキャッシュのキーはリクエストのパスごとに異なります。一度 `/heavy_view/foo` にアクセスしたあと再度`/heavy_view/foo`へアクセスするとキャッシュがヒットしますが、`/heavy_view/bar`にアクセスした場合はキャッシュがヒットせず内部の処理が実行されます。
 
 ```python
 @app.route('/heavy_view/<string:name>')
