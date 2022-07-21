@@ -45,7 +45,7 @@ app.config.from_mapping(config)
 cache = Cache(app)
 ```
 
-config で `CACHE_TYPE` に `RedisCache` を指定することで Redis のキャッシュを有効化して、`CACHE_REDIS_HOST`と`CACHE_REDIS_PORT`で Redis の接続先を指定しています。もし Redis にパスワード認証が必要な場合は、`CACHE_REDIS_PASSWORD` で指定可能です。
+config で `CACHE_TYPE` に `RedisCache` を指定することで Redis のキャッシュを有効化して、`CACHE_REDIS_HOST`と`CACHE_REDIS_PORT`で Redis の接続先を指定しています。もし Redis でパスワード認証を行っている場合は、`CACHE_REDIS_PASSWORD` でパスワードの指定が可能です。
 
 これだけでセットアップは完了です。
 
