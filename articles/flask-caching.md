@@ -87,7 +87,6 @@ cache.delete('key_name')
 
 `cache.delete` で前述のサンプルコードのキャッシュのみ削除する場合は、`cache.delete('view//heavy_view')` です。
 
-
 ## View 以外の関数のキャッシュ
 
 View 以外の関数のキャッシュには `@cache.memoize` デコレータが使えます。
@@ -115,6 +114,8 @@ cache.delete_memoized(heavy_func)
 # heavy_func(1, 2)で呼ばれた場合のキャッシュのみを削除
 cache.delete_memoized(heavy_func, 1, 2)
 ```
+
+Flask-Caching は内部的には、[cachelib](https://github.com/pallets-eco/cachelib) を使っていて、キャッシュの際に値をシリアライズしてキャッシュバックエンドに保存するため、dict でも、配列でも任意の型の値をそのまま記録・抽出できます。その点も便利ですね。
 
 ## 任意の値のキャッシュ
 
