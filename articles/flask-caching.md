@@ -10,7 +10,9 @@ published: false
 
 # Flask-Caching とは？
 
-[Flask-Caching](https://flask-caching.readthedocs.io/en/latest/) は Flask の View やその他関数にて容易にキャッシュ機能を実装するためのライブラリです。キャッシュのバックエンドとして、Redis や Memcached、UWSGICache など、さまざまなミドルウェアを指定することが出来、それぞれを統一したインターフェイスとして扱えるという特徴があります。
+[Flask-Caching](https://flask-caching.readthedocs.io/en/latest/) は Flask の View やその他関数にて容易にキャッシュ機能を実装するためのライブラリです。
+
+キャッシュのバックエンドとして、Redis や Memcached、UWSGICache など、さまざまなミドルウェアを指定することが出来、それぞれを統一したインターフェイスとして扱えるという特徴があります。
 
 [Flask の公式ドキュメントでも紹介](https://flask.palletsprojects.com/en/2.1.x/patterns/caching/?highlight=cache)されているので、Flask でキャッシュを使う際の第 1 選択肢として考えて良いと思います。
 
