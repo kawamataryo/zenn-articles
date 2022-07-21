@@ -72,7 +72,7 @@ def heavy_view(name):
 また、`@cache.cached`のデコレータに引数を指定することでキャッシュの制御が行えます。
 
 - `timeout` : キャッシュの保存時間。秒数で指定。config で`CACHE_DEFAULT_TIMEOUT`を指定することで標準の保存時間を指定することが可能。もしどちらも指定がない場合は無期限でキャッシュを返す。
-- `key_prefix` : キャッシュのプレフィクス。無指定の場合は、`view/<リクエストのpath>`が設定される（上記サンプルコードだと`view//heavy_view/xx`。
+- `key_prefix` : キャッシュキーのプレフィクス。無指定の場合は、`view/<リクエストのpath>`が設定される（上記サンプルコードだと`view//heavy_view/xx`。
 
 詳細な引数は[API リファレンス](https://flask-caching.readthedocs.io/en/latest/api.html#cache-api)を参照してください。
 
