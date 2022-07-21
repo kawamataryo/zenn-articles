@@ -168,7 +168,7 @@ def _super_heavy_func():
 ```
 
 本の一覧を取得する`/books`と本の詳細を取得する`/books/<name>`の GET API では、内部でとても重い処理（`_super_heavy_func`）を実行しているので、毎回レスポンスに 10 秒以上かかります。
-これではとても体験が悪いので、キャッシュを導入することとします。以下、Flask-Caching を導入した場合の例です。
+これでは体験が悪いので、キャッシュを導入することとします。以下、Flask-Caching を導入した場合の例です。
 
 ```python
 from flask import Flask, jsonify, request
