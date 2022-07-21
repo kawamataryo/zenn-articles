@@ -55,6 +55,8 @@ Flask-Caching が提供するキャッシュ API をみていきます。
 
 View のキャッシュは`@cache.cached`デコレータで行います。
 
+https://flask-caching.readthedocs.io/en/latest/#caching-view-functions
+
 以下`/heavy_view`は内部で 10 秒間 sleep する View です。初回アクセス以降は Flask-Cache のキャッシュがヒットして、即時にレスポンスを返すことができます。
 
 ```python
@@ -85,9 +87,12 @@ cache.delete('key_name')
 
 `cache.delete` で前述のサンプルコードのキャッシュのみ削除する場合は、`cache.delete('view//heavy_view')` です。
 
+
 ## View 以外の関数のキャッシュ
 
 View 以外の関数のキャッシュには `@cache.memoize` デコレータが使えます。
+
+https://flask-caching.readthedocs.io/en/latest/#memoization
 
 `@cache.memoize`は関数名と、引数をキーとしてキャッシュを作成する点が、`@cache.cached`とは異なります。
 以下サンプルコードで、`heavy_func(1, 2)`を 2 回実行した場合、初回は 10 秒かかりますが、2 回目以降は瞬時に値が返ります。
@@ -114,6 +119,8 @@ cache.delete_memoized(heavy_func, 1, 2)
 ## 任意の値のキャッシュ
 
 Flask-Caching はデコレータでの利用以外でも、`cache.set`と`cache.get`を使うことで任意の値をキャッシュできます。
+
+https://flask-caching.readthedocs.io/en/latest/#explicitly-caching-data
 
 ```python
 # cache_keyというキー名で、'cached value'という文字列を保存
