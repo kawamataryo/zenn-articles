@@ -10,8 +10,8 @@ published: false
 
 # Flask-Caching とは？
 
-[Flask-Caching](https://flask-caching.readthedocs.io/en/latest/) は Flask の View やその他関数にて容易にキャッシュ機能を実装するためのライブラリです。
-キャッシュのバックエンドとして、Redis や Memcached、UWSGICache など、さまざまなミドルウェアを指定することが出来、それぞれを統一したインターフェイスとして扱えるという特徴があります。
+[Flask-Caching](https://flask-caching.readthedocs.io/en/latest/) は Flask の View やその他関数にて容易にキャッシュ機能を実装するためのライブラリです。キャッシュのバックエンドとして、Redis や Memcached、UWSGICache など、さまざまなミドルウェアを指定することが出来、それぞれを統一したインターフェイスとして扱えるという特徴があります。
+
 [Flask の公式ドキュメントでも紹介](https://flask.palletsprojects.com/en/2.1.x/patterns/caching/?highlight=cache)されているので、Flask でキャッシュを使う際の第 1 選択肢として考えて良いと思います。
 
 https://flask-caching.readthedocs.io/en/latest/
@@ -43,7 +43,7 @@ app.config.from_mapping(config)
 cache = Cache(app)
 ```
 
-config で `CACHE_TYPE` に `RedisCache` を指定することで Redis のキャッシュを有効化して、`CACHE_REDIS_HOST`と`CACHE_REDIS_PORT`で Redis の接続先を指定しています。このコードでは`localhost:6379`で Redis にアクセスできる想定で記載しています。もし Redis にパスワード認証が必要な場合は、`CACHE_REDIS_PASSWORD` で指定可能です。
+config で `CACHE_TYPE` に `RedisCache` を指定することで Redis のキャッシュを有効化して、`CACHE_REDIS_HOST`と`CACHE_REDIS_PORT`で Redis の接続先を指定しています。もし Redis にパスワード認証が必要な場合は、`CACHE_REDIS_PASSWORD` で指定可能です。
 
 これだけでセットアップは完了です。
 
@@ -54,9 +54,11 @@ Flask-Caching が提供するキャッシュ API をみていきます。
 ## View のキャッシュ
 
 View のキャッシュは`@cache.cached`デコレータで行います。
+
 以下`/heavy_view`は内部で 10 秒間 sleep する View ですが、初回アクセス以降は Flask-Cache のキャッシュがヒットして、即時にレスポンスを返すことができます。
 
-標準でキャッシュのキーはリクエストのパスごとに異なります。一度 `/heavy_view/foo` にアクセスしたあと再度`/heavy_view/foo`へアクセスするとキャッシュがヒットしますが、`/heavy_view/bar`にアクセスした場合はキャッシュがヒットせず内部の処理が実行されます。
+標準でキャッシュのキーはリクエストのパスごとに異なります。
+一度 `/heavy_view/foo` にアクセスしたあと再度`/heavy_view/foo`へアクセスするとキャッシュがヒットしますが、`/heavy_view/bar`にアクセスした場合はキャッシュがヒットせず内部の処理が実行されます。
 
 ```python
 @app.route('/heavy_view/<string:name>')
@@ -88,6 +90,7 @@ cache.delete('key_name')
 ## View 以外の関数のキャッシュ
 
 View 以外の関数のキャッシュには `@cache.memoize` デコレータが使えます。
+
 `@cache.memoize`は関数名と、引数をキーとしてキャッシュを作成する点が、`@cache.cached`とは異なります。
 以下サンプルコードで、`heavy_func(1, 2)`を 2 回実行した場合、初回は 10 秒かかりますが、2 回目以降は瞬時に値が返ります。
 
@@ -226,6 +229,7 @@ def _super_heavy_func():
 ```
 
 `/books`と`/books/<name>`の GET API で`@cache.cached`を使ってレスポンスをキャッシュしています。2 回目以降のアクセスではキャッシュがヒットするため、高速に動作します。
+
 ただ重い API に`@cache.cached`を追加しただけだと、本の変更が反映されず困るのですが、本の追加の`/books`の POST API と、本の内容更新の`/books/<name>`の PUT API にて対応するキャッシュを削除するこで変更が反映されるようにしています。
 
 これでパフォーマンスは向上させつつ、仕様を満たすことができます。
