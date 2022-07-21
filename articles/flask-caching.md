@@ -124,7 +124,7 @@ cache.get('cache_key')
 
 # サンプルアプリ
 
-最後に少しだけ現実的な例を。本の情報を管理する RESTful API のサンプルアプリです。
+最後に少しだけ現実的な例を。本の情報を管理するサンプルアプリです。
 
 ```python:app.py
 from flask import Flask, jsonify, request
