@@ -10,9 +10,9 @@ published: false
 
 # Flask-Caching とは？
 
-[Flask-Caching](https://flask-caching.readthedocs.io/en/latest/) は Flask の View やその他関数において容易にキャッシュを実装するためのライブラリです。
-キャッシュのバックエンドとして、Redis や Memcached、UWSGICache など、さまざまなミドルウェアを指定することが出来、それぞれを統一したインターフェイスとして扱えるという特徴がありますね。
-[Flask の公式ドキュメントでも、紹介されている](https://flask.palletsprojects.com/en/2.1.x/patterns/caching/?highlight=cache)ので、Flask でキャッシュを使う際の第一選択肢として考えて良いと思います。
+[Flask-Caching](https://flask-caching.readthedocs.io/en/latest/) は Flask の View やその他関数にて容易にキャッシュ機能を実装するためのライブラリです。
+キャッシュのバックエンドとして、Redis や Memcached、UWSGICache など、さまざまなミドルウェアを指定することが出来、それぞれを統一したインターフェイスとして扱えるという特徴があります。
+[Flask の公式ドキュメントでも紹介](https://flask.palletsprojects.com/en/2.1.x/patterns/caching/?highlight=cache)されているので、Flask でキャッシュを使う際の第 1 選択肢として考えて良いと思います。
 
 https://flask-caching.readthedocs.io/en/latest/
 
@@ -20,7 +20,7 @@ https://flask-caching.readthedocs.io/en/latest/
 
 本記事では Redis でのセットアップを紹介します。
 
-Flask の環境を作ったら、pip でライブラリをインストールします。Redis をバックエンドとして使うため redis-py も合わせて追加します。
+Flask の環境を作ったら、pip でライブラリをインストールします。Redis をバックエンドとして使うため [redis-py](https://github.com/redis/redis-py) も合わせて追加します。
 
 ```bash
 pip install Flask-Caching redis
