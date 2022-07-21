@@ -115,8 +115,6 @@ cache.delete_memoized(heavy_func)
 cache.delete_memoized(heavy_func, 1, 2)
 ```
 
-Flask-Caching は内部的には、[cachelib](https://github.com/pallets-eco/cachelib) を使っていて、キャッシュの際に値をシリアライズしてキャッシュバックエンドに保存するため、dict でも、配列でも任意の型の値をそのまま記録・抽出できます。その点も便利ですね。
-
 ## 任意の値のキャッシュ
 
 Flask-Caching はデコレータでの利用以外でも、`cache.set`と`cache.get`を使うことで任意の値をキャッシュできます。
@@ -130,6 +128,8 @@ cache.set('cache_key', 'cached value')
 # 'cached_value' が返却される
 cache.get('cache_key')
 ```
+
+Flask-Caching は内部的には、[cachelib](https://github.com/pallets-eco/cachelib) を使っていて、キャッシュの際に値をシリアライズしてキャッシュバックエンドに保存するため、dict でも、配列でも任意の型の値をそのまま記録・抽出できます。その点も便利ですね。
 
 # サンプルアプリ
 
