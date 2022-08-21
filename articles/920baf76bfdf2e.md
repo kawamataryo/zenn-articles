@@ -8,8 +8,7 @@ published: false
 
 # 作ったもの
 
-Web ブラウザの仕組みを基礎から勉強したいと思い、「[Let's build a browser engine!](https://limpet.net/mbrubeck/2014/08/08/toy-layout-engine-1.html)」の記事を参考に
-Deno で簡易的な HTML レンダリングエンジンを作ってみました。
+Web ブラウザの仕組みを基礎から勉強したいと思い、「[Let's build a browser engine!](https://limpet.net/mbrubeck/2014/08/08/toy-layout-engine-1.html)」の記事を参考に Deno で簡易的な HTML レンダリングエンジンを作ってみました。
 
 簡易的という言葉の通り、実用性はないです。
 
