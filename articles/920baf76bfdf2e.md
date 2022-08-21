@@ -8,8 +8,7 @@ published: false
 
 # 作ったもの
 
-Web
-ブラウザの仕組みを基礎から勉強したいと思い、「[Let's build a browser engine!](https://limpet.net/mbrubeck/2014/08/08/toy-layout-engine-1.html)」の記事を参考に
+Web ブラウザの仕組みを基礎から勉強したいと思い、「[Let's build a browser engine!](https://limpet.net/mbrubeck/2014/08/08/toy-layout-engine-1.html)」の記事を参考に
 Deno で簡易的な HTML レンダリングエンジンを作ってみました。
 
 簡易的という言葉の通り、実用性はないです。
@@ -20,8 +19,7 @@ Deno で簡易的な HTML レンダリングエンジンを作ってみました
 
 https://deno-toy-rendering-engine.deno.dev/
 
-描画に対応しているものは、ブロック要素のレイアウトのみで、使える CSS もごくわずか。サイズ・位置指定（width、 height、
-padding、margin、border-width）と装飾（background-color、border-color）のみ。
+描画に対応しているものは、ブロック要素のレイアウトのみで、使える CSS もごくわずか。サイズ・位置指定（width、 height、padding、margin、border-width）と装飾（background-color、border-color）のみ。
 
 テキストの描画もできません。
 
@@ -30,14 +28,12 @@ padding、margin、border-width）と装飾（background-color、border-color）
 ![](https://i.gyazo.com/2d8cbf42388d833d54f10f7c17eb77d3.png)
 _本記事で実装するレンダリングエンジンの流れ_
 
-参考記事では、Rust で作られていたのですが、~~Rust のコンパイラが怖いので~~ TypeScript で実装してみました。また、ランタイムは
-Node.js ではなく [Deno](https://deno.land/) を選択しています。 実装コードはすべてこちらのリポジトリで公開しています。
+参考記事では、Rust で作られていたのですが、~~Rust のコンパイラが怖いので~~ TypeScript で実装してみました。また、ランタイムは Node.js ではなく [Deno](https://deno.land/) を選択しています。 実装コードはすべてこちらのリポジトリで公開しています。
 
 https://github.com/kawamataryo/deno-toy-browser-engine
 
 :::message
-「これでレンダリングエンジンと言えるのか!!😡
-」というマサカリが怖いですが、あくまで簡易的ですし、参考記事もレンダリングエンジンと言っているのでお許しを。。ちなみに、参考記事の筆者[Matt Brubeck](https://github.com/mbrubeck) さんはもともと Mozilla で Firefox の開発をしていた方のようです。
+「これでレンダリングエンジンと言えるのか!!😡 」というマサカリが怖いですが、あくまで簡易的ですし、参考記事もレンダリングエンジンと言っているのでお許しを。。ちなみに、参考記事の筆者[Matt Brubeck](https://github.com/mbrubeck) さんはもともと Mozilla で Firefox の開発をしていた方のようです。
 https://hacks.mozilla.org/author/mbrubeckmozilla-com/
 :::
 
