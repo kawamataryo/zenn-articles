@@ -196,8 +196,7 @@ https://github.com/kawamataryo/deno-toy-rendering-engine/tree/main/web
 
 また TDD で開発していたので、テストを何度も実行していたのですが、そのテストの実行速度の速さにも驚きました。
 
-最近速いと話題の
-[Vitest](https://vitest.dev/)と使い比べて見たのですが、Vitest よりもさらに数段早かったです。
+最近速いと話題の [Vitest](https://vitest.dev/)と使い比べて見たのですが、Vitest よりもさらに数段早かったです。
 
 ## Rust の文法の表現の豊かさ
 
