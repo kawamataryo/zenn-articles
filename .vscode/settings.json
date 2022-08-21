@@ -1,8 +1,5 @@
 {
-  "cSpell.words": [
-    "Pytest",
-    "shellspec"
-  ],
+  "cSpell.words": ["Pytest", "shellspec"],
   "editor.formatOnPaste": true,
-  "editor.formatOnSave": true
+  "editor.formatOnSave": false
 }
