@@ -11,16 +11,13 @@ published: false
 Web ブラウザの仕組みを基礎から勉強したいと思い、「[Let's build a browser engine!](https://limpet.net/mbrubeck/2014/08/08/toy-layout-engine-1.html)」の記事を参考に Deno で簡易的な HTML レンダリングエンジンを作ってみました。
 
 簡易的という言葉の通り、実用性はないです。
-
 以下 GIF のように、HTML と CSS を入力として受け取り、Canvas にボックスを描画するだけです。
 
 ![](https://i.gyazo.com/0ff561a6683205a130cf4f444cb8f19f.gif)
 
 https://deno-toy-rendering-engine.deno.dev/
 
-描画に対応しているものは、ブロック要素のレイアウトのみで、使える CSS もごくわずか。サイズ・位置指定（width、 height、padding、margin、border-width）と装飾（background-color、border-color）のみ。
-
-テキストの描画もできません。
+描画に対応しているものは、ブロック要素のレイアウトのみで、使える CSS もごくわずか。サイズ・位置指定（width、 height、padding、margin、border-width）と装飾（background-color、border-color）のみ。テキストの描画もできません。
 
 ただ、ひとつひとつの過程を自分で実装していくので、レンダリングエンジンの仕組みを勉強するにはとても良いものでした。
 
