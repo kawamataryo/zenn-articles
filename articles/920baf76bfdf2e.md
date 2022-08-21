@@ -205,6 +205,11 @@ https://github.com/kawamataryo/deno-toy-rendering-engine/tree/main/web
 
 とくにパターンマッチは強力だと感じたので、是非 ECMAScript にも入って欲しいなと思っています。
 
+:::message
+ECMAScript にもパターンマッチのプロポーザルは出ているようです。ただまだ stage 1 なのでかなり先になりそう。
+https://github.com/tc39/proposal-pattern-matching
+:::
+
 _とくに再現に苦労したコード_ ([Part 6: Block layout より](https://limpet.net/mbrubeck/2014/09/17/toy-layout-engine-6-block.html))
 
 ```rust
@@ -240,11 +245,6 @@ match (width == auto, margin_left == auto, margin_right == auto) {
     }
 }
 ```
-
-:::message
-ECMAScript にもパターンマッチのプロポーザルは出ているようです。ただまだ stage 1 なのでかなり先になりそう。
-https://github.com/tc39/proposal-pattern-matching
-:::
 
 # 参考
 
