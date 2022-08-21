@@ -155,7 +155,7 @@ https://github.com/kawamataryo/deno-toy-rendering-engine/blob/main/src/lib/%5F%5
 
 https://github.com/DjDeveloperr/deno-canvas
 
-レイアウトツリーをそのままピクセル化するのではなく、一度ディスプレイコマンドに変換するこで、無駄な描画を排除したいり、共有化することができるそうです。
+レイアウトツリーをそのままピクセル化するのではなく、一度ディスプレイコマンドに変換するこで、ムダな描画を排除したいり、共有化することができるそうです。
 
 すべて実装し、最終的に、この Tweet のように HTML と CSS から画像を出力することができました。
 
