@@ -192,11 +192,10 @@ https://github.com/kawamataryo/deno-toy-rendering-engine/tree/main/web
 ## Deno の使いやすさ
 
 ちゃんと Deno をランタイムとして使ったのは今回がはじめてなのですが、とても開発体験が良かったです。
+
 素で TS が使える点、formatter と linter が同梱されている点など、機能としてはどれも Node.js でもできることなのですが、外部ライブラリに依存せず設定不要で使えることは、開発体験に大きく寄与すると感じました。
 
-また TDD で開発していたので、テストを何度も実行していたのですが、そのテストの実行速度の速さにも驚きました。
-
-最近速いと話題の [Vitest](https://vitest.dev/)と使い比べて見たのですが、Vitest よりもさらに数段早かったです。
+また TDD で開発していたので、テストを何度も実行していたのですが、そのテストの実行速度の速さにも驚きました。最近速いと話題の [Vitest](https://vitest.dev/)と使い比べて見たのですが、Vitest よりもさらに数段早かったです。
 
 ## Rust の文法の表現の豊かさ
 
@@ -210,7 +209,7 @@ ECMAScript にもパターンマッチのプロポーザルは出ているよう
 https://github.com/tc39/proposal-pattern-matching
 :::
 
-_とくに再現に苦労したコード_ ([Part 6: Block layout より](https://limpet.net/mbrubeck/2014/09/17/toy-layout-engine-6-block.html))
+_とくに再現に苦労したコード ([Part 6: Block layout より](https://limpet.net/mbrubeck/2014/09/17/toy-layout-engine-6-block.html))_
 
 ```rust
 match (width == auto, margin_left == auto, margin_right == auto) {
