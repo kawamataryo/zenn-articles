@@ -11,13 +11,13 @@ published: false
 Web ブラウザの仕組みを基礎から勉強したいと思い、「[Let's build a browser engine!](https://limpet.net/mbrubeck/2014/08/08/toy-layout-engine-1.html)」の記事を参考に Deno で簡易的な HTML レンダリングエンジンを作ってみました。
 
 簡易的という言葉の通り、実用性はないです。
-以下 GIF のように、HTML と CSS を入力として受け取り、Canvas にボックスを描画するだけです。
+HTML と CSS を入力として受け取り、Canvas にボックスを描画するだけです。
 
 ![](https://i.gyazo.com/0ff561a6683205a130cf4f444cb8f19f.gif)
 
 https://deno-toy-rendering-engine.deno.dev/
 
-描画に対応しているものは、ブロック要素のレイアウトのみで、使える CSS もごくわずか。サイズ・位置指定（width、 height、padding、margin、border-width）と装飾（background-color、border-color）のみ。テキストの描画もできません。
+また、描画に対応しているものは、ブロック要素のレイアウトのみで、使える CSS もごくわずか。サイズ・位置指定（width、 height、padding、margin、border-width）と装飾（background-color、border-color）のみ。テキストの描画もできません。
 
 ただ、ひとつひとつの過程を自分で実装していくので、レンダリングエンジンの仕組みを勉強するにはとても良いものでした。
 
@@ -34,6 +34,8 @@ https://hacks.mozilla.org/author/mbrubeckmozilla-com/
 :::
 
 # 章ごとの所感
+
+参考記事「[Let's build a browser engine!](https://limpet.net/mbrubeck/2014/08/08/toy-layout-engine-1.html)」の章ごとの所感をまとめます。
 
 ## Part 1: Getting started, Part 2: HTML
 
@@ -65,7 +67,7 @@ https://github.com/kawamataryo/deno-toy-rendering-engine/blob/main/src/lib/%5F%5
 
 <https://limpet.net/mbrubeck/2014/08/13/toy-layout-engine-3-css.html>
 
-次に CSS も HTML と同じようにパーサーを作りパースします。CSS の場合は階層構造とはなっていないので、パース結果は、ツリーではなくオブジェクトの配列になります。
+CSS も HTML と同じようにパーサーを作りパースします。CSS の場合は階層構造とはなっていないので、パース結果は、ツリーではなくオブジェクトの配列になります。
 
 ここで作るパーサーでも、すべてのプロパティと値をサポートすると莫大なコード量が必要なので、最低限のものしかサポートしていません。
 
@@ -119,7 +121,8 @@ https://github.com/kawamataryo/deno-toy-rendering-engine/blob/main/src/lib/%5F%5
 
 Style ツリーを入力として受けとり、[CSS のボックスモデル](https://developer.mozilla.org/ja/docs/Learn/CSS/Building_blocks/The_box_model)に対応したレイアウト情報を持つボックスの集合（レイアウトツリー）を作ります。
 
-:::message ボックスモデルについての説明は MDN の記事がわかりやすかったです。
+:::message
+ボックスモデルについての説明は MDN の記事がわかりやすかったです。
 https://developer.mozilla.org/ja/docs/Learn/CSS/Building_blocks/The_box_model
 :::
 
