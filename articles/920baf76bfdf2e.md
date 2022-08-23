@@ -3,7 +3,7 @@ title: "Deno で簡易レンダリングエンジンを作ってみた"
 emoji: "🎨"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["deno", "TypeScript", "browser"]
-published: false
+published: true
 ---
 
 # 作ったもの
