@@ -1,5 +1,5 @@
 ---
-title: "Vue2経験者向け Vue3 スタートガイド [LAPRAS社内勉強会資料]"
+title: "Vue経験者向けVue3スタートガイド[LAPRAS社内勉強会資料]"
 emoji: "🚴‍♂️"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["vue", "typescript"]
