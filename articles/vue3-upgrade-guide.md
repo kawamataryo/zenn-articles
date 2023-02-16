@@ -256,18 +256,6 @@ Vue3 では v-model の仕様がいろいろ変更。
 
 @[codesandbox](https://codesandbox.io/embed/vue-3-v-model-te3owy?fontsize=14&hidenavigation=1&module=%2Fsrc%2Fcomponents%2FCustomForm.vue&theme=dark)
 
-## Array, Object の変更で Vue.set, Vue.remove の利用が不要に
-
-Vue2 では配列や、[配列、オブジェクトのキー指定の書き換え・削除がリアクティブにならない](https://jp.vuejs.org/v2/guide/reactivity.html#%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%81%AB%E9%96%A2%E3%81%97%E3%81%A6)という注意点があったが、Vue3 では解消された。`Vue.set`や`Vue.remove` が不要になった。
-
-### Vue2
-
-@[codesandbox](https://codesandbox.io/embed/vue2-reactive-array-obj-q0tb5k?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.vue&theme=dark)
-
-### Vue3
-
-@[codesandbox](https://codesandbox.io/embed/sweet-snyder-rc60fr?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.vue&theme=dark)
-
 ## 配列の要素の変更が標準で Watch されない
 
 https://v3-migration.vuejs.org/breaking-changes/watch.html
@@ -287,6 +275,18 @@ watch(
 ```
 
 @[codesandbox](https://codesandbox.io/embed/vue-3-array-watch-s8530x?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.vue&theme=dark)
+
+## Array, Object の変更で Vue.set, Vue.remove の利用が不要に
+
+Vue2 では配列や、[配列、オブジェクトのキー指定の書き換え・削除がリアクティブにならない](https://jp.vuejs.org/v2/guide/reactivity.html#%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%81%AB%E9%96%A2%E3%81%97%E3%81%A6)という注意点があったが、Vue3 では解消された。`Vue.set`や`Vue.remove` が不要になった。
+
+### Vue2
+
+@[codesandbox](https://codesandbox.io/embed/vue2-reactive-array-obj-q0tb5k?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.vue&theme=dark)
+
+### Vue3
+
+@[codesandbox](https://codesandbox.io/embed/sweet-snyder-rc60fr?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.vue&theme=dark)
 
 ## deep セレクターの書き方が変更
 
