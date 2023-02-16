@@ -1,12 +1,15 @@
 ---
-title: "Vue3 ガイド"
+title: "Vue3へのバージョンアップに向けて LAPRAS社内勉強会資料"
 emoji: "🍃"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["vue", "typescript"]
 published: false
 ---
 
-LAPRAS 社内で開いた Vue3 の勉強会が好評だったので、一部内容を変更して資料を公開します！
+LAPRAS 社内で開いた Vue3 の勉強会が好評だったので、一部内容を変更して資料を公開します。
+
+![](/images/vue3-upgrade-guide/2023-02-16-14-51-47.png)
+_社内勉強会の様子。Codesandbox で実際に編集しながら説明しました_
 
 # 🏎️ Vue3 で何が変わる？
 
