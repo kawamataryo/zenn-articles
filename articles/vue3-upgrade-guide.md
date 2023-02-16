@@ -368,12 +368,11 @@ const { length } = useLength(toRef(state, "name"));
 
 - [Vue.js - The Progressive JavaScript Framework | Vue.js](https://ja.vuejs.org/)
 - [Vue 3 Migration Guide | Vue 3 Migration Guide](https://v3-migration.vuejs.org/)
-- Special Thanks @shin
+- Special Thanks [@Shin2357](https://twitter.com/Shin2357)
 
 # おわりに
 
-Vue3 がリリースされてもう 2 年ほど経過しているのですが、まだまだ Vue2 で開発しているチームも多いと思います。
-そのようなチームが、Vue3 化を進める際に、チームへの説明資料として使ってもらえたらめちゃ嬉しいです。
+Vue3 がリリースされてもう 2 年ほど経過しているのですが、まだまだ Vue2 で開発しているチームも多いと思います。そのようなチームが、いざ Vue3 移行を進める際の説明資料などに使ってもらえたらめちゃ幸せです。
 
 ![](/images/vue3-upgrade-guide/capture2.png)
 _社内勉強会の様子。Codesandbox で実際に編集しながら説明_
