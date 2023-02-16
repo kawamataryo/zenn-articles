@@ -8,7 +8,7 @@ published: false
 
 LAPRAS 社内で開いた Vue3 の勉強会が好評だったので、一部内容を変更して資料を公開します。
 
-![](/images/vue3-upgrade-guide/capture.png)
+![](/images/vue3-upgrade-guide/capture2.png)
 _社内勉強会の様子。Codesandbox で実際に編集しながら説明_
 
 # 🏎️ Vue3 で何が変わる？
