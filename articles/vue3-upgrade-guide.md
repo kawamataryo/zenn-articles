@@ -196,13 +196,13 @@ https://ja.vuejs.org/guide/built-ins/suspense.html
 
 非同期コンポーネントを使う際に有効だが、まだ Experimental な機能で API が変わる可能性があるので使用は控えたほうが良いかも。
 
-```vue
+```html
 <Suspense>
   <!-- ネストされた非同期な依存関係を持つコンポーネント -->
-  <Dashboard />
+  <Dashboard>
 
   <!-- #fallback スロットでローディング状態を表す -->
-  <template #fallback>
+  <template fallback>
     Loading...
   </template>
 </Suspense>
@@ -238,21 +238,11 @@ Vue3 では v-model の仕様がいろいろ変更。
 
 ### Vue2
 
-<iframe src="https://codesandbox.io/embed/vue2-v-model-wbk6u0?fontsize=14&hidenavigation=1&module=%2Fsrc%2Fcomponents%2FCustomForm.vue&theme=dark"
-     style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
-     title="vue2-v-model"
-     allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
-     sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-   ></iframe>
+@[codesandbox](https://codesandbox.io/embed/vue2-v-model-wbk6u0?fontsize=14&hidenavigation=1&module=%2Fsrc%2Fcomponents%2FCustomForm.vue&theme=dark)
 
 ### Vue3
 
-<iframe src="https://codesandbox.io/embed/vue-3-v-model-te3owy?fontsize=14&hidenavigation=1&module=%2Fsrc%2Fcomponents%2FCustomForm.vue&theme=dark"
-     style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
-     title="vue-3-v-model"
-     allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
-     sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-   ></iframe>
+@[codesandbox](https://codesandbox.io/embed/vue-3-v-model-te3owy?fontsize=14&hidenavigation=1&module=%2Fsrc%2Fcomponents%2FCustomForm.vue&theme=dark)
 
 ## Array, Object の変更で Vue.set, Vue.remove の利用が不要に
 
@@ -260,21 +250,11 @@ Vue2 では配列や、[配列、オブジェクトのキー指定の書き換�
 
 ### Vue2
 
-<iframe src="https://codesandbox.io/embed/vue2-reactive-array-obj-q0tb5k?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.vue&theme=dark"
-     style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
-     title="vue2-reactive-array-obj"
-     allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
-     sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-   ></iframe>
+@[codesandbox](https://codesandbox.io/embed/vue2-reactive-array-obj-q0tb5k?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.vue&theme=dark)
 
 ### Vue3
 
-<iframe src="https://codesandbox.io/embed/sweet-snyder-rc60fr?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.vue&theme=dark"
-     style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
-     title="vue-3-reactive-check"
-     allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
-     sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-   ></iframe>
+@[codesandbox](https://codesandbox.io/embed/sweet-snyder-rc60fr?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.vue&theme=dark)
 
 ## 配列の要素の変更が標準で Watch されない
 
@@ -294,12 +274,7 @@ watch(
 );
 ```
 
-<iframe src="https://codesandbox.io/embed/vue-3-array-watch-s8530x?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.vue&theme=dark"
-     style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
-     title="vue-3-array-watch"
-     allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
-     sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-   ></iframe>
+@[codesandbox](https://codesandbox.io/embed/vue-3-array-watch-s8530x?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.vue&theme=dark)
 
 ## deep セレクターの書き方が変更
 
@@ -316,12 +291,7 @@ https://ja.vuejs.org/api/sfc-css-features.html#scoped-css
 </style>
 ```
 
-<iframe src="https://codesandbox.io/embed/vue-3-deep-qhjirb?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.vue&theme=dark"
-     style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
-     title="vue-3-deep"
-     allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
-     sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-   ></iframe>
+@[codesandbox](https://codesandbox.io/embed/vue-3-deep-qhjirb?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.vue&theme=dark)
 
 ## その他いろいろ
 
