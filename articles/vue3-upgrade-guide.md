@@ -1,6 +1,6 @@
 ---
 title: "Vue2経験者向け Vue3 スタートガイド [LAPRAS社内勉強会資料]"
-emoji: "🍃"
+emoji: "🏁"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["vue", "typescript"]
 published: false
