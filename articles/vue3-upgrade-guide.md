@@ -1,15 +1,19 @@
 ---
-title: "Vue3 スタートガイド [LAPRAS社内勉強会資料]"
+title: "Vue2経験者向け Vue3 スタートガイド [LAPRAS社内勉強会資料]"
 emoji: "🍃"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["vue", "typescript"]
 published: false
 ---
 
-LAPRAS 社内で開いた Vue3 の勉強会が好評だったので、一部内容を変更して資料を公開します。
+[LAPRAS](https://corp.lapras.com/recruit-engineer/) 社内で開催した Vue3 の勉強会が好評だったので、一部内容を変更して資料を公開します。
+Codesandbox で実行環境を適宜作っているので、動作を試しながら読んでらえると嬉しいです。
 
-![](/images/vue3-upgrade-guide/capture2.png)
-_社内勉強会の様子。Codesandbox で実際に編集しながら説明_
+# 🙋‍♂️ 対象読者
+
+- Vue2 を Vue3 に移行中 or 移行検討中の人
+- 普段 Vue は触らないけど、教養的に Vue3 をキャッチアップしたい人
+- Vue3 の機能・注意点を普段フロントエンドを触らないメンバーに説明したい人
 
 # 🏎️ Vue3 で何が変わる？
 
@@ -26,7 +30,7 @@ https://v3-migration.vuejs.org/
   - template 内部での TS 構文の利用が可能に
   - 型推論が改善し、より安全に使えるように
 
-# 💫 新たに追加された API
+# 💫 新たにサポートされた API・構文
 
 ## script setup 構文
 
@@ -130,7 +134,7 @@ export default defineComponent(() => {
 
 https://ja.vuejs.org/guide/built-ins/teleport.html
 
-`<Teleport>`  は、コンポーネントにあるテンプレートの一部を、そのコンポーネントの DOM 階層の外側に存在する DOM ノードに「テレポート」するもの。[portal-vue](https://portal-vue.linusb.org/) と同等の機能。新たなスタッキングコンテキストを生成することで z-index での重なり制御を回避できる。
+`<Teleport>`  は、コンポーネントにあるテンプレートの一部を、そのコンポーネントの DOM 階層の外側に存在する DOM ノードへ「テレポート」するもの。[portal-vue](https://portal-vue.linusb.org/) と同等の機能。新たなスタッキングコンテキストを生成することで z-index での重なり制御を回避できる。
 
 ```vue
 <template>
@@ -178,7 +182,7 @@ https://v3-migration.vuejs.org/new/fragments.html
 
 Vue3 から`<template>`直下に同じ階層で複数の要素を配置できるようになった。不要な wrapper の`div` を作らなくて済む。
 
-ただし、fragment を使っている場合、親要素から class などの属性を追加する際に、子要素側で、明示的に`v-bind="$attrs"`を設定しないと属性が付与されないので注意。さらに scoped css にしている場合は`:deep()`が必要。
+ただし、fragment を使っている場合、親要素から class などの属性を追加する際に子要素側で、明示的に`v-bind="$attrs"`を設定しないと属性が付与されないので注意。さらに scoped css にしている場合は`:deep()`も必要。
 
 ```vue
 <template>
@@ -359,4 +363,22 @@ const { length } = useLength(toRef(state, "name"));
 
 - [Vue.js - The Progressive JavaScript Framework | Vue.js](https://ja.vuejs.org/)
 - [Vue 3 Migration Guide | Vue 3 Migration Guide](https://v3-migration.vuejs.org/)
-- [Others/しんノート/出る順・Vue3 仕様変更の要点 - lapras.esa.io](https://lapras.esa.io/posts/10806)
+- Special Thanks @shin
+
+# おわりに
+
+Vue3 がリリースされてもう 2 年ほど経過しているのですが、まだまだ Vue2 で開発しているチームも多いと思います。
+そのようなチームが、Vue3 化を進める際に、チームへの説明資料として使ってもらえたらめちゃ嬉しいです。
+
+![](/images/vue3-upgrade-guide/capture2.png)
+_社内勉強会の様子。Codesandbox で実際に編集しながら説明_
+
+最後になりますが、LAPRAS ではソフトウェアエンジニアを募集中です。
+
+採用資料
+
+https://corp.lapras.com/recruit-engineer/
+
+カジュアル面談
+
+https://herp.careers/v1/laprasinc/640n2WllqS21
