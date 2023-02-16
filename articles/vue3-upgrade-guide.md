@@ -73,7 +73,7 @@ const click = () => {
 </script>
 ```
 
-<details><summary>script setupを使わずに書いた場合は...</summary>
+:::details script setup を使わずに書いた場合は...
 
 ```vue
 <template>
@@ -124,7 +124,7 @@ export default defineComponent(() => {
 </script>
 ```
 
-</details>
+:::
 
 ## Teleport
 
