@@ -1,5 +1,5 @@
 ---
-title: "Vue経験者向け Vue3 スタートガイド [LAPRAS社内勉強会]"
+title: "Vue経験者向け Vue3 スタートガイド [実行環境付き]"
 emoji: "🚴‍♂️"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["vue", "typescript"]
@@ -372,7 +372,7 @@ const { length } = useLength(toRef(state, "name"));
 
 # おわりに
 
-Vue3 がリリースされてもう 2 年ほど経過しているのですが、まだまだ Vue2 で開発しているチームも多いと思います。そのようなチームが、いざ Vue3 移行を進める際の説明資料などに使ってもらえたら嬉しいです。
+以上 Vue3 スタートガイドでした。Vue3 がリリースされてもう 2 年ほど経ちますが、まだまだ Vue2 で開発しているチームも多いと思います。そのようなチームが、いざ Vue3 移行を進める際の説明資料などに使ってもらえたら嬉しいです。
 
 ![](/images/vue3-upgrade-guide/capture2.png)
 _社内勉強会の様子。Codesandbox で実際に編集しながら説明_
