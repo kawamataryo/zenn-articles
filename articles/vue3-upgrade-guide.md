@@ -32,6 +32,93 @@ https://v3-migration.vuejs.org/
 
 # 💫 新たにサポートされた API・構文
 
+## Teleport
+
+https://ja.vuejs.org/guide/built-ins/teleport.html
+
+`<Teleport>`  は、コンポーネントにあるテンプレートの一部を、そのコンポーネントの DOM 階層の外側に存在する DOM ノードへ「テレポート」するもの。[portal-vue](https://portal-vue.linusb.org/) と同等の機能。新たなスタッキングコンテキストを生成することで z-index での重なり制御を回避できる。
+
+```vue
+<template>
+  <div class="app">
+    <Teleport to="body">
+      <!-- Teleport内がbody直下に展開される -->
+      <Modal>teleport</Modal>
+    </Teleport>
+  </div>
+</template>
+```
+
+@[codesandbox](https://codesandbox.io/embed/vue3-teleport-urro7r?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.vue&theme=dark)
+
+## CSS v-bind
+
+https://vuejs.org/api/sfc-css-features.html#v-bind-in-css
+
+CSS のプロパティに対してリアクティブな値のバインディングが可能になった。
+内部的には、CSS 変数の値をリアクティブに更新することで値を書き換えている 。
+
+```vue
+<template>
+  <div class="text">hello</div>
+</template>
+
+<script setup>
+import { ref } from "vue";
+
+const color = ref("red"); // bind対象
+</script>
+
+<style>
+.text {
+  color: v-bind(color); /* この値がリアクティブになる */
+}
+</style>
+```
+
+@[codesandbox](https://codesandbox.io/embed/vue-3-css-binding-nolhg9?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.vue&theme=dark)
+
+## Fragments
+
+https://v3-migration.vuejs.org/new/fragments.html
+
+Vue3 から`<template>`直下に同じ階層で複数の要素を配置できるようになった。不要な wrapper の`div` を作らなくて済む。
+
+ただし、fragment を使っている場合、親要素から class などの属性を追加する際に子要素側で、明示的に`v-bind="$attrs"`を設定しないと属性が付与されないので注意。さらに scoped css にしている場合は`:deep()`も必要。
+
+```vue
+<template>
+  <div>...</div>
+  <div v-bind="$attrs">...</div>
+  <!-- この要素に親要素側で指定した属性が付与される -->
+  <div>...</div>
+</template>
+```
+
+@[codesandbox](https://codesandbox.io/embed/vue3-fragments-0mbqxh?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.vue&theme=dark)
+
+## Suspense（Experimental）
+
+https://ja.vuejs.org/guide/built-ins/suspense.html
+
+`<Suspense>`  は、コンポーネントツリーの非同期な依存関係を制御するための組み込みコンポーネント。コンポーネントツリーの下にある複数のネストされた非同期な依存関係が解決されるのを待つ間、ローディング状態をレンダリングすることができる。
+
+非同期コンポーネントを使う際に有効だが、まだ Experimental な機能で API が変わる可能性があるので使用は控えたほうが良いかも。
+
+```html
+<Suspense>
+  <!-- ネストされた非同期な依存関係を持つコンポーネント -->
+  <Dashboard>
+
+  <!-- #fallback スロットでローディング状態を表す -->
+  <template fallback>
+    Loading...
+  </template>
+</Suspense>
+```
+
+@[codesandbox](https://codesandbox.io/embed/vue3-suspense-gdwqny?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.vue&theme=dark)
+
 ## script setup 構文
 
 https://ja.vuejs.org/api/sfc-script-setup.html
@@ -129,93 +216,6 @@ export default defineComponent(() => {
 ```
 
 :::
-
-## Teleport
-
-https://ja.vuejs.org/guide/built-ins/teleport.html
-
-`<Teleport>`  は、コンポーネントにあるテンプレートの一部を、そのコンポーネントの DOM 階層の外側に存在する DOM ノードへ「テレポート」するもの。[portal-vue](https://portal-vue.linusb.org/) と同等の機能。新たなスタッキングコンテキストを生成することで z-index での重なり制御を回避できる。
-
-```vue
-<template>
-  <div class="app">
-    <Teleport to="body">
-      <!-- Teleport内がbody直下に展開される -->
-      <Modal>teleport</Modal>
-    </Teleport>
-  </div>
-</template>
-```
-
-@[codesandbox](https://codesandbox.io/embed/vue3-teleport-urro7r?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.vue&theme=dark)
-
-## CSS v-bind
-
-https://vuejs.org/api/sfc-css-features.html#v-bind-in-css
-
-CSS のプロパティに対してリアクティブな値のバインディングが可能になった。
-内部的には、CSS 変数の値をリアクティブに更新することで値を書き換えている 。
-
-```vue
-<template>
-  <div class="text">hello</div>
-</template>
-
-<script setup>
-import { ref } from "vue";
-
-const color = ref("red"); // bind対象
-</script>
-
-<style>
-.text {
-  color: v-bind(color); /* この値がリアクティブになる */
-}
-</style>
-```
-
-@[codesandbox](https://codesandbox.io/embed/vue-3-css-binding-nolhg9?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.vue&theme=dark)
-
-## Fragments
-
-https://v3-migration.vuejs.org/new/fragments.html
-
-Vue3 から`<template>`直下に同じ階層で複数の要素を配置できるようになった。不要な wrapper の`div` を作らなくて済む。
-
-ただし、fragment を使っている場合、親要素から class などの属性を追加する際に子要素側で、明示的に`v-bind="$attrs"`を設定しないと属性が付与されないので注意。さらに scoped css にしている場合は`:deep()`も必要。
-
-```vue
-<template>
-  <div>...</div>
-  <div v-bind="$attrs">...</div>
-  <!-- この要素に親要素側で指定した属性が付与される -->
-  <div>...</div>
-</template>
-```
-
-@[codesandbox](https://codesandbox.io/embed/vue3-fragments-0mbqxh?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.vue&theme=dark)
-
-## Suspense（Experimental）
-
-https://ja.vuejs.org/guide/built-ins/suspense.html
-
-`<Suspense>`  は、コンポーネントツリーの非同期な依存関係を制御するための組み込みコンポーネント。コンポーネントツリーの下にある複数のネストされた非同期な依存関係が解決されるのを待つ間、ローディング状態をレンダリングすることができる。
-
-非同期コンポーネントを使う際に有効だが、まだ Experimental な機能で API が変わる可能性があるので使用は控えたほうが良いかも。
-
-```html
-<Suspense>
-  <!-- ネストされた非同期な依存関係を持つコンポーネント -->
-  <Dashboard>
-
-  <!-- #fallback スロットでローディング状態を表す -->
-  <template fallback>
-    Loading...
-  </template>
-</Suspense>
-```
-
-@[codesandbox](https://codesandbox.io/embed/vue3-suspense-gdwqny?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.vue&theme=dark)
 
 ## Reactive API
 
