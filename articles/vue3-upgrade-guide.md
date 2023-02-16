@@ -6,7 +6,7 @@ topics: ["vue", "typescript"]
 published: false
 ---
 
-[LAPRAS](https://corp.lapras.com/recruit-engineer/) 社内で開催した Vue3 の勉強会が好評だったので、一部内容を変更して資料を公開します。
+[LAPRAS](https://corp.lapras.com/recruit-engineer/) 社内で開催した Vue3 の勉強会が好評だったので、一部内容を変更して公開します。
 Codesandbox で実行環境を適宜作っているので、動作を試しながら読んでらえると嬉しいです。
 
 # 🙋‍♂️ 対象読者
