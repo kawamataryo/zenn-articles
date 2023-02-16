@@ -40,8 +40,8 @@ https://v3-migration.vuejs.org/
 
 https://vuejs.org/api/sfc-css-features.html#v-bind-in-css
 
-CSS のプロパティに対してリアクティブな値のバインディングが可能になった。
-内部的には、CSS 変数の値をリアクティブに更新することで値を書き換えている。
+CSS のプロパティに対してリアクティブな値のバインディングが可能になりました
+内部的には、CSS 変数の値をリアクティブに更新することで値を書き換えています。Devtools で確認するとおもしろいです。
 
 ※ Vue2.7 でも利用可
 
@@ -69,7 +69,7 @@ const color = ref("red"); // bind対象
 
 https://ja.vuejs.org/guide/built-ins/teleport.html
 
-`<Teleport>`  は、コンポーネントにあるテンプレートの一部を、そのコンポーネントの DOM 階層の外側に存在する DOM ノードへ「テレポート」するもの。[portal-vue](https://portal-vue.linusb.org/) と同等の機能。新たなスタッキングコンテキストを生成することで z-index での重なり制御を回避できる。
+`<Teleport>`  は、コンポーネントにあるテンプレートの一部を、そのコンポーネントの DOM 階層の外側に存在する DOM ノードへ「テレポート」するものです。Vue2 でも使えた [portal-vue](https://portal-vue.linusb.org/) と同等の機能です。新たなスタッキングコンテキストを生成することで z-index での重なり制御を回避できます。
 
 ```vue
 <template>
@@ -88,9 +88,9 @@ https://ja.vuejs.org/guide/built-ins/teleport.html
 
 https://v3-migration.vuejs.org/new/fragments.html
 
-Vue3 から`<template>`直下に同じ階層で複数の要素を配置できるようになった。不要な wrapper の`div` を作らなくて済む。
+Fragments を使うことで Vue3 から`<template>`直下に同じ階層で複数の要素を配置できるようになりました。不要な wrapper の`div` を作らなくて済みます。
 
-ただし、fragment を使っている場合、親要素から class などの属性を追加する際に子要素側で、明示的に`v-bind="$attrs"`を設定しないと属性が付与されないので注意。さらに scoped css にしている場合は`:deep()`も必要。
+ただし、fragment を使っている場合、親要素から class などの属性を追加する際に子要素側で、明示的に`v-bind="$attrs"`を設定しないと属性が付与されないので注意です。さらに scoped css にしている場合は`:deep()`も必要です。
 
 ```vue
 <template>
@@ -107,9 +107,9 @@ Vue3 から`<template>`直下に同じ階層で複数の要素を配置できる
 
 https://ja.vuejs.org/guide/built-ins/suspense.html
 
-`<Suspense>`  は、コンポーネントツリーの非同期な依存関係を制御するための組み込みコンポーネント。コンポーネントツリーの下にある複数のネストされた非同期な依存関係が解決されるのを待つ間、ローディング状態をレンダリングすることができる。
+`<Suspense>`  は、コンポーネントツリーの非同期な依存関係を制御するための組み込みコンポーネントです。コンポーネントツリーの下にある複数のネストされた非同期な依存関係が解決されるのを待つ間、ローディング状態をレンダリングできます。
 
-非同期コンポーネントを使う際に有効だが、まだ Experimental な機能で API が変わる可能性もあるので使用は控えたほうが良いかも。
+非同期コンポーネントを使う際に有効だが、まだ Experimental な機能で API が変わる可能性もあるので使用は控えたほうが良いかもです。
 
 ```html
 <Suspense>
@@ -130,7 +130,7 @@ https://ja.vuejs.org/guide/built-ins/suspense.html
 https://ja.vuejs.org/api/sfc-script-setup.html
 
 単一ファイルコンポーネント（SFC）内で Composition API を使用する際のシンタックスシュガー。
-以下のような利点がある。
+以下のような利点があります。
 
 - ボイラープレートが少なくて、より簡潔なコード
 - 純粋な TypeScript を使ってプロパティと発行されたイベントを宣言する機能
@@ -229,11 +229,11 @@ export default defineComponent(() => {
 
 https://ja.vuejs.org/api/reactivity-utilities.html
 
-リアクティブ周りの API が多数追加されている。リアクティブの制御で困ったら使ってみても良いかも。
+リアクティブ周りの API が多数追加されてました。リアクティブの制御で困ったら使ってみても良いかもです。
 以下一部抜粋。
 
 - [shallowRef()](https://ja.vuejs.org/api/reactivity-advanced.html#shallowref) `ref()`の浅いバージョン。
-- [customRef()](https://ja.vuejs.org/api/reactivity-advanced.html#customref) 依存関係の追跡と更新のトリガーを明示的に制御して、カスタマイズされた ref を作成する
+- [customRef()](https://ja.vuejs.org/api/reactivity-advanced.html#customref) 依存関係の追跡と更新のトリガーを明示的に制御して、カスタマイズされた ref を作成
 - [toRaw()](https://ja.vuejs.org/api/reactivity-advanced.html#toraw) Vue で作成されたプロキシの元のオブジェクトを返す
 - [v-memo](https://ja.vuejs.org/api/built-in-directives.html#v-memoA) テンプレートのサブツリーのメモ化
 
@@ -243,7 +243,7 @@ https://ja.vuejs.org/api/reactivity-utilities.html
 
 https://v3-migration.vuejs.org/breaking-changes/v-model.html
 
-Vue3 では v-model の仕様がいろいろ変更。
+Vue3 では v-model の仕様が諸々変更されました。
 
 - v-model を受け取るカスタムコンポーネントの props、event 名が変更
   - prop: `value` -> `modelValue`
@@ -296,7 +296,7 @@ Vue2 では配列や、[配列、オブジェクトのキー指定の書き換�
 
 https://ja.vuejs.org/api/sfc-css-features.html#scoped-css
 
-`scoped` 環境で子コンポーネントの要素に対してスタイルを当てたい場合のセレクターの指定方法が変更された。`:deep()` で指定する必要がある。
+`scoped` 環境で子コンポーネントの要素に対してスタイルを当てたい場合のセレクターの指定方法が変更されました。`:deep()` で指定する必要があります。
 
 ```vue
 <style scoped>
@@ -311,34 +311,34 @@ https://ja.vuejs.org/api/sfc-css-features.html#scoped-css
 
 ## その他いろいろ
 
-他にもいろいろある。詳細は[マイグレーションガイド](https://v3-migration.vuejs.org)を
+他にもいろいろある。詳細は[マイグレーションガイド](https://v3-migration.vuejs.org)を確認してください。
 
 - [トランジション機能のクラス名変更](https://v3-migration.vuejs.org/breaking-changes/transition.html)
   - 古い書き方だと警告もでないので注意!!
 - [v-bind="obj"は書く位置で動作が変わるように](https://v3-migration.vuejs.org/breaking-changes/v-bind.html)
-  - 以前は、他の属性と被っていると、それで上書きされていた。Vue3 からは、後に書いた属性が優先されるようになった
+  - 以前は、他の属性と被っていると、それで上書きされていた。Vue3 からは、後に書いた属性が優先されるようになりました。
 - [vm.$listeners は削除](https://v3-migration.vuejs.org/breaking-changes/listeners-removed.html)
-  - `$attrs`に統合された。つまり`v-bind="$attrs"`でリスナーも登録される
+  - `$attrs`に統合されました。つまり`v-bind="$attrs"`でリスナーも登録されます。
 - [vm.$on、vm.$off、vm.$once の削除](https://v3-migration.vuejs.org/breaking-changes/events-api.html#migration-strategy)
-  - 同様のことをするには [mitt](https://github.com/developit/mitt) や [tiny-emitter](https://github.com/scottcorgan/tiny-emitter)などのライブラリが必要
+  - 同様のことをするには [mitt](https://github.com/developit/mitt) や [tiny-emitter](https://github.com/scottcorgan/tiny-emitter)などのライブラリが必要です。
 - [v-on.native 修飾子の削除](https://v3-migration.vuejs.org/breaking-changes/v-on-native-modifier-removed.html)
-  - `emits`に定義されていないイベントは全てネイティブイベントと見做されるようになった
+  - `emits`に定義されていないイベントはすべてネイティブイベントと見做されるようになりました。
 - [ライフサイクルフックの命名変更](https://v3-migration.vuejs.org/breaking-changes/vnode-lifecycle-events.html#migration-strategy)
-  - `destroyed`は`unmounted`に、`beforeDestroy`は`beforeUnmount`に命名変更
+  - `destroyed`は`unmounted`に、`beforeDestroy`は`beforeUnmount`に命名変更されました。
 
 # 💬 Q & A
 
 ## script setup 使う？
 
-コンポーネントの記述方法が代わり、覚えることが増える & Grep で探しにくくなるという懸念はあるが、それ以上に記述量が大幅に減ってコンポーネントの見通しが良くなるという利点のほうが大ききので積極的に使っていきたい。
+コンポーネントの記述方法が代わり、覚えることが増える & Grep で探しにくくなるという懸念はありますが、それ以上に記述量が大幅に減ってコンポーネントの見通しが良くなるという利点のほうが大ききので積極的に使っていきたいです。
 
 ## ref()と reactive()のどちらを使う？
 
-基本的には `ref()` で良いと思う。`reactive()` だとリアクティブの消失に意識を向ける必要がある。もし、独自 store を作りたいケースなどで、reactive を使う場合は、`toRef` `toRefs` を使って export 時に Ref に変換するのを忘れずに。
+基本的には `ref()` で良いと思います。`reactive()` だとリアクティブの消失に意識を向ける必要があるので。もし、独自 store を作りたいケースなどで、reactive を使う場合は、`toRef` `toRefs` を使って export 時に Ref に変換するのを忘れずに！
 
 参考: [vue composition api における props のリアクティブ性について知っておくべきこと](https://zenn.dev/karino_m/articles/vue-composition-api-and-props)
 
-reactive が消失するパター ン
+reactive が消失するパターン
 
 ```js
 const state = reactive({ name: "foo" });
@@ -353,7 +353,7 @@ const name = state.name;
 const { length } = useLength(state.name);
 ```
 
-reactive の消失を防ぐには
+reactive の消失を防ぐには...
 
 ```js
 const state = reactive({ name: "foo" });
@@ -376,7 +376,8 @@ const { length } = useLength(toRef(state, "name"));
 
 # おわりに
 
-以上 Vue3 スタートガイドでした。Vue3 がリリースされてもう 2 年ほど経ちますが、まだまだ Vue2 で開発しているチームも多いと思います。そのようなチームが、いざ Vue3 移行を進める際の説明資料などに使ってもらえたら嬉しいです。
+以上 Vue3 スタートガイドでした。
+Vue3 がリリースされてもう 2 年ほど経ちますが、まだまだ Vue2 で開発しているチームも多いと思います。そのようなチームが、いざ Vue3 移行を進める際の説明資料などに使ってもらえたら嬉しいです。
 
 ![](/images/vue3-upgrade-guide/capture2.png)
 _社内勉強会の様子。Codesandbox で実際に編集しながら説明_
