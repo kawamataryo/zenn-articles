@@ -7,7 +7,7 @@ published: false
 ---
 
 [LAPRAS](https://corp.lapras.com/recruit-engineer/) 社内で開催した Vue3 の勉強会の資料を一部内容を変更して公開します。
-Codesandbox でひとつひとつの機能の実行環境を作っているので、動作・コードを検証しながら読んでもらえると嬉しいです。
+Vue3 の新機能、Breaking Change に対して Codesandbox でひとつひとつ実行環境を作っているので、動作・コードを検証しながら読んでもらえると嬉しいです。
 
 # 🙋‍♂️ 対象読者
 
