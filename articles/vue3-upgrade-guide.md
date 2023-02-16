@@ -32,31 +32,14 @@ https://v3-migration.vuejs.org/
 
 # 💫 新たにサポートされた API・構文は？
 
-## Teleport
-
-https://ja.vuejs.org/guide/built-ins/teleport.html
-
-`<Teleport>`  は、コンポーネントにあるテンプレートの一部を、そのコンポーネントの DOM 階層の外側に存在する DOM ノードへ「テレポート」するもの。[portal-vue](https://portal-vue.linusb.org/) と同等の機能。新たなスタッキングコンテキストを生成することで z-index での重なり制御を回避できる。
-
-```vue
-<template>
-  <div class="app">
-    <Teleport to="body">
-      <!-- Teleport内がbody直下に展開される -->
-      <Modal>teleport</Modal>
-    </Teleport>
-  </div>
-</template>
-```
-
-@[codesandbox](https://codesandbox.io/embed/vue3-teleport-urro7r?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.vue&theme=dark)
-
 ## CSS v-bind
 
 https://vuejs.org/api/sfc-css-features.html#v-bind-in-css
 
 CSS のプロパティに対してリアクティブな値のバインディングが可能になった。
-内部的には、CSS 変数の値をリアクティブに更新することで値を書き換えている 。
+内部的には、CSS 変数の値をリアクティブに更新することで値を書き換えている。
+
+※ Vue2.7 でも利用可
 
 ```vue
 <template>
@@ -77,6 +60,25 @@ const color = ref("red"); // bind対象
 ```
 
 @[codesandbox](https://codesandbox.io/embed/vue-3-css-binding-nolhg9?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.vue&theme=dark)
+
+## Teleport
+
+https://ja.vuejs.org/guide/built-ins/teleport.html
+
+`<Teleport>`  は、コンポーネントにあるテンプレートの一部を、そのコンポーネントの DOM 階層の外側に存在する DOM ノードへ「テレポート」するもの。[portal-vue](https://portal-vue.linusb.org/) と同等の機能。新たなスタッキングコンテキストを生成することで z-index での重なり制御を回避できる。
+
+```vue
+<template>
+  <div class="app">
+    <Teleport to="body">
+      <!-- Teleport内がbody直下に展開される -->
+      <Modal>teleport</Modal>
+    </Teleport>
+  </div>
+</template>
+```
+
+@[codesandbox](https://codesandbox.io/embed/vue3-teleport-urro7r?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.vue&theme=dark)
 
 ## Fragments
 
@@ -123,13 +125,15 @@ https://ja.vuejs.org/guide/built-ins/suspense.html
 
 https://ja.vuejs.org/api/sfc-script-setup.html
 
-単一ファイルコンポーネント（SFC）内で Composition API を使用する際のシンタックスシュガー。Vue2.7 でも使用できる。
+単一ファイルコンポーネント（SFC）内で Composition API を使用する際のシンタックスシュガー。
 以下のような利点がある。
 
 - ボイラープレートが少なくて、より簡潔なコード
 - 純粋な TypeScript を使ってプロパティと発行されたイベントを宣言する機能
 - 実行時のパフォーマンスの向上
 - IDE で型推論のパフォーマンス向上
+
+※ Vue2.7 でも利用可
 
 ```vue
 <template>
@@ -221,7 +225,8 @@ export default defineComponent(() => {
 
 https://ja.vuejs.org/api/reactivity-utilities.html
 
-リアクティブ周りの API が多数追加されている。リアクティブの制御で困ったら使ってみても良いかも。以下一部抜粋。
+リアクティブ周りの API が多数追加されている。リアクティブの制御で困ったら使ってみても良いかも。
+以下一部抜粋。
 
 - [shallowRef()](https://ja.vuejs.org/api/reactivity-advanced.html#shallowref) `ref()`の浅いバージョン。
 - [customRef()](https://ja.vuejs.org/api/reactivity-advanced.html#customref) 依存関係の追跡と更新のトリガーを明示的に制御して、カスタマイズされた ref を作成する
