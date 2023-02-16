@@ -6,7 +6,7 @@ topics: ["vue", "typescript"]
 published: false
 ---
 
-[LAPRAS](https://corp.lapras.com/recruit-engineer/) 社内で開催した Vue3 の勉強会が好評だったので、一部内容を変更して公開します。
+[LAPRAS](https://corp.lapras.com/recruit-engineer/) 社内で開催した Vue3 の勉強会の資料を一部内容を変更して公開します。
 Codesandbox でひとつひとつの機能の実行環境を作っているので、動作・コードを検証しながら読んでもらえると嬉しいです。
 
 # 🙋‍♂️ 対象読者
@@ -14,6 +14,10 @@ Codesandbox でひとつひとつの機能の実行環境を作っているの�
 - Vue2 を Vue3 に移行中 or 移行検討中の人
 - 普段 Vue は触らないけど、教養的に Vue3 をキャッチアップしたい人
 - Vue3 の機能・注意点を普段フロントエンドを触らないメンバーに説明したい人
+
+:::message
+Vue3 への移行方法ではないです！Vue3 に移行したら何が変わるかが書かれています。
+:::
 
 # 🏎️ Vue3 で何が変わる？
 
@@ -27,8 +31,8 @@ https://v3-migration.vuejs.org/
   - 内部実装の変更で、バンドルサイズが低下、パフォーマンスも向上した
   - ex: [LINE MUSIC のパフォーマンスを向上させた Vue3 マイグレーション](https://engineering.linecorp.com/ja/blog/vue3-migration-with-improved-line-music-performance)
 - TypeScript 対応の強化
-  - template 内部での TS 構文の利用が可能に
-  - 型推論が改善し、より安全に使えるように
+  - template 内部での TS 構文の利用が可能になった
+  - 型推論が改善しより安全に使えるようになった
 
 # 💫 新たにサポートされた API・構文は？
 
