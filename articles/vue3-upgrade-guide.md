@@ -6,8 +6,8 @@ topics: ["vue", "typescript"]
 published: false
 ---
 
-[LAPRAS](https://corp.lapras.com/recruit-engineer/) 社内で開催した Vue3 の勉強会の資料を一部内容を変更して公開します。
-Vue3 の新機能、Breaking Change に対して Codesandbox でひとつひとつ実行環境を作っているので、動作・コードを検証しながら読んでもらえると嬉しいです。
+[LAPRAS](https://corp.lapras.com/recruit-engineer/) 社内で開催した Vue3 勉強会の資料を一部内容を変更して公開します。
+Vue3 の新機能、Breaking Change に対して Codesandbox でひとつひとつ実行環境を作っています。動作・コードを検証しながら読んでもらえると嬉しいです。
 
 # 🙋‍♂️ 対象読者
 
@@ -25,15 +25,15 @@ Vue3 に移行したら何が変わるか、新機能、Breaking Change をま�
 https://v3-migration.vuejs.org/
 
 - 新たな API の追加
-  - Teleport, Fragments、Suspense など便利な API が多数追加
+  - [Teleport](https://ja.vuejs.org/guide/built-ins/teleport.html), [Fragments](https://developer.mozilla.org/ja/docs/Web/API/DocumentFragment)、[Suspense](https://ja.vuejs.org/guide/built-ins/suspense.html#suspense)など便利な API が多数追加
 - リアクティブの改善
   - Vue2 は[Object.defineProperty](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty)を利用したリアクティブの実装だったが、Vue3 では[Proxy](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Proxy) をベースに変更
 - パフォーマンスの向上
-  - 内部実装の変更で、バンドルサイズが低下、パフォーマンスも向上した
+  - 内部実装の変更で、バンドルサイズが低下、パフォーマンスも向上
   - ex: [LINE MUSIC のパフォーマンスを向上させた Vue3 マイグレーション](https://engineering.linecorp.com/ja/blog/vue3-migration-with-improved-line-music-performance)
 - TypeScript 対応の強化
-  - template 内部での TS 構文の利用が可能になった
-  - 型推論が改善しより安全に使えるようになった
+  - template 内部での TS 構文の利用が可能に
+  - 型推論が改善
 
 # 💫 新たにサポートされた API・構文は？
 
@@ -133,7 +133,7 @@ https://ja.vuejs.org/api/sfc-script-setup.html
 単一ファイルコンポーネント（SFC）内で Composition API を使用する際のシンタックスシュガー。
 以下のような利点があります。
 
-- ボイラープレートが少なくて、より簡潔なコード
+- ボイラープレートが少なく、より簡潔なコードが書ける
 - 純粋な TypeScript を使ってプロパティと発行されたイベントを宣言する機能
 - 実行時のパフォーマンスの向上
 - IDE で型推論のパフォーマンス向上
@@ -233,7 +233,7 @@ https://ja.vuejs.org/api/reactivity-utilities.html
 リアクティブ周りの API が多数追加されてました。リアクティブの制御で困ったら使ってみても良いかもです。
 以下一部抜粋。
 
-- [shallowRef()](https://ja.vuejs.org/api/reactivity-advanced.html#shallowref) `ref()`の浅いバージョン。
+- [shallowRef()](https://ja.vuejs.org/api/reactivity-advanced.html#shallowref) `ref()`の浅いバージョン
 - [customRef()](https://ja.vuejs.org/api/reactivity-advanced.html#customref) 依存関係の追跡と更新のトリガーを明示的に制御して、カスタマイズされた ref を作成
 - [toRaw()](https://ja.vuejs.org/api/reactivity-advanced.html#toraw) Vue で作成されたプロキシの元のオブジェクトを返す
 - [v-memo](https://ja.vuejs.org/api/built-in-directives.html#v-memoA) テンプレートのサブツリーのメモ化
@@ -315,17 +315,17 @@ https://ja.vuejs.org/api/sfc-css-features.html#scoped-css
 他にもいろいろある。詳細は[マイグレーションガイド](https://v3-migration.vuejs.org)を確認してください。
 
 - [トランジション機能のクラス名変更](https://v3-migration.vuejs.org/breaking-changes/transition.html)
-  - 古い書き方だと警告もでないので注意!!
+  - 古い書き方だと警告もでないので注意
 - [v-bind="obj"は書く位置で動作が変わるように](https://v3-migration.vuejs.org/breaking-changes/v-bind.html)
-  - 以前は、他の属性と被っていると、それで上書きされていた。Vue3 からは、後に書いた属性が優先されるようになりました。
+  - 以前は、他の属性と被っていると、それで上書きされていた。Vue3 からは、後に書いた属性が優先されるように
 - [vm.$listeners は削除](https://v3-migration.vuejs.org/breaking-changes/listeners-removed.html)
-  - `$attrs`に統合されました。つまり`v-bind="$attrs"`でリスナーも登録されます。
+  - `$attrs`に統合されました。つまり`v-bind="$attrs"`でリスナーも登録される
 - [vm.$on、vm.$off、vm.$once の削除](https://v3-migration.vuejs.org/breaking-changes/events-api.html#migration-strategy)
-  - 同様のことをするには [mitt](https://github.com/developit/mitt) や [tiny-emitter](https://github.com/scottcorgan/tiny-emitter)などのライブラリが必要です。
+  - 同様のことをするには [mitt](https://github.com/developit/mitt) や [tiny-emitter](https://github.com/scottcorgan/tiny-emitter)などのライブラリが必要
 - [v-on.native 修飾子の削除](https://v3-migration.vuejs.org/breaking-changes/v-on-native-modifier-removed.html)
-  - `emits`に定義されていないイベントはすべてネイティブイベントと見做されるようになりました。
+  - `emits`に定義されていないイベントはすべてネイティブイベントと見做されるように
 - [ライフサイクルフックの命名変更](https://v3-migration.vuejs.org/breaking-changes/vnode-lifecycle-events.html#migration-strategy)
-  - `destroyed`は`unmounted`に、`beforeDestroy`は`beforeUnmount`に命名変更されました。
+  - `destroyed`は`unmounted`に、`beforeDestroy`は`beforeUnmount`に命名変更
 
 # 💬 Q & A
 
