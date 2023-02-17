@@ -70,7 +70,9 @@ const color = ref("red"); // bind対象
 
 https://ja.vuejs.org/guide/built-ins/teleport.html
 
-`<Teleport>`  は、コンポーネントにあるテンプレートの一部を、そのコンポーネントの DOM 階層の外側に存在する DOM ノードへ「テレポート」するものです。Vue2 でも使えた [portal-vue](https://portal-vue.linusb.org/) と同等の機能です。新たなスタッキングコンテキストを生成することで z-index での重なり制御を回避できます。
+`<Teleport>`  は、コンポーネントにあるテンプレートの一部を、そのコンポーネントの DOM 階層の外側に存在する DOM ノードへ「テレポート」するものです。
+
+Vue2 でも使えた [portal-vue](https://portal-vue.linusb.org/) と同等の機能です。新たなスタッキングコンテキストを生成することで z-index での重なり制御を回避できます。
 
 ```vue
 <template>
@@ -130,8 +132,7 @@ https://ja.vuejs.org/guide/built-ins/suspense.html
 
 https://ja.vuejs.org/api/sfc-script-setup.html
 
-単一ファイルコンポーネント（SFC）内で Composition API を使用する際のシンタックスシュガー。
-以下のような利点があります。
+単一ファイルコンポーネント（SFC）内で Composition API を使用する際のシンタックスシュガーです。以下のような利点があります。
 
 - ボイラープレートが少なく、より簡潔なコードが書ける
 - 純粋な TypeScript を使ってプロパティと発行されたイベントを宣言する機能
@@ -230,8 +231,7 @@ export default defineComponent(() => {
 
 https://ja.vuejs.org/api/reactivity-utilities.html
 
-リアクティブ周りの API が多数追加されてました。リアクティブの制御で困ったら使ってみても良いかもです。
-以下一部抜粋。
+リアクティブ周りの API が多数追加されてました。リアクティブの制御で困ったら使ってみても良いかもです。以下一部抜粋。
 
 - [shallowRef()](https://ja.vuejs.org/api/reactivity-advanced.html#shallowref) `ref()`の浅いバージョン
 - [customRef()](https://ja.vuejs.org/api/reactivity-advanced.html#customref) 依存関係の追跡と更新のトリガーを明示的に制御して、カスタマイズされた ref を作成
@@ -283,7 +283,7 @@ watch(
 
 ## Array, Object の変更で Vue.set, Vue.remove の利用が不要に
 
-Vue2 では配列や、[配列、オブジェクトのキー指定の書き換え・削除がリアクティブにならない](https://jp.vuejs.org/v2/guide/reactivity.html#%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%81%AB%E9%96%A2%E3%81%97%E3%81%A6)という注意点があったが、Vue3 では解消された。`Vue.set`や`Vue.remove` が不要になった。
+Vue2 では配列や、[配列、オブジェクトのキー指定の書き換え・削除がリアクティブにならない](https://jp.vuejs.org/v2/guide/reactivity.html#%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%81%AB%E9%96%A2%E3%81%97%E3%81%A6)という注意点がありましたが、Vue3 では解消され、`Vue.set`や`Vue.remove` が不要になりました。
 
 ### Vue2
 
@@ -316,13 +316,13 @@ https://ja.vuejs.org/api/sfc-css-features.html#scoped-css
 
 - [トランジション機能のクラス名変更](https://v3-migration.vuejs.org/breaking-changes/transition.html)
   - 古い書き方だと警告もでないので注意
-- [v-bind="obj"は書く位置で動作が変わるように](https://v3-migration.vuejs.org/breaking-changes/v-bind.html)
+- [`v-bind="obj"`は書く位置で動作が変わるように](https://v3-migration.vuejs.org/breaking-changes/v-bind.html)
   - 以前は、他の属性と被っていると、それで上書きされていた。Vue3 からは、後に書いた属性が優先されるように
 - [vm.$listeners は削除](https://v3-migration.vuejs.org/breaking-changes/listeners-removed.html)
   - `$attrs`に統合されました。つまり`v-bind="$attrs"`でリスナーも登録される
-- [vm.$on、vm.$off、vm.$once の削除](https://v3-migration.vuejs.org/breaking-changes/events-api.html#migration-strategy)
+- [`vm.$on`、`vm.$off`、`vm.$once` の削除](https://v3-migration.vuejs.org/breaking-changes/events-api.html#migration-strategy)
   - 同様のことをするには [mitt](https://github.com/developit/mitt) や [tiny-emitter](https://github.com/scottcorgan/tiny-emitter)などのライブラリが必要
-- [v-on.native 修飾子の削除](https://v3-migration.vuejs.org/breaking-changes/v-on-native-modifier-removed.html)
+- [`v-on.native` 修飾子の削除](https://v3-migration.vuejs.org/breaking-changes/v-on-native-modifier-removed.html)
   - `emits`に定義されていないイベントはすべてネイティブイベントと見做されるように
 - [ライフサイクルフックの命名変更](https://v3-migration.vuejs.org/breaking-changes/vnode-lifecycle-events.html#migration-strategy)
   - `destroyed`は`unmounted`に、`beforeDestroy`は`beforeUnmount`に命名変更
