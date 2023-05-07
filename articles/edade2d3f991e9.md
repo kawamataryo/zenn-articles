@@ -1,12 +1,12 @@
 ---
-title: "deno-puppeteerとGitHub Actionsでウェブサイトの外形監視をお手軽に"
+title: "deno-puppeteerとGitHub ActionsでWEBサイトの外形監視をお手軽に"
 emoji: "🚓"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["deno", "githubactions", "puppeteer", "slack"]
 published: false
 ---
 
-はるか昔に受託で作って運用管理しているWPサイトが最近たびたび落ちるので、deno-puppeteerとGitHub Actionsとでお手軽に外型監視ツールを作ってみました。
+はるか昔に受託で作って運用管理しているWPサイトが最近たびたび落ちるので、deno-puppeteerとGitHub Actionsとでお手軽に外形監視ツールを作ってみました。
 
 # 🚨 作ったもの
 
