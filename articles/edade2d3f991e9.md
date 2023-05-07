@@ -142,12 +142,6 @@ slackへの通知部分では、[deno-slack-api](https://github.com/slackapi/den
 
 https://github.com/slackapi/deno-slack-api
 
-:::message
-画像アップロードだけdeno-soack-apiでは送れなかったので以下記事を参考にして通常のfetchを使っています。
-[Slack Web APIを使ってslackに任意の画像を複数枚投稿する](https://zenn.dev/yui/articles/2d965fedca620c)
-:::
-
-
 ```ts:slackClient.ts
 import { SlackAPI } from "https://deno.land/x/deno_slack_api@2.1.0/mod.ts";
 import { SlackAPIClient } from "https://deno.land/x/deno_slack_api@2.1.0/types.ts";
@@ -193,6 +187,13 @@ export class SlackClient {
   }
 }
 ```
+
+:::message
+画像アップロードの箇所だけdeno-soack-apiではうまく送れなかったので以下記事を参考にしてfetchを使っています。
+[Slack Web APIを使ってslackに任意の画像を複数枚投稿する](https://zenn.dev/yui/articles/2d965fedca620c)
+:::
+
+
 
 最後に、これらのスクリプトをGitHub Actionsで定期実行するためのymlです。
 `cron` で毎朝9時（JST）に実行するようにしています。もし、頻度を調整したい場合はcronの値を調整すればOKです。
