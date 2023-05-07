@@ -1,23 +1,23 @@
 ---
-title: "deno-puppeteerとGitHub Actionsで外形監視をお手軽に"
+title: "deno-puppeteerとGitHub Actionsでウェブサイトの外形監視をお手軽に"
 emoji: "🚓"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["deno", "githubactions", "puppeteer", "slack"]
 published: false
 ---
 
-昔に受託で作ったWPサイトが最近たびたび落ちるので、deno-puppeteerとGitHub Actionsとでお手軽に外型監視ツールを作ってみました。
+はるか昔に受託で作って運用管理しているWPサイトが最近たびたび落ちるので、deno-puppeteerとGitHub Actionsとでお手軽に外型監視ツールを作ってみました。
 
 # 🚨 作ったもの
 
-以下のように毎日指定時刻に、指定したURLにアクセスして、HTTPレスポンスの確認とスクショの撮影を実行、結果をSlackに通知してくれるツールです。
+以下のように毎日指定時刻に指定したURLにアクセスして、HTTPレスポンスの確認とスクショの撮影を実行、結果をSlackに通知してくれるツールです。
 
-![](/images/edade2d3f991e9/2023-05-07-17-22-14.png)
+![](/images/edade2d3f991e9/2023-05-08-08-39-13.png)
 _サイト画像はdummyです_
 
 もし、200以外のステータスコードが返ってきた場合は、異常とみなしメンション付きで通知してくれます。
 
-![](/images/edade2d3f991e9/2023-05-07-17-22-37.png)
+![](/images/edade2d3f991e9/2023-05-08-08-39-37.png)
 
 異常があった場合にどんな状態だったか、何日前から異常があったのかもSlackチャネルをみればすぐにわかるので便利です。
 
