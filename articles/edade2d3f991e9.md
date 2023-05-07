@@ -198,6 +198,8 @@ export class SlackClient {
 最後に、これらのスクリプトをGitHub Actionsで定期実行するためのymlです。
 `cron` で毎朝9時（JST）に実行するようにしています。もし、頻度を調整したい場合はcronの値を調整すればOKです。
 
+chromeの追加やスクショ撮影時の文字化けを防ぐために日本語フォントの追加も合わせて行っています。
+
 ```yml:.github/workflows/monitor.yml
 name: monitor
 
