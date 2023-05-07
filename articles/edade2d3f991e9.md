@@ -1,6 +1,6 @@
 ---
 title: "deno-puppeteerとGitHub Actionsで外形監視をお手軽に"
-emoji: "🚨"
+emoji: "🚓"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["deno", "githubactions", "puppeteer", "slack"]
 published: false
