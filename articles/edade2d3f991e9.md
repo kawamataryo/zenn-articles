@@ -6,7 +6,7 @@ topics: ["deno", "githubactions", "puppeteer", "slack"]
 published: true
 ---
 
-はるか昔に受託で作って運用管理しているWPサイトが最近たびたび落ちるので、deno-puppeteerとGitHub Actionsでお手軽に外形監視ツールを作ってみました。
+はるか昔に受託で作って運用管理しているWPサイトが最近たびたび落ちるので、deno-puppeteerとGitHub Actionsでお手軽外形監視ツールを作ってみました。
 
 # 🚨 作ったもの
 
