@@ -189,8 +189,8 @@ export class SlackClient {
 ```
 
 :::message
-画像アップロードの箇所だけdeno-soack-apiではうまく送れなかったので以下記事を参考にしてfetchを使っています。
-[Slack Web APIを使ってslackに任意の画像を複数枚投稿する](https://zenn.dev/yui/articles/2d965fedca620c)
+画像アップロードの箇所だけdeno-soack-apiではうまく送れなかったので以下記事を参考にしてfetchを使っています。参考になる記事ありがとうございます🙏
+- [Slack Web APIを使ってslackに任意の画像を複数枚投稿する](https://zenn.dev/yui/articles/2d965fedca620c)
 :::
 
 
