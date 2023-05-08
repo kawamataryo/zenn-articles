@@ -29,7 +29,7 @@ GitHub Actionsで定期実行するdenoのスクリプトで、指定したURL�
 ![](/images/edade2d3f991e9/2023-05-07-17-34-09.png)
 
 :::message alert
-PublicリポジトリのGitHub Actionsの定期実行の場合は注意が必要です。リポジトリに変化がないと、60日で停止します。Privateリポジトリであれば、この制限はないようです。
+Publicリポジトリで運用する場合は注意が必要です。PublicリポジトリのGitHub ACtionsの的実行はリポジトリに変化がないと、60日で停止します。Privateリポジトリであれば、この制限はないようです。
 https://docs.github.com/en/actions/managing-workflow-runs/disabling-and-enabling-a-workflow
 :::
 
