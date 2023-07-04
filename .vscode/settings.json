@@ -3,5 +3,6 @@
   "editor.formatOnPaste": true,
   "editor.formatOnSave": true,
   "markdown.extension.toc.updateOnSave": false,
-  "ruby.rubocop.onSave": false
+  "ruby.rubocop.onSave": false,
+  "japanese-proofreading.textlint.全角文字と半角文字の間": false
 }
