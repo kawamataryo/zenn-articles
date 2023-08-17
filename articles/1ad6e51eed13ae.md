@@ -307,6 +307,6 @@ export const BskyUserCell = ({
 ```
 
 # 👋 おわりに
-VanJSは `VanJS is the scripting language for UI, just like bash is the scripting language for terminal.`  という説明の通り、素のDOM APIのような手軽さで簡単にUIが構築できて最高でした。
+VanJSは `VanJS is the scripting language for UI, just like bash is the scripting language for terminal.`  という説明の通り、手軽にReactiveなUIが構築できて最高でした。
 
 今回の例のようなChrome Extensionのcontent scriptや、静的サイトのちょっとしたUIの実装など、ピンポイントでReactiveな動きを実現したい時には、とても良い選択肢になると思います。ぜひ使って見てください。
