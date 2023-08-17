@@ -2,8 +2,8 @@
 title: "VanJS で素のDOM操作をリファクタしたら最高だった"
 emoji: "🍦"
 type: "tech" # tech: 技術記事 / idea: アイデア
-topics: ["vanjs", "javascript"]
-published: false
+topics: ["vanjs", "javascript", "typescript"]
+published: true
 ---
 
 VanJSを試してみたら開発体験が良かったので紹介します。
