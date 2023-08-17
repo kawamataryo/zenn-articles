@@ -53,14 +53,6 @@ https://github.com/kawamataryo/sky-follower-bridge/pull/7
 ## Before
 
 リファクタリング前のコードは以下のようになっていました。
-`insertAdjacentHTML`で条件に合わせたDOMを構築、`addEventListener`でアクションボタンのclickイベントと、hoverイベントを登録しています。
-
-Reactiveな動作は主にボタンに集中しています。
-
-![](/images/1ad6e51eed13ae/button.gif)
-
-このボタンの挙動を実現するためにDOM APIで直接クラスの付け変えやテキストの書き換えを行なっているのですが、UIとイベントの関連が分かりにくく、書いた本人ながらあまり触りたくないコードです😅
-
 
 ```ts:src/lib/domHelpers.ts
 export const insertBskyProfileEl = ({ dom, profile, statusKey, btnLabel, abortController, followAction, unfollowAction }: {
@@ -151,6 +143,15 @@ export const insertBskyProfileEl = ({ dom, profile, statusKey, btnLabel, abortCo
   })
 }
 ```
+
+`insertAdjacentHTML`で条件に合わせたDOMを構築、`addEventListener`でアクションボタンのclickイベントと、hoverイベントを登録しています。
+
+Reactiveな動作は主にボタンに集中しています。
+
+![](/images/1ad6e51eed13ae/button.gif)
+
+このボタンの挙動を実現するためにDOM APIで直接クラスの付け変えやテキストの書き換えを行なっているのですが、UIとイベントの関連が分かりにくく、書いた本人ながらあまり触りたくないコードです😅
+
 
 ## After
 
