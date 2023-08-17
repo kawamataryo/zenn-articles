@@ -40,13 +40,13 @@ https://github.com/kawamataryo/sky-follower-bridge
 
 ![](/images/1ad6e51eed13ae/2023-08-17-08-54-41.png)
 
-しかし、機能が増えるにつれ複雑化し可読性が悪くなっていました。そこで、軽量でシンプルなVanJSを使いリファクタリングしてみることにしました。
+しかし、機能が増えるにつれコードが複雑化し可読性が悪くなっていました。そこで、軽量でシンプルなVanJSを使いリファクタリングしてみることにしました。
 
 
 # 📝 結果
 
 Blueskyのユーザーセルの挿入箇所を例にリファクタリング結果を紹介します。
-なお実際のVanJSの導入のPRは以下です。
+なお実際のVanJSの導入のPRはこちらです。
 
 https://github.com/kawamataryo/sky-follower-bridge/pull/7
 
@@ -55,7 +55,7 @@ https://github.com/kawamataryo/sky-follower-bridge/pull/7
 リファクタリング前のコードは以下のようになっていました。
 `insertAdjacentHTML`で条件に合わせたDOMを構築、`addEventListener`でアクションボタンのclickイベントと、hoverイベントを登録しています。
 
-DOM APIで直接クラスの付け変えやテキストの書き換えを行なっているので、UIとイベントの関連が分かりにくく書いた本人ながらあまり触りたくないコードです😅
+DOM APIで直接クラスの付け変えやテキストの書き換えを行なっているので、UIとイベントの関連が分かりにくく、書いた本人ながらあまり触りたくないコードです😅
 
 [sky-follower-bridge/blob/main/src/lib/domHelpers.ts](https://github.com/kawamataryo/sky-follower-bridge/blob/782b75c8fc9fb54547eb44ffd8962a7729533a65/src/lib/domHelpers.ts#L57-L143)
 
@@ -151,7 +151,9 @@ export const insertBskyProfileEl = ({ dom, profile, statusKey, btnLabel, abortCo
 
 ## After
 
-VanJSでのリファクタリング後は、対象のDOMへのマウント処理は、対象のDOMに`van.add`でコンポーネントをマウントするのみ。VanJSのコンポーネント側も、親しみあるVueやReactのようにコンポーネントを分割し宣言的にUIを構築できたため、だいぶ可読性は高くなった気がします。今後の機能拡張のモチベーションも上がりました💪
+VanJSでのリファクタリング後です。
+
+対象のDOMへのマウント処理は、対象のDOMに`van.add`でコンポーネントをマウントするのみ。VanJSのコンポーネント側も、親しみあるVueやReactのようにコンポーネントを分割し宣言的にUIを構築できました。イベントとUIの関連が一目でわかるので、だいぶ可読性は良くなった気がします。今後の機能拡張のモチベーションも上がりました💪
 
 ・Mount
 
