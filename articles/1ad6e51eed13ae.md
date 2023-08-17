@@ -23,9 +23,13 @@ UIもJSXを使わず、関数ベースのAPIで宣言的に構築できます。
 
 @[codepen](https://codepen.io/kawamataryo/pen/dywbjOm)
 
+VanJSの開発秘話はとても考えさせられるものだったので、機会があればぜひ読んでみてください。
+https://vanjs.org/about
+
+
 # 🛠️ リファクタリング対象
 
-Sky Follower BridgeというX(Twitter)のFollower一覧から[Bluesky](https://bsky.app/)のユーザーを検索するChrome拡張機能を個人開発しています。今回はその拡張機能のcontent scriptの部分をVanJSでのリファクタリング対象としました。
+[Sky Follower Bridge](https://chrome.google.com/webstore/detail/sky-follower-bridge/behhbpbpmailcnfbjagknjngnfdojpko)というX(Twitter)のFollower一覧から[Bluesky](https://bsky.app/)のユーザーを検索するChrome拡張機能を個人開発しています。今回はその拡張機能のcontent scriptの部分をVanJSでのリファクタリング対象としました。
 
 https://www.youtube.com/watch?v=XcRcWjStIMc
 
