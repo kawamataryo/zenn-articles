@@ -1,5 +1,5 @@
 ---
-title: "VanJSで素のDOM操作をリファクタリングしたら最高だった"
+title: "VanJS で素のDOM操作をリファクタリングしたら最高だった"
 emoji: "🍦"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["vanjs", "javascript"]
@@ -14,7 +14,7 @@ VanJSを試してみたら開発体験が良かったので紹介します。
 
 https://vanjs.org/
 
-gzip圧縮で**0.9kbと非常に軽量**で、バンドルサイズの肥大化を機にすることなく手軽に導入できます。
+gzip圧縮で**0.9kbと非常に軽量**で、バンドルサイズの肥大化を気にすることなく手軽に導入できます。
 
 ![](/images/1ad6e51eed13ae/2023-08-17-07-34-28.png)
 *他のUIフレームワークと比較しても圧倒的に軽量*
@@ -29,7 +29,7 @@ https://vanjs.org/about
 
 # 🛠️ リファクタリング対象
 
-[Sky Follower Bridge](https://chrome.google.com/webstore/detail/sky-follower-bridge/behhbpbpmailcnfbjagknjngnfdojpko)というX(Twitter)のFollower一覧から[Bluesky](https://bsky.app/)のユーザーを検索するChrome拡張機能を個人開発しています。今回はその拡張機能のcontent scriptの部分をVanJSでのリファクタリング対象としました。
+[Sky Follower Bridge](https://chrome.google.com/webstore/detail/sky-follower-bridge/behhbpbpmailcnfbjagknjngnfdojpko)というX(Twitter)のFollower一覧から[Bluesky](https://bsky.app/)のユーザーを検索するChrome拡張を個人開発しています。今回はその拡張機能のcontent scriptの部分をリファクタリング対象としました。
 
 https://www.youtube.com/watch?v=XcRcWjStIMc
 
@@ -40,7 +40,7 @@ https://github.com/kawamataryo/sky-follower-bridge
 
 ![](/images/1ad6e51eed13ae/2023-08-17-08-54-41.png)
 
-しかし、機能が増えるにつれコードが複雑化し可読性が悪くなっていました。そこで、軽量でシンプルなVanJSを使いリファクタリングしてみることにしました。
+しかし、機能が増えるにつれコードが複雑化し可読性に問題が出てきました。そこで、軽量でシンプルなVanJSを使いリファクタリングしてみることにしました。
 
 
 # 📝 結果
@@ -55,9 +55,12 @@ https://github.com/kawamataryo/sky-follower-bridge/pull/7
 リファクタリング前のコードは以下のようになっていました。
 `insertAdjacentHTML`で条件に合わせたDOMを構築、`addEventListener`でアクションボタンのclickイベントと、hoverイベントを登録しています。
 
-DOM APIで直接クラスの付け変えやテキストの書き換えを行なっているので、UIとイベントの関連が分かりにくく、書いた本人ながらあまり触りたくないコードです😅
+Reactiveな動作は主にボタンに集中しています。
 
-[sky-follower-bridge/blob/main/src/lib/domHelpers.ts](https://github.com/kawamataryo/sky-follower-bridge/blob/782b75c8fc9fb54547eb44ffd8962a7729533a65/src/lib/domHelpers.ts#L57-L143)
+![](/images/1ad6e51eed13ae/button.gif)
+
+このボタンの挙動を実現するためにDOM APIで直接クラスの付け変えやテキストの書き換えを行なっているのですが、UIとイベントの関連が分かりにくく、書いた本人ながらあまり触りたくないコードです😅
+
 
 ```ts:src/lib/domHelpers.ts
 export const insertBskyProfileEl = ({ dom, profile, statusKey, btnLabel, abortController, followAction, unfollowAction }: {
@@ -153,7 +156,11 @@ export const insertBskyProfileEl = ({ dom, profile, statusKey, btnLabel, abortCo
 
 VanJSでのリファクタリング後です。
 
-対象のDOMへのマウント処理は、対象のDOMに`van.add`でコンポーネントをマウントするのみ。VanJSのコンポーネント側も、親しみあるVueやReactのようにコンポーネントを分割し宣言的にUIを構築できました。イベントとUIの関連が一目でわかるので、だいぶ可読性は良くなった気がします。今後の機能拡張のモチベーションも上がりました💪
+対象のDOMへのマウント処理は、対象のDOMに`van.add`でコンポーネントをマウントするのみ。VanJSのコンポーネント側も、親しみあるVueやReactのようにコンポーネントを分割し宣言的にUIを構築できました。
+
+Reactiveな挙動を持つボタンも、`van.state`で`van.derive`状態を管理することでイベントとUIの関連が一目でわかるので、だいぶ可読性は良くなった気がします。
+
+今後の機能拡張のモチベーションも上がりました💪
 
 ・Mount
 
@@ -300,6 +307,6 @@ export const BskyUserCell = ({
 ```
 
 # 👋 おわりに
-VanJSは `VanJS is a very thin layer on top of Vanilla JavaScript and DOM,`  という説明の通り、素のDOM APIのような手軽さで、VueやReactのような宣言的にUIが構築できて最高でした。
+VanJSは `VanJS is a very thin layer on top of Vanilla JavaScript and DOM`  という説明の通り、素のDOM APIのような手軽さで、VueやReactのような宣言的にUIが構築できて最高でした。
 
-今回の例のようなChrome Extensionのcontent scriptや、静的サイトのちょっとしたUIの実装などピンポイントでReactiveを実現したい時には、とても良い選択肢になると思います。ぜひ使って見てください！
+今回の例のようなChrome Extensionのcontent scriptや、静的サイトのちょっとしたUIの実装などピンポイントでReactiveな動きを実現したい時には、とても良い選択肢になると思います。ぜひ使って見てください。
