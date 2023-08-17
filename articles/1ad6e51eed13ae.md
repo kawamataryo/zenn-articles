@@ -156,12 +156,6 @@ Reactiveな動作は主にボタンに集中しているのですが、このボ
 
 VanJSでのリファクタリング後です。
 
-マウント処理は、対象のDOMに`van.add`でコンポーネントをマウントするのみ。VanJSのコンポーネント側も、親しみあるVueやReactのようにコンポーネントを分割し宣言的にUIを構築できました。
-
-Reactiveな挙動を持つボタンも、`van.state`で`van.derive`状態を管理することでイベントとUIの関連が一目でわかり、だいぶ可読性は良くなった気がします。
-
-今後の機能拡張のモチベーションも上がりました💪
-
 ・Mount
 
 ```ts:src/lib/domHelpers.ts
@@ -306,6 +300,11 @@ export const BskyUserCell = ({
 }
 ```
 
+マウント処理は、対象のDOMに`van.add`でコンポーネントをマウントするのみ。VanJSのコンポーネント側も、親しみあるVueやReactのようにコンポーネントを分割し宣言的にUIを構築できました。
+
+Reactiveな挙動を持つボタンも、`van.state`で`van.derive`状態を管理することでイベントとUIの関連が一目でわかり、だいぶ可読性は良くなった気がします。
+
+今後の機能拡張のモチベーションも上がりました💪
 
 # 👋 おわりに
 VanJSは `VanJS is the scripting language for UI, just like bash is the scripting language for terminal.`  という説明の通り、手軽にReactiveなUIが構築できて最高でした。
