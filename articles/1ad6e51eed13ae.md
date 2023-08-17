@@ -241,13 +241,13 @@ const ActionButton = ({ statusKey, profile, btnLabel, addAction, removeAction }:
     label.val = `${btnLabel.progressive} on Bluesky`
   }
 
-  return () => button({
-    class: `action-button ${beingClass.val} ${processingClass.val} ${justAppliedClass.val}`,
+  return button({
+    class: () => `action-button ${beingClass.val} ${processingClass.val} ${justAppliedClass.val}`,
     onclick: onClick,
     onmouseover: onMouseover,
     onmouseout: onMouseout,
   },
-    label.val,
+    () => label.val,
   )
 }
 ```
