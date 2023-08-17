@@ -21,7 +21,7 @@ gzip圧縮で**0.9kbと非常に軽量**で、バンドルサイズの肥大化�
 
 UIもJSXを使わず、関数ベースのAPIで宣言的に構築できます。
 
-@[codepen](https://codepen.io/kawamataryo/pen/dywbjOm)
+@[jsfiddle](https://jsfiddle.net/ryokawamata0425/fh7aLkcp/)
 
 VanJSの開発秘話はとても考えさせられるものだったので、機会があればぜひ読んでみてください。
 https://vanjs.org/about
