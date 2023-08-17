@@ -1,5 +1,5 @@
 ---
-title: "VanJS で素のDOM操作をリファクタしたら最高だった"
+title: "VanJS で素のDOM操作をリファクタしてみた"
 emoji: "🍦"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["vanjs", "javascript", "typescript"]
