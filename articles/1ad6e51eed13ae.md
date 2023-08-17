@@ -144,7 +144,7 @@ export const insertBskyProfileEl = ({ dom, profile, statusKey, btnLabel, abortCo
 }
 ```
 
-`insertAdjacentHTML`で条件に合わせたDOMを構築、`addEventListener`でアクションボタンのclickイベントと、hoverイベントを登録しています。
+`insertAdjacentHTML`で条件に合わせたDOMを構築、`addEventListener`でclickイベントと、hoverイベントを登録しています。
 
 Reactiveな動作は主にボタンに集中しています。
 
