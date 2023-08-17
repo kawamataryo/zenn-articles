@@ -46,7 +46,7 @@ https://github.com/kawamataryo/sky-follower-bridge
 # 📝 結果
 
 Blueskyのユーザーセルの挿入箇所を例にリファクタリング結果を紹介します。
-実際のVanJSの導入のPRはこちらです。
+実際のVanJSの導入PRはこちらです。
 
 https://github.com/kawamataryo/sky-follower-bridge/pull/7
 
