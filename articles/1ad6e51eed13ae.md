@@ -300,4 +300,6 @@ export const BskyUserCell = ({
 ```
 
 # おわりに
-VanJSは `VanJS is a very thin layer on top of Vanilla JavaScript and DOM,`  という説明の通り、素のDOM APIのような手軽さで、VueやReactのような宣言的にUIが構築できて最高でした。今回の例のようなChrome Extensionのcontent scriptや、静的サイトのちょっとしたUIの実装などピンポイントでReactiveを実現したい時には、とても良い選択肢になると思います。ぜひ使って見てください！
+VanJSは `VanJS is a very thin layer on top of Vanilla JavaScript and DOM,`  という説明の通り、素のDOM APIのような手軽さで、VueやReactのような宣言的にUIが構築できて最高でした。
+
+今回の例のようなChrome Extensionのcontent scriptや、静的サイトのちょっとしたUIの実装などピンポイントでReactiveを実現したい時には、とても良い選択肢になると思います。ぜひ使って見てください！
