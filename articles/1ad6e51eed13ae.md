@@ -156,7 +156,7 @@ Reactiveな動作は主にボタンに集中しているのですが、このボ
 
 VanJSでのリファクタリング後です。
 
-対象のDOMへのマウント処理は、対象のDOMに`van.add`でコンポーネントをマウントするのみ。VanJSのコンポーネント側も、親しみあるVueやReactのようにコンポーネントを分割し宣言的にUIを構築できました。
+マウント処理は、対象のDOMに`van.add`でコンポーネントをマウントするのみ。VanJSのコンポーネント側も、親しみあるVueやReactのようにコンポーネントを分割し宣言的にUIを構築できました。
 
 Reactiveな挙動を持つボタンも、`van.state`で`van.derive`状態を管理することでイベントとUIの関連が一目でわかり、だいぶ可読性は良くなった気がします。
 
@@ -307,6 +307,6 @@ export const BskyUserCell = ({
 ```
 
 # 👋 おわりに
-VanJSは `VanJS is a very thin layer on top of Vanilla JavaScript and DOM`  という説明の通り、素のDOM APIのような手軽さで、VueやReactのような宣言的にUIが構築できて最高でした。
+VanJSは `VanJS is a very thin layer on top of Vanilla JavaScript and DOM`  という説明の通り、素のDOM APIのような手軽さで、VueやReactのようにUIが構築できて最高でした。
 
 今回の例のようなChrome Extensionのcontent scriptや、静的サイトのちょっとしたUIの実装などピンポイントでReactiveな動きを実現したい時には、とても良い選択肢になると思います。ぜひ使って見てください。
