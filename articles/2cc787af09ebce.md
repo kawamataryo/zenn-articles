@@ -1,9 +1,9 @@
 ---
 title: "Astro + Vercel Serverless FunctionsでのreCAPTCHA v3の導入例"
-emoji: "🚀"
+emoji: "🏙️"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["astro", "vercel", "recaptcha"]
-published: false
+published: true
 ---
 
 Astroで作ったWebサイトにreCAPTCHA v3を導入する機会があったので、備忘録として残しておきます。
