@@ -14,9 +14,9 @@ Astroで作ったWebサイトにreCAPTCHA v3を導入する機会があったの
 
 ![](/images/2cc787af09ebce/2023-09-07-15-32-08.png)
 
-フォームが設置されているページにreCAPTCHAを導入することで、自動化されたスパムの送信を防ぐことができます。
+フォームが設置されているページにreCAPTCHAを導入することで、スパムの送信を防ぐことができます。
 
-reCAPTCHA v3ではバックグラウンドでユーザーの動きを検証しスコアを判定するので、「私はロボットではありません」のチェックボックスやイライラする画像の選択などの操作は不要になります。
+また、reCAPTCHA v3ではバックグラウンドでユーザーの動きを検証しスコアを判定するので、「私はロボットではありません」のチェックボックスやイライラする画像の選択などの操作は不要になります。
 
 https://developers.google.com/recaptcha/docs/v3
 
@@ -36,7 +36,7 @@ https://astro-recaptcha-sample.vercel.app/
 
 ![](/images/2cc787af09ebce/2023-09-07-15-35-53.png)
 
-## reCAPTCHA v3の設定
+## 1. reCAPTCHA v3の設定
 
 reCAPTCHA v3のコンソールにて新しいサイトを登録し、サイトキーとシークレットキーを取得します。
 ドメインには、reCAPTCHAを導入するサイトのドメインを入れてください。
@@ -50,7 +50,7 @@ https://www.google.com/recaptcha/admin/create
 ![](/images/2cc787af09ebce/2023-09-07-14-59-31.png)
 
 
-## Server 側での実装
+## 2. Server 側での実装
 
 Server側は、AstroのServer Endpointsを使って実装します。
 
@@ -68,7 +68,7 @@ https://github.com/kawamataryo/astro-recaptcha-sampler/blob/main/src/pages/api/r
 :::
 
 
-## Client 側での実装
+## 3. Client 側での実装
 
 Client側では、サイトキーをクエリパラメーターに設定した上で、reCAPTCHAのライブラリを読み込みます。
 
@@ -91,7 +91,7 @@ https://github.com/kawamataryo/astro-recaptcha-sampler/blob/main/src/components/
 https://github.com/kawamataryo/astro-recaptcha-sampler/blob/main/src/components/ContactForm.tsx#L1-L101
 
 
-## Vercelへのデプロイ
+## 4. Vercelへのデプロイ
 
 Astroのリポジトリを、Vercelと連携させれば自動的にデプロイされるのですが、Server Endpointsを使う場合は事前準備が必要です。
 
