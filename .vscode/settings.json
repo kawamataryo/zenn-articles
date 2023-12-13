@@ -1,8 +1,11 @@
 {
   "cSpell.words": ["Pytest", "shellspec"],
-  "editor.formatOnPaste": true,
-  "editor.formatOnSave": true,
+  "editor.formatOnPaste": false,
   "markdown.extension.toc.updateOnSave": false,
   "ruby.rubocop.onSave": false,
-  "japanese-proofreading.textlint.全角文字と半角文字の間": false
+  "japanese-proofreading.textlint.全角文字と半角文字の間": false,
+  "editor.defaultFormatter": null,
+  "[markdown]": {
+    "editor.defaultFormatter": "DavidAnson.vscode-markdownlint"
+  },
 }
