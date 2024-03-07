@@ -3,7 +3,7 @@ title: "Hono + Cloudflareでもくもく会用のDiscord Botを作ってみた"
 emoji: "🔥"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["hono", "cloudflare", "discord"]
-published: false
+published: true
 ---
 
 # 🔥 作ったもの
