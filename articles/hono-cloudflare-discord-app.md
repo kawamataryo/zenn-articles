@@ -107,7 +107,7 @@ Cron Triggerのcronの指定はUTC基準なので、日本時間の場合は9時
 HonoとDrizzle ORMは型補完が強力で、APIを調べずとも補完に任せてほぼ迷うことなくコードを書くことができました。かなり開発体験が良かったです。
 
 **📌 Testが書きやすい**
-Honoには便利なTestHelperが提供されているのでAPIのテストがとても楽です。今回のBotでもほぼすべての処理にテストを書けました。
+Honoには便利なTestHelperが提供されているのでAPIのテストがとても楽です。今回のBotでもほぼすべての処理にテストを書きました。
 
 **📌 @yusukebeさんの存在**
 Honoの開発者でCloudflareに在職してる[@yusukebe](https://twitter.com/yusukebe)さんの存在も大きいです。@yusukebeさんのXやブログからCloudflareやHono最新の情報を日本語でキャッチアップできます。今回のBot開発時にもZennのスクラップでメモしていたら、[Yusukebeさんからアドバイス](https://zenn.dev/link/comments/8a912a10634481)をもらえました。感謝🙏
