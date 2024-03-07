@@ -14,7 +14,7 @@ published: false
 **📌 チェックイン**
 `/checkin` コマンドでもくもく会のチェックインを行えます。モーダルが表示され、自己紹介と今日やることを入力して送信すると、フォーマットされた内容がチャンネルに投稿されます。
 
-実際のもくもく会では開始前に、参加者にチェックインを実行してもらい、この投稿内容をもとにはじめの共有を行なっています。これがあることで主催側としても、参加者の顔と名前を覚えやすくて助かっています。
+実際のもくもく会では開始前に、参加者にチェックインを実行してもらい、この投稿内容をもとにはじめの共有を行なっています。これがあることで、主催側としても参加者の顔と名前を覚えやすくて助かっています。
 
 また、Cloudflare の D1 に投稿内容を保存しているので、ほぼ内容が変わらない自己紹介は2回目以降自動で入力されます。
 
@@ -26,7 +26,7 @@ published: false
 
 ![](/images/hono-cloudflare-discord-app/2024-03-06-09-09-46.png =550x)
 
-さらに、このコマンドが実行された日は、15:00にテックトーク（中休みに行う技術雑談）の通知、17:50に終了の通知も送られるようになっています。
+さらに、このコマンドが実行された日は、15:00にLT・テックトークの通知、17:50に終了の通知も送られるようになっています（Cron Triggerを利用）。
 
 ![](/images/hono-cloudflare-discord-app/2024-03-06-09-09-58.png =550x)
 ![](/images/hono-cloudflare-discord-app/2024-03-06-09-10-09.png =550x)
@@ -38,7 +38,7 @@ published: false
 :::
 
 **📌 次回イベントの概要の作成**
-`/generate-event-description`コマンドで、次回のもくもく会の概要を作成してくれます。この概要のなかで、前回のイベントの紹介の文章があるので、そこに前回イベントのURLと前回皆の入力してくれた「今日やること」の文言を自動で埋め込んでいます。
+`/generate-event-description`コマンドで、次回のもくもく会の概要を作成してくれます。この概要のなかで、前回のイベント紹介の文章があるので、そこにイベントのURLと前回皆の入力してくれた「今日やること」の文言を自動で埋め込んでいます。
 
 ![](/images/hono-cloudflare-discord-app/2024-03-06-09-10-54.png =550x)
 
@@ -46,7 +46,7 @@ published: false
 # 🛠️ 実装紹介
 
 実装について簡単に紹介します。
-[Discord.js](https://discord.js.org/)を使わないDiscord Botの実装例はまだあまりないと思うので、誰かの参考になれば嬉しいです。
+[Discord.js](https://discord.js.org/)を使わないJSでのDiscord Bot実装例はあまりないと思うので、誰かの参考になれば嬉しいです。
 
 今から紹介するコードはすべて以下リポジトリで公開しています。
 
@@ -58,7 +58,7 @@ https://blog.lacolaco.net/posts/discord-bot-cfworkers-hono/
 
 ## Interactionsのハンドリング
 
-今回のBotでは複数のスラッシュコマンドやモーダルの送信をハンドリングする必要があるので、`/interaction`ルートで、ApplicationCommandObjectのTypeをみて処理を分岐させています。
+今回のBotでは複数のスラッシュコマンドやモーダルの送信をハンドリングする必要があったので、`/interaction`ルートで、ApplicationCommandObjectのTypeをみて処理を分岐させています。
 
 https://github.com/Ibaraki-dev/mokumoku-bot/blob/main/src/app.ts#L21-L72
 
@@ -71,7 +71,7 @@ https://github.com/Ibaraki-dev/mokumoku-bot/blob/main/src/interactions/handleApp
 https://github.com/Ibaraki-dev/mokumoku-bot/blob/main/src/interactions/applicationCommands/checkin.ts#L6-L29
 
 ## モーダルの表示
-Botでモーダルを表示するには、まずCommandのレスポンスでmodalのコンポーネントを返します。そして、modalの送信のリクエストをハンドリングして処理を行います。
+Botでモーダルを表示するには、まずスラッシュコマンドのレスポンスでモーダルのコンポーネントを返します。そして、モーダルの送信のリクエストをハンドリングします。
 
 以下のコードは、`/checkin`コマンドでモーダルを表示するためのレスポンスです。`ここで指定しているcustom_idで、モーダルの送信結果をハンドリングするためのコードと紐づけられます。
 
@@ -110,7 +110,7 @@ HonoとDrizzle ORMは型補完が強力で、APIを調べずとも補完に任�
 Honoには便利なTestHelperが提供されているのでAPIのテストがとても楽です。今回のBotでもほぼすべての処理にテストを書けました。
 
 **📌 @yusukebeさんの存在**
-Honoの開発者でCloudflareに在職してる[@yusukebe](https://twitter.com/yusukebe)さんの存在も大きいです。@yusukebeさんのXやブログからCloudflareやHono最新の情報を日本語でキャッチアップできます。今回のBot開発時にZennのスクラップでメモしていたら、[Yusukebeさんからアドバイス](https://zenn.dev/link/comments/8a912a10634481)をもらえました。感謝🙏
+Honoの開発者でCloudflareに在職してる[@yusukebe](https://twitter.com/yusukebe)さんの存在も大きいです。@yusukebeさんのXやブログからCloudflareやHono最新の情報を日本語でキャッチアップできます。今回のBot開発時にもZennのスクラップでメモしていたら、[Yusukebeさんからアドバイス](https://zenn.dev/link/comments/8a912a10634481)をもらえました。感謝🙏
 
 # 🏁 おわりに
 
