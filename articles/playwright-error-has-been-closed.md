@@ -6,14 +6,13 @@ topics: ["playwright"]
 published: true
 ---
 
-とても単純なのに、ハマったのでメモ。
-
+恥ずかしながらハマったのでメモ。
 
 # 🚨 エラー内容
 
 Playwrightでテストを書いたていた時に、なぜかlocatorのaut-waitが効かず、以下エラーが発生しました。
 
-```test.ts
+```ts:test.ts
 test('some test', async (page) => {
   await page.goto('https://example.com')
 
@@ -40,7 +39,7 @@ https://playwright.dev/docs/actionability#assertions
 
 expectにawaitを追加するだけです。よくよく考えれば当たり前ですが、当時はexpectをawaitするという発想がなく、ハマってしまいました。
 
-```test.ts
+```ts:test.ts
 test('some test', async (page) => {
   await page.goto('https://example.com')
 
