@@ -3,10 +3,10 @@ title: "PlaywrightでTarget page, context or browser has been closed"
 emoji: "🚨"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["playwright"]
-published: false
+published: true
 ---
 
-とても単純な理由なのに、とてもハマったのでメモ。
+とても単純な理由なのに、ハマったのでメモ。
 
 
 # 🚨 エラー内容
