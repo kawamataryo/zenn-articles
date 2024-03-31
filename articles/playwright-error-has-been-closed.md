@@ -46,7 +46,7 @@ test('some test', async (page) => {
   // 操作
   await page.locator('button').click()
 
-  // awaitするだけ
+  // expect awaitするだけ
   await expect(page.getByRole('header', { name: 'Success' })).toBeVisible()
 })
 ```
