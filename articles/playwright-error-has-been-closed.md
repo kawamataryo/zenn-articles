@@ -27,7 +27,7 @@ test('some test', async (page) => {
 エラー内容
 
 ```
-Error: expect.toBeHidden: Target page, context or browser has been closed
+Error: expect.toVisible: Target page, context or browser has been closed
 ```
 
 locatorを使っているので、Playwrightのauto-waitingが効くはずなのに、なぜ・・？と30分くらい時間を費やしてしまいました😇
