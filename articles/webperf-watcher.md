@@ -4,6 +4,7 @@ emoji: "🏎"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["GithubActions", "puppeteer", "lighthouse", "typescript", "datadog"]
 published: true
+publication_name: "lapras_inc"
 ---
 
 Puppeteer + Lighthouse + GitHub Actions を使って Web アプリのフロントエンドパフォーマンスを定期計測するプロジェクトを作ってみたら良い感じだったので紹介です。
