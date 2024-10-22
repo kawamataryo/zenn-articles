@@ -3,6 +3,7 @@ title: "Vue経験者向け Vue3 スタートガイド [実行環境付き]"
 emoji: "🚴‍♂️"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["vue", "typescript"]
+publication_name: "lapras_inc"
 published: true
 ---
 

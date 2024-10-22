@@ -4,6 +4,7 @@ emoji: "📊"
 type: "tech"
 topics: ["zx", "datadog", "typescript", "shell"]
 published: true
+publication_name: "lapras_inc"
 ---
 
 フロントエンドのダッシュボードを作ってみたらいい感じだったので紹介です。

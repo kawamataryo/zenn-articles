@@ -4,6 +4,7 @@ emoji: "🙋‍♂️"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["react", "vue", "typescript"]
 published: false
+publication_name: "lapras_inc"
 ---
 
 最近 React 勉強中なので、Vue Composition API の書き方と React Hooks の書き方の対比のメモです。
