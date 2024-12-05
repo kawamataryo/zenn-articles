@@ -35,6 +35,7 @@ https://www.youtube.com/watch?v=XcRcWjStIMc
 
 https://github.com/kawamataryo/sky-follower-bridge
 
+https://www.sky-follower-bridge.dev/
 
 この拡張機能はX(Twitter)のDOM要素を基準に動的にBlueskyのユーザーセルを追加するのですが、対象要素にReactやVueのインスタンスを都度マウントするのも何か違和感があるなと、開発当初は素のDOM操作で実装していました。
 
