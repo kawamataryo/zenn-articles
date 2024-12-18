@@ -198,4 +198,4 @@ Your ultimate goal is to help the user understand and fix the issue efficiently.
 
 # 終わりに
 
-RaycastのAI Commandは本当に便利ですね！今はこれなしで英文のやり取りができる気がしません。おすすめの自作AI Commandがあればぜひコメントで教えてください！
+RaycastのAI Commandは本当に便利ですね！今はこの機能なしで英文のやり取りができる気がしません。おすすめの自作AI Commandがあればぜひコメントで教えてください！
