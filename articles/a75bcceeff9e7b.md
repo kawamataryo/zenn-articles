@@ -6,7 +6,7 @@ topics: ["Raycast", "AI"]
 published: true
 ---
 
-これは、[Raycast Advent Calendar 2024](https://qiita.com/advent-calendar/2024/raycast) の18日目の記事です。
+[Raycast Advent Calendar 2024](https://qiita.com/advent-calendar/2024/raycast) の18日目の記事です。
 昨日は [smasato](https://zenn.dev/smasato) さんによる[自作Raycast Extensionで日常業務を効率化するヒント](https://zenn.dev/smasato/articles/dca85f18dd96ef)でした。
 
 
