@@ -163,7 +163,7 @@ Translate the following Target for translation into **natural and accurate Japan
 
 # Correct Error
 
-よくわからないエラーが出た時に、エラーの内容の解説と解決のためのヒントを教えてくれるAI Commandです。
+よくわからないエラーが出た時に、エラーの内容の解説と解決のためのヒントを教えてくれるAI Commandです。利用頻度はあまりないのですが、疲れている時など雑にエラーの解説が必要な時に重宝します。
 
 [![Image from Gyazo](https://i.gyazo.com/bfb3fd0166600a497703c1f01f7fceed.gif)](https://gyazo.com/bfb3fd0166600a497703c1f01f7fceed)
 
