@@ -10,7 +10,7 @@ published: true
 昨日は [smasato](https://zenn.dev/smasato) さんによる[自作Raycast Extensionで日常業務を効率化するヒント](https://zenn.dev/smasato/articles/dca85f18dd96ef)でした。
 
 
-Raycast の便利機能のひとつにAI Commandがあります。
+Raycast の便利機能のひとつに[AI Command](https://manual.raycast.com/ai)があります。
 この記事では、日常業務でよく使う自作AI Commandを紹介します！
 
 以下マニュアルにある通り、importも簡単にできるので良ければ使ってみてください。
