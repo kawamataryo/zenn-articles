@@ -160,8 +160,6 @@ Translate the following Target for translation into **natural and accurate Japan
 
 **出力**
 ````
-**出力**
-````
 
 # Correct Error
 
