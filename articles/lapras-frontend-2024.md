@@ -1,5 +1,5 @@
 ---
-title: "LAPRASのフロントエンド改善活動ふりかえり - 2024年"
+title: "LAPRASのフロントエンド改善活動ふりかえり-2024年"
 emoji: "📘"
 type: "idea" # tech: 技術記事 / idea: アイデア
 topics: ["frontend", "技術的負債", "ふりかえり"]
