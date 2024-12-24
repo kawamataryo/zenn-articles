@@ -4,7 +4,7 @@ emoji: "📘"
 type: "idea" # tech: 技術記事 / idea: アイデア
 topics: ["frontend", "技術的負債", "ふりかえり"]
 publication_name: "lapras_inc"
-published: false
+published: true
 ---
 
 この記事は [LAPRAS Advent Calendar 2024](https://qiita.com/advent-calendar/2024/lapras) 17日目の記事です。
