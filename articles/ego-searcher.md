@@ -126,7 +126,7 @@ https://bsky.app/profile/kawamataryo.bsky.social/post/3lcicsmfskc2b
 
 GitHub Actionsのワークフローは以下のように設定しています。1時間ごとに実行され、必要な環境変数を設定してスクリプトを実行します。
 
-https://github.com/kawamataryo/sfb-ego-searcher/blob/master/.github/workflows/ego-search.yml#L1-L26
+https://github.com/kawamataryo/sfb-ego-searcher/blob/master/.github/workflows/ego-search.yml#L3-L26
 
  
 # 💰 運用コスト
