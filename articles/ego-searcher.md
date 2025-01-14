@@ -139,8 +139,7 @@ https://github.com/kawamataryo/sfb-ego-searcher/blob/master/.github/workflows/eg
 
 以上、エゴサーチを自動化する仕組みの紹介でした。
 
-今回の開発を通じて、Blueskyに開かれたAPIがあることの嬉しさを実感しました。これをXのAPIで実装しようとすると月何千ドルも支払うことになります💰
-
+プロダクトがBlueskyメインで良かったです。これをXのAPIで実装しようとすると月何千ドルも支払うことになります💰
 Blueskyのようなエンジニアフレンドリーなプラットフォームが、今後も発展していくことを願っています。
 
 :::message
