@@ -142,3 +142,7 @@ https://github.com/kawamataryo/sfb-ego-searcher/blob/master/.github/workflows/eg
 このbotを通じて、Blueskyに開かれたAPIがあることの嬉しさを実感しました。これをXのAPIで実装しようとすると月何千ドルも支払うことになります😇
 
 Blueskyのようなエンジニアフレンドリーなプラットフォームが、今後も発展していくことを願っています。
+
+:::message
+おまけ。実はsfb-ego-searcherのほぼ80%のコードは、Cursor Agentに書いてもらいました。やりたいことの雑コードを自分で書いて、その後のリファクタやデバッグは全てAgentに丸投げです。Agentの便利さを実感しました。ただ、職業エンジニアとしてのキャリアについての怖さも同時に感じています😇
+:::
