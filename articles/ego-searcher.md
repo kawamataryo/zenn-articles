@@ -116,6 +116,11 @@ Slackにはこのような通知が来ます。
 
 ![](/images/ego-searcher/2025-01-12-14-13-29.png)
 
+:::message
+スパムサイトの件についてはこちらで詳しく解説しています🥲
+https://bsky.app/profile/kawamataryo.bsky.social/post/3lcicsmfskc2b
+:::
+
 
 ## GitHub Actionsによる定期実行
 
