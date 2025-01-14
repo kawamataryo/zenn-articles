@@ -135,7 +135,7 @@ https://github.com/kawamataryo/sfb-ego-searcher/blob/master/.github/workflows/eg
 
 1日に約100投稿ほど解析していますが、ChatGPT APIの料金は今の所 **$0.01以下/日** です。自分でエゴサーチする負担を考えると全然割安だと感じています。
 
-# 🦋 まとめ
+# 🦋 おわりに
 
 以上、エゴサーチを自動化する仕組みの紹介でした。
 
