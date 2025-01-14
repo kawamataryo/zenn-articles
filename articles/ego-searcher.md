@@ -10,12 +10,12 @@ published: true
 
 個人で[Sky Follower Bridge](https://www.sky-follower-bridge.dev/)というXからBlueskyへの移行ツールを開発しているのですが、拡張機能の評判や不具合報告を見逃さないように、Blueskyでの関連投稿を定期的にチェックする必要がありました。
 
-しかし、手動でのチェックは時間がかかり、見落としも発生します。そこで、GitHub ActionsとChatGPTを活用してエゴサーチを自動化するbotを作成したので紹介します。
+しかし、手動でのチェックは時間がかかり、見落としも発生します。そこで、GitHub ActionsとChatGPTを活用してエゴサーチを自動化するシステムを組んだので紹介します。
 
 
 # 🔍 作ったもの
 
-[sfb-ego-searcher](https://github.com/kawamataryo/sfb-ego-searcher)。Sky Follower BridgeについてのBlueskyの投稿を監視するbotです。
+[sfb-ego-searcher](https://github.com/kawamataryo/sfb-ego-searcher)。Sky Follower BridgeについてのBlueskyの投稿を監視するシステムです。
 
 https://github.com/kawamataryo/sfb-ego-searcher
 
@@ -49,7 +49,7 @@ graph TD
         A[GitHub Actions]
     end
 
-    subgraph Core["Ego Search Bot (Deno)"]
+    subgraph Core["Ego Search System (Deno)"]
         B[投稿検索]
         C[投稿分析]
         D[アクション実行]
@@ -131,7 +131,7 @@ https://github.com/kawamataryo/sfb-ego-searcher/blob/master/.github/workflows/eg
  
 # 💰 運用コスト
 
-このbotの運用で気になるのは、ChatGPT APIの料金だと思います。動かす前は結構コスト高いかなと思っていたのですが、実際に運用してみると、予想以上に低コストで運用できています。
+このシステムの運用で気になるのは、ChatGPT APIの料金だと思います。動かす前は結構コスト高いかなと思っていたのですが、実際に運用してみると、予想以上に低コストで運用できています。
 
 1日に約100投稿ほど解析していますが、ChatGPT APIの料金は今の所 **$0.01以下/日** です。自分でエゴサーチする負担を考えると全然割安だと感じています。
 
