@@ -1,5 +1,5 @@
 ---
-title: "エゴサーチを自動化。GitHub ActionsとChatGPTでBlueskyの投稿を監視する"
+title: "エゴサーチを自動化！GitHub ActionsとChatGPTでBlueskyの投稿を監視する"
 emoji: "👓"
 type: "tech"
 topics: ["bluesky", "openai", "githubactions", "個人開発"]
