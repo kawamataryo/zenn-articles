@@ -144,5 +144,5 @@ https://github.com/kawamataryo/sfb-ego-searcher/blob/master/.github/workflows/eg
 Blueskyのようなエンジニアフレンドリーなプラットフォームが、今後も発展していくことを願っています。
 
 :::message
-おまけ。実はsfb-ego-searcherの80%のコードは、Cursor Agentに書いてもらいました。やりたいことの雑コードを自分で書いて、その後のリファクタやデバッグは全てAgentに丸投げです。Agentの便利さを実感しました。ただ、職業エンジニアとしてのキャリアについての怖さも同時に感じています😇
+おまけ。実はsfb-ego-searcherの80%のコードは、Cursor Agentに書いてもらいました。やりたいことの雑コードを自分で書いて、その後のリファクタやデバッグは全てAgentに丸投げです。Agentの便利さを実感しました。ただ同時に、職業エンジニアとしてのキャリアについての怖さも感じています😇
 :::
