@@ -112,8 +112,10 @@ Sky Follower Bridgeには、類似のスパムサイトがあります。そのU
 https://github.com/kawamataryo/sfb-ego-searcher/blob/master/src/services/post_processor.ts#L104-L164
 
 Slackにはこのような通知が来ます。
+ユーザーはほぼ海外の人たちなので、日本語の翻訳がとても役立ってます。
 
 ![](/images/ego-searcher/2025-01-12-14-13-29.png)
+
 
 ## GitHub Actionsによる定期実行
 
