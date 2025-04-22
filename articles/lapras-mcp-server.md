@@ -15,7 +15,7 @@ published: true
 
 https://github.com/lapras-inc/lapras-mcp-server
 
-このMCPサーバーを使うことで、CursorやClaude DesktopなどMCPクライアントを利用できるLLMツール経由で、[LAPRAS](https://lapras.com/)上のデータを簡単に取得、更新することができます。
+このMCPサーバーを使うことで、CursorやClaude DesktopなどMCPクライアントを利用できるLLMアプリ経由で、[LAPRAS](https://lapras.com/)上のデータを簡単に取得、更新することができます。
 
 **2025年4月22日現在の機能**
 
@@ -28,7 +28,7 @@ https://x.com/KawamataRyo/status/1910545512840962219
 
 ## 使い方
 
-各LLMツールのMCPサーバーの設定（[Cursor](https://docs.cursor.com/context/model-context-protocol#configuring-mcp-servers)、[Claude Desktop](https://modelcontextprotocol.io/quickstart/user)）を参考に、`mcp.json`または`claude_desktop_config.json`に以下を追記してください。  `LAPRAS_API_KEY`はキャリア関連のtoolを使う場合のみ必要です。[設定](https://lapras.com/config/api-key)からキーの発行ができます。
+各LLMアプリのMCPサーバーの設定（[Cursor](https://docs.cursor.com/context/model-context-protocol#configuring-mcp-servers)、[Claude Desktop](https://modelcontextprotocol.io/quickstart/user)）を参考に、`mcp.json`または`claude_desktop_config.json`に以下を追記してください。  `LAPRAS_API_KEY`はキャリア関連のtoolを使う場合のみ必要です。[設定](https://lapras.com/config/api-key)からキーの発行ができます。
 
 **npxの場合**
 
