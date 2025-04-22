@@ -15,7 +15,7 @@ published: false
 
 https://github.com/lapras-inc/lapras-mcp-server
 
-このMCPサーバーを使うことで、CursorやClaude DesktopなどMCPクライアントを利用できるLLMtool経由で、[LAPRAS](https://lapras.com/)上のデータを取得、更新することができます。
+このMCPサーバーを使うことで、CursorやClaude DesktopなどMCPクライアントを利用できるLLMツール経由で、[LAPRAS](https://lapras.com/)上のデータを取得、更新することができます。
 
 **2025年4月22日現在の機能**
 
