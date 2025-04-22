@@ -1,5 +1,5 @@
 ---
-title: "SaaS公式MCPサーバーをリリースしての学び"
+title: "SaaS公式のMCPサーバーをリリースして得た学び"
 emoji: "🐬"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["mcp", "lapras", "cursor", "claude"]
@@ -9,15 +9,15 @@ published: false
 
 最近リリースした[LAPRAS公式MCPサーバー](https://github.com/lapras-inc/lapras-mcp-server)についての学びをまとめます。SaaS公式のMCPサーバーをリリースした例はまだあまり多くないと思うので、何かの参考になれば嬉しいです。
 
-# 何を開発した？
+## 何を開発した？
 
-エンジニアのポートフォリオ、転職サービス [LAPRAS](https://lapras.com/) の公式のMCPサーバーを開発しました。
+エンジニア向けポートフォリオ兼転職サービス [LAPRAS](https://lapras.com/) の公式MCPサーバーを開発しました。
 
 https://github.com/lapras-inc/lapras-mcp-server
 
-このMCPサーバーを使うことで、CursorやClaude DesktopなどMCPクライアントを利用できるLLMツール経由で、[LAPRAS](https://lapras.com/)上のデータを取得、更新することができます。
+このMCPサーバーを使うことで、CursorやClaude DesktopなどMCPクライアントを利用できるLLMtool経由で、[LAPRAS](https://lapras.com/)上のデータを取得、更新することができます。
 
-**2025/04/22時点での機能**
+**2025年4月22日現在の機能**
 
 - 求人一覧、詳細の取得
 - 職歴の取得・更新
@@ -26,9 +26,9 @@ https://github.com/lapras-inc/lapras-mcp-server
 
 https://x.com/KawamataRyo/status/1910545512840962219
 
-#️ 使い方
+## 使い方
 
-MCPサーバーの設定（[Cursor](https://docs.cursor.com/context/model-context-protocol#configuring-mcp-servers)、[Claude Desktop](https://modelcontextprotocol.io/quickstart/user)）を参考に、`mcp.json`または`claude_desktop_config.json`に以下を追記してください。  `LAPRAS_API_KEY`はキャリア関連のツールを使う場合のみ必要です。[設定](https://lapras.com/config/api-key)からキーの発行ができます。
+MCPサーバーの設定（[Cursor](https://docs.cursor.com/context/model-context-protocol#configuring-mcp-servers)、[Claude Desktop](https://modelcontextprotocol.io/quickstart/user)）を参考に、`mcp.json`または`claude_desktop_config.json`に以下を追記してください。  `LAPRAS_API_KEY`はキャリア関連のtoolを使う場合のみ必要です。[設定](https://lapras.com/config/api-key)からキーの発行ができます。
 
 **npxの場合**
 
@@ -72,7 +72,7 @@ MCPサーバーの設定（[Cursor](https://docs.cursor.com/context/model-contex
 }
 ```
 
-設定後に、MCPクライアントを再起動し、以下のようなプロンプトを入力することで、LAPRAS上のデータを取得、更新することができます。
+設定後にMCPクライアントを再起動し、以下のようなプロンプトを入力することでLAPRAS上のデータを取得、更新することができます。
 
 **求人検索の例**
 
@@ -85,7 +85,7 @@ MCPサーバーの設定（[Cursor](https://docs.cursor.com/context/model-contex
 
 ```
 <自分のキャリアがわかる画像 or URL を貼り付ける> 
-これが私の職歴です。LARPASの職歴を更新してください。
+これが私の職歴です。LAPRASの職歴を更新してください。
 ```
 
 **LAPRASの職歴を改善する例**
@@ -100,16 +100,16 @@ LAPRASの職歴を取得して、ブラッシュアップするための質問�
 
 
 ## MCP公式のライブラリを利用する
-MCPはまだ仕様が定義されて間もなく、今後も大きく変化することが考えられます。MCPサーバーの開発には[fastmcp](https://github.com/jlowin/fastmcp)など利用しやすい3rd Partyのライブラリの選択肢もありますが、将来的な仕様変更への追従性を考慮して、[公式のTypeScript SDK](https://github.com/modelcontextprotocol/typescript-sdk)のみの採用としました。
+MCPはまだ仕様が定義されて間もなく、今後も大きく変化することが考えられます。MCPサーバーの開発には[fastmcp](https://github.com/jlowin/fastmcp)など利用しやすいサードパーティ製ライブラリの選択肢もありますが、将来的な仕様変更への追従性を考慮して、[公式のTypeScript SDK](https://github.com/modelcontextprotocol/typescript-sdk)のみの採用としました。
 
 https://github.com/modelcontextprotocol/typescript-sdk
 
 ## リモートMCPは利用しない
-開発をスタートした際には、[CloudflareのリモートMCPの記事](https://blog.cloudflare.com/remote-model-context-protocol-servers-mcp/) がちょうど公開された時期でした。
+開発をスタートした時は、[CloudflareのリモートMCPの記事](https://blog.cloudflare.com/remote-model-context-protocol-servers-mcp/) がちょうど公開された時期でした。
 
-なのでリモートMCPの採用も考えたのですが、採用例が少なく、ベストプラクティスがわからない。認証周りの構築に工数がかかる。クライアント側の設定としては、リモートMCPを採用しても、結局npxで[mcp-remote](https://developers.cloudflare.com/agents/guides/test-remote-mcp-server/) を実行するので手間は変わらない。ということで、デリバリーの速さを重視して、リモートMCPは採用しませんでした。
+リモートMCPの採用も考えたのですが、採用例が少なく、ベストプラクティスがわからない。認証周りの構築に工数がかかる。クライアント側の設定としては、リモートMCPを採用しても、結局npxで[mcp-remote](https://developers.cloudflare.com/agents/guides/test-remote-mcp-server/) を実行するので手間は変わらない。ということで、デリバリーの速さを重視して、リモートMCPは採用しませんでした。
 
-現在であれば、Streamable HTTP Transportを使い、ステートレスなリモートMCPサーバーも構築できるようなので、採用するのはアリかもしれません。
+現在であれば、Streamable HTTP Transportを使いステートレスなリモートMCPサーバーも手軽に構築できるようなので、採用するのはアリかもしれません。
 
 https://github.com/modelcontextprotocol/typescript-sdk/releases/tag/1.10.0?ref=blog.lai.so
 https://blog.lai.so/remote-mcp/ 
@@ -145,12 +145,12 @@ https://github.com/lapras-inc/lapras-mcp-server/blob/main/src/index.ts#L17-L47
 
 ## 監視体制を整える
 
-MCPサーバーのtoolで利用しているAPIは、MCPサーバー用に新規で作成したAPIです。
+MCPサーバーのtoolで利用しているAPIは、新規に作成したMCP専用APIです。
 
 LAPRAS内でまだ公開APIの知見も少なく公開API用の環境整備も後追いとなってしまう状況でした。またLLM側でどのようなAPIリクエストを行うか予想できないということで、リクエストの負荷による本プロダクトへの影響が懸念されました。そのため、SREチームと協力して、監視体制を構築しました。
 
 主に行ったのは、AWS WAFによるAPIごとのレートリミットの設定と、DatadogでのMCP用APIのリクエスト監視・アラートの設定です。
-今のところWAFの発動や、異常なリクエストはなく安定していますが、監視体制があることで安心してリリースできているので、初期に整えてよかったなと思います。SREチームの[@なっぱ](https://x.com/nappap)と[@Kumamoto](https://x.com/digitalhimiko)に感謝です。
+今のところWAFの発動や、異常なリクエストもなく安定しています。監視体制があることで安心してリリースできているので、初期に整えてよかったなと思います。SREチームの[@なっぱ](https://x.com/nappap)と[@Kumamoto](https://x.com/digitalhimiko)に感謝です。
 
 **AWS WAF**
 
@@ -166,9 +166,9 @@ https://aws.amazon.com/jp/waf/
 
 ## コンテキスト長を考慮できていなかった
 
-求人一覧など大量のデータを返すtoolを実行した際に、コンテキスト長の制限にかかりリクエストが失敗するケースがありました。
+求人一覧など大量のデータを返すtoolを実行した際、コンテキスト長の制限によりリクエストが失敗するケースがありました。
 
-Claude Desktopの有料版やCursorなどコンテキスト長に余裕があるLLMツールでは問題にならず、Cursorの無料版などコンテキスト長に余裕がないLLMツールでは問題になります。
+この問題は、コンテキスト長に余裕がある環境（Claude Desktopの有料版やCursorのPro版など）では発生せず、コンテキスト長が制限されている環境（Cursorの無料版など）でのみ発生したため、発見が遅れました。
 
 API側のページングのper_pageを縮小したり、MCP用APIでは不要なデータを除外するなど対応しました。
 
@@ -177,10 +177,10 @@ https://github.com/lapras-inc/lapras-mcp-server/commit/f04dc9c41e91a60917b2ebdb8
 
 ## LLM側に複雑な操作を要求してしまった
 
-当初職歴更新toolで呼び出すAPIは、バルクでのcreate・delete・updateという一般的ではないインターフェイスとなっていました。
-これはプロダクト側のUIから呼び出されていたAPI実装を踏襲したものだったのですが、LLM側がツールの動作を上手く把握できず、職歴の部分更新を行なってしまい、データが吹き飛ぶという問題が発生しました。
+当初、職歴更新toolで呼び出していたAPIは、バルクでのcreate・delete・updateという一般的ではないインターフェイスでした。
+これはプロダクト側のUIから呼び出されていたAPI実装を踏襲したものだったのですが、LLM側がtoolの動作を上手く把握できず、職歴の部分更新を行ってしまい、データが吹き飛ぶという問題が発生しました。
 
-意図せぬ削除が発生するかどうかをMCPサーバーのtoolのコードで検証し、`force: true`を指定された場合のみ許可するなど、インターフェイスはそのままで実装上の工夫もやってみましたが、それでもLLM側がユーザー確認なしに`force: true`を指定してしまい同じくデータが吹き飛び結局だめでした。
+意図せぬ削除が発生するかどうかをMCPサーバーのtoolのコードで検証し、`force: true`を指定された場合のみ許可するなど、インターフェイスはそのままで実装上の工夫もやってみましたが、それでもLLM側がユーザー確認なしに`force: true`を指定してしまい同じくデータが吹き飛び結局断念しました。
 
 
 https://github.com/lapras-inc/lapras-mcp-server/pull/3
@@ -200,7 +200,7 @@ forceの仕組みを思いつき、圧倒的閃きだと思って投稿したsla
 
 ## LLM特有の出力を考慮できていなかった
 
-LLM側でtool呼び出しのパラメーターに改行をエスケープした文字列（`//n`）を入れてしまい、プロダクト側の表示が崩れるケースがありました。仕様的なvalidationはAPI側で行なっていたのですが、これは想定外でした。
+LLM側でtool呼び出し時のパラメーターに改行をエスケープした文字列（`//n`）を入れてしまい、プロダクト側の表示が崩れるケースがありました。仕様的なバリデーションはAPI側で行っていたのですが、これは想定外でした。
 
 MCPサーバー側でLLMの入力値をクレンジングすることで対応しました。
 
