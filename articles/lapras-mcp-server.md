@@ -180,7 +180,11 @@ https://github.com/lapras-inc/lapras-mcp-server/commit/f04dc9c41e91a60917b2ebdb8
 当初、職歴更新toolで呼び出していたAPIは、バルクでのcreate・delete・updateという一般的ではないインターフェイスでした。
 これはプロダクト側のUIから呼び出されていたAPI実装を踏襲したものだったのですが、LLM側がtoolの動作を上手く把握できず、職歴の部分更新を行ってしまい、データが吹き飛ぶという問題が発生しました。
 
-意図せぬ削除が発生するかどうかをMCPサーバーのtoolのコードで検証し、`force: true`を指定された場合のみ許可するなど、インターフェイスはそのままで実装上の工夫もやってみましたが、それでもLLMがユーザー確認なしに`force: true`を指定してしまい同じくデータが吹き飛び結局断念しました。
+改善案として意図せぬ削除が発生するかどうかをMCPサーバーのtoolのコードで検証し、`force: true`を指定された場合のみ許可するなど、インターフェイスはそのままで実装上の工夫もやってみましたが、それでもLLMがユーザー確認なしに`force: true`を指定してしまい同じくデータが吹き飛び結局断念しました。
+
+:::message
+toolのdescriptionやparameterの説明をどれだけ詳細に強い言葉で書いても、LLMアプリ側のモデルの推論能力に依存して、誤作動を起こすことがありました。
+:::
 
 
 https://github.com/lapras-inc/lapras-mcp-server/pull/3
@@ -189,7 +193,6 @@ https://github.com/lapras-inc/lapras-mcp-server/pull/3
 
 
 https://github.com/lapras-inc/lapras-mcp-server/pull/4
-
 
 
 
