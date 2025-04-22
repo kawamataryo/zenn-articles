@@ -182,12 +182,13 @@ https://github.com/lapras-inc/lapras-mcp-server/commit/f04dc9c41e91a60917b2ebdb8
 
 改善案として意図せぬ削除が発生するかどうかをMCPサーバーのtoolのコードで検証し、`force: true`を指定された場合のみ許可するなど、インターフェイスはそのままで実装上の工夫もやってみましたが、それでもLLMがユーザー確認なしに`force: true`を指定してしまい同じくデータが吹き飛び結局断念しました。
 
+
+https://github.com/lapras-inc/lapras-mcp-server/pull/3
+
 :::message
 toolのdescriptionやparameterの説明をどれだけ詳細に強い言葉で書いても、LLMアプリ側のモデルの推論能力に依存して、誤作動を起こすことがありました。
 :::
 
-
-https://github.com/lapras-inc/lapras-mcp-server/pull/3
 
 最終的に、一般的なAPIインターフェイスに変更して、部分更新ができるようにすることで安定した呼び出しを実現しました。LLMといえど万能ではなく、素直なAPI実装が扱いやすく安定したtool呼び出しにつながるという学びでした。
 
