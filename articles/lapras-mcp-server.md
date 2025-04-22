@@ -1,5 +1,5 @@
 ---
-title: "LAPRAS公式MCPサーバーをリリースして得た学び"
+title: "SaaS公式MCPサーバーをリリースして得た学び"
 emoji: "🐬"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["mcp", "lapras", "cursor", "claude"]
