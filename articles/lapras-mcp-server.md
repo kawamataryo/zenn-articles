@@ -7,7 +7,7 @@ publication_name: "lapras_inc"
 published: true
 ---
 
-最近リリースした[LAPRAS公式MCPサーバー](https://github.com/lapras-inc/lapras-mcp-server)についての学びをまとめます。SaaS公式のMCPサーバーをリリースした例はまだあまり多くないと思うので、何かの参考になれば嬉しいです。
+最近リリースした[LAPRAS公式MCPサーバー](https://github.com/lapras-inc/lapras-mcp-server)についての学びをまとめます。SaaSプロダクト公式のMCPサーバーをリリースした例はまだあまり多くないと思うので、何かの参考になれば嬉しいです。
 
 ## 何を開発した？
 
