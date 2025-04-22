@@ -4,7 +4,7 @@ emoji: "🐬"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["mcp", "lapras", "cursor", "claude"]
 publication_name: "lapras_inc"
-published: false
+published: true
 ---
 
 最近リリースした[LAPRAS公式MCPサーバー](https://github.com/lapras-inc/lapras-mcp-server)についての学びをまとめます。SaaS公式のMCPサーバーをリリースした例はまだあまり多くないと思うので、何かの参考になれば嬉しいです。
@@ -28,7 +28,7 @@ https://x.com/KawamataRyo/status/1910545512840962219
 
 ## 使い方
 
-MCPサーバーの設定（[Cursor](https://docs.cursor.com/context/model-context-protocol#configuring-mcp-servers)、[Claude Desktop](https://modelcontextprotocol.io/quickstart/user)）を参考に、`mcp.json`または`claude_desktop_config.json`に以下を追記してください。  `LAPRAS_API_KEY`はキャリア関連のtoolを使う場合のみ必要です。[設定](https://lapras.com/config/api-key)からキーの発行ができます。
+各LLMツールのMCPサーバーの設定（[Cursor](https://docs.cursor.com/context/model-context-protocol#configuring-mcp-servers)、[Claude Desktop](https://modelcontextprotocol.io/quickstart/user)）を参考に、`mcp.json`または`claude_desktop_config.json`に以下を追記してください。  `LAPRAS_API_KEY`はキャリア関連のtoolを使う場合のみ必要です。[設定](https://lapras.com/config/api-key)からキーの発行ができます。
 
 **npxの場合**
 
@@ -180,7 +180,7 @@ https://github.com/lapras-inc/lapras-mcp-server/commit/f04dc9c41e91a60917b2ebdb8
 当初、職歴更新toolで呼び出していたAPIは、バルクでのcreate・delete・updateという一般的ではないインターフェイスでした。
 これはプロダクト側のUIから呼び出されていたAPI実装を踏襲したものだったのですが、LLM側がtoolの動作を上手く把握できず、職歴の部分更新を行ってしまい、データが吹き飛ぶという問題が発生しました。
 
-意図せぬ削除が発生するかどうかをMCPサーバーのtoolのコードで検証し、`force: true`を指定された場合のみ許可するなど、インターフェイスはそのままで実装上の工夫もやってみましたが、それでもLLM側がユーザー確認なしに`force: true`を指定してしまい同じくデータが吹き飛び結局断念しました。
+意図せぬ削除が発生するかどうかをMCPサーバーのtoolのコードで検証し、`force: true`を指定された場合のみ許可するなど、インターフェイスはそのままで実装上の工夫もやってみましたが、それでもLLMがユーザー確認なしに`force: true`を指定してしまい同じくデータが吹き飛び結局断念しました。
 
 
 https://github.com/lapras-inc/lapras-mcp-server/pull/3
