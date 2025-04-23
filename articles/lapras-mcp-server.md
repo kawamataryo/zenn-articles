@@ -128,9 +128,9 @@ https://blog.lai.so/remote-mcp/
 ```
 lapras-mcp-server/src/
 ├── tools/
-│   ├── createExperience.py
-│   ├── updateExperience.py
-│   ├── searchJobs.py
+│   ├── createExperience.ts
+│   ├── updateExperience.ts
+│   ├── searchJobs.ts
 │   └── ...
 └── index.ts
 ```
