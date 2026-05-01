@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(awk 'NR>=10 && NR<=80' /Users/ryokawamata/ghq/github.com/kawamataryo/zenn-articles/articles/lapras-mcp-server.md)",
+      "Bash(awk 'NR>=140 && NR<=210' /Users/ryokawamata/ghq/github.com/kawamataryo/zenn-articles/articles/lapras-mcp-server.md)"
+    ]
+  }
+}
