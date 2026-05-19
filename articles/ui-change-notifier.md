@@ -2,7 +2,7 @@
 title: "AIで加速するプロダクトの変化を、開発チームの外に届ける仕組みづくり"
 emoji: "📢"
 type: "tech" # tech: 技術記事 / idea: アイデア
-topics: ["githubactions", "claudecode", "slack", "product"]
+topics: ["githubactions", "claudecode", "slack"]
 publication_name: "nstock"
 published: false
 ---
