@@ -261,7 +261,7 @@ Structured Output のスキーマに従う
 :::message
 以下のように画像化して社内新聞風にするとか、別の切り口でTTSのツールを使いラジオ化するとかも面白いかもと思ってます（やりすぎ感はある）
 
-![社内新聞風の共有イメージ](/images/ui-change-notifier/newspaper-style.png)
+![社内新聞風の共有イメージ](/images/ui-change-notifier/newspaper-style.png =400x)
 *社内新聞風にまとめた共有イメージ*
 :::
 
