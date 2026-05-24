@@ -75,6 +75,9 @@ sequenceDiagram
 ![Slack通知の例](/images/ui-change-notifier/slack-notification.png)
 *Slack通知の例（画面・機能ごとにまとめた通知）*
 
+![Slack通知の例（変更がない場合）](/images/ui-change-notifier/slack-notification.png)
+*Slack通知の例（変更がない場合の通知）
+
 GitHub Actionsのworkflowとpromptはこちらです。
 
 ::::details workflow（抜粋）
@@ -119,7 +122,6 @@ jobs:
         track_progress: false
         show_full_output: false
         prompt: ${{ steps.build-prompt.outputs.prompt }}
-
         claude_args: |
           --model global.anthropic.claude-opus-4-6-v1
           --max-turns 100
