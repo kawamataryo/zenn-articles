@@ -70,7 +70,7 @@ sequenceDiagram
   CS->>Dev: 必要に応じて質問
 ```
 
-実際のSlack投稿文はこちらです。PR単位ではなく、画面・機能ごとに変更内容をまとめ、CS・Salesが確認しやすい形で通知しています。
+実際のSlack投稿文はこちらです。PR単位ではなく、**画面・機能ごとに通知すべき変更内容のみを簡潔にまとめ、CS・Salesが確認しやすい形で通知**しています。
 
 ![Slack通知の例](/images/ui-change-notifier/ui-change-notification.png)
 *Slack通知の例（画面・機能ごとにまとめた通知）*
