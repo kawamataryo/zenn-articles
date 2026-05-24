@@ -73,10 +73,10 @@ sequenceDiagram
 実際のSlack投稿文はこちらです。PR単位ではなく、**画面・機能ごとに通知すべき変更内容のみを簡潔にまとめ、CS・Salesが確認しやすい形で通知**しています。
 
 ![Slack通知の例](/images/ui-change-notifier/ui-change-notification.png)
-*Slack通知の例（画面・機能ごとにまとめた通知）*
+*画面・機能ごとにまとめた通知*
 
 ![Slack通知の例（変更がない場合）](/images/ui-change-notifier/ui-change-notification-empty.png)
-*Slack通知の例（変更がない場合の通知）*
+*変更がない場合の通知*
 
 GitHub Actionsのworkflowとpromptはこちらです。
 
