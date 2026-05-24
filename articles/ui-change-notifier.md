@@ -76,7 +76,7 @@ sequenceDiagram
 *Slack通知の例（画面・機能ごとにまとめた通知）*
 
 ![Slack通知の例（変更がない場合）](/images/ui-change-notifier/ui-change-notification-empty.png)
-*Slack通知の例（変更がない場合の通知）
+*Slack通知の例（変更がない場合の通知）*
 
 GitHub Actionsのworkflowとpromptはこちらです。
 
