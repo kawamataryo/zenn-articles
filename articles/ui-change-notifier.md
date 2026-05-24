@@ -70,7 +70,7 @@ sequenceDiagram
   CS->>Dev: 必要に応じて質問
 ```
 
-実際のSlack投稿文はこちらです。**画面・機能ごとに通知すべき変更内容のみを簡潔にまとめ、CS・Salesが確認しやすい形で通知**しています。
+実際のSlack投稿文はこちらです。ただその日のすべての変更を列挙するのではなく、**画面・機能ごとに通知すべき変更内容のみを簡潔にまとめ、CS・Salesが確認しやすい形で通知**している点がポイントです。
 
 ![Slack通知の例](/images/ui-change-notifier/ui-change-notification.png)
 *画面・機能ごとにまとめた通知*
