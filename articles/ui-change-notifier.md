@@ -72,10 +72,10 @@ sequenceDiagram
 
 実際のSlack投稿文はこちらです。PR単位ではなく、画面・機能ごとに変更内容をまとめ、CS・Salesが確認しやすい形で通知しています。
 
-![Slack通知の例](/images/ui-change-notifier/slack-notification.png)
+![Slack通知の例](/images/ui-change-notifier/ui-change-notification.png)
 *Slack通知の例（画面・機能ごとにまとめた通知）*
 
-![Slack通知の例（変更がない場合）](/images/ui-change-notifier/slack-notification.png)
+![Slack通知の例（変更がない場合）](/images/ui-change-notifier/ui-change-notifiaction-empty.png)
 *Slack通知の例（変更がない場合の通知）
 
 GitHub Actionsのworkflowとpromptはこちらです。
@@ -238,7 +238,7 @@ Structured Output のスキーマに従う
 
 一定期間運用した後、関係チームにアンケートを取りました。
 
-![アンケート結果](/images/ui-change-notifier/slack-notification.png)
+![アンケート結果](/images/ui-change-notifier/graph.png)
 *変更通知のチャネルを閲覧する頻度*
 
 | 項目 | 平均 |
