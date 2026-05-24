@@ -4,7 +4,7 @@ emoji: "📢"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["githubactions", "claudecode", "slack"]
 publication_name: "nstock"
-published: false
+published: true
 ---
 
 こんにちは。Nstock の[Kawamata](https://x.com/kawamataryo)です。
