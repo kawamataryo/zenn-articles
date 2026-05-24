@@ -7,7 +7,7 @@ publication_name: "nstock"
 published: false
 ---
 
-こんにちは。Nstock の川俣です。
+こんにちは。Nstock の[Kawamata](https://x.com/kawamataryo)です。
 
  [Claude Code GitHub Actions](https://code.claude.com/docs/ja/github-actions)（以下 Claude Code Actions）を使って、プロダクトの変更を開発チームの外へ共有する仕組みを作ってみたので紹介します。
 
